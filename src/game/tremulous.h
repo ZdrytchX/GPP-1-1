@@ -643,7 +643,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define MGTURRET_VERTICALCAP        30
 #define MGTURRET_DROOPSCALE         0.25 //droop displacement per droop when unpowered
 #define MGTURRET_DROOPRATE          50 //1000/value = droops per second, as well as a repacement for power refreshment time
-#define MGTURRET_REPEAT             150
+#define MGTURRET_REPEAT             100
 #define MGTURRET_K_SCALE            1.0f
 #define MGTURRET_RANGE              400.0f
 #define MGTURRET_SPREAD             600 //200 is aimbot
