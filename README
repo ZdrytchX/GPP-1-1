@@ -1,0 +1,165 @@
+*This qvm is no longer in active developement. If you have requests, feel free to do so here or email me at my youtube channel
+youtube.com/user/zdrytchx
+
+CoW Tremulous QVM v2.0 [incomplete] merge with Lolards v0.7 mod
+
+Credits for bots:
+The original works of vcxzet (lamebot3) were used a guide to create TremBot.
+The works of Amine Haddad (TremBot) and Sex (PBot) where used/modified to create COW Bot
+
+From CoW bot code by Fuma (not up-to-date):
+{
+ Current Features (Over Lakitu QVM 5.5):
+ Advanced bots with route finding capabilities and waypoint support. Entirely customisable!
+ !loadlayout allows loading of a new layout without a restart
+ !loadrotation allows the changing of rotations on demand
+ !strip and associated commands allow admins to control a player's access to weapons/armor/classes. 
+ 
+ Bot Specific Features:
+ !botcfg allows loading/saving of bot configuration files
+ !botset allows the changing of bot abilities
+ !botcmd changes the bots behavior
+ !bot adds bots with a specified skill level
+ !drawnodes shows the waypoints
+ /node allows the making of waypoints for the bots  
+
+ Bots can:
+ Go to a medistat to heal
+ Go to an armoury to buy weapons and armor
+ Evolve
+ Use secondary abilities like lighting, pounce, snipe, charge
+ Wallcrawl
+ Use waypoints to navigate the map and go to a location
+ Dodge.
+ Will not keep human players in a long spawn queue
+ Anti-Hax-type aiming using recoil system depending on skill level
+}
+Great thanks to him for helping me with setting up a github account and helping me with the code
+See his source code @ https://github.com/cmf028/CoW-Tremulous
+FYI his version number needs to increment to 3.0. Don't get the wrong idea that i've upgraded to the new one.
+
+==Bot edits by me==
+-Goon pounces TO human, not ABOVE human. (pitch was *10, now *6)
+-Bot Lcannon charges 2.7 rather than original 2
+-now buys lockblob launcher [see below] and possibly basi-suit* TODO (make a variable g_bot_basisuit)
+
+From Lolards v0.7 qvm by ZdrytchX [a.k.a. ViruS with capital 'S' always]:
+
+'Balance' mod - changed variables and stuff:
+==MAIN POINTS== [not all listed here]
+-Blaster/Energy Pistol - Originally had ammo, but i removed it due to annoying bugs. But it now has a minor splash damage. Uses inertia to help cope with fleeing aliens. (if you do so :P)
+-Shotgun - 'Spray of defeat' - now changed to "reversed pump shotgun" because it is a faster shoot, more accurate and faster reload time but also weaker (previous 108 dmg, now ~70-80 dmg per shot)
+-Plasma rifle is explosive and knockback increased, but lower amunition and lower fire speed
+-faster chaingun
+-More realistic Flame Thrower (faster repeat, weaker)
+-standard Marauder is like a glass cannon (attacks almost same rate as adv, although only has 100 hp with massive claw range)
+-GPP-like Lucifercannon, but has a stronger, slower secondary fire. Use primary fire to deal with dretches unless you're pro. Also, its handy with doing a two-hit combo againts goons to garantee a kill.
+-Mass Driver is more like a sniper rifle, but weaker than the first version [where you shoot 138 dmg, 3 second cooldown] to something more over-powerful, 72 dmg with a 1.25 second cooldown. I also increased reload time to 4 seconds.
+
+-Granger Barb now bounces and has a timer of 5 seconds till exploding
+-AdvDragoon - bomb effect removed, changed to "gpp" style barb. Use inertia to help deal with jettards in maps like treecannon.
+-Most human 'slow' weapons use inertia
+-Humans have a lower probability of death, but have a higher damage input when falling froma  great hight (height for Americans =P)
+-AdvGranger falls to gravity with an exception of wallwalk (like gpp. Think it of "getting ready to land". I could fix this i think if you request me to.)
+
+-max evos = 13, max creds = 3000
+-every alien class has its own cost:
+	CLASS		COST [evos]	
+
+	granger		free
+	adv granger	free
+	dretch		free
+	basi		1
+	adv basi	3
+	Mar		2
+	Adv Mar		5 (effective but useless zap)
+	Goon		4 (kill whore problem)
+	adv goon	6 (bombs)
+	rant		7 (TAAAAAAANK!)
+	basi-suit	9 [adv goon and tyrant are considered upgrades, so if ur a rant, its 4 evos left]
+
+-Chainturrets [a.k.a. turrets with faster firing rate]have longer range but heavily rely on DCC for turning, making DCC useful
+-Teslas - Tyrants are now lighter but teslas use the same knockback so tyrants move slightly.
+-RC - still hop-able but more harder to kill because its zap is slightly stronger and repeats faster
+-OM - Harder to saw, barely possible without any armour but still saw-able. Saw also has longer range.
+-Cades - useful now as they have 600 hp
+-Boost - longer lasting poison in alien and damage dealt to humans as well as poisoning in humans (note: hopefully in my latest update, boosted human was removed.)
+-Trapper - kills with a 'should've died somehow' message and is also deadly
+    --hidden weapon for humans as well, i would like to troll people by if they give a human bot 3000 creds, and they go to an armoury with armour already on them, they buy a lockblob launcher [a.k.a. trapper tool] but onlt traps humans sadly :( - i'm working on this. It has 12 explosive barbs in 10 clips.
+
+
+-Grenade costs 600, but its like a mini-nuke. Does barely enough damage to kill eggs nearby.
+
+-Added blips for alien scanner for viewing aliens [green = friend, yellow = buildable](client-side)
+
+-Added 'Vampire' mode to the game overall <<In the next unvanquished-version, it will not have this so kiss this goodbye! Main reason is because killwhores become overpowered. But there's a slight chance i might add it to marauder zap if i manage to change it to 1.1 style as unvanquished follows gpp rules.>>
+   -Vampire mod grants extra health. If you are human, it is getting 50% of damage done to enemy ; if not, it is done porpotionally.
+   -Max health [temporarily] is 150% of max regeneration
+   -Fixed/hacked 'invincable ressurection' and dodgy HUD in death
+   -Buildables now also heal themselves - convinance for humies!
+
+-Custom Death messages!
+
+-GPP features such as knockback in pounce, 3-pounce kill and a charge that can easily kill a unarmoured human in one shot (and possibly another if he continues to kill without stopping).
+-DRAIN LIFE ENERGY type zap, its slow but powerful! They also stack so you can do max damage on multiple targets! I'm still working on a zap which doesn't need to be aimed, but i need the KoRx source code to see what they've done first.
+
+-ADDED HIDDEN CLASS [aliens] - Basi-Suit - a wasted human class so i added it to aliens with a basilisk weapon
+   - bsuit boundry box allignend with model [can't do this with normal bsuit :(]
+   - walljumper and can use ladders
+   - slow healer, rely on booster
+   - removed bot spawning as basisuit as they waste their evos. Sad aye.
+
+-Medikit [or medkit] now has 30 second immunity to poison
+   -also heals an extra 80%, but may be overpowered.
+   -can be bought at armoury - KoRx gave me this idea. :D
+
+-Sudden Death now allows you to rebuild a one of each:
+	repeater (3bp)
+	dcc
+	armoury
+	medistat (not needed though, but its for noobs who don't know about medikit from armoury)
+
+-Jetpack - Not a hot-air balloon! =P
+
+-Water - Deadly, but starts of weaker
+
+/// And shitloads moar! \\\
+
+12/2/12:
+-Dretch 'scratch' range should be little longer
+-Goon pounce weakened again so it doesn't kill light armour that easily (hopefully it is on the verge of doing 2 hit kill)
+-Hive troll feature removed - there should be a limit
+-fixed some bugs
+-smoking/bleeding visual bug fixed (structures when they overheal themselves) because having 150% hp isnt that useful
+-Shotgun blast stronger, but still should be underpowered
+-Pulse knockback down, it was almost impossible to kill a pulse with anything smaller than a adv marauder
+-Teslagen weaker to almost its original value (~40dmg/s)
+-Alien structure healing rates down
+-Overmind depowered a bit so saws can actually saw the overmind without going to critical hp (that is, 10 hp)
+-Adv marauder nerf: hp 192->172 and Bot 'attempt' range is *1.5 to prevent it from pretty much instant kill helmetless humans.
+-adv ckit now heals long range, dunno what use this is at the moment
+	*planning to make it heal team mates like in korx and deal damage to aliens
+-Added permanent human buildable healing, increased aliens'
+
+Mid-12:
+-Modified calculations for Vampire Degeneration
+	-TODO (if possible through qvm): Calculate un-modified damage dealt to humans when slicing. Aliens gain almost no health when slicing armoured. A possible way to do this is by constantly doing (default damage from trem.h) rather than from what it really does. The reason why this is impossible for me at the moment is because the damage modifier is in the data-1.1.0.pk3 or armour/human[type].armour or whatever the directory is.
+	-TODOTOO: To make a variable to enable/disable the vamipre mode so it isnt permanent, preferably with a /callvote vmp [-r]
+-Modified the adv goon so it doesnt snipe the ceiling from its own inertia
+-Changed pulse down to a massive difference due to its OPness. Now default is 40, battpack is 64.
+-Dretch 'scratch' is faster and has a longer range now.
+-Bot dodge ranges and such is now longer.
+-Adv mara zap nerf
+-Repeat rates of some aliens nerfed
+-Range of some aliens nerfed, marauder kept its status
+-Gas down to 200 quake units
+-Granger build repeat rate increased to match the overmind's building speed
+-Buildable healing nerfed of both teams, aliens closer to default, humans stay around the 1-4 hp/s zone
+-Granger bomb lifetime decreased to (repeat rate*3.5) which is currently around 2 seconds
+-Lolards.pk3 - Head modifier changed to *1.8 rather than *2.0 to deal with the stronger blows (110 dmg) from the tyrant, now receives 40 dmg to the head like standard trem
+-other tiny stuff i can't remember now
+-Made the bot stop running backwards when at point blank
+TODO: Make the bot dodge faster because of point blank, need someone else to do this for me as i do not have an everyday linux
+
+8/8/12:
+Abandoning project, feel free to request some changes/fixes.

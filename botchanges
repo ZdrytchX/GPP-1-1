@@ -1,0 +1,77 @@
+BOT CHANGELOG:
+(v1.1)
+Fixed an annoying bug with alien bots -Fuma
+Refactored and Renamed a bunch of stuff - Fuma
+Replaced some magic numbers with defined constants - Fuma 
+Bots wont keep human players from spawning (humans are preferred in the spawn queue) - Fuma
+Bots will go to arm to refuel ammo when it is too low - Fuma
+(v1.0)
+Initial feature complete release of COW bot :)
+Bugfixes:
+Bots won't needlessly find a new path to a target - Fuma
+Bots wont backtrack unless necessary - Fuma
+Better collison detection for botPathIsBlocked - Fuma
+Fixed bots going in a weird direction for a moment when they spawned and had previously encountered an enemy - Fuma
+
+New features:
+Humans will now go to an armoury to buy things - Fuma
+You can choose what aliens can/cant evolve into - Fuma
+
+(v1.0-beta)
+Bots can now roam around the map freely thanks to PBot - Fuma
+Bots can now find a path to a target (friend, enemy, building, whatever) around obstacales using the waypoints. This is all me :). - Fuma
+Lots of refactoring the accomidate the above two things - Fuma
+
+(v0.7)
+Fixed bots not getting close enough to attack base with flamer/psaw - Fuma
+Rewrote botFindClosestEnemy so it acually does find the **closest** enemy -.- - Fuma
+Imported improved botAimAtTarget code from PBot - Fuma
+Added the shoot at head improvement that was in previous botAimAtTarget to new botAimAtTarget - Fuma
+Consequence of the new botAimAtTarget code: MUCH better implementation of bot skillLevel - Fuma
+Removing the bot jump/crouch code caused problems too, so I added it back, but they can only crouch of their target is a buildable. - Fuma
+Bots can now buy a psaw - Fuma
+Renamed botIsStructureBlocking to the more apt botPathIsBlocked and rewrote implementation to be more robust - Fuma
+Bots can now use luci's primary fire.... BEWARE!! - Fuma
+Bots will now TK structures if set to teamkill mode - Fuma
+Bots will now buy a battpack for energy weapons - Fuma
+Dragoons can pounce and use barbs now (PBot code) - Fuma
+Rants can use charge (PBot code) - Fuma
+Flamers wont fire until close enough (PBot code) - Fuma
+
+(v0.6)
+Fixed weird bug we saw with human bots in the first test on server, moving erractically - Fuma
+Added simple implementation of bot skill level - Fuma
+Bots now attempt to jump over structures in their way - Fuma
+Human bots are smarter when attacking structures, they now stand in place instead of rushing to their doom - Fuma
+Removed the ability for human bots to crouch because it was both pointless and caused problems - Fuma
+Removed the ability for human bots to jump when aiming high enough because it was both pointless and caused problems - Fuma
+Added cvars to control what bots can buy - Fuma
+Alien bots no longer TK on accident - Fuma
+**Improved** the bot movement code to be less predictable -Fuma
+
+(v0.5)
+Fixed human buy bug, human ckits could not repair arms because their ckit was swapped for weapon - Fuma
+Made bots able to buy helmet and light armor - Fuma
+Made bots head towards medistat when damaged and no enemies in sight and no structures damaged/no ckit - Fuma
+Added option to prevent bots from attacking buildings - Fuma
+
+(v0.4)
+Made bots with weapons switch to blaster when out of ammo - Fuma
+Added code to prevent putting bots with weapons in repair mode - Fuma
+Uncommented alien evolve code, and wrapped in an if with cvar g_bot_evolve to turn on/off - Fuma
+Uncommented human buy code, and wrapped in an if with cvar g_bot_buy to turn on/off - Fuma
+Fixed oversight where bots would not retain commands after death - Fuma
+Removed definitions at top as they are now in g_local.h - Fuma
+
+(v0.3)
+Added auto command to make bots repair automatically - Fuma
+Added spawnrifle and spawnckit commands to control which weapon bots spawn with - Fuma
+
+(v0.2)
+(rc1)Rewrote botAimAtTarget, now aims at enemy head - amine
+(rc1)Fixed bug where it crashes when botEnemy/botFriend are NULL and botThink executes - amine
+(rc1)Fixed bug where grenade wasn't disabled - amine
+
+(v0.1)
+Initial Release - amine
+

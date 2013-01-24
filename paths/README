@@ -1,0 +1,16 @@
+There are some example paths what I was created and using.
+You can create your owns with the command /node. 
+
+
+Warning: in Linux using gamex86.so it is case sensitive so if you call: !map UnCreation
+it will not get the path "uncreation" instead it will use a new one called "UnCreation".
+
+You are advised!
+___
+**More paths added by ViruS**
+*"most" uncompleted paths removed
+*removed broken mission maps e.g. ztremship_b1, mission one b7 and rush_human_a2
+*removed pointless ones like jump_a4
+*removed personal map zstreetclash_b2 because it was never completed anyway
+*left some sensible half-completed ones like bcs and city_overun-b1 (note the spelling error! I purpously spelt it this way because the map name is like that)
+*updated some broken paths like some tremship's and utcs (tyrants get stuck, they might still though) and some others which i can't remember
