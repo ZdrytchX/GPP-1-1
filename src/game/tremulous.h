@@ -93,12 +93,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL2_CLAW_U_K_SCALE       0.0f//1
 
 //Note: Full dmg depends on sv_fps if LEVEL2_AREAZAP_TIME > 1
-#define LEVEL2_AREAZAP_DMG          ADM(80) //
+#define LEVEL2_AREAZAP_DMG          ADM(90) //
 #define LEVEL2_AREAZAP_RANGE        250.0f //
 #define LEVEL2_AREAZAP_RANGE_SUSTAIN 400 //Range to allow sustaining the zap [Useless in this GPP gameplay]
 #define LEVEL2_AREAZAP_WIDTH        1.0f //Sharp aim, and counters for its '80' dmg rather than '60'
 #define LEVEL2_AREAZAP_REPEAT       1500 //GPP default [i think]
-#define LEVEL2_AREAZAP_TIME         1  //Cannot divide by 0
+#define LEVEL2_AREAZAP_TIME         1000  //Cannot divide by 0
 					//TODO: Allow graphics to continue running despite chain cut off early
 #define LEVEL2_AREAZAP_MAX_TARGETS  3
 #define LEVEL2_WALLJUMP_MAXSPEED    90000.0f //1290.0f //idk, don't really want a max
