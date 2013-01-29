@@ -38,22 +38,44 @@ Great thanks to Fuma for helping me with setting up a github account and helping
 See his source code @ https://github.com/cmf028/CoW-Tremulous
 FYI his version number needs to increment to 3.0. Don't get the wrong idea that i've upgraded to the new one.
 
-Also, thanks /dev/humancontroller for debugging.
+Also, thanks /dev/humancontroller for debugging and Volt for helping me start modding in the early days with his tutorial pack.
 
-==Bot edits by me==
--Goon pounces TO human, not ABOVE human. (pitch was *10, now *6)
--Bot Lcannon charges 2.7 rather than original 2
--now buys lockblob launcher [see below] and possibly basi-suit* TODO (make a variable g_bot_basisuit)
+==Bot configuration edits by me==
+-Goon pounces TO human, not ABOVE human.
+-Bot Lcannon charges 2.5s rather than original 2
 -Bots now don't sit in the same spot when killing a structure
+-Maras aren't so bloody overpowered
+-
 
-GPP-1.1 "Features":
+GPP-1.1 Gameplay "Features":
 -Smooth Regeneration
 -Regen speeds depend upon your location
 -Rant can "lawn mow" but has beenn nerfed by lots, and does 20% damage to buildables only
 -Pounce whoring possible, but has been balanced with chomps
--Update later
+-Re-gassing as a basilisk resets the victim's disorientation timer rather than doing nothing and waiting for it to finish before becomming effective
+-Gas goes through armour
+-Gas deals a mere 1 damage per second
+-Lcannon is a 1.1-Unvanquished mix (Dynamic luci ball speed from Lolards, 2.5 second primary charge time, gpp-like secondary or finish-off combos)
+-Most buildables take gpp values
+-Turrets are a mix - Crappy at close range againts a fast alien, but great in damage dealing and fires inaccurately (misses dretches a lot long range)
+-DCC simply boosts turret aiming speeds and distribute defences (like 1.1 ) but aren't required for tesla generators
+-No dcc required, but human buildables regenerate slowly (~2hp/s for most) rather than gpp's 4hp/s/dcc_in_range
+-Painsaw range 60, not 40, not 80 so it is able to reach under feet without being overpowered, uses 1.1 damage/s
+-GPP Pulse rifle projectile speed, 1.1 clip system
+-Unvanquished-like stamina system, but still slow below 50%
+-Other shit
 
-Imported from Lolards/Misc:
+Imported Gameplay from Lolards/Misc:
 -Modified Turret aiming code
 -Humans regenerate slowly
 -Blaster/Flamer jumping is possible now
+-Blaster Melee
+-Dynamic luci ball speed
+-Smoother flamer firing speed (10 damage per missile instead of 20, fires twice as fast, twice the ammo)
+-Shotgun's mid-range accurate secondary (which stuns the user a bit as a side effect)
+-Chaingun has a more inaccurate secondary which splits the bullets into three
+-Chaingun has an extra clip
+-Lasgun isn't 100% accurate, although still is very accurate
+-Non-crappy JETPACK
+-Higher falls now can insta-kill all armours
+-Other shit
