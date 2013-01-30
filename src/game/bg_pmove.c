@@ -34,7 +34,7 @@ pml_t       pml;
 // movement parameters
 float pm_stopspeed = 100.0f;
 float pm_duckScale = 0.25f;
-float pm_swimScale = 0.50f;
+float pm_swimScale = 0.75f;
 float pm_wadeScale = 0.70f;
 
 float pm_accelerate = 10.0f;
@@ -587,9 +587,9 @@ static qboolean PM_CheckWallJump( void )
 
   if( pm->ps->pm_flags & PMF_TIME_WALLJUMP )
     return qfalse;
-
+//Bunnyhop
   // must wait for jump to be released
-  if( pm->ps->pm_flags & PMF_JUMP_HELD &&
+  if( //pm->ps->pm_flags & PMF_JUMP_HELD &&
       pm->ps->grapplePoint[ 2 ] == 1.0f )
   {
     // clear upmove so cmdscale doesn't lower running speed
@@ -628,6 +628,7 @@ static qboolean PM_CheckWallJump( void )
             dir, pm->ps->velocity );
 
   //for a long run of wall jumps the velocity can get pretty large, this caps it
+  //Apparently works as an anti-strafe for marauders as well, although fixed in gpp
   if( VectorLength( pm->ps->velocity ) > LEVEL2_WALLJUMP_MAXSPEED )
   {
     VectorNormalize( pm->ps->velocity );
@@ -699,7 +700,8 @@ static qboolean PM_CheckJump( void )
     pm->cmd.upmove = 0;
     return qfalse;
   }
-
+//Bunny hop
+/*
   // must wait for jump to be released
   if( pm->ps->pm_flags & PMF_JUMP_HELD )
   {
@@ -707,7 +709,7 @@ static qboolean PM_CheckJump( void )
     pm->cmd.upmove = 0;
     return qfalse;
   }
-
+*/
   pml.groundPlane = qfalse;   // jumping away
   pml.walking = qfalse;
   pm->ps->pm_flags |= PMF_JUMP_HELD;
@@ -871,7 +873,7 @@ static void PM_WaterMove( void )
   {
     wishvel[ 0 ] = 0;
     wishvel[ 1 ] = 0;
-    wishvel[ 2 ] = -60;   // sink towards bottom
+    wishvel[ 2 ] = 60;   // sink towards bottom //*cough cough* people float up idiot
   }
   else
   {
