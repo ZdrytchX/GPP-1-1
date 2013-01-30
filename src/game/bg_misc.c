@@ -3280,11 +3280,11 @@ weaponAttributes_t bg_weapons[ ] =
     qfalse,               //int       infiniteAmmo;
     qtrue,                //int       usesEnergy;
     PRIFLE_REPEAT,        //int       repeatRate1;
-    PRIFLE_REPEAT*2,           //int       repeatRate2;
+    0,           //int       repeatRate2;
     0,                    //int       repeatRate3;
     PRIFLE_RELOAD,        //int       reloadTime;
     PRIFLE_K_SCALE,       //float     knockbackScale;
-    qtrue,               //qboolean  hasAltMode;
+    qfalse,               //qboolean  hasAltMode;
     qfalse,               //qboolean  hasThirdMode;
     qfalse,               //qboolean  canZoom;
     90.0f,                //float     zoomFov;
