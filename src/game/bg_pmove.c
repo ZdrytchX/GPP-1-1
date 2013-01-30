@@ -587,9 +587,9 @@ static qboolean PM_CheckWallJump( void )
 
   if( pm->ps->pm_flags & PMF_TIME_WALLJUMP )
     return qfalse;
-//Bunnyhop
+//TODO: Allow bunnyhop for marauder. Apparently marauder "walljumps" off grounds as well, although doesnt bunnyhop hence produces a problem here
   // must wait for jump to be released
-  if( //pm->ps->pm_flags & PMF_JUMP_HELD &&
+  if( pm->ps->pm_flags & PMF_JUMP_HELD &&
       pm->ps->grapplePoint[ 2 ] == 1.0f )
   {
     // clear upmove so cmdscale doesn't lower running speed
