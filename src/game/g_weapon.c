@@ -1335,7 +1335,7 @@ void G_UpdateZaps( int msec )
         else
           source = zap->targets[ j - 1 ];
 //If target dies, find new victim else continue zapping the dead body :P
-        if( target->health <= 0 || !target->inuse || //early out
+        if( target->health <= 0 || !target->inuse// || //early out
             /*Distance( source->s.origin, target->s.origin ) > LEVEL2_AREAZAP_RANGE_SUSTAIN*/ )
         {
           target = zap->targets[ j ] = G_FindNewZapTarget( source );
