@@ -1291,7 +1291,11 @@ static void G_CreateNewZap( gentity_t *creator, gentity_t *target )
         zap->targets[ j ] = G_FindNewZapTarget( zap->targets[ j - 1 ] );
 
         if( zap->targets[ j ] )
+	{
           zap->numTargets++;
+	//testing something  to encourage multiple targets
+	zap->damageUsed -= LEVEL2_AREAZAP_DMG/2;
+	}
       }
 
       zap->effectChannel = G_Spawn( );
@@ -1330,9 +1334,9 @@ void G_UpdateZaps( int msec )
           source = zap->creator;
         else
           source = zap->targets[ j - 1 ];
-
+//If target dies, find new victim else continue zapping the dead body :P
         if( target->health <= 0 || !target->inuse || //early out
-            Distance( source->s.origin, target->s.origin ) > LEVEL2_AREAZAP_RANGE_SUSTAIN )
+            /*Distance( source->s.origin, target->s.origin ) > LEVEL2_AREAZAP_RANGE_SUSTAIN*/ )
         {
           target = zap->targets[ j ] = G_FindNewZapTarget( source );
 
@@ -1347,6 +1351,15 @@ void G_UpdateZaps( int msec )
 //        G_FreeEntity( zap->effectChannel );	//ripped from below (when target dies and zap transfers to something else
 		}
           */
+//If outta range, find new source, else kill off
+          if ( Distance( source->s.origin, target->s.origin ) > LEVEL2_AREAZAP_RANGE_SUSTAIN )
+          {
+          target = zap->targets[ j ] = G_FindNewZapTarget( source );          
+          if( !target )
+		{
+            zap->numTargets = j;
+		}
+          }
         }
       }
 
@@ -1365,9 +1378,11 @@ void G_UpdateZaps( int msec )
             source = zap->creator;
           else
             source = zap->targets[ j - 1 ];
-//          damage = ceil( ( (float)msec / LEVEL2_AREAZAP_TIME ) *
-//              LEVEL2_AREAZAP_DMG * damageFraction);
-            damage = ceil( LEVEL2_AREAZAP_DMG * damageFraction );
+          if(LEVEL2_AREAZAP_TIME > 0) { //can't divide by 0 check
+            damage = ceil( ( (float)msec / LEVEL2_AREAZAP_TIME ) *
+              LEVEL2_AREAZAP_DMG * damageFraction); }
+          else {
+            damage = ceil( LEVEL2_AREAZAP_DMG * damageFraction ); }
 //idea:
 //want to drain energy weapons like KoRx
           // don't let a high msec value inflate the total damage
@@ -1382,7 +1397,7 @@ void G_UpdateZaps( int msec )
           {
             G_Damage( target, source, zap->creator, forward, target->s.origin,
                     damage, DAMAGE_NO_KNOCKBACK | DAMAGE_NO_LOCDAMAGE, MOD_LEVEL2_ZAP );
-//            zap->damageUsed += damage;
+            zap->damageUsed += damage;
           }
         }
       }

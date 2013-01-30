@@ -101,7 +101,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL2_AREAZAP_REPEAT       1500 //GPP default [i think]
 #define LEVEL2_AREAZAP_TIME         1000  //Cannot divide by 0
 					//TODO: Allow graphics to continue running despite chain cut off early
-#define LEVEL2_AREAZAP_MAX_TARGETS  3
+#define LEVEL2_AREAZAP_MAX_TARGETS  5
 #define LEVEL2_WALLJUMP_MAXSPEED    90000.0f //1290.0f //idk, don't really want a max
 
 //Goon modified heavily to get close to gpp values.
