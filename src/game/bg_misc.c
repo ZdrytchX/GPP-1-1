@@ -3128,7 +3128,7 @@ weaponAttributes_t bg_weapons[ ] =
     0,                    //int       repeatRate3;
     0,                    //int       reloadTime;
     BLASTER_K_SCALE,      //float     knockbackScale;
-    qtrue,               //qboolean  hasAltMode;
+    qfalse,               //qboolean  hasAltMode;
     qfalse,               //qboolean  hasThirdMode;
     qfalse,               //qboolean  canZoom;
     90.0f,                //float     zoomFov;
@@ -3180,7 +3180,7 @@ weaponAttributes_t bg_weapons[ ] =
     0,                    //int       repeatRate3;
     SHOTGUN_RELOAD,       //int       reloadTime;
     SHOTGUN_K_SCALE,        //float     knockbackScale;
-    qtrue,               //qboolean  hasAltMode;
+    qfalse,               //qboolean  hasAltMode;
     qfalse,               //qboolean  hasThirdMode;
     qfalse,               //qboolean  canZoom;
     90.0f,                //float     zoomFov;
@@ -3518,7 +3518,7 @@ weaponAttributes_t bg_weapons[ ] =
     0,                    //int       repeatRate3;
     0,                    //int       reloadTime;
     LEVEL0_BITE_K_SCALE,  //float     knockbackScale;
-    qtrue,               //qboolean  hasAltMode;
+    qfalse,               //qboolean  hasAltMode;
     qfalse,               //qboolean  hasThirdMode;
     qfalse,               //qboolean  canZoom;
     90.0f,                //float     zoomFov;

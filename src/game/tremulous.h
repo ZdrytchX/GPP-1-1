@@ -62,8 +62,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL0_BITE_REPEAT          500 //500 //333 makes stronger againts stationary camptards
 #define LEVEL0_BITE_K_SCALE         1.0f
 //Disabled (range), although animation still runs [and stuns the user]
+//ignore this, disabled via bg_misc.c
 #define LEVEL0_SCRATCH_DMG          ADM(48) //ADM(6 + (VAMP_ON * -3))//dispite this, it is actually almost overpowered.
-#define LEVEL0_SCRATCH_REPEAT       1200 //Does same damage againts turrets, so the secondary is useless for this mod
+#define LEVEL0_SCRATCH_REPEAT       0//150
 #define LEVEL0_SCRATCH_RANGE        80 //disabled, was 80
 #define LEVEL0_SCRATCH_WIDTH        3
 
@@ -400,18 +401,19 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BLASTER_RADIUS              100
 #define BLASTER_CLIPSIZE            0
 #define BLASTER_MAXCLIPS            0
+//Ignnore this, disabled via bg_misc.c
 #define BLASTER_MELEE               18 //not too high because it would be overpowered
-#define BLASTER_MELLEE_REPEAT       700 //mellee rate
+#define BLASTER_MELLEE_REPEAT       0//700 //mellee rate
 #define BLASTER_MELEE_RANGE         60 //enough for combat
 
 #define RIFLE_CLIPSIZE              30
 #define RIFLE_MAXCLIPS              6
-#define RIFLE_REPEAT                90 //not so useless againts larger aliens and more useless on smaller ones
+#define RIFLE_REPEAT                90 //use unv's value for tackling bigger aliens quicker
 #define RIFLE_K_SCALE               1.0f
 #define RIFLE_RELOAD                2000
 #define RIFLE_PRICE                 0
 #define RIFLE_SPREAD                170
-#define RIFLE_DMG                   HDM(5) //'6' seems normal againts normal aliens, oh well.
+#define RIFLE_DMG                   HDM(5) //'6' seems ok, although some australians say it is overepowered
 
 #define PAINSAW_PRICE               100
 #define PAINSAW_REPEAT              65 
@@ -424,11 +426,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define PAINSAW_RELOAD              3000
 
 #define GRENADE_PRICE               200
-#define GRENADE_REPEAT              0 //only stuns the player after throwing
+#define GRENADE_REPEAT              0
 #define GRENADE_K_SCALE             1.0f
 #define GRENADE_DAMAGE              HDM(310)
 #define GRENADE_RANGE               192.0f
-#define GRENADE_SPEED               400.0f //Throwing speed. Default 400 //780 super throw
+#define GRENADE_SPEED               400.0f
 
 #define SHOTGUN_PRICE               150
 #define SHOTGUN_SHELLS              8
@@ -441,9 +443,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define SHOTGUN_DMG                 HDM(5)
 
 //Stuns the player a little, yet more "accurate" for mid ranges
+//Disabled via bg_misc.c
 #define SHOTGUN_BLAST               38
 #define SHOTGUN_BLAST_RANGE         350
-#define SHOTGUN_BLAST_REPEAT        1500
+#define SHOTGUN_BLAST_REPEAT        0//1500
 //#define SHOTGUN_BLAST_PELLETS       SHOTGUN_SHELLS  //Number of shells per clip, since if i use shells * pellets, the client would fk up
 #define SHOTGUN_BLAST_PELLET_DMG    3
 #define SHOTGUN_BLAST_SPREAD        500
@@ -475,7 +478,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define CHAINGUN_BULLETS            300
 #define CHAINGUN_MAXCLIPS           0
 #define CHAINGUN_RELOAD             5000
-#define CHAINGUN_REPEAT             75 //Single barrel shots
+#define CHAINGUN_REPEAT             80 //Single barrel shots
 #define CHAINGUN_REPEAT2            88 //tripple shots [TF2-like], total damage per shot stays the same
 #define CHAINGUN_K_SCALE            1.0f
 #define CHAINGUN_SPREAD             700
@@ -501,7 +504,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define FLAMER_DMG_MOD              0.5f//Same deal as blaster, this one allows wall climbing.
 #define FLAMER_RADIUS_MOD           2.0f //splash damage mod //Previous variable cancels out this one
 #define FLAMER_RADIUS               50
-#define FLAMER_LIFETIME             800.0f
+#define FLAMER_LIFETIME             800.0f //Apparently gpp uses 700 and double knockback...
 #define FLAMER_SPEED                400.0f
 #define FLAMER_LAG                  0.65f
 

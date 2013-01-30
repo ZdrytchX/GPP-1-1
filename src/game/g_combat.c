@@ -1458,8 +1458,8 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
       BG_FindKnockbackScaleForClass( targ->client->ps.stats[ STAT_PCLASS ] ) );
   }
 
-  if( knockback > 200 )
-    knockback = 200;
+  if( knockback > 300 )
+    knockback = 300;
 
   if( targ->flags & FL_NO_KNOCKBACK )
     knockback = 0;
