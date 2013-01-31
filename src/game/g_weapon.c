@@ -1351,17 +1351,16 @@ void G_UpdateZaps( int msec )
 //        G_FreeEntity( zap->effectChannel );	//ripped from below (when target dies and zap transfers to something else
 		}
           */
+        }
 //If outta range, find new source, else kill off
           if ( Distance( source->s.origin, target->s.origin ) > LEVEL2_AREAZAP_RANGE_SUSTAIN )
-          {
-          target = zap->targets[ j ] = G_FindNewZapTarget( source );          
+          {        
           if( !target )
 		{
             zap->numTargets = j;
             G_FreeEntity( zap->effectChannel );
 		}
           }
-        }
       }
 
       if( zap->numTargets )
