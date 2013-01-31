@@ -1294,7 +1294,7 @@ static void G_CreateNewZap( gentity_t *creator, gentity_t *target )
 	{
           zap->numTargets++;
 	//testing something  to encourage multiple targets
-	zap->damageUsed -= LEVEL2_AREAZAP_DMG/2;
+        zap->damageUsed -= LEVEL2_AREAZAP_DMG/(zap->numTargets - 1); //This should do it
 	}
       }
 
@@ -1358,6 +1358,7 @@ void G_UpdateZaps( int msec )
           if( !target )
 		{
             zap->numTargets = j;
+            G_FreeEntity( zap->effectChannel );
 		}
           }
         }
@@ -1396,7 +1397,7 @@ void G_UpdateZaps( int msec )
           if( damage )
           {
             G_Damage( target, source, zap->creator, forward, target->s.origin,
-                    damage, DAMAGE_NO_KNOCKBACK | DAMAGE_NO_LOCDAMAGE, MOD_LEVEL2_ZAP );
+                    damage, /*DAMAGE_NO_KNOCKBACK |*/ DAMAGE_NO_LOCDAMAGE, MOD_LEVEL2_ZAP );
             zap->damageUsed += damage;
           }
         }

@@ -1467,6 +1467,10 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
   if( dflags & DAMAGE_NO_KNOCKBACK )
     knockback = 0;
 
+  if ( mod == MOD_LEVEL2_ZAP ) { //Sucks in the opponent
+		knockback *=  LEVEL2_AREAZAP_K_SCALE;
+	}
+
   // figure momentum add, even if the damage won't be taken
   if( knockback && targ->client )
   {
@@ -1488,8 +1492,8 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
       if( t < 50 )
         t = 50;
 
-      if( t > 200 )
-        t = 200;
+      if( t > 300 )
+        t = 300;
 
       targ->client->ps.pm_time = t;
       targ->client->ps.pm_flags |= PMF_TIME_KNOCKBACK;

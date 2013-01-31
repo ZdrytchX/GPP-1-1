@@ -90,7 +90,7 @@ GPP-1.1 Gameplay "Features":
 -Extreme High falls now can insta-kill all armoured humans
 -Mara zap has a "sustain" range seperate from the "initialising" range
 -Mara zap does not lose as much damage per victim added to the chain
--Zap initialising range 300 -> 250
+-Zap initialising range 300 -> 200
 -Zap "Sustaining" range 300 -> 400
 -Other shit
 
