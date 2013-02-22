@@ -985,6 +985,22 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
     }
 //End painsaw
 */
+//Blaster charge
+    if( BLASTER_CLIPSIZE > 0 )
+    if( client->ps.weapon == WP_BLASTER )
+    {
+      int ammo, maxAmmo;
+
+      BG_FindAmmoForWeapon( WP_BLASTER, &maxAmmo, NULL );
+      BG_UnpackAmmoArray( WP_BLASTER, client->ps.ammo, client->ps.powerups, &ammo, NULL );
+
+      if( ammo < BLASTER_CLIPSIZE )
+      {
+        ammo++;
+        BG_PackAmmoArray( WP_BLASTER, client->ps.ammo, client->ps.powerups, ammo, 0 );
+ 
+      }
+    }
   }
 
   while( client->time10000 >= 15000 ) 

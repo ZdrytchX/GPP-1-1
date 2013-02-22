@@ -1528,7 +1528,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
         VectorAdd( targ->client->ps.velocity, push, targ->client->ps.velocity );
         return;
       } 
-      else if(mod == MOD_LEVEL4_CHARGE || mod == MOD_LEVEL3_POUNCE || mod == MOD_LEVEL0_BITE) //to be on the safe side
+      else if(mod == MOD_LEVEL4_CHARGE || mod == MOD_LEVEL3_POUNCE || mod == MOD_LEVEL0_BITE || mod == MOD_TARGET_LASER) //to be on the safe side
       { // don't do friendly fire on movement attacks
         if( g_friendlyFireMovementAttacks.value <= 0 || ( g_friendlyFire.value<=0 && g_friendlyFireAliens.value<=0 ) )
           return;

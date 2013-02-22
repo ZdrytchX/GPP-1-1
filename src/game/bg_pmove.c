@@ -2970,6 +2970,15 @@ static void PM_Weapon( void )
     attack1 = qtrue;
     attack3 = qfalse;
   }
+//ZdrytchX
+  if( pm->ps->weapon == WP_BLASTER && !ammo )
+  {
+    PM_AddEvent( EV_NOAMMO );
+    pm->ps->weaponTime += 50;
+    if( pm->ps->weaponstate == WEAPON_FIRING )
+      pm->ps->weaponstate = WEAPON_READY; //don't play dodgy blaster fire animations when charging
+    return;
+  }
 	  
   //TA: fire events for non auto weapons
   if( attack3 )
@@ -3152,6 +3161,14 @@ static void PM_Weapon( void )
     ammo--;
     BG_PackAmmoArray( pm->ps->weapon, pm->ps->ammo, pm->ps->powerups, ammo, clips );
   }
+
+  else if( pm->ps->weapon == WP_BLASTER )
+  {
+    //special case for blaster
+    ammo--;
+    BG_PackAmmoArray( pm->ps->weapon, pm->ps->ammo, pm->ps->powerups, ammo, clips );
+  }
+
 //Level4 Acid Spit disabled
 /*
   else if( pm->ps->weapon == WP_ALEVEL4 && attack3 )

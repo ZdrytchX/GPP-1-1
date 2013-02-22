@@ -3119,9 +3119,9 @@ weaponAttributes_t bg_weapons[ ] =
     0,                    //int       slots;
     "blaster",            //char      *weaponName;
     "Blaster",            //char      *weaponHumanName;
-    0,                    //int       maxAmmo;
+    BLASTER_CLIPSIZE,     //int       maxAmmo;
     0,                    //int       maxClips;
-    qtrue,                //int       infiniteAmmo;
+    BLASTER_INF_AMMO,     //int       infiniteAmmo;
     qfalse,               //int       usesEnergy;
     BLASTER_REPEAT,       //int       repeatRate1;
     BLASTER_MELLEE_REPEAT,      //int       repeatRate2;

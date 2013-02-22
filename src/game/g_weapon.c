@@ -1503,17 +1503,10 @@ qboolean CheckPounceAttack( gentity_t *ent )
 
   if( !traceEnt->takedamage )
     return qfalse;
-/*
-  damage = (int)( ( ((float)ent->client->pmext.pouncePayload
-    / (float)LEVEL3_POUNCE_SPEED ) * LEVEL3_POUNCE_DMG ) *
-      (( (float)ent->client->ps.stats[ STAT_FALLDIST ] - MIN_FALL_DISTANCE ) /
-                         ( MAX_FALL_DISTANCE - MIN_FALL_DISTANCE )));
-*/
+
 //original
   damage = (int)( ( (float)ent->client->pmext.pouncePayload
     / (float)LEVEL3_POUNCE_SPEED ) * LEVEL3_POUNCE_DMG ); 
-//extra added
-//  client->ps.stats[ STAT_FALLDIST ]
 
   ent->client->pmext.pouncePayload = 0;
 

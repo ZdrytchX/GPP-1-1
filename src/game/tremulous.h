@@ -399,16 +399,18 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BLASTER_K_SCALE             1.0f 
 #define BLASTER_SPREAD              0
 #define BLASTER_SPEED               1400
-#define BLASTER_DMG                 HDM(9)
+#define BLASTER_DMG                 HDM(11) //Has recharge, increase
 #define BLASTER_PUSH                100//Blasterjump effect, this is the actual damage before modding
-#define BLASTER_DMG_MOD             0.075f //Modifier for above damage
+#define BLASTER_DMG_MOD             0.08f //Modifier for above damage
 #define BLASTER_RADIUS              100
-#define BLASTER_CLIPSIZE            0
-#define BLASTER_MAXCLIPS            0
 //Ignnore this, disabled via bg_misc.c
 #define BLASTER_MELEE               18 //not too high because it would be overpowered
 #define BLASTER_MELLEE_REPEAT       0//700 //mellee rate
 #define BLASTER_MELEE_RANGE         60 //enough for combat
+//Prevent Blaster Spamming
+#define BLASTER_CLIPSIZE            6
+#define BLASTER_MAXCLIPS            0
+#define BLASTER_INF_AMMO            qtrue //qtrue
 
 #define RIFLE_CLIPSIZE              30
 #define RIFLE_MAXCLIPS              6
