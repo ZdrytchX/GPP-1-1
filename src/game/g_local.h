@@ -1575,6 +1575,11 @@ extern  vmCvar_t  g_strip_PlayerDmgPrcnt_def;
 extern  vmCvar_t  g_strip_StructDmgPrcnt;
 extern  vmCvar_t  g_strip_StructDmgPrcnt_def;
 extern  vmCvar_t  g_connectedStripPrcnt;
+//ZdrytchX
+extern  vmCvar_t  g_vampiremode;
+extern  vmCvar_t  g_vampirebuildables;
+extern  vmCvar_t  g_vampirebuildables_take;
+extern  vmCvar_t  g_weapswitchtime;
 
 void      trap_Printf( const char *fmt );
 void      trap_Error( const char *fmt );

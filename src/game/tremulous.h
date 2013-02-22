@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define ALIENREGEN_NOCREEP_MOD      0.5f //out of creep modifier
 
 #define ABUILDER_BUILD_REPEAT       500
-#define ABUILDER_CLAW_DMG           ADM(20) //20) //still 3 hit kill with new armour system... (head mod = 1.8)
+#define ABUILDER_CLAW_DMG           ADM(20 + (VAMP_ON * 10)) //20) //still 3 hit kill with new armour system... (head mod = 1.8)
 #define ABUILDER_CLAW_RANGE         78.0f //64f
 #define ABUILDER_CLAW_WIDTH         4.0f //4f
 #define ABUILDER_CLAW_REPEAT        1000
@@ -49,7 +49,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define ABUILDER_BLOB_DMG           ADM(4)//4 -> 6
 #define ABUILDER_BLOB_SPLASH_DMG    ADM(4)//Explosion damage //15
-#define ABUILDER_BLOB_RADIUS        1     //explosion radius //75
+#define ABUILDER_BLOB_RADIUS        75     //explosion radius //75
 #define ABUILDER_BLOB_REPEAT        1000 //500->800
 #define ABUILDER_BLOB_SPEED         780.0f //800 -> 780 to match grenade
 #define ABUILDER_BLOB_SPEED_MOD     0.5f
@@ -68,7 +68,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL0_SCRATCH_RANGE        80 //disabled, was 80
 #define LEVEL0_SCRATCH_WIDTH        3
 
-#define LEVEL1_CLAW_DMG             ADM(32)
+#define LEVEL1_CLAW_DMG             ADM(32 + (VAMP_ON * 5))
 #define LEVEL1_CLAW_RANGE           80.0f//Take unv's
 #define LEVEL1_CLAW_WIDTH           10.0f
 #define LEVEL1_CLAW_REPEAT          700
@@ -78,7 +78,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL1_GRAB_RANGE           80.0f//Take unv's
 #define LEVEL1_GRAB_TIME            300 //Time for you to re-grab if you mis-aim again
 #define LEVEL1_GRAB_U_TIME          450
-#define LEVEL1_PCLOUD_DMG           ADM(0) //Nay, it still deals 1 dmg. Oh well, it isn't that significant.
+#define LEVEL1_PCLOUD_DMG           ADM(0 + (VAMP_ON * 5)) //Nay, it still deals 1 dmg. Oh well, it isn't that significant.
 #define LEVEL1_PCLOUD_RANGE         200.0f //300 //limit troll gassers
 #define LEVEL1_PCLOUD_REPEAT        2000
 #define LEVEL1_PCLOUD_TIME          10000 //GPP - 2 seconds distortion, 5 seconds slowlock i think
@@ -89,30 +89,33 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL2_CLAW_WIDTH           12.0f //Normal mara is hard to use
 #define LEVEL2_CLAW_U_WIDTH         14.0f //
 #define LEVEL2_CLAW_REPEAT          500 //
-#define LEVEL2_CLAW_K_SCALE         0.0f//1 //Fly human Fly! //Disabled
 #define LEVEL2_CLAW_U_REPEAT        400 //
-#define LEVEL2_CLAW_U_K_SCALE       0.0f//1
+//ATTENTION! If you want to disabled the claw knockback only (leave zap knockback on), set CLAW_K_REVERSE to "0"
+//If you want the opposite, turn the AREAZAP_K_SCALE to "0", CLAW_(U_)K_SCALE to "0.1" and CLAW_K_REVERSE to "-10.0f" (doesn't completely cancel out the first zap victim's pull effect though, but it shouldn't be noticable)
+#define LEVEL2_CLAW_K_SCALE         1.0f //effects first zap victim as well apparently
+#define LEVEL2_CLAW_U_K_SCALE       1.0f
+#define LEVEL2_CLAW_K_REVERSE       -1.0f//For claws only
 
 //Note: Full dmg depends on sv_fps if LEVEL2_AREAZAP_TIME > 1
-#define LEVEL2_AREAZAP_DMG          ADM(70) //4 zaps on teslas
-#define LEVEL2_AREAZAP_RANGE        200.0f //
-#define LEVEL2_AREAZAP_RANGE_SUSTAIN 400 //Range to allow sustaining the zap [Useless in this GPP gameplay]
+#define LEVEL2_AREAZAP_DMG          ADM(70 + (VAMP_ON * 20)) //4 zaps on teslas
+#define LEVEL2_AREAZAP_RANGE        200.0f //initiate zap distance
+#define LEVEL2_AREAZAP_RANGE_SUSTAIN 400 //Range to allow sustaining the zap
 #define LEVEL2_AREAZAP_WIDTH        8.0f //harder to zap around corners
 #define LEVEL2_AREAZAP_REPEAT       1500
 #define LEVEL2_AREAZAP_TIME         1000  //Divide by 0 fixed
 					//TODO: Allow graphics to continue running despite chain cut off early
 #define LEVEL2_AREAZAP_MAX_TARGETS  5
 #define LEVEL2_WALLJUMP_MAXSPEED    90000.0f //1290.0f //idk, don't really want a max
-#define LEVEL2_AREAZAP_K_SCALE      -5.0f //Chain-ees get pulled together with this
+#define LEVEL2_AREAZAP_K_SCALE      -3.5f //Chain-ees get pulled together with this
 
 //Goon modified heavily to get close to gpp values.
-#define LEVEL3_CLAW_DMG             ADM(80)
+#define LEVEL3_CLAW_DMG             ADM(80 + (VAMP_ON * 10))
 #define LEVEL3_CLAW_RANGE           80.0f //Unv's
 #define LEVEL3_CLAW_WIDTH           12.0f
 #define LEVEL3_CLAW_REPEAT          800 //1.1 700 1.2 900 //'Unv's value is more stable
-#define LEVEL3_CLAW_K_SCALE         0.8f
+#define LEVEL3_CLAW_K_SCALE         0.8f //effects pounce as well
 #define LEVEL3_CLAW_U_REPEAT        700 //600 800 //'Unv's value is more stable
-#define LEVEL3_CLAW_U_K_SCALE       0.8f //may/maynot effect pounce
+#define LEVEL3_CLAW_U_K_SCALE       0.8f
 #define LEVEL3_POUNCE_DMG           ADM(115 + (VAMP_ON * 20)) // -> 115 (bsuits take the same damage as laroured)
 					//Armour - 3 hit
 					//Helm - 2 hit
@@ -149,7 +152,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL4_CHARGE_CHARGE_RATIO  (LEVEL4_CHARGE_TIME/LEVEL4_CHARGE_CHARGE_TIME)//(LEVEL4_CHARGE_CHARGE_TIME/LEVEL4_CHARGE_TIME)//(LEVEL4_CHARGE_TIME/LEVEL4_CHARGE_CHARGE_TIME) //confusing shit, it's an interger so below 1 and it's fked
 
 #define LEVEL4_CHARGE_REPEAT        150 //1000 //GPP uses '100', the more lower, the more ping-bias
-#define LEVEL4_CHARGE_DMG           ADM(76) //100 (to help with armoured)
+#define LEVEL4_CHARGE_DMG           ADM(56 + (VAMP_ON * 35)) //100 (to help with armoured)
 					//0.2s naked
 					//~0.4s helm
 					//~0.6s larm
@@ -157,7 +160,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //Removed tyrant spit bomb
 
 #define LEVEL4_CHARGE_EXTRA         ADM(15) //Extra damage added to charge so it isnt completely useless when slow
-#define LEVEL4_TRAMPLE_DMG_B        0.35f //Dmg multiplier to buildables    
+#define LEVEL4_TRAMPLE_DMG_B        (0.35f * (VAMP_ON * 0.85)) //Dmg multiplier to buildables    
 
 
 /*
@@ -397,8 +400,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BLASTER_SPREAD              0
 #define BLASTER_SPEED               1400
 #define BLASTER_DMG                 HDM(9)
-#define BLASTER_PUSH                100//Blasterjump effect when shooting something you're touching //TODO: Remove damage yet have knockback, or at least to be able to scale the radius effect
-#define BLASTER_DMG_MOD             0.0f //Modifier for damage, upper one is used for knockback
+#define BLASTER_PUSH                100//Blasterjump effect, this is the actual damage before modding
+#define BLASTER_DMG_MOD             0.075f //Modifier for above damage
 #define BLASTER_RADIUS              100
 #define BLASTER_CLIPSIZE            0
 #define BLASTER_MAXCLIPS            0
@@ -421,7 +424,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define PAINSAW_K_SCALE             1.0f
 #define PAINSAW_DAMAGE              HDM(12) //~>185 dmg/s
 #define PAINSAW_RANGE               60.0f //enough to touch below feet of a normal human without being OP [unlike gpp]
-#define PAINSAW_NODECAY             qtrue //Bleed ammo one per second if decay is allowed
+//Following disabled via bg_misc.c
+#define PAINSAW_NODECAY             qtrue //Bleed ammo one per second if nodecay is qfalse
 #define PAINSAW_FUEL                0
 #define PAINSAW_BATTERIES           0 //not compatable with battery decay system, don't bother
 #define PAINSAW_RELOAD              3000
@@ -435,13 +439,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define SHOTGUN_PRICE               150
 #define SHOTGUN_SHELLS              8
-#define SHOTGUN_PELLETS             11
+#define SHOTGUN_PELLETS             8 //5 * 11 is gpp, 4 * 14 is 1.1, 7 * 8 is tremfusion
 #define SHOTGUN_MAXCLIPS            3
 #define SHOTGUN_REPEAT              1000
 #define SHOTGUN_K_SCALE             2.0f
 #define SHOTGUN_RELOAD              2000 //( SHOTGUN_SHELLS * 400 + 800 )
 #define SHOTGUN_SPREAD              900
-#define SHOTGUN_DMG                 HDM(5)
+#define SHOTGUN_DMG                 HDM(7) //4 per dretch
 
 //Stuns the player a little, yet more "accurate" for mid ranges
 //Disabled via bg_misc.c
@@ -455,16 +459,16 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LASGUN_PRICE                250
 #define LASGUN_AMMO                 200
 #define LASGUN_REPEAT               200
-#define LASGUN_MAXCLIPS             1 //oh wtf might as well... not much difference
+#define LASGUN_MAXCLIPS             0
 #define LASGUN_K_SCALE              1.0f
-#define LASGUN_RELOAD               3000 //rise it higher... changing batteries is a pain right? erm...
-#define LASGUN_SPREAD               100 //Prevent extreme long range camping by a little
+#define LASGUN_RELOAD               3000
+#define LASGUN_SPREAD               100 //btw, this actually works, don't tweak it any higher or it'll effect gameplay too much
 #define LASGUN_DAMAGE               HDM(9)
 
 #define MDRIVER_PRICE               350
 #define MDRIVER_CLIPSIZE            5
 #define MDRIVER_MAXCLIPS            4
-#define MDRIVER_DMG                 HDM(40) //i think 38 is better
+#define MDRIVER_DMG                 HDM(40)
 #define MDRIVER_REPEAT              1000
 #define MDRIVER_K_SCALE             1.0f
 #define MDRIVER_RELOAD              2000
@@ -473,14 +477,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define MDRIVER_RADIUS              0 //explosion radius
 #define MDRIVER_SPLASH              0 //Splash dmg
 #define MDRIVER_LAG                 0.35f //Same effect as Flamer_LAG but not as effective
-#define MDRIVER_LIFETIME            8000 //It's a pretty fast bullet. Doesn't need to be that large. Most extreme maps are only a mere 3 seconds diameter.
+#define MDRIVER_LIFETIME            8000 //It's a pretty fast bullet. Doesn't need a long lifetime
 
-#define CHAINGUN_PRICE              400 //increased, bots do not buy it and its actually OP
+#define CHAINGUN_PRICE              400
 #define CHAINGUN_BULLETS            300
 #define CHAINGUN_MAXCLIPS           0
 #define CHAINGUN_RELOAD             5000
 #define CHAINGUN_REPEAT             80 //Single barrel shots
-#define CHAINGUN_REPEAT2            88 //tripple shots [TF2-like], total damage per shot stays the same
+#define CHAINGUN_REPEAT2            100 //tripple shots [TF2-like], total damage per shot stays the same
 #define CHAINGUN_K_SCALE            1.0f
 #define CHAINGUN_SPREAD             700
 #define CHAINGUN_SPREAD2            1200 //Anti-Dretch n00b edition
@@ -500,7 +504,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define FLAMER_GAS                  400 //Double fire rate, halve damage.
 #define FLAMER_RELOAD               3000
 #define FLAMER_REPEAT               100 //Let's be realistic here.
-#define FLAMER_K_SCALE              1.0f
+#define FLAMER_K_SCALE              2.0f //gpp says, not me
 #define FLAMER_DMG                  HDM(10) //^^
 #define FLAMER_DMG_MOD              0.5f//Same deal as blaster, this one allows wall climbing.
 #define FLAMER_RADIUS_MOD           2.0f //splash damage mod //Previous variable cancels out this one
@@ -516,13 +520,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LCANNON_CHARGEREPEAT        500 //spam-able but does little damge
 #define LCANNON_RELOAD              3000
 #define LCANNON_DAMAGE              HDM(256)
-#define LCANNON_RADIUS              150 
+#define LCANNON_RADIUS              150 //does nothing now, dynamic explosion radius
 #define LCANNON_SECONDARY_DAMAGE    HDM(38)
-#define LCANNON_SECONDARY_RADIUS    75
+#define LCANNON_SECONDARY_RADIUS    75 //still applies to secondary
 #define LCANNON_SPEED               400 //see g_missile.c, this is minimum speed, max is about 3x this
 #define LCANNON_SECONDARY_SPEED     1800
 
-#define LCANNON_CHARGE_TIME         2500 //In between gpp and 1.1, gpp too long, 1.1 favours spammers
+#define LCANNON_CHARGE_TIME         2500 //In between gpp and 1.1, gpp too long, 1.1 favours spammers, gpp is retardly almost useless in combat againts rants
 #define LCANNON_TOTAL_CHARGE        256
 #define LCANNON_MIN_CHARGE          27 //mincharge dmg value [50]
 #define LCANNON_MAXCLIPS	    0
@@ -554,6 +558,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /*
  * HUMAN upgrades
  */
+#define H_WEAP_SWITCH_DELAY         50//Default 200 //Allow weapon combos
+//TODO: Replace with cvar, g_pmove and trem.h doesn't know from g_main/g_local.h which poses a problem, same for bunnyhop
+#define BUNNYHOP_TRUE               1 //Off = 0 on == 1
 
 #define LIGHTARMOUR_PRICE           70
 #define LIGHTARMOUR_POISON_PROTECTION 2

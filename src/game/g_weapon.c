@@ -1294,7 +1294,7 @@ static void G_CreateNewZap( gentity_t *creator, gentity_t *target )
 	{
           zap->numTargets++;
 	//testing something  to encourage multiple targets
-        zap->damageUsed -= LEVEL2_AREAZAP_DMG/(zap->numTargets - 1); //This should do it
+        zap->damageUsed -= LEVEL2_AREAZAP_DMG / (zap->numTargets - 1); //This should do it
 	}
       }
 
@@ -1340,8 +1340,7 @@ void G_UpdateZaps( int msec )
         {
           target = zap->targets[ j ] = G_FindNewZapTarget( source );
 
-          //couldn't find a target, so forget about the rest of the chain //remove this and the zap won't change targets once target dies; leaves a cool zap effect floating about dead body though XD
-//This is GPP mod, and acts like this in gpp anyway, disabled.
+          //couldn't find a target, so forget about the rest of the chain //remove this and the zap won't change targets once target dies; leaves a cool zap effect floating about dead body though
           /*
           if( !target )
 		{
@@ -1355,11 +1354,11 @@ void G_UpdateZaps( int msec )
 //If outta range, find new source, else kill off
           if ( Distance( source->s.origin, target->s.origin ) > LEVEL2_AREAZAP_RANGE_SUSTAIN )
           {        
-          if( !target )
-		{
+//          if( !target )
+//		{
             zap->numTargets = j;
             G_FreeEntity( zap->effectChannel );
-		}
+//		}
           }
       }
 

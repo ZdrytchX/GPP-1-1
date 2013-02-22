@@ -515,31 +515,33 @@ gentity_t *fire_luciferCannon( gentity_t *self, vec3_t start, vec3_t dir, int da
   if( damage == LCANNON_TOTAL_CHARGE )
 	{
     bolt->nextthink = level.time + 1; //launches and blows self up. Only difference bwteeen default and + 1 is one milisecond life time. Don't worry about changing these other values in this section if you don't change this.
-  bolt->r.mins[ 0 ] = bolt->r.mins[ 1 ] = bolt->r.mins[ 2 ] = -5.0f;
-  bolt->r.maxs[ 0 ] = bolt->r.maxs[ 1 ] = bolt->r.maxs[ 2 ] = 5.0f;
+  bolt->r.mins[ 0 ] = bolt->r.mins[ 1 ] = bolt->r.mins[ 2 ] = -0.0f;
+  bolt->r.maxs[ 0 ] = bolt->r.maxs[ 1 ] = bolt->r.maxs[ 2 ] = 0.0f;
   VectorScale( dir, LCANNON_SPEED, bolt->s.pos.trDelta );
+  bolt->splashRadius = localDamage;
 	}
   else if ( damage < LCANNON_TOTAL_CHARGE )
 	{
     bolt->nextthink = level.time + 100000;
-  bolt->r.mins[ 0 ] = bolt->r.mins[ 1 ] = bolt->r.mins[ 2 ] = -3.0f;
-  bolt->r.maxs[ 0 ] = bolt->r.maxs[ 1 ] = bolt->r.maxs[ 2 ] = 3.0f;
-  VectorScale( dir, ((1 - ((localDamage - LCANNON_TOTAL_CHARGE) / 150)) * LCANNON_SPEED), bolt->s.pos.trDelta ); //YEAH BITCH! MORE POWER - SLOWER BULLETS! uhh...
-//A better explaination: Minimum charge from solo - speed ~ 800 and max = 330
+  bolt->r.mins[ 0 ] = bolt->r.mins[ 1 ] = bolt->r.mins[ 2 ] = -0.0f;
+  bolt->r.maxs[ 0 ] = bolt->r.maxs[ 1 ] = bolt->r.maxs[ 2 ] = 0.0f;
+  VectorScale( dir, ((1 - ((localDamage - LCANNON_TOTAL_CHARGE) / 150)) * LCANNON_SPEED), bolt->s.pos.trDelta );
+  bolt->splashRadius = localDamage / 2 + 50;
 	}
   else if ( damage == LCANNON_SECONDARY_DAMAGE ) //then it must be a secondary fire
 	{
     bolt->nextthink = level.time + 100000;
   bolt->r.mins[ 0 ] = bolt->r.mins[ 1 ] = bolt->r.mins[ 2 ] = -0.0f;
   bolt->r.maxs[ 0 ] = bolt->r.maxs[ 1 ] = bolt->r.maxs[ 2 ] = 0.0f;
-  VectorScale( dir, (LCANNON_SECONDARY_SPEED), bolt->s.pos.trDelta ); //tiny ball of DEATH! Also extremely fast.
+  VectorScale( dir, (LCANNON_SECONDARY_SPEED), bolt->s.pos.trDelta );
+  bolt->splashRadius = LCANNON_SECONDARY_RADIUS;
 	}
-  else //to make sure it doesn't go bonkers, and makes it stand out so the glitch can be reported if happens:
+  else //glitch fix
 	{
     bolt->nextthink = level.time + 100000;
   bolt->r.mins[ 0 ] = bolt->r.mins[ 1 ] = bolt->r.mins[ 2 ] = -2.0f;
   bolt->r.maxs[ 0 ] = bolt->r.maxs[ 1 ] = bolt->r.maxs[ 2 ] = 2.0f;
-  VectorScale( dir, 0, bolt->s.pos.trDelta ); //prove there's an error: make it stationary
+  VectorScale( dir, 0, bolt->s.pos.trDelta ); //prove there's an error: make it stationary, clients may think it's a special ability
 	}
 
   bolt->think = G_ExplodeMissile;
@@ -551,7 +553,7 @@ gentity_t *fire_luciferCannon( gentity_t *self, vec3_t start, vec3_t dir, int da
   bolt->parent = self;
   bolt->damage = localDamage;
   bolt->splashDamage = localDamage / 2;
-  bolt->splashRadius = radius;
+//  bolt->splashRadius = localDamage / 2;//radius;
   bolt->methodOfDeath = MOD_LCANNON;
   bolt->splashMethodOfDeath = MOD_LCANNON_SPLASH;
   bolt->clipmask = MASK_SHOT;

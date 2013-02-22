@@ -254,6 +254,12 @@ vmCvar_t  g_strip_PlayerDmgPrcnt_def;
 vmCvar_t  g_strip_StructDmgPrcnt;
 vmCvar_t  g_strip_StructDmgPrcnt_def;
 vmCvar_t  g_connectedStripPrcnt;
+//ZdrytchX
+vmCvar_t  g_vampiremode;
+vmCvar_t  g_vampirebuildables;
+vmCvar_t  g_vampirebuildables_take;
+vmCvar_t  g_bunnyhop;//not yet m8
+vmCvar_t  g_weapswitchtime;
 
 static cvarTable_t   gameCvarTable[ ] =
 {
@@ -494,9 +500,15 @@ static cvarTable_t   gameCvarTable[ ] =
 
   { &g_strip_PlayerDmgPrcnt,     "g_strip_PlayerDmgPrcnt",     "100", CVAR_SERVERINFO | CVAR_ARCHIVE | CVAR_NORESTART, 100, qtrue },
   { &g_strip_PlayerDmgPrcnt_def, "g_strip_PlayerDmgPrcnt_def", "100", CVAR_SERVERINFO | CVAR_ARCHIVE | CVAR_NORESTART, 100, qtrue },
-  { &g_strip_StructDmgPrcnt,     "g_strip_StructDmgPrcnt",       "0", CVAR_SERVERINFO | CVAR_ARCHIVE | CVAR_NORESTART,   0, qtrue },
-  { &g_strip_StructDmgPrcnt_def, "g_strip_StructDmgPrcnt_def",   "0", CVAR_SERVERINFO | CVAR_ARCHIVE | CVAR_NORESTART,   0, qtrue },
-  { &g_connectedStripPrcnt,      "g_connectedStripPrcnt",       "50", CVAR_SERVERINFO | CVAR_ARCHIVE | CVAR_NORESTART,  50, qtrue },
+  { &g_strip_StructDmgPrcnt,     "g_strip_StructDmgPrcnt",     "100", CVAR_SERVERINFO | CVAR_ARCHIVE | CVAR_NORESTART, 100, qtrue },
+  { &g_strip_StructDmgPrcnt_def, "g_strip_StructDmgPrcnt_def", "100", CVAR_SERVERINFO | CVAR_ARCHIVE | CVAR_NORESTART, 100, qtrue },
+  { &g_connectedStripPrcnt,      "g_connectedStripPrcnt",       "50", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE | CVAR_NORESTART,  50, qtrue },
+//ZdrytchX
+  { &g_vampiremode,      "g_vampiremode",                        "0", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse }, //Not yet
+  { &g_vampiremode,      "g_vampirebuildables",                  "0", CVAR_ARCHIVE,  0, qfalse },
+  { &g_vampiremode_take,      "g_vampirebuildables_take",        "50", CVAR_ARCHIVE,  50, qfalse },
+//  { &g_bunnyhop,         "g_bunnyhop",                         "0", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },//Not Yet
+  { &g_weapswitchtime,   "g_weapswitchtime",                     "250", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },//Not Yet
 };
 
 static int gameCvarTableSize = sizeof( gameCvarTable ) / sizeof( gameCvarTable[ 0 ] );

@@ -701,7 +701,8 @@ static qboolean PM_CheckJump( void )
     return qfalse;
   }
 //Bunny hop
-/*
+if(BUNNYHOP_TRUE == 0) //If it is enabled, don't read this
+{
   // must wait for jump to be released
   if( pm->ps->pm_flags & PMF_JUMP_HELD )
   {
@@ -709,7 +710,7 @@ static qboolean PM_CheckJump( void )
     pm->cmd.upmove = 0;
     return qfalse;
   }
-*/
+}
   pml.groundPlane = qfalse;   // jumping away
   pml.walking = qfalse;
   pm->ps->pm_flags |= PMF_JUMP_HELD;
@@ -2618,7 +2619,7 @@ static void PM_BeginWeaponChange( int weapon )
 
   PM_AddEvent( EV_CHANGE_WEAPON );
   pm->ps->weaponstate = WEAPON_DROPPING;
-  pm->ps->weaponTime += 200;
+  pm->ps->weaponTime += H_WEAP_SWITCH_DELAY;
   pm->ps->persistant[ PERS_NEWWEAPON ] = weapon;
 
   //reset build weapon

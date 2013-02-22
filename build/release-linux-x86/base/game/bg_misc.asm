@@ -7503,7 +7503,7 @@ byte 4 100
 byte 4 0
 byte 4 0
 byte 4 3000
-byte 4 1065353216
+byte 4 1073741824
 byte 4 0
 byte 4 0
 byte 4 0
@@ -7524,7 +7524,7 @@ byte 4 1
 byte 4 0
 byte 4 0
 byte 4 80
-byte 4 88
+byte 4 100
 byte 4 0
 byte 4 5000
 byte 4 1065353216
@@ -7863,7 +7863,7 @@ byte 4 500
 byte 4 0
 byte 4 0
 byte 4 0
-byte 4 0
+byte 4 1065353216
 byte 4 0
 byte 4 0
 byte 4 0
@@ -7887,7 +7887,7 @@ byte 4 400
 byte 4 1500
 byte 4 0
 byte 4 0
-byte 4 0
+byte 4 1065353216
 byte 4 1
 byte 4 0
 byte 4 0
