@@ -1590,6 +1590,10 @@ import trap_RealTime
 import trap_Milliseconds
 import trap_Error
 import trap_Printf
+import g_weapswitchtime
+import g_vampirebuildables_take
+import g_vampirebuildables
+import g_vampiremode
 import g_connectedStripPrcnt
 import g_strip_StructDmgPrcnt_def
 import g_strip_StructDmgPrcnt
