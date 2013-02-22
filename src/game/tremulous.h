@@ -399,7 +399,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BLASTER_K_SCALE             1.0f 
 #define BLASTER_SPREAD              0
 #define BLASTER_SPEED               1400
-#define BLASTER_DMG                 HDM(11) //Has recharge, increase
+#define BLASTER_DMG                 HDM(9)
 #define BLASTER_PUSH                100//Blasterjump effect, this is the actual damage before modding
 #define BLASTER_DMG_MOD             0.08f //Modifier for above damage
 #define BLASTER_RADIUS              100
