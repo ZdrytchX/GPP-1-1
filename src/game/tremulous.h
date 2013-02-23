@@ -408,7 +408,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BLASTER_MELLEE_REPEAT       0//700 //mellee rate
 #define BLASTER_MELEE_RANGE         60 //enough for combat
 //Prevent Blaster Spamming
-#define BLASTER_CLIPSIZE            6
+#define BLASTER_CLIPSIZE            3
 #define BLASTER_MAXCLIPS            0
 #define BLASTER_INF_AMMO            qtrue //qtrue
 
@@ -441,13 +441,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define SHOTGUN_PRICE               150
 #define SHOTGUN_SHELLS              8
-#define SHOTGUN_PELLETS             8 //5 * 11 is gpp, 4 * 14 is 1.1, 7 * 8 is tremfusion
+#define SHOTGUN_PELLETS             14 //5 * 11 is gpp, 4 * 14 is 1.1, 7 * 8 is tremfusion
 #define SHOTGUN_MAXCLIPS            3
 #define SHOTGUN_REPEAT              1000
 #define SHOTGUN_K_SCALE             2.0f
 #define SHOTGUN_RELOAD              2000 //( SHOTGUN_SHELLS * 400 + 800 )
 #define SHOTGUN_SPREAD              900
-#define SHOTGUN_DMG                 HDM(7) //4 per dretch
+#define SHOTGUN_DMG                 HDM(4) //4 per dretch
 
 //Stuns the player a little, yet more "accurate" for mid ranges
 //Disabled via bg_misc.c
@@ -506,7 +506,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define FLAMER_GAS                  400 //Double fire rate, halve damage.
 #define FLAMER_RELOAD               3000
 #define FLAMER_REPEAT               100 //Let's be realistic here.
-#define FLAMER_K_SCALE              2.0f //gpp says, not me
+#define FLAMER_K_SCALE              1.0f //gpp says, not me
 #define FLAMER_DMG                  HDM(10) //^^
 #define FLAMER_DMG_MOD              0.5f//Same deal as blaster, this one allows wall climbing.
 #define FLAMER_RADIUS_MOD           2.0f //splash damage mod //Previous variable cancels out this one
@@ -523,6 +523,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LCANNON_RELOAD              3000
 #define LCANNON_DAMAGE              HDM(256)
 #define LCANNON_RADIUS              150 //does nothing now, dynamic explosion radius
+#define LCANNON_MIN_RADIUS          50 //minimum radius for lcannon
 #define LCANNON_SECONDARY_DAMAGE    HDM(38)
 #define LCANNON_SECONDARY_RADIUS    75 //still applies to secondary
 #define LCANNON_SPEED               400 //see g_missile.c, this is minimum speed, max is about 3x this

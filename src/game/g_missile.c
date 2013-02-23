@@ -766,10 +766,10 @@ gentity_t *fire_lockblob( gentity_t *self, vec3_t start, vec3_t dir )
   bolt->s.generic1 = WPM_PRIMARY; //weaponMode
   bolt->r.ownerNum = self->s.number;
   bolt->parent = self;
-  bolt->damage = 0;
-  bolt->splashDamage = 0;
-  bolt->splashRadius = 0;
-  bolt->methodOfDeath = MOD_TARGET_LASER; //changed as it kills
+  bolt->damage = 15;
+  bolt->splashDamage = 10;
+  bolt->splashRadius = 50;
+  bolt->methodOfDeath = MOD_TRIGGER_HURT; //changed as it kills
   bolt->clipmask = MASK_SHOT;
   bolt->target_ent = NULL;
 /*

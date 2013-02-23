@@ -1778,7 +1778,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 	if (attacker->s.eType == ET_BUILDABLE && g_vampirebuildables.integer > 0)
 		{
       int maxHP = BG_FindHealthForBuildable( attacker->s.modelindex );
-			attacker->health = attacker->health + ( take * (g_vampirebuildables.integer * 0.01f) ); //don't want a multiplier for max health; becomes too strong and invincable
+			attacker->health = attacker->health + ( take * (g_vampirebuildables_take.integer * 0.01f) ); //cvar percent
 //Make sure they don't go over 100% hp due to visual issues
         		  if (attacker->health > maxHP) 
         		  {
