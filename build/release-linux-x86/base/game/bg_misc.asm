@@ -7423,7 +7423,7 @@ byte 4 7
 byte 4 0
 address $1063
 address $1064
-byte 4 6
+byte 4 3
 byte 4 0
 byte 4 1
 byte 4 0
@@ -7503,7 +7503,7 @@ byte 4 100
 byte 4 0
 byte 4 0
 byte 4 3000
-byte 4 1073741824
+byte 4 1065353216
 byte 4 0
 byte 4 0
 byte 4 0

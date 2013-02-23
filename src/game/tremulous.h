@@ -526,7 +526,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LCANNON_MIN_RADIUS          50 //minimum radius for lcannon
 #define LCANNON_SECONDARY_DAMAGE    HDM(38)
 #define LCANNON_SECONDARY_RADIUS    75 //still applies to secondary
-#define LCANNON_SPEED               400 //see g_missile.c, this is minimum speed, max is about 3x this
+#define LCANNON_SPEED               400 //see g_missile.c, this is minimum speed (roughly), max is about 3x this
 #define LCANNON_SECONDARY_SPEED     1800
 
 #define LCANNON_CHARGE_TIME         2500 //In between gpp and 1.1, gpp too long, 1.1 favours spammers, gpp is retardly almost useless in combat againts rants
@@ -561,9 +561,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /*
  * HUMAN upgrades
  */
-#define H_WEAP_SWITCH_DELAY         50//Default 200 //Allow weapon combos
-//TODO: Replace with cvar, g_pmove and trem.h doesn't know from g_main/g_local.h which poses a problem, same for bunnyhop
-#define BUNNYHOP_TRUE               1 //Off = 0 on == 1
+#define H_WEAP_SWITCH_DELAY         50 //Default start 200, end default 250 (total 450), this variable applies to both start and end
+//TODO: Replace with cvar, bg_pmove and trem.h doesn't know from g_main/g_local.h which poses a problem, same for bunnyhop
+#define BUNNYHOP_TRUE               1 //Off = 0 on = 1
 
 #define LIGHTARMOUR_PRICE           70
 #define LIGHTARMOUR_POISON_PROTECTION 2
@@ -590,6 +590,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BSUIT_PRICE                 400
 #define BSUIT_POISON_PROTECTION     4
 #define HUMAN_REGEN                 1 //int (per ALIENREGEN_NOCREEP_MOD) per second
+#define HUMAN_REGEN_MOD             0.8f //Modifier for human regen per second (if HUMAN_REGEN = 1 and this = 2.0f, then human heals 1 hp every 0.5 seconds, same as HUMAN_REGEN = 2 and this = 1.0f, just a counter for HUMAN_REGEN's interger restrictions)
 
 #define MGCLIP_PRICE                0
 
@@ -597,7 +598,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define GAS_PRICE                   0
 
-#define MEDKIT_POISON_IMMUNITY_TIME 5000
+#define MEDKIT_POISON_IMMUNITY_TIME 10000
 #define MEDKIT_STARTUP_TIME         4000
 #define MEDKIT_STARTUP_SPEED        5
 
@@ -642,17 +643,17 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //no spinup required!
 //IMPORTANT: You should change MGTURRET_FIRE_SPEED and MGTURRET_FIRE_DIRECT_SPEED to 1 if you want the turret to be 'normal'.
 //It slows down the turning speed of the turret when it fires.
-#define MGTURRET_FIRE_SPEED         0.6
+#define MGTURRET_FIRE_SPEED         0.5
 // IF it is directly aiming at it, the following speed multiplier will be used instead.
 //It gives a more realistic feel.
-#define MGTURRET_FIRE_DIRECT_SPEED  0.3
+#define MGTURRET_FIRE_DIRECT_SPEED  0.2
 
 #define MGTURRET_BP                 8
 #define MGTURRET_BT                 10000
 #define MGTURRET_HEALTH             HBHM(190)
 #define MGTURRET_SPLASHDAMAGE       50 //50
 #define MGTURRET_SPLASHRADIUS       100
-#define MGTURRET_ANGULARSPEED       5
+#define MGTURRET_ANGULARSPEED       6
 #define MGTURRET_ACCURACYTOLERANCE  MGTURRET_ANGULARSPEED / 1.5f //1.5 angular difference for turret to fire
 #define MGTURRET_VERTICALCAP        30
 #define MGTURRET_DROOPSCALE         0.25 //droop displacement per droop when unpowered
@@ -661,8 +662,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define MGTURRET_K_SCALE            1.0f
 #define MGTURRET_RANGE              400.0f
 #define MGTURRET_SPREAD             600 //200 is aimbot
-#define MGTURRET_DMG                HDM(8) //total damage per shot, keep value even [not odd]
-#define MGTURRET_DCC_ANGULARSPEED       13 //DCCs are now valuable
+#define MGTURRET_DMG                HDM(6) //total damage per shot, keep value even [not odd - it divides the bullet into two]
+
+#define MGTURRET_DCC_ANGULARSPEED       18 //DCCs are now valuable
 #define MGTURRET_DCC_ACCURACYTOLERANCE  MGTURRET_DCC_ANGULARSPEED / 1.5f
 #define MGTURRET_GRAB_ANGULARSPEED      3
 #define MGTURRET_GRAB_ACCURACYTOLERANCE MGTURRET_GRAB_ANGULARSPEED / 1.5f
@@ -672,16 +674,16 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //GPP-1.1 change: Raised so it shoots behind target if the target is moving quickly
 
 //Max angle it can fire at [while turning at MGTURRET_FIRE_SPEED]
-#define MGTURRET_ACCURACY_SPREAD        12 //8
+#define MGTURRET_ACCURACY_SPREAD        18 //8 //12->18 for higher dcc aim speed 
 //Max angle it can fire at [while turning at MGTURRET_FIRE_DIRECT_SPEED]
-#define MGTURRET_DIRECT_ACCURACY_SPREAD 5  //3
+#define MGTURRET_DIRECT_ACCURACY_SPREAD 8  //3 //5 -> 8
 
 //this is a mutliplier for the ratio of how fast the pitch goes compare to normal. "Normal" is the same value as for yaw. Yaw will stay as MGTURRET_ANGULARSPEED or whatever if it is grabbed.
 //For example, normal turning speed is 8 without grab or dcc, therefore:
 //*1 = normal = 8
 //*2 = Fast rise = 16
 //*0 = no rise -> erm...
-#define MGTURRET_ACCURACY_PITCH         0.5f //Old Lolards - 0.8
+#define MGTURRET_ACCURACY_PITCH         0.3f
 
 
 #define TESLAGEN_BP                 10
@@ -691,7 +693,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define TESLAGEN_SPLASHRADIUS       100
 //Following has been changed so it maintains its damage/s approximate as well as knockback
 #define TESLAGEN_REPEAT             100 // 250
-#define TESLAGEN_K_SCALE            5.0f //4f //higher for lower dmg, be cautious of repeat rates though //6->5 for it sends marauders flying everywhere
+#define TESLAGEN_K_SCALE            -5.0f //4f //higher for lower dmg, be cautious of repeat rates though //6->5 for it sends marauders flying everywhere //Reality electricity pulls 5 -> -5
 #define TESLAGEN_RANGE              280 //default 200
 #define TESLAGEN_DMG                HDM(4) //default 9
 
@@ -704,7 +706,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define ARMOURY_BP                  10
 #define ARMOURY_BT                  15000
-#define ARMOURY_HEALTH              HBHM(480) //380 //420 -> 480 for 4 snipes to kill
+#define ARMOURY_HEALTH              HBHM(480) //380 //420 -> 480 for 5 snipes to kill
 #define ARMOURY_SPLASHDAMAGE        50
 #define ARMOURY_SPLASHRADIUS        100
 
@@ -739,6 +741,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define STAMINA_WALK_RESTORE        15
 #define STAMINA_SPRINT_TAKE         8
 #define STAMINA_LARMOUR_TAKE        8 //It replaces sprint_take when having larmour. According to g_active.c default is '4' which makes no sense
+#define STAMINA_BSUIT_STOP_RESTORE  40
+#define STAMINA_BSUIT_WALK_RESTORE  20
+#define STAMINA_JUMP                150 //1.1: 500 Lolards: 300
+#define STAMINA_MIN_TO_JUMP         -800
 
 #define HUMAN_SPAWN_REPEAT_TIME     10000
 

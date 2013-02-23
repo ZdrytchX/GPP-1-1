@@ -167,19 +167,6 @@ void G_MissileImpact( gentity_t *ent, trace_t *trace )
       other->client->ps.stats[ STAT_VIEWLOCK ] = DirToByte( dir );
     }
   }
-/* //This following is a whole load of bullcrap. It doesn't work. Worth a try though.
-  else if( !strcmp( ent->classname, "lcannon" ) )
-  {
-    if( other->client && other->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //radioactive to aliens only
-    {
-      other->client->ps.stats[ STAT_STATE ] == SS_POISONED;
-    }
-  }
-  else if( !strcmp( ent->classname, "flame" ) )
-  {
-      other->client->ps.stats[ STAT_STATE ] == SS_POISONED; //humans can burn!
-  }
-*/
   else if( !strcmp( ent->classname, "hive" ) )
   {
     if( other->s.eType == ET_BUILDABLE && other->s.modelindex == BA_A_HIVE )
@@ -525,7 +512,7 @@ gentity_t *fire_luciferCannon( gentity_t *self, vec3_t start, vec3_t dir, int da
     bolt->nextthink = level.time + 100000;
   bolt->r.mins[ 0 ] = bolt->r.mins[ 1 ] = bolt->r.mins[ 2 ] = -0.0f;
   bolt->r.maxs[ 0 ] = bolt->r.maxs[ 1 ] = bolt->r.maxs[ 2 ] = 0.0f;
-  VectorScale( dir, ((1 - ((localDamage - LCANNON_TOTAL_CHARGE) / 150)) * LCANNON_SPEED), bolt->s.pos.trDelta );
+  VectorScale( dir, ((1.00f - ((float)(localDamage - LCANNON_TOTAL_CHARGE) / 150)) * LCANNON_SPEED), bolt->s.pos.trDelta );
   bolt->splashRadius = localDamage / 2 + 50;
 	}
   else if ( damage == LCANNON_SECONDARY_DAMAGE ) //then it must be a secondary fire

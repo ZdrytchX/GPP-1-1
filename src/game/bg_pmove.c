@@ -684,7 +684,7 @@ static qboolean PM_CheckJump( void )
     return qfalse;
 
   if( ( pm->ps->stats[ STAT_PTEAM ] == PTE_HUMANS ) &&
-      ( pm->ps->stats[ STAT_STAMINA ] < -800 ) )
+      ( pm->ps->stats[ STAT_STAMINA ] < STAMINA_MIN_TO_JUMP ) )
     return qfalse;
 
   if( pm->ps->pm_flags & PMF_RESPAWNED )
@@ -717,7 +717,7 @@ if(BUNNYHOP_TRUE == 0) //If it is enabled, don't read this
 
   //TA: take some stamina off
   if( pm->ps->stats[ STAT_PTEAM ] == PTE_HUMANS )
-    pm->ps->stats[ STAT_STAMINA ] -= 100; //300
+    pm->ps->stats[ STAT_STAMINA ] -= STAMINA_JUMP; //300
 
   pm->ps->groundEntityNum = ENTITYNUM_NONE;
 
@@ -2648,7 +2648,7 @@ static void PM_FinishWeaponChange( void )
 
   pm->ps->weapon = weapon;
   pm->ps->weaponstate = WEAPON_RAISING;
-  pm->ps->weaponTime += 250;
+  pm->ps->weaponTime += H_WEAP_SWITCH_DELAY; //250
 
   if( !( pm->ps->persistant[ PERS_STATE ] & PS_NONSEGMODEL ) )
     PM_StartTorsoAnim( TORSO_RAISE );

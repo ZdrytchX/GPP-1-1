@@ -610,14 +610,19 @@ void ClientTimerActions( gentity_t *ent, int msec )
 
     if( ( aForward <= 64 && aForward > 5 ) || ( aRight <= 64 && aRight > 5 ) )
     {
+      if( BG_InventoryContainsUpgrade( UP_BATTLESUIT, client->ps.stats ) )
+        client->ps.stats[ STAT_STAMINA ] += STAMINA_BSUIT_WALK_RESTORE;
       //restore stamina
-      client->ps.stats[ STAT_STAMINA ] += STAMINA_WALK_RESTORE;
+      else client->ps.stats[ STAT_STAMINA ] += STAMINA_WALK_RESTORE;
 
       if( client->ps.stats[ STAT_STAMINA ] > MAX_STAMINA )
         client->ps.stats[ STAT_STAMINA ] = MAX_STAMINA;
     }
     else if( aForward <= 5 && aRight <= 5 )
     {
+      if( BG_InventoryContainsUpgrade( UP_BATTLESUIT, client->ps.stats ) )
+        client->ps.stats[ STAT_STAMINA ] += STAMINA_BSUIT_STOP_RESTORE;
+      else 
       //restore stamina faster
       client->ps.stats[ STAT_STAMINA ] += STAMINA_STOP_RESTORE;
 
@@ -1057,7 +1062,7 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
  * I swapped the Booster and tyrant regen priority
  * so you can use a booster as a tyrant.
  */
-if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens right?
+if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS && level.surrenderTeam != PTE_ALIENS ) //only applies for aliens right?
       VectorAdd( client->ps.origin, creeprange, maxs );
       VectorSubtract( client->ps.origin, creeprange, mins );
 	{ //team alien start
@@ -1077,7 +1082,7 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
 //============================
 //Everything Else
 //============================
-if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens right?
+if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS && level.surrenderTeam != PTE_ALIENS ) //only applies for aliens right?
       VectorAdd( client->ps.origin, range, maxs );
       VectorSubtract( client->ps.origin, range, mins );
 	{ //team alien start
@@ -1133,7 +1138,10 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
       }
         } //team alien end
     }
-    client->autoregen += (1000 / ( BG_FindRegenRateForClass( client->ps.stats[ STAT_PCLASS ] ) *modifier * ALIENREGEN_NOCREEP_MOD ) );
+    if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) {
+    client->autoregen += (1000 / ( BG_FindRegenRateForClass( client->ps.stats[ STAT_PCLASS ] ) *modifier * ALIENREGEN_NOCREEP_MOD ) ); }
+    else {
+    client->autoregen += (1000 / ( BG_FindRegenRateForClass( client->ps.stats[ STAT_PCLASS ] ) *modifier * HUMAN_REGEN_MOD ) ); }
 //Regenerate!
         if( ent->health > 0 && ent->health < client->ps.stats[ STAT_MAX_HEALTH ] &&
             ( ent->lastDamageTime + ALIEN_REGEN_DAMAGE_TIME ) < level.time )
