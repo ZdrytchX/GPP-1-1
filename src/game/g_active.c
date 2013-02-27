@@ -996,13 +996,13 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
     {
       int ammo, maxAmmo;
 
-      BG_FindAmmoForWeapon( WP_BLASTER, &maxAmmo, NULL );
-      BG_UnpackAmmoArray( WP_BLASTER, client->ps.ammo, client->ps.powerups, &ammo, NULL );
+      BG_FindAmmoForWeapon( WP_BLASTER, &maxAmmo, NULL ); //null
+      BG_UnpackAmmoArray( WP_BLASTER, client->ps.ammo, client->ps.powerups, &ammo, NULL ); //null
 
       if( ammo < BLASTER_CLIPSIZE )
       {
         ammo++;
-        BG_PackAmmoArray( WP_BLASTER, client->ps.ammo, client->ps.powerups, ammo, 0 );
+        BG_PackAmmoArray( WP_BLASTER, client->ps.ammo, client->ps.powerups, ammo, BLASTER_MAXCLIPS ); //0
  
       }
     }

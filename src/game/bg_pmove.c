@@ -2830,7 +2830,7 @@ static void PM_Weapon( void )
   }
 
   // check for end of clip
-  if( ( !ammo || pm->ps->pm_flags & PMF_WEAPON_RELOAD ) && clips )
+  if( ( !ammo || pm->ps->pm_flags & PMF_WEAPON_RELOAD ) && clips && pm->ps->weapon != WP_BLASTER )//hacky fix for the lakitu7-qvm client
   {
     pm->ps->pm_flags &= ~PMF_WEAPON_RELOAD;
 
@@ -2971,7 +2971,7 @@ static void PM_Weapon( void )
     attack3 = qfalse;
   }
 //ZdrytchX
-  if( pm->ps->weapon == WP_BLASTER && !ammo )
+  if( pm->ps->weapon == WP_BLASTER && !ammo && clips )//hacky fix for lakitu-7 qvm clients
   {
     PM_AddEvent( EV_NOAMMO );
     pm->ps->weaponTime += 50;

@@ -396,7 +396,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define HDM(d)                      ((int)((float)d*HUMAN_WDMG_MODIFIER))
 
 #define BLASTER_REPEAT              700
-#define BLASTER_K_SCALE             1.0f 
+#define BLASTER_K_SCALE             12.0f //direct only
 #define BLASTER_SPREAD              0
 #define BLASTER_SPEED               1400
 #define BLASTER_DMG                 HDM(9)
@@ -409,7 +409,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BLASTER_MELEE_RANGE         60 //enough for combat
 //Prevent Blaster Spamming
 #define BLASTER_CLIPSIZE            3
-#define BLASTER_MAXCLIPS            0
+#define BLASTER_MAXCLIPS            1 //hacky fix for the lakitu7-qvm client
 #define BLASTER_INF_AMMO            qtrue //qtrue
 
 #define RIFLE_CLIPSIZE              30
@@ -674,9 +674,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //GPP-1.1 change: Raised so it shoots behind target if the target is moving quickly
 
 //Max angle it can fire at [while turning at MGTURRET_FIRE_SPEED]
-#define MGTURRET_ACCURACY_SPREAD        18 //8 //12->18 for higher dcc aim speed 
+#define MGTURRET_ACCURACY_SPREAD        16
 //Max angle it can fire at [while turning at MGTURRET_FIRE_DIRECT_SPEED]
-#define MGTURRET_DIRECT_ACCURACY_SPREAD 8  //3 //5 -> 8
+#define MGTURRET_DIRECT_ACCURACY_SPREAD 6
 
 //this is a mutliplier for the ratio of how fast the pitch goes compare to normal. "Normal" is the same value as for yaw. Yaw will stay as MGTURRET_ANGULARSPEED or whatever if it is grabbed.
 //For example, normal turning speed is 8 without grab or dcc, therefore:
@@ -739,7 +739,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define STAMINA_STOP_RESTORE        25
 #define STAMINA_WALK_RESTORE        15
-#define STAMINA_SPRINT_TAKE         8
+#define STAMINA_SPRINT_TAKE         6 //8
 #define STAMINA_LARMOUR_TAKE        8 //It replaces sprint_take when having larmour. According to g_active.c default is '4' which makes no sense
 #define STAMINA_BSUIT_STOP_RESTORE  40
 #define STAMINA_BSUIT_WALK_RESTORE  20

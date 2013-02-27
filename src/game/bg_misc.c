@@ -3120,11 +3120,11 @@ weaponAttributes_t bg_weapons[ ] =
     "blaster",            //char      *weaponName;
     "Blaster",            //char      *weaponHumanName;
     BLASTER_CLIPSIZE,     //int       maxAmmo;
-    0,                    //int       maxClips;
+    BLASTER_MAXCLIPS,     //int       maxClips;
     BLASTER_INF_AMMO,     //int       infiniteAmmo;
     qfalse,               //int       usesEnergy;
     BLASTER_REPEAT,       //int       repeatRate1;
-    BLASTER_MELLEE_REPEAT,      //int       repeatRate2;
+    BLASTER_MELLEE_REPEAT, //int       repeatRate2;
     0,                    //int       repeatRate3;
     0,                    //int       reloadTime;
     BLASTER_K_SCALE,      //float     knockbackScale;
