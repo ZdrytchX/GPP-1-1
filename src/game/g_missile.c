@@ -501,19 +501,11 @@ gentity_t *fire_luciferCannon( gentity_t *self, vec3_t start, vec3_t dir, int da
 
   if( damage == LCANNON_TOTAL_CHARGE )
 	{
-    bolt->nextthink = level.time + 1; //launches and blows self up. Only difference bwteeen default and + 1 is one milisecond life time. Don't worry about changing these other values in this section if you don't change this.
+    bolt->nextthink = level.time + 1;
   bolt->r.mins[ 0 ] = bolt->r.mins[ 1 ] = bolt->r.mins[ 2 ] = -0.0f;
   bolt->r.maxs[ 0 ] = bolt->r.maxs[ 1 ] = bolt->r.maxs[ 2 ] = 0.0f;
   VectorScale( dir, LCANNON_SPEED, bolt->s.pos.trDelta );
   bolt->splashRadius = localDamage;
-	}
-  else if ( damage < LCANNON_TOTAL_CHARGE )
-	{
-    bolt->nextthink = level.time + 100000;
-  bolt->r.mins[ 0 ] = bolt->r.mins[ 1 ] = bolt->r.mins[ 2 ] = -0.0f;
-  bolt->r.maxs[ 0 ] = bolt->r.maxs[ 1 ] = bolt->r.maxs[ 2 ] = 0.0f;
-  VectorScale( dir, ((1.00f - ((float)(localDamage - LCANNON_TOTAL_CHARGE) / 150)) * LCANNON_SPEED), bolt->s.pos.trDelta );
-  bolt->splashRadius = localDamage / 2 + 50;
 	}
   else if ( damage == LCANNON_SECONDARY_DAMAGE ) //then it must be a secondary fire
 	{
@@ -522,6 +514,14 @@ gentity_t *fire_luciferCannon( gentity_t *self, vec3_t start, vec3_t dir, int da
   bolt->r.maxs[ 0 ] = bolt->r.maxs[ 1 ] = bolt->r.maxs[ 2 ] = 0.0f;
   VectorScale( dir, (LCANNON_SECONDARY_SPEED), bolt->s.pos.trDelta );
   bolt->splashRadius = LCANNON_SECONDARY_RADIUS;
+	}
+  else if ( damage < LCANNON_TOTAL_CHARGE )
+	{
+    bolt->nextthink = level.time + 100000;
+  bolt->r.mins[ 0 ] = bolt->r.mins[ 1 ] = bolt->r.mins[ 2 ] = -0.0f;
+  bolt->r.maxs[ 0 ] = bolt->r.maxs[ 1 ] = bolt->r.maxs[ 2 ] = 0.0f;
+  VectorScale( dir, ((float)(1.00 - ((localDamage - LCANNON_TOTAL_CHARGE) / 150)) * LCANNON_SPEED), bolt->s.pos.trDelta );
+  bolt->splashRadius = localDamage / 2 + 50;
 	}
   else //glitch fix
 	{

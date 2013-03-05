@@ -825,7 +825,7 @@ void ClientTimerActions( gentity_t *ent, int msec )
         0, damage, 0, MOD_POISON );
     }
 
-    //replenish/regenerate alien health //I will add in human regen shortly once i get a linux OS
+    //replenish/regenerate alien health
     if( //client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS &&
       //level.surrenderTeam != PTE_ALIENS
       //&&
@@ -921,23 +921,14 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
     }
     else if( ent->client->ps.stats[ STAT_HEALTH ] > 0 && ent->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS )
     {
-	//REGENERATION/DEGENERATION for humans
-/*		if ( ent->health < client->ps.stats[STAT_MAX_HEALTH])
-		{
-		ent->health += 1; //don't need it, we're not aliens.. and also we have vampire mode
-		}*/
+	//Anti-Revive hack
 		if ( ent->health < 0)
 		{
-		ent->health = -9999; //glitchy hack, but works. The higher the number (toward 0 of course) the higher chance of a human glitch-reviving with ghost mode.
+		ent->health = -9999;
 		}
-//		if ( ent->health > client->ps.stats[STAT_MAX_HEALTH])
-//		{
-//		ent->health -= (client->ps.stats[ STAT_MAX_HEALTH ] / 25);
-//                ent->health -= ((client->ps.stats[ STAT_HEALTH ] - (client->ps.stats[ STAT_MAX_HEALTH ] ) )/ VAMP_TAKE  + 0.5 );
-//		}
 	
-		if( ent->health > client->ps.stats[ STAT_MAX_HEALTH ] * MAX_MAX_HEALTH ) //apprently the other one didn't work; copy+paste here - I'VE DONE THIS SOO MANY FKIN TIMES!!! ONLY THIS ONE WORKS [for now]
-		ent->health = client->ps.stats[ STAT_MAX_HEALTH ] * MAX_MAX_HEALTH; //and also not reliable
+		if( ent->health > client->ps.stats[ STAT_MAX_HEALTH ] * MAX_MAX_HEALTH )
+		ent->health = client->ps.stats[ STAT_MAX_HEALTH ] * MAX_MAX_HEALTH; //not reliable
 
       ent->client->pers.statscounters.timealive++;
       level.humanStatsCounters.timealive++;
@@ -999,7 +990,7 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
       BG_FindAmmoForWeapon( WP_BLASTER, &maxAmmo, NULL ); //null
       BG_UnpackAmmoArray( WP_BLASTER, client->ps.ammo, client->ps.powerups, &ammo, NULL ); //null
 
-      if( ammo < BLASTER_CLIPSIZE )
+      if( ammo < BLASTER_CLIPSIZE || ammo > BLASTER_CLIPSIZE ) //temporary inf. ammo fix
       {
         ammo++;
         BG_PackAmmoArray( WP_BLASTER, client->ps.ammo, client->ps.powerups, ammo, BLASTER_MAXCLIPS ); //0
@@ -1008,9 +999,9 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
     }
   }
 
-  while( client->time10000 >= 15000 ) 
+  while( client->time10000 >= LEVEL3_BOUNCEBALL_RECHARGE ) 
   {
-    client->time10000 -= 15000;
+    client->time10000 -= LEVEL3_BOUNCEBALL_RECHARGE;
 
     if( client->ps.weapon == WP_ALEVEL3_UPG )
     {
@@ -1024,9 +1015,9 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
         ammo++;
         BG_PackAmmoArray( WP_ALEVEL3_UPG, client->ps.ammo, client->ps.powerups, ammo, 0 );
       }
-      else if ( ammo == maxAmmo ) //Hacky odd fix
+      else if ( ammo == maxAmmo )
       {
-        client->time10000 = 5000; //Set only 15-5 = (10) seconds to recharge after first shot from full bay
+        client->time10000 = 8000; //Set only 15-5 = (10) seconds to recharge after first shot from full bay
       }
     }
   }
@@ -1138,14 +1129,21 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS && level.surrenderTeam != PTE_A
       }
         } //team alien end
     }
-    if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) {
-    client->autoregen += (1000 / ( BG_FindRegenRateForClass( client->ps.stats[ STAT_PCLASS ] ) *modifier * ALIENREGEN_NOCREEP_MOD ) ); }
+    if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
+         {
+    client->autoregen += (1000 / ( BG_FindRegenRateForClass( client->ps.stats[ STAT_PCLASS ] ) *modifier * ALIENREGEN_NOCREEP_MOD ) );
+         }
     else {
-    client->autoregen += (1000 / ( BG_FindRegenRateForClass( client->ps.stats[ STAT_PCLASS ] ) *modifier * HUMAN_REGEN_MOD ) ); }
+//dynamic regeneration
+	int healthneeded;
+	healthneeded = client->ps.stats[ STAT_MAX_HEALTH ] - (client->ps.stats[ STAT_HEALTH ] - 2); //so it doesn't recover horribly slow near 100 hp
+    client->autoregen += (1000 / ( BG_FindRegenRateForClass( client->ps.stats[ STAT_PCLASS ] ) * HUMAN_REGEN_MOD * healthneeded * 0.01 ) );
+         }
+
 //Regenerate!
         if( ent->health > 0 && ent->health < client->ps.stats[ STAT_MAX_HEALTH ] &&
             ( ent->lastDamageTime + ALIEN_REGEN_DAMAGE_TIME ) < level.time )
-          ent->health += 1;
+          ent->health ++;
   }
 }
 

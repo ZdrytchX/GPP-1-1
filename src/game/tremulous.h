@@ -131,6 +131,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define LEVEL3_BOUNCEBALL_AMMO      3
 #define LEVEL3_BOUNCEBALL_REPEAT    1000
+#define LEVEL3_BOUNCEBALL_RECHARGE  18000 //barb regen time
 #define LEVEL3_BOUNCEBALL_SPEED     1000.0f
 #define LEVEL3_BOUNCEBALL_SPLASH_DMG  76 //Honestly, i don't like the overpowered snipe. 110 -> 76
 #define LEVEL3_BOUNCEBALL_SPLASH_RADIUS 92 //Splash radius. Helps with sniping. //Rememeber that reload time is 10 seconds. You don't want it overpowered.  //TODO: Reload up to 20 seconds
@@ -590,7 +591,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BSUIT_PRICE                 400
 #define BSUIT_POISON_PROTECTION     4
 #define HUMAN_REGEN                 1 //int (per ALIENREGEN_NOCREEP_MOD) per second
-#define HUMAN_REGEN_MOD             0.8f //Modifier for human regen per second (if HUMAN_REGEN = 1 and this = 2.0f, then human heals 1 hp every 0.5 seconds, same as HUMAN_REGEN = 2 and this = 1.0f, just a counter for HUMAN_REGEN's interger restrictions)
+#define HUMAN_REGEN_MOD             1.2f //Modifier for human regen per second at 2 health //Try to keep low
 
 #define MGCLIP_PRICE                0
 
@@ -661,7 +662,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define MGTURRET_REPEAT             100
 #define MGTURRET_K_SCALE            1.0f
 #define MGTURRET_RANGE              400.0f
-#define MGTURRET_SPREAD             600 //200 is aimbot
+#define MGTURRET_SPREAD             600 //200
 #define MGTURRET_DMG                HDM(6) //total damage per shot, keep value even [not odd - it divides the bullet into two]
 
 #define MGTURRET_DCC_ANGULARSPEED       18 //DCCs are now valuable
@@ -674,9 +675,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //GPP-1.1 change: Raised so it shoots behind target if the target is moving quickly
 
 //Max angle it can fire at [while turning at MGTURRET_FIRE_SPEED]
-#define MGTURRET_ACCURACY_SPREAD        16
+#define MGTURRET_ACCURACY_SPREAD        12
 //Max angle it can fire at [while turning at MGTURRET_FIRE_DIRECT_SPEED]
-#define MGTURRET_DIRECT_ACCURACY_SPREAD 6
+#define MGTURRET_DIRECT_ACCURACY_SPREAD 3
 
 //this is a mutliplier for the ratio of how fast the pitch goes compare to normal. "Normal" is the same value as for yaw. Yaw will stay as MGTURRET_ANGULARSPEED or whatever if it is grabbed.
 //For example, normal turning speed is 8 without grab or dcc, therefore:
@@ -759,7 +760,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define HUMAN_MAXED                 1200   //default 900 //change in according to ALIEN_MAX_SINGLE_KILLS
 #define HUMAN_MAX_CREDITS           2000
 #define ALIEN_MAX_KILLS             9
-#define ALIEN_MAX_SINGLE_KILLS      4 //Max evos earned from HUMAN_MAXED i guess... i never looked into this //3->4
+#define ALIEN_MAX_SINGLE_KILLS      4 //Max evos earned from HUMAN_MAXED 3->4
 
 #define FREEKILL_PERIOD             90000
 #define FREEKILL_ALIEN              1
