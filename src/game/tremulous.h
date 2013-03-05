@@ -106,7 +106,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 					//TODO: Allow graphics to continue running despite chain cut off early
 #define LEVEL2_AREAZAP_MAX_TARGETS  5
 #define LEVEL2_WALLJUMP_MAXSPEED    90000.0f //1290.0f //idk, don't really want a max
-#define LEVEL2_AREAZAP_K_SCALE      -3.5f //Chain-ees get pulled together with this
+#define LEVEL2_AREAZAP_K_SCALE      -3.0f //Chain-ees get pulled together with this
 
 //Goon modified heavily to get close to gpp values.
 #define LEVEL3_CLAW_DMG             ADM(80 + (VAMP_ON * 10))
@@ -127,7 +127,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL3_POUNCE_SPEED_MOD     0.75f 
 #define LEVEL3_POUNCE_CHARGE_TIME   700 
 #define LEVEL3_POUNCE_TIME          400 //delay after touching ground?!?
-#define LEVEL3_BOUNCEBALL_DMG       ADM(110)
+#define LEVEL3_BOUNCEBALL_DMG       ADM(115)
 
 #define LEVEL3_BOUNCEBALL_AMMO      3
 #define LEVEL3_BOUNCEBALL_REPEAT    1000
@@ -141,7 +141,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL4_CLAW_WIDTH           16.0f //20 //18
 #define LEVEL4_CLAW_REPEAT          750 //750 //keep at 1.1 value, otherwise people will charge-spam only
 #define LEVEL4_CLAW_K_SCALE         0.8f //
-#define LEVEL4_REGEN_RANGE          200.0f //usually goes unnoticed, left default
+
 #define LEVEL4_REGEN_MOD            1.5f //No more hall camping hopefully. I've swapped boosting priorities so rants should benifit from boosters
 #define LEVEL4_CHARGE_SPEED         2.0f //2.5 is easier to move with
 #define LEVEL4_CHARGE_TIME          4000 //2000 
@@ -161,7 +161,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //Removed tyrant spit bomb
 
 #define LEVEL4_CHARGE_EXTRA         ADM(15) //Extra damage added to charge so it isnt completely useless when slow
-#define LEVEL4_TRAMPLE_DMG_B        (0.35f * (VAMP_ON * 0.85)) //Dmg multiplier to buildables    
+#define LEVEL4_TRAMPLE_DMG_B        (0.5f * (VAMP_ON * 0.85)) //Dmg multiplier to buildables
+
+#define LEVEL4_REGEN_RANGE          100.0f //Used for basi, booster and overmind healing, default 200
+
 
 
 /*
@@ -448,7 +451,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define SHOTGUN_K_SCALE             2.0f
 #define SHOTGUN_RELOAD              2000 //( SHOTGUN_SHELLS * 400 + 800 )
 #define SHOTGUN_SPREAD              900
-#define SHOTGUN_DMG                 HDM(4) //4 per dretch
+#define SHOTGUN_DMG                 HDM(4)
 
 //Stuns the player a little, yet more "accurate" for mid ranges
 //Disabled via bg_misc.c
@@ -507,10 +510,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define FLAMER_GAS                  400 //Double fire rate, halve damage.
 #define FLAMER_RELOAD               3000
 #define FLAMER_REPEAT               100 //Let's be realistic here.
-#define FLAMER_K_SCALE              1.0f //gpp says, not me
+#define FLAMER_K_SCALE              1.25f
 #define FLAMER_DMG                  HDM(10) //^^
-#define FLAMER_DMG_MOD              0.5f//Same deal as blaster, this one allows wall climbing.
-#define FLAMER_RADIUS_MOD           2.0f //splash damage mod //Previous variable cancels out this one
+#define FLAMER_DMG_MOD              0.8f//Same deal as blaster, this one allows wall climbing.
+#define FLAMER_RADIUS_MOD           1.25f //splash damage mod //Previous variable cancels out this one
 #define FLAMER_RADIUS               50
 #define FLAMER_LIFETIME             800.0f //Apparently gpp uses 700 and double knockback...
 #define FLAMER_SPEED                400.0f
@@ -590,7 +593,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define BSUIT_PRICE                 400
 #define BSUIT_POISON_PROTECTION     4
-#define HUMAN_REGEN                 1 //int (per ALIENREGEN_NOCREEP_MOD) per second
+#define HUMAN_REGEN                 1 //int, recommended to stay '1' and modify HUMAN_REGEN_MOD instead
 #define HUMAN_REGEN_MOD             1.2f //Modifier for human regen per second at 2 health //Try to keep low
 
 #define MGCLIP_PRICE                0
@@ -695,11 +698,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //Following has been changed so it maintains its damage/s approximate as well as knockback
 #define TESLAGEN_REPEAT             100 // 250
 #define TESLAGEN_K_SCALE            -5.0f //4f //higher for lower dmg, be cautious of repeat rates though //6->5 for it sends marauders flying everywhere //Reality electricity pulls 5 -> -5
-#define TESLAGEN_RANGE              280 //default 200
+#define TESLAGEN_RANGE              250 //default 200
 #define TESLAGEN_DMG                HDM(4) //default 9
 
 //DCC no longer powers teslas nor heals - it speeds up turrets dramatically. A highly valued structure honestly, no jokes.
-#define DC_BP                       8
+#define DC_BP                       10
 #define DC_BT                       10000
 #define DC_HEALTH                   HBHM(190)
 #define DC_SPLASHDAMAGE             50
@@ -742,7 +745,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define STAMINA_WALK_RESTORE        15
 #define STAMINA_SPRINT_TAKE         6 //8
 #define STAMINA_LARMOUR_TAKE        8 //It replaces sprint_take when having larmour. According to g_active.c default is '4' which makes no sense
-#define STAMINA_BSUIT_STOP_RESTORE  40
+#define STAMINA_BSUIT_STOP_RESTORE  30
 #define STAMINA_BSUIT_WALK_RESTORE  20
 #define STAMINA_JUMP                150 //1.1: 500 Lolards: 300
 #define STAMINA_MIN_TO_JUMP         -800
@@ -767,13 +770,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define FREEKILL_HUMAN              LEVEL0_VALUE
 
 //Raised thresholds
-#define DEFAULT_ALIEN_BUILDPOINTS   "150"
+#define DEFAULT_ALIEN_BUILDPOINTS   "140"
 #define DEFAULT_ALIEN_STAGE2_THRESH "35"
-#define DEFAULT_ALIEN_STAGE3_THRESH "90"
+#define DEFAULT_ALIEN_STAGE3_THRESH "70"
 #define DEFAULT_ALIEN_MAX_STAGE     "2"
-#define DEFAULT_HUMAN_BUILDPOINTS   "100"
+#define DEFAULT_HUMAN_BUILDPOINTS   "140"
 #define DEFAULT_HUMAN_STAGE2_THRESH "35"
-#define DEFAULT_HUMAN_STAGE3_THRESH "90"
+#define DEFAULT_HUMAN_STAGE3_THRESH "70"
 #define DEFAULT_HUMAN_MAX_STAGE     "2"
 
 #define DAMAGE_FRACTION_FOR_KILL    0.5f
