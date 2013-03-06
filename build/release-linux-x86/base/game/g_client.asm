@@ -7062,11 +7062,15 @@ ADDP4
 CNSTF4 1065353216
 ASGNF4
 ADDRLP4 1744
+CNSTF4 1065353216
 ADDRLP4 4
 INDIRP4
 CNSTI4 208
 ADDP4
 INDIRI4
+CVIF4 4
+MULF4
+CVFI4 4
 ASGNI4
 ADDRLP4 4
 INDIRP4
@@ -8080,6 +8084,7 @@ import g_ReservedNameMatch
 import g_lesson_NoVotes
 import g_DebugMsg
 import g_pathediting
+import g_bot_teamkill
 import g_bot_wave_interval
 import g_bot_survival
 import g_bot_infinite_funds

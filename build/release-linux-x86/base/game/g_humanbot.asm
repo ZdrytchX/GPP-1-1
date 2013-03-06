@@ -1315,6 +1315,7 @@ import g_ReservedNameMatch
 import g_lesson_NoVotes
 import g_DebugMsg
 import g_pathediting
+import g_bot_teamkill
 import g_bot_wave_interval
 import g_bot_survival
 import g_bot_infinite_funds
