@@ -1416,7 +1416,7 @@ int botFindClosestEnemy( gentity_t *self, qboolean includeTeam ) {
                     //if the entity is a player and not us
                 } else if( target->client && self != target) {
                     //if we are not on the same team (unless we can attack teamates)
-                    if( target->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM] && g_bot_teamkill.integer == 1 || includeTeam ) {
+                    if( target->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM] && g_bot_teamkill.integer == 1/* || includeTeam */) {
                         
                         //store the new distance and the index of the enemy
                         minDistance = newDistance;
