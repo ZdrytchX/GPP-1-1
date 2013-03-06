@@ -593,6 +593,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define BSUIT_PRICE                 400
 #define BSUIT_POISON_PROTECTION     4
+
 #define HUMAN_REGEN                 1 //int, recommended to stay '1' and modify HUMAN_REGEN_MOD instead
 #define HUMAN_REGEN_MOD             1.2f //Modifier for human regen per second at 2 health //Try to keep low
 
@@ -792,6 +793,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
                                     //Do not use floating values when turned off! Use (1.00f*(VAMP_ON)/600) when on.
 #define VAMP_DIVIDE                 10   //
 #define VAMP_TAKE                   6.25 //6.25 //Confusing, recommended to leave as is. Basically at MAX-vamp'd health, you lose 4 times as much as you would with 25% vamp'd health
+#define VAMP_INIT_HEALTH            1.00 //Spawn with this health
                                        //Human max extra health is 50, so it takes 8 hp/s at most...
 #define MAX_MAX_HEALTH              1.0f //Max health for players * this = Max vamped health, in this case its 1+(if vamp is on/off [1/0]*0.5) = 1.5x normal max health
 //medkits extras

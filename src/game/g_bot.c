@@ -473,7 +473,7 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
     //this is here so we dont run out of stamina..
     //basically, just me being too lazy to make bots stop and regain stamina
     //self->client->ps.stats[ STAT_STAMINA ] = MAX_STAMINA;
-    self->client->ps.stats[ STAT_STAMINA ] += (MAX_STAMINA/500);//test: regain stamina even if running
+    self->client->ps.stats[ STAT_STAMINA ] += (MAX_STAMINA/500);//Bots regain stamina
     
     //we have stopped moving forward, try to get around whatever is blocking us
     if( botPathIsBlocked(self) ) {
@@ -1416,7 +1416,7 @@ int botFindClosestEnemy( gentity_t *self, qboolean includeTeam ) {
                     //if the entity is a player and not us
                 } else if( target->client && self != target) {
                     //if we are not on the same team (unless we can attack teamates)
-                    if( target->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM] || includeTeam ) {
+                    if( target->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM] && g_bot_teamkill == 1 || includeTeam ) {
                         
                         //store the new distance and the index of the enemy
                         minDistance = newDistance;

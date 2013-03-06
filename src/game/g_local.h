@@ -1537,6 +1537,7 @@ extern vmCvar_t g_bot_roam;
 extern vmCvar_t g_bot_infinite_funds;
 extern vmCvar_t g_bot_survival;
 extern vmCvar_t g_bot_wave_interval;
+extern vmCvar_t g_bot_teamkill;
 
 //</bot stuff>
 

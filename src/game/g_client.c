@@ -1775,6 +1775,7 @@ void ClientSpawn( gentity_t *ent, gentity_t *spawn, vec3_t origin, vec3_t angles
     client->pers.maxHealth = client->ps.stats[ STAT_MAX_HEALTH ] = 100;
 
   // clear entity values
+  // spawn with weapons
   if( ent->client->pers.classSelection == PCL_HUMAN )
   {
     BG_AddWeaponToInventory( WP_BLASTER, client->ps.stats );
@@ -1798,7 +1799,7 @@ void ClientSpawn( gentity_t *ent, gentity_t *spawn, vec3_t origin, vec3_t angles
   VectorSet( ent->client->ps.grapplePoint, 0.0f, 0.0f, 1.0f );
 
   // health will count down towards max_health
-  ent->health = client->ps.stats[ STAT_HEALTH ] = client->ps.stats[ STAT_MAX_HEALTH ]; //* 1.25;
+  ent->health = client->ps.stats[ STAT_HEALTH ] = client->ps.stats[ STAT_MAX_HEALTH ] * VAMP_INIT_HEALTH; //* 1.25;
 
   //if evolving scale health
   if( ent == spawn )

@@ -1666,14 +1666,14 @@ CALLV
 pop
 ADDRGP4 $328
 ARGP4
-ADDRGP4 $329
+ADDRGP4 $317
 ARGP4
 ADDRLP4 0
 ARGP4
 ADDRGP4 G_SpawnString
 CALLI4
 pop
-ADDRGP4 $330
+ADDRGP4 $329
 ARGP4
 ADDRLP4 0
 INDIRP4
@@ -1681,7 +1681,7 @@ ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-ADDRGP4 $331
+ADDRGP4 $330
 ARGP4
 ADDRGP4 $320
 ARGP4
@@ -1690,7 +1690,7 @@ ARGP4
 ADDRGP4 G_SpawnString
 CALLI4
 pop
-ADDRGP4 $332
+ADDRGP4 $331
 ARGP4
 ADDRLP4 0
 INDIRP4
@@ -1698,7 +1698,7 @@ ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-ADDRGP4 $333
+ADDRGP4 $332
 ARGP4
 ADDRGP4 $323
 ARGP4
@@ -1707,7 +1707,7 @@ ARGP4
 ADDRGP4 G_SpawnString
 CALLI4
 pop
-ADDRGP4 $334
+ADDRGP4 $333
 ARGP4
 ADDRLP4 0
 INDIRP4
@@ -1715,7 +1715,7 @@ ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-ADDRGP4 $335
+ADDRGP4 $334
 ARGP4
 ADDRGP4 $326
 ARGP4
@@ -1724,33 +1724,33 @@ ARGP4
 ADDRGP4 G_SpawnString
 CALLI4
 pop
-ADDRGP4 $336
+ADDRGP4 $335
 ARGP4
 ADDRLP4 0
 INDIRP4
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
+pop
+ADDRGP4 $336
+ARGP4
+ADDRGP4 $258
+ARGP4
+ADDRLP4 0
+ARGP4
+ADDRGP4 G_SpawnString
+CALLI4
 pop
 ADDRGP4 $337
 ARGP4
-ADDRGP4 $258
-ARGP4
 ADDRLP4 0
+INDIRP4
 ARGP4
-ADDRGP4 G_SpawnString
-CALLI4
+ADDRGP4 trap_Cvar_Set
+CALLV
 pop
 ADDRGP4 $338
 ARGP4
-ADDRLP4 0
-INDIRP4
-ARGP4
-ADDRGP4 trap_Cvar_Set
-CALLV
-pop
-ADDRGP4 $339
-ARGP4
 ADDRGP4 $258
 ARGP4
 ADDRLP4 0
@@ -1758,49 +1758,49 @@ ARGP4
 ADDRGP4 G_SpawnString
 CALLI4
 pop
-ADDRGP4 $340
+ADDRGP4 $339
 ARGP4
 ADDRLP4 0
 INDIRP4
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
+pop
+ADDRGP4 $340
+ARGP4
+ADDRGP4 $303
+ARGP4
+ADDRLP4 0
+ARGP4
+ADDRGP4 G_SpawnString
+CALLI4
 pop
 ADDRGP4 $341
 ARGP4
-ADDRGP4 $303
-ARGP4
 ADDRLP4 0
+INDIRP4
 ARGP4
-ADDRGP4 G_SpawnString
-CALLI4
+ADDRGP4 trap_Cvar_Set
+CALLV
 pop
 ADDRGP4 $342
 ARGP4
-ADDRLP4 0
-INDIRP4
+ADDRGP4 $303
 ARGP4
-ADDRGP4 trap_Cvar_Set
-CALLV
+ADDRLP4 0
+ARGP4
+ADDRGP4 G_SpawnString
+CALLI4
 pop
 ADDRGP4 $343
 ARGP4
-ADDRGP4 $303
-ARGP4
-ADDRLP4 0
-ARGP4
-ADDRGP4 G_SpawnString
-CALLI4
-pop
-ADDRGP4 $344
-ARGP4
 ADDRLP4 0
 INDIRP4
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-ADDRGP4 $345
+ADDRGP4 $344
 ARGP4
 ADDRGP4 $303
 ARGP4
@@ -1809,7 +1809,7 @@ ARGP4
 ADDRGP4 G_SpawnString
 CALLI4
 pop
-ADDRGP4 $346
+ADDRGP4 $345
 ARGP4
 ADDRLP4 0
 INDIRP4
@@ -1826,15 +1826,15 @@ ASGNP4
 ADDRGP4 g_restarted+12
 INDIRI4
 CNSTI4 0
-EQI4 $350
-ADDRGP4 $353
+EQI4 $349
+ADDRGP4 $352
 ARGP4
 ADDRGP4 $258
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-LABELV $350
+LABELV $349
 LABELV $302
 endproc SP_worldspawn 12 12
 export G_SpawnEntitiesFromString
@@ -1852,23 +1852,23 @@ ASGNI4
 ADDRLP4 0
 INDIRI4
 CNSTI4 0
-NEI4 $357
-ADDRGP4 $359
+NEI4 $356
+ADDRGP4 $358
 ARGP4
 ADDRGP4 G_Error
 CALLV
 pop
-LABELV $357
+LABELV $356
 ADDRGP4 SP_worldspawn
 CALLV
 pop
-ADDRGP4 $361
+ADDRGP4 $360
 JUMPV
-LABELV $360
+LABELV $359
 ADDRGP4 G_SpawnGEntityFromSpawnVars
 CALLV
 pop
-LABELV $361
+LABELV $360
 ADDRLP4 4
 ADDRGP4 G_ParseSpawnVars
 CALLI4
@@ -1876,11 +1876,11 @@ ASGNI4
 ADDRLP4 4
 INDIRI4
 CNSTI4 0
-NEI4 $360
+NEI4 $359
 ADDRGP4 level+6540
 CNSTI4 0
 ASGNI4
-LABELV $354
+LABELV $353
 endproc G_SpawnEntitiesFromString 8 4
 import SP_misc_light_flare
 import SP_misc_anim_model
@@ -2782,7 +2782,7 @@ import srand
 import qsort
 lit
 align 1
-LABELV $359
+LABELV $358
 byte 1 83
 byte 1 112
 byte 1 97
@@ -2811,7 +2811,7 @@ byte 1 101
 byte 1 115
 byte 1 0
 align 1
-LABELV $353
+LABELV $352
 byte 1 103
 byte 1 95
 byte 1 114
@@ -2823,32 +2823,11 @@ byte 1 114
 byte 1 116
 byte 1 101
 byte 1 100
-byte 1 0
-align 1
-LABELV $346
-byte 1 103
-byte 1 95
-byte 1 100
-byte 1 105
-byte 1 115
-byte 1 97
-byte 1 98
-byte 1 108
-byte 1 101
-byte 1 100
-byte 1 66
-byte 1 117
-byte 1 105
-byte 1 108
-byte 1 100
-byte 1 97
-byte 1 98
-byte 1 108
-byte 1 101
-byte 1 115
 byte 1 0
 align 1
 LABELV $345
+byte 1 103
+byte 1 95
 byte 1 100
 byte 1 105
 byte 1 115
@@ -2870,8 +2849,6 @@ byte 1 115
 byte 1 0
 align 1
 LABELV $344
-byte 1 103
-byte 1 95
 byte 1 100
 byte 1 105
 byte 1 115
@@ -2880,16 +2857,21 @@ byte 1 98
 byte 1 108
 byte 1 101
 byte 1 100
-byte 1 67
+byte 1 66
+byte 1 117
+byte 1 105
 byte 1 108
+byte 1 100
 byte 1 97
-byte 1 115
-byte 1 115
+byte 1 98
+byte 1 108
 byte 1 101
 byte 1 115
 byte 1 0
 align 1
 LABELV $343
+byte 1 103
+byte 1 95
 byte 1 100
 byte 1 105
 byte 1 115
@@ -2908,8 +2890,6 @@ byte 1 115
 byte 1 0
 align 1
 LABELV $342
-byte 1 103
-byte 1 95
 byte 1 100
 byte 1 105
 byte 1 115
@@ -2918,18 +2898,18 @@ byte 1 98
 byte 1 108
 byte 1 101
 byte 1 100
-byte 1 69
-byte 1 113
-byte 1 117
-byte 1 105
-byte 1 112
-byte 1 109
+byte 1 67
+byte 1 108
+byte 1 97
+byte 1 115
+byte 1 115
 byte 1 101
-byte 1 110
-byte 1 116
+byte 1 115
 byte 1 0
 align 1
 LABELV $341
+byte 1 103
+byte 1 95
 byte 1 100
 byte 1 105
 byte 1 115
@@ -2950,23 +2930,28 @@ byte 1 116
 byte 1 0
 align 1
 LABELV $340
-byte 1 103
-byte 1 95
-byte 1 101
-byte 1 110
+byte 1 100
+byte 1 105
+byte 1 115
 byte 1 97
 byte 1 98
 byte 1 108
 byte 1 101
-byte 1 66
-byte 1 114
+byte 1 100
+byte 1 69
+byte 1 113
+byte 1 117
+byte 1 105
+byte 1 112
+byte 1 109
 byte 1 101
-byte 1 97
+byte 1 110
 byte 1 116
-byte 1 104
 byte 1 0
 align 1
 LABELV $339
+byte 1 103
+byte 1 95
 byte 1 101
 byte 1 110
 byte 1 97
@@ -2982,21 +2967,23 @@ byte 1 104
 byte 1 0
 align 1
 LABELV $338
-byte 1 103
-byte 1 95
 byte 1 101
 byte 1 110
 byte 1 97
 byte 1 98
 byte 1 108
 byte 1 101
-byte 1 68
-byte 1 117
-byte 1 115
+byte 1 66
+byte 1 114
+byte 1 101
+byte 1 97
 byte 1 116
+byte 1 104
 byte 1 0
 align 1
 LABELV $337
+byte 1 103
+byte 1 95
 byte 1 101
 byte 1 110
 byte 1 97
@@ -3010,31 +2997,21 @@ byte 1 116
 byte 1 0
 align 1
 LABELV $336
-byte 1 103
-byte 1 95
-byte 1 97
-byte 1 108
-byte 1 105
 byte 1 101
 byte 1 110
-byte 1 83
-byte 1 116
 byte 1 97
-byte 1 103
-byte 1 101
-byte 1 51
-byte 1 84
-byte 1 104
-byte 1 114
-byte 1 101
-byte 1 115
-byte 1 104
-byte 1 111
+byte 1 98
 byte 1 108
-byte 1 100
+byte 1 101
+byte 1 68
+byte 1 117
+byte 1 115
+byte 1 116
 byte 1 0
 align 1
 LABELV $335
+byte 1 103
+byte 1 95
 byte 1 97
 byte 1 108
 byte 1 105
@@ -3058,8 +3035,6 @@ byte 1 100
 byte 1 0
 align 1
 LABELV $334
-byte 1 103
-byte 1 95
 byte 1 97
 byte 1 108
 byte 1 105
@@ -3070,7 +3045,7 @@ byte 1 116
 byte 1 97
 byte 1 103
 byte 1 101
-byte 1 50
+byte 1 51
 byte 1 84
 byte 1 104
 byte 1 114
@@ -3083,6 +3058,8 @@ byte 1 100
 byte 1 0
 align 1
 LABELV $333
+byte 1 103
+byte 1 95
 byte 1 97
 byte 1 108
 byte 1 105
@@ -3106,6 +3083,29 @@ byte 1 100
 byte 1 0
 align 1
 LABELV $332
+byte 1 97
+byte 1 108
+byte 1 105
+byte 1 101
+byte 1 110
+byte 1 83
+byte 1 116
+byte 1 97
+byte 1 103
+byte 1 101
+byte 1 50
+byte 1 84
+byte 1 104
+byte 1 114
+byte 1 101
+byte 1 115
+byte 1 104
+byte 1 111
+byte 1 108
+byte 1 100
+byte 1 0
+align 1
+LABELV $331
 byte 1 103
 byte 1 95
 byte 1 97
@@ -3123,7 +3123,7 @@ byte 1 103
 byte 1 101
 byte 1 0
 align 1
-LABELV $331
+LABELV $330
 byte 1 97
 byte 1 108
 byte 1 105
@@ -3139,7 +3139,7 @@ byte 1 103
 byte 1 101
 byte 1 0
 align 1
-LABELV $330
+LABELV $329
 byte 1 103
 byte 1 95
 byte 1 97
@@ -3158,12 +3158,6 @@ byte 1 105
 byte 1 110
 byte 1 116
 byte 1 115
-byte 1 0
-align 1
-LABELV $329
-byte 1 49
-byte 1 53
-byte 1 48
 byte 1 0
 align 1
 LABELV $328
@@ -3211,7 +3205,7 @@ byte 1 100
 byte 1 0
 align 1
 LABELV $326
-byte 1 57
+byte 1 55
 byte 1 48
 byte 1 0
 align 1
@@ -3352,7 +3346,7 @@ byte 1 0
 align 1
 LABELV $317
 byte 1 49
-byte 1 48
+byte 1 52
 byte 1 48
 byte 1 0
 align 1

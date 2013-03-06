@@ -219,6 +219,7 @@ vmCvar_t g_bot_roam;
 vmCvar_t g_bot_infinite_funds;
 vmCvar_t g_bot_survival;
 vmCvar_t g_bot_wave_interval;
+vmCvar_t g_bot_teamkill;
 
 //</bot stuff>
 // for editing the bot's paths
@@ -462,6 +463,7 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_bot_infinite_funds, "g_bot_infinite_funds", "0", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
   { &g_bot_survival, "g_bot_survival", "0", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
   { &g_bot_wave_interval, "g_bot_wave_interval", "120", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
+  { &g_bot_teamkill, "g_bot_teamkill", "0", CVAR_ARCHIVE, 0, qfalse },
   
   // </bot stuff>
   

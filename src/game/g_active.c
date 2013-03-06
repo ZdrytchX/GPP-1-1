@@ -1680,8 +1680,8 @@ void ClientThink_real( gentity_t *ent )
 
   if( client->noclip )
     client->ps.pm_type = PM_NOCLIP;
-  else if( client->ps.stats[ STAT_HEALTH ] <= 0 )
-    client->ps.pm_type = PM_DEAD;
+  else if( client->ps.stats[ STAT_HEALTH ] <= 0 ) //If a player gets health,
+    client->ps.pm_type = PM_DEAD;             //he revives through this (bug)
   else if( client->ps.stats[ STAT_STATE ] & SS_INFESTING ||
            client->ps.stats[ STAT_STATE ] & SS_HOVELING )
     client->ps.pm_type = PM_FREEZE;

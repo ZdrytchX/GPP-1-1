@@ -791,7 +791,7 @@ static void CG_Lev2ZapChain( centity_t *cent )
 
   es = &cent->currentState;
 
-  for( i = 0; i <= 2; i++ )
+  for( i = 0; i <= LEVEL2_AREAZAP_MAX_TARGETS; i++ )
   {
     switch( i )
     {
