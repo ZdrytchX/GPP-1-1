@@ -459,8 +459,9 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
     botAimAtLocation(self, tmpVec, botCmdBuffer);
     
     //humans should not move if they are targetting, and can hit, a building
-    if(botTargetInAttackRange(self, target) && getTargetType(target) == ET_BUILDABLE && self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS && getTargetTeam(target) == PTE_ALIENS && self->s.weapon == !WP_PAIN_SAW )
+    if(botTargetInAttackRange(self, target) && getTargetType(target) == ET_BUILDABLE && self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS && getTargetTeam(target) == PTE_ALIENS && self->s.weapon != WP_PAIN_SAW )
         return;
+    else botCmdBuffer->upmove = -1;
     
     //move forward
     botCmdBuffer->forwardmove = 127;
@@ -1416,12 +1417,17 @@ int botFindClosestEnemy( gentity_t *self, qboolean includeTeam ) {
                     //if the entity is a player and not us
                 } else if( target->client && self != target) {
                     //if we are not on the same team (unless we can attack teamates)
-                    if( target->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM] && g_bot_teamkill.integer == 1/* || includeTeam */) {
+                    if( target->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM] || includeTeam ) {
                         
                         //store the new distance and the index of the enemy
                         minDistance = newDistance;
                         closestTarget = entityList[i];
                     }
+                    if( target->client->ps.stats[STAT_PTEAM] == self->client->ps.stats[STAT_PTEAM] && g_bot_teamkill.integer == 1 ) {
+                        //store the new distance and the index of the enemy
+                        minDistance = newDistance;
+                        closestTarget = entityList[i];
+		    }
                 }
             }
         }

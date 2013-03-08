@@ -512,8 +512,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define FLAMER_REPEAT               100 //Let's be realistic here.
 #define FLAMER_K_SCALE              1.25f
 #define FLAMER_DMG                  HDM(10) //^^
-#define FLAMER_DMG_MOD              0.8f//Same deal as blaster, this one allows wall climbing.
-#define FLAMER_RADIUS_MOD           1.25f //splash damage mod //Previous variable cancels out this one
+#define FLAMER_DMG_MOD              0.6f//Same deal as blaster, this one allows wall climbing.
+#define FLAMER_RADIUS_MOD           1.00f/FLAMER_DMG_MOD //splash damage mod //Previous variable cancels out this one
 #define FLAMER_RADIUS               50
 #define FLAMER_LIFETIME             800.0f //Apparently gpp uses 700 and double knockback...
 #define FLAMER_SPEED                400.0f

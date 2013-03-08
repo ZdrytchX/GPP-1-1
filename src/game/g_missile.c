@@ -335,8 +335,8 @@ gentity_t *fire_flamer( gentity_t *self, vec3_t start, vec3_t dir )
   bolt->splashMethodOfDeath = MOD_FLAMER_SPLASH;
   bolt->clipmask = MASK_SHOT;
   bolt->target_ent = NULL;
-  bolt->r.mins[ 0 ] = bolt->r.mins[ 1 ] = bolt->r.mins[ 2 ] = -12.5f; //don't burn self upon walls
-  bolt->r.maxs[ 0 ] = bolt->r.maxs[ 1 ] = bolt->r.maxs[ 2 ] = 12.5f;
+  bolt->r.mins[ 0 ] = bolt->r.mins[ 1 ] = bolt->r.mins[ 2 ] = -11.0f; //don't burn self upon walls
+  bolt->r.maxs[ 0 ] = bolt->r.maxs[ 1 ] = bolt->r.maxs[ 2 ] = 11.0f;
 
   bolt->s.pos.trType = TR_LINEAR; //TR_LINEAR
   bolt->s.pos.trTime = level.time - MISSILE_PRESTEP_TIME;   // move a bit on the very first frame
@@ -363,6 +363,8 @@ gentity_t *fire_blaster( gentity_t *self, vec3_t start, vec3_t dir )
   gentity_t *bolt;
 
   VectorNormalize (dir);
+//  int teamkillmod
+  teamkillmod = 1;
 
   bolt = G_Spawn();
   bolt->classname = "blaster";
@@ -374,8 +376,10 @@ gentity_t *fire_blaster( gentity_t *self, vec3_t start, vec3_t dir )
   bolt->s.generic1 = self->s.generic1; //weaponMode
   bolt->r.ownerNum = self->s.number;
   bolt->parent = self;
-  bolt->damage = BLASTER_DMG;
-  bolt->splashDamage = BLASTER_PUSH;//blasterjump!
+//if (g_bot_teamkill.integer == 1)
+//{ teamkillmod = 10 }
+  bolt->damage = BLASTER_DMG;// * teamkillmod;
+  bolt->splashDamage = BLASTER_PUSH;// * teamkillmod;//blasterjump!
   bolt->splashRadius = BLASTER_RADIUS;
   bolt->methodOfDeath = MOD_BLASTER;
   bolt->splashMethodOfDeath = MOD_TARGET_LASER; //It doesn't kill anything anyway.
