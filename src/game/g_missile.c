@@ -364,7 +364,7 @@ gentity_t *fire_blaster( gentity_t *self, vec3_t start, vec3_t dir )
 
   VectorNormalize (dir);
 //  int teamkillmod
-  teamkillmod = 1;
+//  teamkillmod = 1;
 
   bolt = G_Spawn();
   bolt->classname = "blaster";
