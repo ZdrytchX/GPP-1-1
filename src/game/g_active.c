@@ -1133,10 +1133,10 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS && level.surrenderTeam != PTE_A
          {
     client->autoregen += (1000 / ( BG_FindRegenRateForClass( client->ps.stats[ STAT_PCLASS ] ) *modifier * ALIENREGEN_NOCREEP_MOD ) );
          }
-    else {
 //dynamic regeneration
+    else {
 	int healthneeded;
-	healthneeded = client->ps.stats[ STAT_MAX_HEALTH ] - (client->ps.stats[ STAT_HEALTH ] - 2); //so it doesn't recover horribly slow near 100 hp
+	healthneeded = client->ps.stats[ STAT_MAX_HEALTH ] - (client->ps.stats[ STAT_HEALTH ] - 5); //so it doesn't recover horribly slow near 100 hp
     client->autoregen += (1000 / ( BG_FindRegenRateForClass( client->ps.stats[ STAT_PCLASS ] ) * HUMAN_REGEN_MOD * healthneeded * 0.01 ) );
          }
 
@@ -1145,10 +1145,16 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS && level.surrenderTeam != PTE_A
             ( ent->lastDamageTime + ALIEN_REGEN_DAMAGE_TIME ) < level.time )
 		{
         	   ent->health ++;
-		while(client->autoregen < 50)
-		   { 
+		//TODO: Find out why 'while' doesn't work
+		if(client->autoregen < 50)
+		   {
 		   ent->health ++;
 		   client->autoregen *= 2;
+     		   }
+		if(client->autoregen < 50)
+		   {
+		   ent->health ++;
+		   client->autoregen *= 1.5;
      		   }
 		}
   }
