@@ -1143,7 +1143,14 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS && level.surrenderTeam != PTE_A
 //Regenerate!
         if( ent->health > 0 && ent->health < client->ps.stats[ STAT_MAX_HEALTH ] &&
             ( ent->lastDamageTime + ALIEN_REGEN_DAMAGE_TIME ) < level.time )
-          ent->health ++;
+		{
+        	   ent->health ++;
+		while(client->autoregen < 50)
+		   { 
+		   ent->health ++;
+		   client->autoregen *= 2;
+     		   }
+		}
   }
 }
 
