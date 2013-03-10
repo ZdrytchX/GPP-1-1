@@ -1145,13 +1145,13 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS && level.surrenderTeam != PTE_A
             ( ent->lastDamageTime + ALIEN_REGEN_DAMAGE_TIME ) < level.time )
 		{
         	   ent->health ++;
-		//TODO: Find out why 'while' doesn't work
+		//TODO: Find out why 'while' function doesn't work
 		if(client->autoregen < 50)
 		   {
 		   ent->health ++;
 		   client->autoregen *= 2;
      		   }
-		if(client->autoregen < 50)
+		if(client->autoregen < 50)//Two lots should be sufficient
 		   {
 		   ent->health ++;
 		   client->autoregen *= 1.5;

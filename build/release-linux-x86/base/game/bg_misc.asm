@@ -192,8 +192,8 @@ byte 4 12
 byte 4 4
 byte 4 150
 byte 4 5
-byte 4 0
-byte 4 0
+byte 4 30
+byte 4 100
 byte 4 41
 byte 4 1
 byte 4 50331648
@@ -524,7 +524,7 @@ byte 4 1111228416
 byte 4 0
 byte 4 5
 byte 4 0
-byte 4 10
+byte 4 8
 byte 4 6
 byte 4 190
 byte 4 8
@@ -618,7 +618,7 @@ byte 4 37
 byte 4 2
 byte 4 201326592
 byte 4 3
-byte 4 125
+byte 4 250
 byte 4 20000
 byte 4 1
 byte 4 0
@@ -7764,7 +7764,7 @@ byte 4 0
 byte 4 1
 byte 4 0
 byte 4 500
-byte 4 1000
+byte 4 900
 byte 4 1000
 byte 4 0
 byte 4 0

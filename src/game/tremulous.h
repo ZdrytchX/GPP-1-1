@@ -35,33 +35,33 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define ALIEN_WDMG_MODIFIER         1.0f
 #define ADM(d)                      ((int)((float)d*ALIEN_WDMG_MODIFIER))
-#define ALIENREGEN_NOCREEP_MOD      0.5f //out of creep modifier
+#define ALIENREGEN_NOCREEP_MOD      0.7f //out of creep modifier
 
 #define ABUILDER_BUILD_REPEAT       500
-#define ABUILDER_CLAW_DMG           ADM(20 + (VAMP_ON * 10)) //20) //still 3 hit kill with new armour system... (head mod = 1.8)
+#define ABUILDER_CLAW_DMG           ADM(25 + (VAMP_ON * 10))//3 hit kill still
 #define ABUILDER_CLAW_RANGE         78.0f //64f
-#define ABUILDER_CLAW_WIDTH         4.0f //4f
-#define ABUILDER_CLAW_REPEAT        1000
+#define ABUILDER_CLAW_WIDTH         4.0f
 #define ABUILDER_BASE_CLAW_REPEAT   1000
+#define ABUILDER_CLAW_REPEAT        900
 #define ABUILDER_CLAW_K_SCALE       0.0f
 #define ABUILDER_BASE_DELAY         15000 //17000
-#define ABUILDER_ADV_DELAY          12000 //12000 //8000->10000 to fix build timer vs build time of overmind
+#define ABUILDER_ADV_DELAY          12000
 
-#define ABUILDER_BLOB_DMG           ADM(4)//4 -> 6
-#define ABUILDER_BLOB_SPLASH_DMG    ADM(4)//Explosion damage //15
-#define ABUILDER_BLOB_RADIUS        75     //explosion radius //75
-#define ABUILDER_BLOB_REPEAT        1000 //500->800
-#define ABUILDER_BLOB_SPEED         780.0f //800 -> 780 to match grenade
+#define ABUILDER_BLOB_DMG           ADM(4)
+#define ABUILDER_BLOB_SPLASH_DMG    ADM(4)
+#define ABUILDER_BLOB_RADIUS        75
+#define ABUILDER_BLOB_REPEAT        1000
+#define ABUILDER_BLOB_SPEED         800.0f
 #define ABUILDER_BLOB_SPEED_MOD     0.5f
-#define ABUILDER_BLOB_LIFETIME      ABUILDER_BLOB_REPEAT*3.5//Blob lifetime before exploding on its own; default is 5000 seconds, but you dont want a minefield of them because they get OP againts big guys
-#define ABUILDER_BLOB_TIME          5000 //5000 how long a guy gets slowed down //5000 -> 8000
+#define ABUILDER_BLOB_LIFETIME      ABUILDER_BLOB_REPEAT*3.5//Auto explodes after this time
+#define ABUILDER_BLOB_TIME          5000 //how long a guy gets slowed down
 
 #define LEVEL0_BITE_DMG             ADM(36)
 #define LEVEL0_BITE_RANGE           64.0f
 #define LEVEL0_BITE_WIDTH           1.0f //6f
-#define LEVEL0_BITE_REPEAT          500 //500 //333 makes stronger againts stationary camptards
+#define LEVEL0_BITE_REPEAT          500
 #define LEVEL0_BITE_K_SCALE         1.0f
-//Disabled (range), although animation still runs [and stuns the user]
+//Disabled (range), although animation still runs
 //ignore this, disabled via bg_misc.c
 #define LEVEL0_SCRATCH_DMG          ADM(48) //ADM(6 + (VAMP_ON * -3))//dispite this, it is actually almost overpowered.
 #define LEVEL0_SCRATCH_REPEAT       0//150
@@ -78,18 +78,18 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL1_GRAB_RANGE           80.0f//Take unv's
 #define LEVEL1_GRAB_TIME            300 //Time for you to re-grab if you mis-aim again
 #define LEVEL1_GRAB_U_TIME          450
-#define LEVEL1_PCLOUD_DMG           ADM(0 + (VAMP_ON * 5)) //Nay, it still deals 1 dmg. Oh well, it isn't that significant.
+#define LEVEL1_PCLOUD_DMG           ADM(0 + (VAMP_ON * 5)) //Nay, it still deals 1 dmg.
 #define LEVEL1_PCLOUD_RANGE         200.0f //300 //limit troll gassers
 #define LEVEL1_PCLOUD_REPEAT        2000
 #define LEVEL1_PCLOUD_TIME          10000 //GPP - 2 seconds distortion, 5 seconds slowlock i think
                                           //TODO: Slowlock effect cannot be applied at the same time
 
 #define LEVEL2_CLAW_DMG             ADM(40)
-#define LEVEL2_CLAW_RANGE           80.0f //96 //longest range, since mar is glass cannon
-#define LEVEL2_CLAW_WIDTH           12.0f //Normal mara is hard to use
-#define LEVEL2_CLAW_U_WIDTH         14.0f //
-#define LEVEL2_CLAW_REPEAT          500 //
-#define LEVEL2_CLAW_U_REPEAT        400 //
+#define LEVEL2_CLAW_RANGE           80.0f //unv's
+#define LEVEL2_CLAW_WIDTH           12.0f
+#define LEVEL2_CLAW_U_WIDTH         14.0f
+#define LEVEL2_CLAW_REPEAT          500
+#define LEVEL2_CLAW_U_REPEAT        400
 //ATTENTION! If you want to disabled the claw knockback only (leave zap knockback on), set CLAW_K_REVERSE to "0"
 //If you want the opposite, turn the AREAZAP_K_SCALE to "0", CLAW_(U_)K_SCALE to "0.1" and CLAW_K_REVERSE to "-10.0f" (doesn't completely cancel out the first zap victim's pull effect though, but it shouldn't be noticable)
 #define LEVEL2_CLAW_K_SCALE         1.0f //effects first zap victim as well apparently
@@ -112,45 +112,45 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL3_CLAW_DMG             ADM(80 + (VAMP_ON * 10))
 #define LEVEL3_CLAW_RANGE           80.0f //Unv's
 #define LEVEL3_CLAW_WIDTH           12.0f
-#define LEVEL3_CLAW_REPEAT          800 //1.1 700 1.2 900 //'Unv's value is more stable
+#define LEVEL3_CLAW_REPEAT          800 //1.1 700 1.2 900
 #define LEVEL3_CLAW_K_SCALE         0.8f //effects pounce as well
-#define LEVEL3_CLAW_U_REPEAT        700 //600 800 //'Unv's value is more stable
+#define LEVEL3_CLAW_U_REPEAT        700 //600 800
 #define LEVEL3_CLAW_U_K_SCALE       0.8f
 #define LEVEL3_POUNCE_DMG           ADM(115 + (VAMP_ON * 20)) // -> 115 (bsuits take the same damage as laroured)
 					//Armour - 3 hit
 					//Helm - 2 hit
-					//Larm+Helm -or- bsuit - 5 hit
+					//Larm+Helm -or- bsuit - 4 hit
 #define LEVEL3_POUNCE_RANGE         42.0f //No more long range, reaches diagonally towards tip of bbox perfectly
-#define LEVEL3_POUNCE_WIDTH         27.0f //default 16. //Widened for realism
+#define LEVEL3_POUNCE_WIDTH         27.0f //default 16. //Widened for 'realism'
 #define LEVEL3_POUNCE_SPEED         700 
 #define LEVEL3_POUNCE_UPG_SPEED     800 
 #define LEVEL3_POUNCE_SPEED_MOD     0.75f 
 #define LEVEL3_POUNCE_CHARGE_TIME   700 
-#define LEVEL3_POUNCE_TIME          400 //delay after touching ground?!?
+#define LEVEL3_POUNCE_TIME          200 //400-> 200 delay after touching ground before you can chomp again
 #define LEVEL3_BOUNCEBALL_DMG       ADM(115)
 
 #define LEVEL3_BOUNCEBALL_AMMO      3
 #define LEVEL3_BOUNCEBALL_REPEAT    1000
 #define LEVEL3_BOUNCEBALL_RECHARGE  18000 //barb regen time
 #define LEVEL3_BOUNCEBALL_SPEED     1000.0f
-#define LEVEL3_BOUNCEBALL_SPLASH_DMG  76 //Honestly, i don't like the overpowered snipe. 110 -> 76
-#define LEVEL3_BOUNCEBALL_SPLASH_RADIUS 92 //Splash radius. Helps with sniping. //Rememeber that reload time is 10 seconds. You don't want it overpowered.  //TODO: Reload up to 20 seconds
+#define LEVEL3_BOUNCEBALL_SPLASH_DMG  76 //Honestly, i don't like the overpowered snipe.
+#define LEVEL3_BOUNCEBALL_SPLASH_RADIUS 92
 
 #define LEVEL4_CLAW_DMG             ADM(100)
 #define LEVEL4_CLAW_RANGE           96.0f //128 //80 feels useless [unv]
-#define LEVEL4_CLAW_WIDTH           16.0f //20 //18
+#define LEVEL4_CLAW_WIDTH           16.0f
 #define LEVEL4_CLAW_REPEAT          750 //750 //keep at 1.1 value, otherwise people will charge-spam only
-#define LEVEL4_CLAW_K_SCALE         0.8f //
+#define LEVEL4_CLAW_K_SCALE         0.8f //Effects Charge
 
 #define LEVEL4_REGEN_MOD            1.5f //No more hall camping hopefully. I've swapped boosting priorities so rants should benifit from boosters
-#define LEVEL4_CHARGE_SPEED         2.0f //2.5 is easier to move with
-#define LEVEL4_CHARGE_TIME          4000 //2000 
-#define LEVEL4_CHARGE_CHARGE_TIME   4000 //1500 
-#define LEVEL4_CHARGING_CHARGE_TIME   2000 //Okay, this is fucked up.
+#define LEVEL4_CHARGE_SPEED         2.5f //2.5 is easier to move with
+#define LEVEL4_CHARGE_TIME          4000 //Leave alone!
+#define LEVEL4_CHARGE_CHARGE_TIME   4000 //Trample time
+#define LEVEL4_CHARGING_CHARGE_TIME 2000 //Charging up trample
 #define LEVEL4_CHARGE_TAKE          100 //Charge taken per decasecond. Default is 100.
-#define LEVEL4_TRAMPLE_CHARGE       200//Charging Charge per decasecond. Default 100.   
+#define LEVEL4_TRAMPLE_CHARGE       200 //Charging Charge per decasecond. Default 100.   
 #define LEVEL4_MIN_CHARGE_TIME      750
-#define LEVEL4_CHARGE_CHARGE_RATIO  (LEVEL4_CHARGE_TIME/LEVEL4_CHARGE_CHARGE_TIME)//(LEVEL4_CHARGE_CHARGE_TIME/LEVEL4_CHARGE_TIME)//(LEVEL4_CHARGE_TIME/LEVEL4_CHARGE_CHARGE_TIME) //confusing shit, it's an interger so below 1 and it's fked
+#define LEVEL4_CHARGE_CHARGE_RATIO  (LEVEL4_CHARGE_TIME/LEVEL4_CHARGE_CHARGE_TIME)//JUST LEAVE AS IS (confusing shit)
 
 #define LEVEL4_CHARGE_REPEAT        150 //1000 //GPP uses '100', the more lower, the more ping-bias
 #define LEVEL4_CHARGE_DMG           ADM(56 + (VAMP_ON * 35)) //100 (to help with armoured)
@@ -161,7 +161,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //Removed tyrant spit bomb
 
 #define LEVEL4_CHARGE_EXTRA         ADM(15) //Extra damage added to charge so it isnt completely useless when slow
-#define LEVEL4_TRAMPLE_DMG_B        (0.5f * (VAMP_ON * 0.85)) //Dmg multiplier to buildables
+#define LEVEL4_TRAMPLE_DMG_B        (0.7f * (VAMP_ON * 0.85)) //Dmg multiplier to buildables
 
 #define LEVEL4_REGEN_RANGE          100.0f //Used for basi, booster and overmind healing, default 200
 
@@ -246,12 +246,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL4_COST                 2
 
 //Basi-Suit
-//disabled because this isn't Lolards
-#define SPY_SPEED                   1.0f //human sprinting speed //1.0 is really hard to get to a human with quietly, but 1.3f won't override for client, reverted
-#define SPY_HEALTH                  300 //still OP unless you happen to get head-shotted by a luci
+//disabled because this isn't Lolards, just ignore and move along...
+#define SPY_SPEED                   1.0f
+#define SPY_HEALTH                  300
 #define SPY_VALUE                   720
 #define SPY_COST                    9
-#define SPY_REGEN                   (9 + + (VAMP_ON * -6)) //only regen 3 hp/s with vampire mode on
+#define SPY_REGEN                   (9 + + (VAMP_ON * -6))
 
 /*
  * ALIEN buildables
@@ -299,35 +299,35 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BOOSTER_REGEN               5
 #define BOOSTER_SPLASHDAMAGE        50
 #define BOOSTER_SPLASHRADIUS        50
-#define BOOSTER_CREEPSIZE           120 //also the size of the area it heals players
+#define BOOSTER_CREEPSIZE           120 //regen area = tyrant aura area
 #define BOOSTER_INTERVAL            10000 //time in msec between recharges per player
-#define BOOSTER_REGEN_MOD           3.0f //2 - > 3 Make boosted healing more noticable
-#define BOOST_TIME                  30000 //Default - 30000, gpp - 20000 but hate gpp values
+#define BOOSTER_REGEN_MOD           3.0f
+#define BOOST_TIME                  30000 //hate gpp values
 
-#define ACIDTUBE_BP                 6     //I don't fucking care about gpp value, these tubes are useless.
+#define ACIDTUBE_BP                 6     //I don't care about gpp value, tubes are useless.
 #define ACIDTUBE_BT                 12000
-#define ACIDTUBE_HEALTH             ABHM(125) //default 125
+#define ACIDTUBE_HEALTH             ABHM(125)
 #define ACIDTUBE_REGEN              4
-#define ACIDTUBE_SPLASHDAMAGE       8 //Don't get confused this with other splash damages, the others apply to exploding...
+#define ACIDTUBE_SPLASHDAMAGE       8 //Don't get confused this with other splash damages, this is the attack damage
 #define ACIDTUBE_SPLASHRADIUS       400 //bring higher to near-unite turret range so they're not so shit
 #define ACIDTUBE_CREEPSIZE          120
 #define ACIDTUBE_RANGE              350.0f //200 //YADAHAHAHAHA I DIDNT HEAR ANYTHING
 #define ACIDTUBE_REPEAT             2000 //Re-trigger delay
-#define ACIDTUBE_K_SCALE            0.1f //1f //Nay, does not work.
+#define ACIDTUBE_K_SCALE            0.0f //does nothing
 
 #define HIVE_BP                     12
 #define HIVE_LIFETIME               12000
 #define HIVE_BT                     15000
 #define HIVE_HEALTH                 ABHM(150) //default 125 //Urasai urasai urasai! Hives are weaklings!
 #define HIVE_REGEN                  5
-#define HIVE_SPLASHDAMAGE           0 //Splash damage for insectoid death
-#define HIVE_SPLASHRADIUS           0 //Disabled
+#define HIVE_SPLASHDAMAGE           30 //Splash damage for insectoid death
+#define HIVE_SPLASHRADIUS           100
 #define HIVE_CREEPSIZE              120
-#define HIVE_RANGE                  900.0f //300 Higher! Bring em higher! The only structure to shoot such long range!
+#define HIVE_RANGE                  900.0f //300 Higher! Bring em higher!
 #define HIVE_REPEAT                 1500 //Insectoid Re-send time //2500 -> 1500 so not so useless close-range
 #define HIVE_K_SCALE                -1.0f //Reel 'em in boys!
 #define HIVE_DMG                    80
-#define HIVE_SPEED                  380.0f //deal with jettards and sprinters
+#define HIVE_SPEED                  380.0f //deal with jettards
 #define HIVE_DIR_CHANGE_PERIOD      500
 #define HIVE_HIVE_STUN              500//Stun time from insectoid death and rebirth
 
@@ -342,21 +342,23 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define TRAPPER_REPEAT              1000
 #define TRAPPER_K_SCALE             1.0f
 #define LOCKBLOB_SPEED              650.0f
-#define LOCKBLOB_LOCKTIME           0 // /d/hc will complain
+#define LOCKBLOB_LOCKTIME           0
 #define LOCKBLOB_LIFETIME           6000 //Locktime
 #define LOCKBLOB_DOT                0.85f // max angle = acos( LOCKBLOB_DOT )
 #define LOCKBLOB_K_SCALE            -1.0f
-#define LOCKBLOB_DMG                0 //Don't. /d/hc will complain.
+#define LOCKBLOB_DMG                15
+#define LOCKBLOB_SPLASH             10
+#define LOCKBLOB_RADIUS             50
 
 #define OVERMIND_BP                 0
 #define OVERMIND_BT                 20000
 #define OVERMIND_HEALTH             ABHM(780)
-#define OVERMIND_REGEN              16 //Chill bro. Not too fast.
+#define OVERMIND_REGEN              16
 #define OVERMIND_SPLASHDAMAGE       18
 #define OVERMIND_SPLASHRADIUS       300
 #define OVERMIND_CREEPSIZE          120
 #define OVERMIND_ATTACK_RANGE       150.0f
-#define OVERMIND_ATTACK_REPEAT      800 //OM on Steroids
+#define OVERMIND_ATTACK_REPEAT      800
 #define OVERMIND_VALUE              800
 
 //<3
@@ -400,7 +402,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define HDM(d)                      ((int)((float)d*HUMAN_WDMG_MODIFIER))
 
 #define BLASTER_REPEAT              700
-#define BLASTER_K_SCALE             12.0f //direct only
+#define BLASTER_K_SCALE             12.0f //direct only - Gets overpowered on mid-air shots
 #define BLASTER_SPREAD              0
 #define BLASTER_SPEED               1400
 #define BLASTER_DMG                 HDM(9)
@@ -408,12 +410,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BLASTER_DMG_MOD             0.08f //Modifier for above damage
 #define BLASTER_RADIUS              100
 //Ignnore this, disabled via bg_misc.c
-#define BLASTER_MELEE               18 //not too high because it would be overpowered
-#define BLASTER_MELLEE_REPEAT       0//700 //mellee rate
-#define BLASTER_MELEE_RANGE         60 //enough for combat
+#define BLASTER_MELEE               18
+#define BLASTER_MELLEE_REPEAT       0
+#define BLASTER_MELEE_RANGE         60
 //Prevent Blaster Spamming
 #define BLASTER_CLIPSIZE            3
-#define BLASTER_MAXCLIPS            1 //hacky fix for the lakitu7-qvm client
+#define BLASTER_MAXCLIPS            1 //hacky fix for the lakitu7-qvm client, any number will do as long as it isn't 0
 #define BLASTER_INF_AMMO            qtrue //qtrue
 
 #define RIFLE_CLIPSIZE              30
@@ -430,7 +432,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define PAINSAW_K_SCALE             1.0f
 #define PAINSAW_DAMAGE              HDM(12) //~>185 dmg/s
 #define PAINSAW_RANGE               60.0f //enough to touch below feet of a normal human without being OP [unlike gpp]
-//Following disabled via bg_misc.c
+//Following disabled via bg_misc.c and g_active.c
 #define PAINSAW_NODECAY             qtrue //Bleed ammo one per second if nodecay is qfalse
 #define PAINSAW_FUEL                0
 #define PAINSAW_BATTERIES           0 //not compatable with battery decay system, don't bother
@@ -490,7 +492,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define CHAINGUN_MAXCLIPS           0
 #define CHAINGUN_RELOAD             5000
 #define CHAINGUN_REPEAT             80 //Single barrel shots
-#define CHAINGUN_REPEAT2            100 //tripple shots [TF2-like], total damage per shot stays the same
+#define CHAINGUN_REPEAT2            100 //tripple shots, total damage per shot stays the same
 #define CHAINGUN_K_SCALE            1.0f
 #define CHAINGUN_SPREAD             700
 #define CHAINGUN_SPREAD2            1200 //Anti-Dretch n00b edition
@@ -509,13 +511,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define FLAMER_PRICE                450
 #define FLAMER_GAS                  400 //Double fire rate, halve damage.
 #define FLAMER_RELOAD               3000
-#define FLAMER_REPEAT               100 //Let's be realistic here.
+#define FLAMER_REPEAT               100
 #define FLAMER_K_SCALE              1.25f
-#define FLAMER_DMG                  HDM(10) //^^
+#define FLAMER_DMG                  HDM(10)
 #define FLAMER_DMG_MOD              0.6f//Same deal as blaster, this one allows wall climbing.
-#define FLAMER_RADIUS_MOD           1.00f/FLAMER_DMG_MOD //splash damage mod //Previous variable cancels out this one
+#define FLAMER_RADIUS_MOD           1.00f/FLAMER_DMG_MOD
 #define FLAMER_RADIUS               50
-#define FLAMER_LIFETIME             800.0f //Apparently gpp uses 700 and double knockback...
+#define FLAMER_LIFETIME             800.0f //Apparently gpp uses 700
 #define FLAMER_SPEED                400.0f
 #define FLAMER_LAG                  0.65f
 
@@ -565,7 +567,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /*
  * HUMAN upgrades
  */
-#define H_WEAP_SWITCH_DELAY         50 //Default start 200, end default 250 (total 450), this variable applies to both start and end
+#define H_WEAP_SWITCH_DELAY         100 //Default start 200, end default 250 (total 450), this variable applies to both start and end
 //TODO: Replace with cvar, bg_pmove and trem.h doesn't know from g_main/g_local.h which poses a problem, same for bunnyhop
 #define BUNNYHOP_TRUE               1 //Off = 0 on = 1
 
@@ -586,7 +588,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define JETPACK_PRICE               120 
 #define JETPACK_FLOAT_SPEED         128.0f
 #define JETPACK_SINK_SPEED          192.0f
-#define JETPACK_DISABLE_TIME        1250 //Increased to 1250 caus' goon knockback pushes you up if hit from underside anyway...
+#define JETPACK_DISABLE_TIME        1400 //Increased caus' goon knockback pushes you up if hit from underside anyway...
 #define JETPACK_DISABLE_CHANCE      0.3f //? - doesn't work
 #define JETPACK_ACCELERATE          2.00f
 #define JETPACK_FRICTION            1.8f
@@ -595,7 +597,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BSUIT_POISON_PROTECTION     4
 
 #define HUMAN_REGEN                 1 //int, recommended to stay '1' and modify HUMAN_REGEN_MOD instead
-#define HUMAN_REGEN_MOD             1.2f //Modifier for human regen per second at 2 health //Try to keep low
+#define HUMAN_REGEN_MOD             1.8f //Modifier for human regen per second at 2 health //Try to keep low
 
 #define MGCLIP_PRICE                0
 
@@ -656,7 +658,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define MGTURRET_BP                 8
 #define MGTURRET_BT                 10000
 #define MGTURRET_HEALTH             HBHM(190)
-#define MGTURRET_SPLASHDAMAGE       50 //50
+#define MGTURRET_SPLASHDAMAGE       50
 #define MGTURRET_SPLASHRADIUS       100
 #define MGTURRET_ANGULARSPEED       6
 #define MGTURRET_ACCURACYTOLERANCE  MGTURRET_ANGULARSPEED / 1.5f //1.5 angular difference for turret to fire
@@ -684,7 +686,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define MGTURRET_DIRECT_ACCURACY_SPREAD 3
 
 //this is a mutliplier for the ratio of how fast the pitch goes compare to normal. "Normal" is the same value as for yaw. Yaw will stay as MGTURRET_ANGULARSPEED or whatever if it is grabbed.
-//For example, normal turning speed is 8 without grab or dcc, therefore:
+//For example, if normal turning speed is 8 without grab or dcc, therefore:
 //*1 = normal = 8
 //*2 = Fast rise = 16
 //*0 = no rise -> erm...
@@ -703,7 +705,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define TESLAGEN_DMG                HDM(4) //default 9
 
 //DCC no longer powers teslas nor heals - it speeds up turrets dramatically. A highly valued structure honestly, no jokes.
-#define DC_BP                       10
+#define DC_BP                       8
 #define DC_BT                       10000
 #define DC_HEALTH                   HBHM(190)
 #define DC_SPLASHDAMAGE             50
@@ -721,8 +723,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define REACTOR_SPLASHDAMAGE        200
 #define REACTOR_SPLASHRADIUS        300
 #define REACTOR_ATTACK_RANGE        120.0f
-#define REACTOR_ATTACK_REPEAT       125 //1000
-#define REACTOR_ATTACK_DAMAGE       6 //30
+#define REACTOR_ATTACK_REPEAT       250 //1000
+#define REACTOR_ATTACK_DAMAGE       8 //30
 #define REACTOR_VALUE               4
 
 #define REPEATER_BP                 0

@@ -2619,7 +2619,7 @@ static void PM_BeginWeaponChange( int weapon )
 
   PM_AddEvent( EV_CHANGE_WEAPON );
   pm->ps->weaponstate = WEAPON_DROPPING;
-  pm->ps->weaponTime += H_WEAP_SWITCH_DELAY;
+  pm->ps->weaponTime += H_WEAP_SWITCH_DELAY / 2;
   pm->ps->persistant[ PERS_NEWWEAPON ] = weapon;
 
   //reset build weapon
@@ -2648,7 +2648,7 @@ static void PM_FinishWeaponChange( void )
 
   pm->ps->weapon = weapon;
   pm->ps->weaponstate = WEAPON_RAISING;
-  pm->ps->weaponTime += H_WEAP_SWITCH_DELAY; //250
+  pm->ps->weaponTime += H_WEAP_SWITCH_DELAY / 2; //250
 
   if( !( pm->ps->persistant[ PERS_STATE ] & PS_NONSEGMODEL ) )
     PM_StartTorsoAnim( TORSO_RAISE );
