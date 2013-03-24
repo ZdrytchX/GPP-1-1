@@ -161,7 +161,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //Removed tyrant spit bomb
 
 #define LEVEL4_CHARGE_EXTRA         ADM(15) //Extra damage added to charge so it isnt completely useless when slow
-#define LEVEL4_TRAMPLE_DMG_B        (0.7f * (VAMP_ON * 0.85)) //Dmg multiplier to buildables
+#define LEVEL4_TRAMPLE_DMG_B        (0.35f + (VAMP_ON * 0.85)) //Dmg multiplier to buildables
 
 #define LEVEL4_REGEN_RANGE          100.0f //Used for basi, booster and overmind healing, default 200
 
