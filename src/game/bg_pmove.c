@@ -732,11 +732,18 @@ if(BUNNYHOP_TRUE == 0) //If it is enabled, don't read this
     VectorMA( pm->ps->velocity, BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] ),
               normal, pm->ps->velocity );
   }
+/*
   else
     pm->ps->velocity[ 2 ] = BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
-
-  PM_AddEvent( EV_JUMP );
-
+*/
+  else //ramp jump
+  { //TODO: Add a g_jump var - 0 = vq3 1 = Ramps 2 = bob's oc style
+	if(pm->ps->velocity[ 2 ] > 0)
+	pm->ps->velocity[ 2 ] += BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
+	else
+	pm->ps->velocity[ 2 ] = BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
+  PM_AddEvent( EV_JUMP );//jump!
+  }
   if( pm->cmd.forwardmove >= 0 )
   {
     if( !( pm->ps->persistant[ PERS_STATE ] & PS_NONSEGMODEL ) )
@@ -2369,7 +2376,7 @@ static void PM_Footsteps( void )
                       + pm->ps->velocity[ 1 ] * pm->ps->velocity[ 1 ]
                       + pm->ps->velocity[ 2 ] * pm->ps->velocity[ 2 ] );
   }
-  else
+  else //Potential Speedometer?
     pm->xyspeed = sqrt( pm->ps->velocity[ 0 ] * pm->ps->velocity[ 0 ]
       + pm->ps->velocity[ 1 ] * pm->ps->velocity[ 1 ] );
 

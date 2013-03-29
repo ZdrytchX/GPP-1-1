@@ -402,12 +402,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define HDM(d)                      ((int)((float)d*HUMAN_WDMG_MODIFIER))
 
 #define BLASTER_REPEAT              700
-#define BLASTER_K_SCALE             12.0f //direct only - Gets overpowered on mid-air shots
+#define BLASTER_K_SCALE             6.0f //direct only - Gets overpowered on mid-air shots
+#define BLASTER_K_SELF_SCALE        2.0f //gets multiplied for self only (splash)
 #define BLASTER_SPREAD              0
 #define BLASTER_SPEED               1400
 #define BLASTER_DMG                 HDM(9)
-#define BLASTER_PUSH                100//Blasterjump effect, this is the actual damage before modding
-#define BLASTER_DMG_MOD             0.08f //Modifier for above damage
+#define BLASTER_PUSH                50//Blasterjump effect, this is the actual damage before modding
+#define BLASTER_DMG_MOD             0.16f //Modifier for above damage
 #define BLASTER_RADIUS              100
 //Ignnore this, disabled via bg_misc.c
 #define BLASTER_MELEE               18
@@ -415,7 +416,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BLASTER_MELEE_RANGE         60
 //Prevent Blaster Spamming
 #define BLASTER_CLIPSIZE            3
-#define BLASTER_MAXCLIPS            1 //hacky fix for the lakitu7-qvm client, any number will do as long as it isn't 0
+#define BLASTER_MAXCLIPS            1 //hacky fix for the lakitu7-qvm modded client, any number will do as long as it isn't 0
 #define BLASTER_INF_AMMO            qtrue //qtrue
 
 #define RIFLE_CLIPSIZE              30

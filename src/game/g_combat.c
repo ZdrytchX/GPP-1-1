@@ -1472,6 +1472,10 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 	}
   if ( mod == MOD_LEVEL2_CLAW ) { //glitchy claw/zap hack fix
 		knockback *=  LEVEL2_CLAW_K_REVERSE; }
+  if ( mod == MOD_BLASTER ) { //Temporary useless MOD
+		knockback *= BLASTER_K_SCALE; }
+  if ( mod == MOD_TARGET_LASER && attacker == targ ) { //Temporary useless MOD
+		knockback *= BLASTER_K_SELF_SCALE; } //Help jump
 
   // figure momentum add, even if the damage won't be taken
   if( knockback && targ->client )
