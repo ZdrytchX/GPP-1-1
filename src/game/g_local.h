@@ -602,7 +602,9 @@ struct gclient_s
   int                 time100;
   int                 time1000;
   int                 time10000;
-  int                 autoregen; //regeneration, variable variable [Wtf? Well it is afterall :P]
+//zdrytchx
+  int                 autoregen; //regeneration, variable variable
+  int                 blaster_ammoregen;
 
   char                *areabits;
 
@@ -1581,6 +1583,7 @@ extern  vmCvar_t  g_vampiremode;
 extern  vmCvar_t  g_vampirebuildables;
 extern  vmCvar_t  g_vampirebuildables_take;
 extern  vmCvar_t  g_weapswitchtime;
+extern  vmCvar_t  g_blaster_ammoregen;
 
 void      trap_Printf( const char *fmt );
 void      trap_Error( const char *fmt );

@@ -574,6 +574,7 @@ void ClientTimerActions( gentity_t *ent, int msec )
   client->time1000 += msec;
   client->time10000 += msec;
   client->autoregen -= msec;
+  client->blaster_ammoregen += msec;
 
 
   if( ent->r.svFlags & SVF_BOT )
@@ -981,23 +982,6 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
     }
 //End painsaw
 */
-//Blaster charge
-    if( BLASTER_CLIPSIZE > 0 )
-    if( client->ps.weapon == WP_BLASTER )
-    {
-      int ammo, maxAmmo;
-
-      BG_FindAmmoForWeapon( WP_BLASTER, &maxAmmo, NULL ); //null
-      BG_UnpackAmmoArray( WP_BLASTER, client->ps.ammo, client->ps.powerups, &ammo, NULL ); //null
-
-      if( ammo < BLASTER_CLIPSIZE || ammo > BLASTER_CLIPSIZE ) //temporary inf. ammo fix
-      {
-        ammo++;
-        BG_PackAmmoArray( WP_BLASTER, client->ps.ammo, client->ps.powerups, ammo, BLASTER_MAXCLIPS ); //0
- 
-      }
-    }
-  }
 
   while( client->time10000 >= LEVEL3_BOUNCEBALL_RECHARGE ) 
   {
@@ -1021,12 +1005,34 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
       }
     }
   }
+
+//Blaster charge
+    if( blaster_ammoregen >= g_blaster_ammoregen.integer )
+    if( BLASTER_CLIPSIZE > 0)
+    {
+    blaster_ammoregen = 1200 //keep if'ing to avoid wasting time
+    if( client->ps.weapon == WP_BLASTER )
+    {
+      int ammo, maxAmmo;
+
+      BG_FindAmmoForWeapon( WP_BLASTER, &maxAmmo, NULL ); //null
+      BG_UnpackAmmoArray( WP_BLASTER, client->ps.ammo, client->ps.powerups, &ammo, NULL ); //null
+
+      if( ammo < BLASTER_CLIPSIZE || ammo > BLASTER_CLIPSIZE ) //temporary inf. ammo fix
+      {
+        ammo++;
+        BG_PackAmmoArray( WP_BLASTER, client->ps.ammo, client->ps.powerups, ammo, BLASTER_MAXCLIPS ); //0
+      }
+    blaster_ammoregen = 0 //restart timer
+    }
+    }
+  }
 //==================================
 //Smooth Regeneration
 //==================================
-  while( client->autoregen <= 0 )//(1000 / ( BG_FindRegenRateForClass( client->ps.stats[ STAT_PCLASS ] ) ) ) )
+  while( client->autoregen <= 0 )
   {
-      float     modifier = 1.0f; //Apparently defining it in a more wider area seems to fix the odd creep-only regeneration [If you're wonderin "huh?" Go try it out yourself. I don't understand it completely, but it's a bug and its removed now :P]
+      float     modifier = 1.0f; //Apparently defining it in a more wider area seems to fix the odd creep-only regeneration
 //Humans regenerate also!
     if( //client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS &&
       //level.surrenderTeam != PTE_ALIENS
@@ -1146,15 +1152,20 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS && level.surrenderTeam != PTE_A
 		{
         	   ent->health ++;
 		//TODO: Find out why 'while' function doesn't work
-		if(client->autoregen < 50)
+		if(client->autoregen < 50)//TODO: Insert sv_fps.integer here
 		   {
 		   ent->health ++;
 		   client->autoregen *= 2;
      		   }
-		if(client->autoregen < 50)//Two lots should be sufficient
+		if(client->autoregen < 50)
 		   {
 		   ent->health ++;
 		   client->autoregen *= 1.5;
+     		   }
+		if(client->autoregen < 50)//Tripple check
+		   {
+		   ent->health ++;
+		   client->autoregen *= (4/3);
      		   }
 		}
   }

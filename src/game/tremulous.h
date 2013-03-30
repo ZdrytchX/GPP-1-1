@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define ALIENREGEN_NOCREEP_MOD      0.7f //out of creep modifier
 
 #define ABUILDER_BUILD_REPEAT       500
-#define ABUILDER_CLAW_DMG           ADM(25 + (VAMP_ON * 10))//3 hit kill still
+#define ABUILDER_CLAW_DMG           ADM(27 + (VAMP_ON * 10))//3 hit kill still
 #define ABUILDER_CLAW_RANGE         78.0f //64f
 #define ABUILDER_CLAW_WIDTH         4.0f
 #define ABUILDER_BASE_CLAW_REPEAT   1000
@@ -104,7 +104,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL2_AREAZAP_REPEAT       1500
 #define LEVEL2_AREAZAP_TIME         1000  //Divide by 0 fixed
 					//TODO: Allow graphics to continue running despite chain cut off early
-#define LEVEL2_AREAZAP_MAX_TARGETS  5
+#define LEVEL2_AREAZAP_MAX_TARGETS  3
 #define LEVEL2_WALLJUMP_MAXSPEED    90000.0f //1290.0f //idk, don't really want a max
 #define LEVEL2_AREAZAP_K_SCALE      -3.0f //Chain-ees get pulled together with this
 
@@ -116,7 +116,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL3_CLAW_K_SCALE         0.8f //effects pounce as well
 #define LEVEL3_CLAW_U_REPEAT        700 //600 800
 #define LEVEL3_CLAW_U_K_SCALE       0.8f
-#define LEVEL3_POUNCE_DMG           ADM(115 + (VAMP_ON * 20)) // -> 115 (bsuits take the same damage as laroured)
+#define LEVEL3_POUNCE_DMG           ADM(110 + (VAMP_ON * 20)) // -> 115 (bsuits take the same damage as laroured)
 					//Armour - 3 hit
 					//Helm - 2 hit
 					//Larm+Helm -or- bsuit - 4 hit
@@ -142,7 +142,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL4_CLAW_REPEAT          750 //750 //keep at 1.1 value, otherwise people will charge-spam only
 #define LEVEL4_CLAW_K_SCALE         0.8f //Effects Charge
 
-#define LEVEL4_REGEN_MOD            1.5f //No more hall camping hopefully. I've swapped boosting priorities so rants should benifit from boosters
+#define LEVEL4_REGEN_MOD            1.5f //No longer is kept with tyrant, however applies to overminds
 #define LEVEL4_CHARGE_SPEED         2.5f //2.5 is easier to move with
 #define LEVEL4_CHARGE_TIME          4000 //Leave alone!
 #define LEVEL4_CHARGE_CHARGE_TIME   4000 //Trample time
@@ -163,7 +163,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL4_CHARGE_EXTRA         ADM(15) //Extra damage added to charge so it isnt completely useless when slow
 #define LEVEL4_TRAMPLE_DMG_B        (0.35f + (VAMP_ON * 0.85)) //Dmg multiplier to buildables
 
-#define LEVEL4_REGEN_RANGE          100.0f //Used for basi, booster and overmind healing, default 200
+#define LEVEL4_REGEN_RANGE          150.0f //Used for basi, booster and overmind healing, default 200
 
 
 
@@ -402,7 +402,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define HDM(d)                      ((int)((float)d*HUMAN_WDMG_MODIFIER))
 
 #define BLASTER_REPEAT              700
-#define BLASTER_K_SCALE             6.0f //direct only - Gets overpowered on mid-air shots
+#define BLASTER_K_SCALE             1.5f //direct only - Gets overpowered on mid-air shots //6.0f - apparently splash knockback applies
 #define BLASTER_K_SELF_SCALE        2.0f //gets multiplied for self only (splash)
 #define BLASTER_SPREAD              0
 #define BLASTER_SPEED               1400
@@ -415,7 +415,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BLASTER_MELLEE_REPEAT       0
 #define BLASTER_MELEE_RANGE         60
 //Prevent Blaster Spamming
-#define BLASTER_CLIPSIZE            3
+#define BLASTER_CLIPSIZE            8
 #define BLASTER_MAXCLIPS            1 //hacky fix for the lakitu7-qvm modded client, any number will do as long as it isn't 0
 #define BLASTER_INF_AMMO            qtrue //qtrue
 
