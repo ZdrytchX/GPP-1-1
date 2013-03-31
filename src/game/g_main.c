@@ -512,7 +512,7 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_vampirebuildables_take,      "g_vampirebuildables_take",        "50", CVAR_ARCHIVE,  50, qfalse },
 //  { &g_bunnyhop,         "g_bunnyhop",                         "0", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },//Not Yet
   { &g_weapswitchtime,   "g_weapswitchtime",                     "250", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },//Not Yet
-  { &g_blaster_ammoregen,   "g_blaster_ammoregen",                     "1200", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },
+  { &g_blaster_ammoregen,   "g_blaster_ammoregen",                     "1100", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },
 };
 
 static int gameCvarTableSize = sizeof( gameCvarTable ) / sizeof( gameCvarTable[ 0 ] );

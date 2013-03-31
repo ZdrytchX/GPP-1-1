@@ -85,7 +85,7 @@ INDIRP4
 CVPU4 4
 SUBU4
 CVUI4 4
-CNSTI4 1932
+CNSTI4 1936
 DIVI4
 ARGI4
 ADDRLP4 20
@@ -123,7 +123,7 @@ INDIRP4
 CVPU4 4
 SUBU4
 CVUI4 4
-CNSTI4 1932
+CNSTI4 1936
 DIVI4
 ARGI4
 ADDRLP4 1044
@@ -344,7 +344,7 @@ ASGNI4
 ADDRGP4 $108
 JUMPV
 LABELV $105
-CNSTI4 1932
+CNSTI4 1936
 ADDRLP4 0
 INDIRI4
 MULI4
@@ -356,7 +356,7 @@ ADDP4
 INDIRI4
 CNSTI4 2
 NEI4 $110
-CNSTI4 1932
+CNSTI4 1936
 ADDRLP4 0
 INDIRI4
 MULI4
@@ -431,6 +431,7 @@ import trap_RealTime
 import trap_Milliseconds
 import trap_Error
 import trap_Printf
+import g_blaster_ammoregen
 import g_weapswitchtime
 import g_vampirebuildables_take
 import g_vampirebuildables

@@ -1590,6 +1590,7 @@ import trap_RealTime
 import trap_Milliseconds
 import trap_Error
 import trap_Printf
+import g_blaster_ammoregen
 import g_weapswitchtime
 import g_vampirebuildables_take
 import g_vampirebuildables

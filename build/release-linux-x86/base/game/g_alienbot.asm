@@ -58,7 +58,7 @@ INDIRP4
 CVPU4 4
 SUBU4
 CVUI4 4
-CNSTI4 1932
+CNSTI4 1936
 DIVI4
 ASGNI4
 ADDRFP4 4
@@ -712,6 +712,7 @@ import trap_RealTime
 import trap_Milliseconds
 import trap_Error
 import trap_Printf
+import g_blaster_ammoregen
 import g_weapswitchtime
 import g_vampirebuildables_take
 import g_vampirebuildables

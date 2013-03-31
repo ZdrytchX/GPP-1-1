@@ -1007,10 +1007,10 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
   }
 
 //Blaster charge
-    if( blaster_ammoregen >= g_blaster_ammoregen.integer )
+    if( client->blaster_ammoregen >= g_blaster_ammoregen.integer )
     if( BLASTER_CLIPSIZE > 0)
     {
-    blaster_ammoregen = 1200 //keep if'ing to avoid wasting time
+    client->blaster_ammoregen = g_blaster_ammoregen; //keep if'ing to avoid wasting time
     if( client->ps.weapon == WP_BLASTER )
     {
       int ammo, maxAmmo;
@@ -1023,7 +1023,7 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
         ammo++;
         BG_PackAmmoArray( WP_BLASTER, client->ps.ammo, client->ps.powerups, ammo, BLASTER_MAXCLIPS ); //0
       }
-    blaster_ammoregen = 0 //restart timer
+    client->blaster_ammoregen = 0; //restart timer
     }
     }
   }

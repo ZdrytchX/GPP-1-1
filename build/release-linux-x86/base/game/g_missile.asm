@@ -646,7 +646,7 @@ INDIRP4
 CNSTI4 516
 ADDP4
 INDIRP4
-CNSTI4 1124
+CNSTI4 1128
 ADDP4
 ADDRGP4 level+28
 INDIRI4
@@ -737,7 +737,7 @@ INDIRP4
 ASGNP4
 ADDRLP4 56
 INDIRP4
-CNSTI4 1124
+CNSTI4 1128
 ADDP4
 ADDRGP4 level+28
 INDIRI4
@@ -841,7 +841,7 @@ INDIRP4
 CNSTI4 516
 ADDP4
 INDIRP4
-CNSTI4 1128
+CNSTI4 1132
 ADDP4
 ADDRGP4 level+28
 INDIRI4
@@ -5598,6 +5598,7 @@ import trap_RealTime
 import trap_Milliseconds
 import trap_Error
 import trap_Printf
+import g_blaster_ammoregen
 import g_weapswitchtime
 import g_vampirebuildables_take
 import g_vampirebuildables
