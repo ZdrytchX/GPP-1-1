@@ -1,11 +1,13 @@
-  ____      ____     ___              __         __           _      ___    ____   __    _      _
- /    \    | __ \   | __ \           /  |       /  |         / \    | _ \  |  __| |  \  | |    / \
-| /  __    |  __/   |  __/   ____     | |        | |        / ^ \   | _ /  |  \   |   \ | |   / ^ \
-| |__| |   | |      | |     |____|   _| |_      _| |_      / /-\ \  || \\  |  /_  | |\ \| |  / /-\ \
- \____/    |_|      |_|             |_____| () |_____|    / /   \ \ ||  \\ |____| |_| \___| / /   \ \
+  ____      ____     ___              __         __           _      ____    ____   __    _      _
+ /    \    | __ \   | __ \           /  |       /  |         / \    | __ \  |  __| |  \  | |    / \
+| /   _    |  __/   |  __/   ____     | |        | |        / ^ \   |    /  |  \   |   \ | |   / ^ \
+| |__| |   | |      | |     |____|   _| |_      _| |_      / /-\ \  | |\ \  |  /_  | |\ \| |  / /-\ \
+ \____/    |_|      |_|             |_____| () |_____|    /_/   \_\ |_| \_\ |____| |_| \___| /_/   \_\
 
 *This qvm is "sort of" in active developement. If you have requests, feel free to do so here or email me at my youtube channel
 youtube.com/user/zdrytchx
+NOTE: The modder of this qvm does NOT know "proper" programming, so do NOT refer to me or my source for learning coding.
+Occasionally, this qvm gets a few unstable builds, bugs or other problems. I may need help at these times.
 
 CoW Tremulous QVM v2.0 [incomplete] merge with GPP-1.1/Lolards v0.7 mod
 
@@ -62,7 +64,7 @@ GPP-1.1 Gameplay "Features":
 -Re-gassing as a basilisk resets the victim's disorientation timer rather than doing nothing and waiting for it to finish before becomming effective
 -Gas goes through armour
 -Gas deals a mere 1 damage per second (code-wise it deals 0 damage though, dunno whats wrong here)
--Lcannon is a 1.1-Unvanquished mix (Dynamic luci ball speed from Lolards, 2.5 second primary charge time, gpp-like secondary or finish-off combos)
+-Lcannon is a 1.1-Unvanquished mix (Dynamic luci ball speed from Lolards, 2.5 second primary charge time, gpp "MDK"-like secondary or finish-off combos, full charge takes 1.1 style)
 -Most buildables take gpp values
 -Turrets are a mix - Crappy at close range againts a fast alien, but great in damage dealing and fires inaccurately (misses dretches a lot long range, read Lolards features)
 -DCC simply boosts turret aiming speeds and distribute defences (like 1.1 ) but aren't required for tesla generators
@@ -76,11 +78,11 @@ GPP-1.1 Gameplay "Features":
 -Zap sustains even after victim's death unless a new victim is found or out of range
 -Zap sustains after one's death (Try getting a kill while you're dead!)
 -Dretche bites 48 -> 36
--Goon barb exploziens (75% damage only because it's overpowered)
--Increased barb reload timer to 15 seconds (gpp = 30, 1.1 = 10)
+-Goon barb explosians (75% damage only because it's overpowered)
+-Increased barb reload timer to 20
 -GPP shotgun (11 pellets, each doing 5 damage, where 1.1 has 14 pellets, each 4 dmg) to help againts dretches
 -Bunny Hopping up stairs is now a tonne load easier
--
+-Ramp Jumps :)
 -Other shit
 
 "Imported" Gameplay from Lolards/Misc:
@@ -103,7 +105,11 @@ GPP-1.1 Gameplay "Features":
 -Other shit
 
 Potential Side Effects/bugs from features:
--sv_fps MUST be >= 40 else aliens will have a hard time regenerating
 -Some clients on rare occasions can be "bot infected" (not literally, just a term where his client takes over a bot's and the bot tries to control him when he's lagging) although this bug has not been seen for over half a year
--With alien's smooth regeneration system, the server MAY take more CPU (not confirmed)
+>>>Potential Cause: Adding bots while clients connect [TODO: Refer to CoW QVM]
+-With alien's smooth regeneration system, the server MAY take more CPU (not confirmed)(A fix has been made to heal up to 4 hp per server frame)
 
+TODO:
+-Find out how to get cvars to access pmove and related files (bunnyhop, rampjump option, knockback cvars etc.)
+-define player positions for advance bot aiming -> add mdriver aiming ahead
+-Upgrade to "new" CoW bots system
