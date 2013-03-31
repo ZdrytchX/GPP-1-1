@@ -1010,7 +1010,7 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
     if( client->blaster_ammoregen >= g_blaster_ammoregen.integer )
     if( BLASTER_CLIPSIZE > 0)
     {
-    client->blaster_ammoregen = g_blaster_ammoregen; //keep if'ing to avoid wasting time
+    client->blaster_ammoregen = g_blaster_ammoregen.integer; //keep if'ing to avoid wasting time
     if( client->ps.weapon == WP_BLASTER )
     {
       int ammo, maxAmmo;

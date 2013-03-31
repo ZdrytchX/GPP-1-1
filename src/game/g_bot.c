@@ -767,6 +767,8 @@ void G_BotReactToEnemy(gentity_t *self, usercmd_t *botCmdBuffer) {
 			G_BotDodge(self,botCmdBuffer);
 		}
 	}
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL4_CLAW_RANGE)) //TODO: g_bot_react_jump
+                botCmdBuffer->upmove = 20;
             break;
         default: break;
     }
