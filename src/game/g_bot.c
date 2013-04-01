@@ -1033,7 +1033,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
             {
             if (DistanceSquared( muzzle, targetPos) > Square(LEVEL4_CLAW_RANGE * 3) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 3.5) && self->client->time1000 % 300 == 0)
                 botCmdBuffer->upmove = 20; //TODO: g_bot_react_jump
-            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE * 2) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 2) && self->client->time1000 % 300 == 0)
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE * 2) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 2) && self->client->time1000 % 300 <= 300)
                 botCmdBuffer->upmove = -1;
             if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % 300 == 0)
                 botCmdBuffer->upmove = 20;
