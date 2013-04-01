@@ -262,6 +262,7 @@ vmCvar_t  g_vampirebuildables_take;
 vmCvar_t  g_bunnyhop;//not yet m8
 vmCvar_t  g_weapswitchtime;
 vmCvar_t  g_blaster_ammoregen;
+vmCvar_t  g_bot_granger;
 
 static cvarTable_t   gameCvarTable[ ] =
 {
@@ -501,10 +502,10 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_lesson, "g_lesson", "0", CVAR_SERVERINFO | CVAR_ARCHIVE | CVAR_NORESTART, 0, qtrue },
   { &g_lesson_BlockEqStr, "g_lesson_BlockEqStr", "", CVAR_SERVERINFO | CVAR_ARCHIVE, 0, qfalse },
 
-  { &g_strip_PlayerDmgPrcnt,     "g_strip_PlayerDmgPrcnt",     "100", CVAR_SERVERINFO | CVAR_ARCHIVE | CVAR_NORESTART, 100, qtrue },
-  { &g_strip_PlayerDmgPrcnt_def, "g_strip_PlayerDmgPrcnt_def", "100", CVAR_SERVERINFO | CVAR_ARCHIVE | CVAR_NORESTART, 100, qtrue },
-  { &g_strip_StructDmgPrcnt,     "g_strip_StructDmgPrcnt",     "100", CVAR_SERVERINFO | CVAR_ARCHIVE | CVAR_NORESTART, 100, qtrue },
-  { &g_strip_StructDmgPrcnt_def, "g_strip_StructDmgPrcnt_def", "100", CVAR_SERVERINFO | CVAR_ARCHIVE | CVAR_NORESTART, 100, qtrue },
+  { &g_strip_PlayerDmgPrcnt,     "g_strip_PlayerDmgPrcnt",     "100", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE | CVAR_NORESTART, 100, qtrue },
+  { &g_strip_PlayerDmgPrcnt_def, "g_strip_PlayerDmgPrcnt_def", "100", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE | CVAR_NORESTART, 100, qtrue },
+  { &g_strip_StructDmgPrcnt,     "g_strip_StructDmgPrcnt",     "100", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE | CVAR_NORESTART, 100, qtrue },
+  { &g_strip_StructDmgPrcnt_def, "g_strip_StructDmgPrcnt_def", "100", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE | CVAR_NORESTART, 100, qtrue },
   { &g_connectedStripPrcnt,      "g_connectedStripPrcnt",       "50", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE | CVAR_NORESTART,  50, qtrue },
 //ZdrytchX
   { &g_vampiremode,      "g_vampiremode",                        "0", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse }, //Not yet
@@ -513,6 +514,7 @@ static cvarTable_t   gameCvarTable[ ] =
 //  { &g_bunnyhop,         "g_bunnyhop",                         "0", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },//Not Yet
   { &g_weapswitchtime,   "g_weapswitchtime",                     "250", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },//Not Yet
   { &g_blaster_ammoregen,   "g_blaster_ammoregen",                     "1100", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },
+  { &g_bot_granger,   "g_bot_granger",                           "0", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },
 };
 
 static int gameCvarTableSize = sizeof( gameCvarTable ) / sizeof( gameCvarTable[ 0 ] );

@@ -767,8 +767,6 @@ void G_BotReactToEnemy(gentity_t *self, usercmd_t *botCmdBuffer) {
 			G_BotDodge(self,botCmdBuffer);
 		}
 	}
-            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL4_CLAW_RANGE)) //TODO: g_bot_react_jump
-                botCmdBuffer->upmove = 20;
             break;
         default: break;
     }
@@ -858,7 +856,7 @@ qboolean botTargetInAttackRange(gentity_t *self, botTarget_t target) {
             break;
         case WP_ALEVEL2_UPG:
             range = LEVEL2_CLAW_RANGE*1.0; //Get it to miss occasionally by changing this to 1.5
-            secondaryRange = LEVEL2_AREAZAP_RANGE*1.0; //etc. was 2.0
+            secondaryRange = LEVEL2_AREAZAP_RANGE*1.0;
             break;
         case WP_ALEVEL3:
             range = LEVEL3_CLAW_RANGE;
@@ -896,24 +894,13 @@ qboolean botTargetInAttackRange(gentity_t *self, botTarget_t target) {
             range = (100 * 8192)/RIFLE_SPREAD; //100 is the maximum radius we want the spread to be
             secondaryRange = 0;
             break;
-        case WP_LOCKBLOB_LAUNCHER:
-            range = 600; //Close range only. Barbs go slow. 600 because often its aliens chasing humans.
-            secondaryRange = 650; //nade!
-            break;
         case WP_CHAINGUN:
             range = 300;
-            secondaryRange = (100 * 8192)/CHAINGUN_SPREAD; //secondary uses less ammo, yet inaccruate. Bot shake makes it worse, so stick with it.
+            secondaryRange = (100 * 8192)/CHAINGUN_SPREAD;
 	    break;
-//the following does NOT wor obviously, but i want to you get an idea of what i want. Basically, i need the secondary range to shoow the primary and primary to shoot secondary.
-/*
         case WP_LUCIFER_CANNON:
-            secondaryRange = 150; //shoots primary as it loses its charge then shoots a secondary straight after- a combo attack
-            range = (100 * 8192)/CHAINGUN_SPREAD; //not too far
-            break;
-*/
-        case WP_LUCIFER_CANNON:
-            secondaryRange = 2000;
-            range = 1000; //not too far
+            secondaryRange = 1000;
+            range = 2000; //not too far
             break;
         default:
             range = 4098 * 4; //large range for guns because guns have large ranges :)
@@ -970,11 +957,8 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                     botCmdBuffer->buttons |= BUTTON_USE_HOLDABLE;
                 break;
             case PCL_ALIEN_LEVEL0:
-                if((distance < Square(50)) && (distance > Square(350)) && (self->client->time1000 % 300 == 0))
+                if((distance < Square(100)) && (distance > Square(350)) && (self->client->time1000 % 500 == 0))
                     botCmdBuffer->upmove = 20; //jump when getting close
-//                if(distance > Square(LEVEL0_BITE_RANGE) && distance < (LEVEL0_SCRATCH_RANGE))
-//                    botCmdBuffer->buttons |= BUTTON_ATTACK2; //scratch for hp, its actually very useful for bots as they hit frequently
-//                else
                     botCmdBuffer->buttons |= BUTTON_ATTACK; //aka do nothing
                 break;
             case PCL_ALIEN_LEVEL1:
@@ -982,20 +966,12 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                 break;
             case PCL_ALIEN_LEVEL1_UPG:
                 if(distance <= Square(LEVEL1_CLAW_RANGE))
-                    botCmdBuffer->buttons |= BUTTON_ATTACK;
+                    botCmdBuffer->buttons |= BUTTON_ATTACK * 2;
                 else
                     botCmdBuffer->buttons |= BUTTON_ATTACK2; //gas
                 break;
-            case PCL_HUMAN_BSUIT:
-                if(distance > Square(250) && (distance < Square(600)) && (self->client->time1000 % 300 == 0))
-                    botCmdBuffer->upmove = 20; //jump when getting close
-                if(distance <= Square(LEVEL1_CLAW_RANGE*2))
-                    botCmdBuffer->buttons |= BUTTON_ATTACK;
-                else
-                    botCmdBuffer->buttons |= BUTTON_ATTACK2;
-                break;
             case PCL_ALIEN_LEVEL2:
-                if(self->client->time1000 % 300 == 0)
+                if(self->client->time1000 % 500 == 0)
                     botCmdBuffer->upmove = 20; //jump when getting close
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
                 break;
@@ -1020,12 +996,12 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                     distance > Square(LEVEL3_CLAW_RANGE + LEVEL3_CLAW_RANGE/2) ) { //idiot, dont try to pounce up close. You'll waste time.
                     botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 5.5 - self->client->ps.delta_angles[PITCH]; //look up a bit more
                     botCmdBuffer->buttons |= BUTTON_USE_HOLDABLE; //barb
-		   // botCmdBuffer->forwardmove = 0; //stop moving forward
-		    botCmdBuffer->rightmove = 0; //stop dodging because snipe uses inertia
+		    botCmdBuffer->forwardmove = 0; //stop moving forward
+		    //botCmdBuffer->rightmove = 0;
                 } else {       
                     if(distance > Square(LEVEL3_CLAW_RANGE + LEVEL3_CLAW_RANGE/2) && 
                     self->client->ps.stats[ STAT_MISC ] < LEVEL3_POUNCE_UPG_SPEED) {
-                        botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 6 - self->client->ps.delta_angles[PITCH];; //not as high because uses current velocity
+                        botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 6 - self->client->ps.delta_angles[PITCH]; //not as high because uses current velocity
                         botCmdBuffer->buttons |= BUTTON_ATTACK2; //pounce
                     }else
                         botCmdBuffer->buttons |= BUTTON_ATTACK;
@@ -1044,7 +1020,8 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
         if(self->client->ps.weapon == WP_FLAMER)
         {
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
-            
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % 300 == 0)
+                botCmdBuffer->upmove = 20; //only jump when too close
         } else if( self->client->ps.weapon == WP_LUCIFER_CANNON ) {
             if( self->client->time10000 % 1900 ) {
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
@@ -1053,8 +1030,15 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
         } else if(self->client->ps.weapon == WP_HBUILD || self->client->ps.weapon == WP_HBUILD2) {
             botCmdBuffer->buttons |= BUTTON_ATTACK2;
         } else
+            {
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL4_CLAW_RANGE * 3) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 3.5) && self->client->time1000 % 300 == 0)
+                botCmdBuffer->upmove = 20; //TODO: g_bot_react_jump
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE * 2) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 2) && self->client->time1000 % 300 == 0)
+                botCmdBuffer->upmove = -1;
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % 300 == 0)
+                botCmdBuffer->upmove = 20;
             botCmdBuffer->buttons |= BUTTON_ATTACK; //just fire the damn gun!
-            
+            }
     }
 }
 /**
@@ -1224,12 +1208,15 @@ void G_BotSpectatorThink( gentity_t *self ) {
 
             G_PushSpawnQueue( &level.humanSpawnQueue, clientNum );
         } else if( teamnum == PTE_ALIENS) {
-            self->client->pers.classSelection = PCL_ALIEN_LEVEL0;//PCL_ALIEN_LEVEL0
-            self->client->ps.stats[STAT_PCLASS] = PCL_ALIEN_LEVEL0; //PCL_ALIEN_LEVEL0 then PCL_ALIEN_BUILDER0_UPG for grangie
-/*
-            self->client->pers.classSelection = PCL_ALIEN_BUILDER0;//
-            self->client->ps.stats[STAT_PCLASS] = PCL_ALIEN_BUILDER0; //spawn granger if s2/3
-*/
+            self->client->pers.classSelection = PCL_ALIEN_LEVEL0;
+            self->client->ps.stats[STAT_PCLASS] = PCL_ALIEN_LEVEL0;
+          if (g_bot_granger.integer == 1)//kharn0v's heaven!
+            self->client->pers.classSelection = PCL_ALIEN_BUILDER0;
+            self->client->ps.stats[STAT_PCLASS] = PCL_ALIEN_BUILDER0;
+          if (g_bot_granger.integer == 1 && g_alienStage.integer > 0) //Go adv!
+            self->client->pers.classSelection = PCL_ALIEN_BUILDER0_UPG;
+            self->client->ps.stats[STAT_PCLASS] = PCL_ALIEN_BUILDER0_UPG;
+
             G_PushSpawnQueue( &level.alienSpawnQueue, clientNum );
         }
     }

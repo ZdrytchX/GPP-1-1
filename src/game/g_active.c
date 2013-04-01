@@ -1005,7 +1005,7 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
       }
     }
   }
-
+  }
 //Blaster charge
     if( client->blaster_ammoregen >= g_blaster_ammoregen.integer )
     if( BLASTER_CLIPSIZE > 0)
@@ -1026,7 +1026,6 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
     client->blaster_ammoregen = 0; //restart timer
     }
     }
-  }
 //==================================
 //Smooth Regeneration
 //==================================
