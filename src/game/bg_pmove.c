@@ -798,7 +798,7 @@ static qboolean PM_CheckWaterJump( void )
   if( !( cont & CONTENTS_SOLID ) )
     return qfalse;
 
-  spot[ 2 ] += 16; //def: 16 Tyrants struggle to get out of pools //TODO: CVAR
+  spot[ 2 ] += 20; //def: 16 Tyrants struggle to get out of pools //TODO: CVAR
   cont = pm->pointcontents( spot, pm->ps->clientNum );
 
   if( cont )
