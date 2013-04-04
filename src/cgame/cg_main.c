@@ -240,6 +240,8 @@ vmCvar_t  cg_debugRandom;
 vmCvar_t  cg_optimizePrediction;
 vmCvar_t  cg_projectileNudge;
 vmCvar_t  cg_unlagged;
+//ZdrytchX
+vmCvar_t  cg_thirdpersonheight;
 
 
 typedef struct
@@ -283,9 +285,9 @@ static cvarTable_t cvarTable[ ] =
   { &cg_lagometer, "cg_lagometer", "0", CVAR_ARCHIVE },
   { &cg_teslaTrailTime, "cg_teslaTrailTime", "250", CVAR_ARCHIVE  },
   { &cg_railTrailTime, "cg_railTrailTime", "400", CVAR_ARCHIVE  },
-  { &cg_gun_x, "cg_gunX", "0", CVAR_CHEAT },
-  { &cg_gun_y, "cg_gunY", "0", CVAR_CHEAT },
-  { &cg_gun_z, "cg_gunZ", "0", CVAR_CHEAT },
+  { &cg_gun_x, "cg_gunX", "0", CVAR_ARCHIVE },
+  { &cg_gun_y, "cg_gunY", "0", CVAR_ARCHIVE },
+  { &cg_gun_z, "cg_gunZ", "0", CVAR_ARCHIVE },
   { &cg_centertime, "cg_centertime", "3", CVAR_CHEAT },
   { &cg_runpitch, "cg_runpitch", "0.002", CVAR_ARCHIVE},
   { &cg_runroll, "cg_runroll", "0.005", CVAR_ARCHIVE },
@@ -306,9 +308,9 @@ static cvarTable_t cvarTable[ ] =
   { &cg_tracerChance, "cg_tracerchance", "0.4", CVAR_CHEAT },
   { &cg_tracerWidth, "cg_tracerwidth", "1", CVAR_CHEAT },
   { &cg_tracerLength, "cg_tracerlength", "100", CVAR_CHEAT },
-  { &cg_thirdPersonRange, "cg_thirdPersonRange", "100", CVAR_CHEAT }, //using 80 doesnt work for tyrants
+  { &cg_thirdPersonRange, "cg_thirdPersonRange", "80", CVAR_ARCHIVE },
   { &cg_thirdPersonAngle, "cg_thirdPersonAngle", "0", CVAR_CHEAT },
-  { &cg_thirdPerson, "cg_thirdPerson", "0", CVAR_ARCHIVE }, //Allow thirdperson
+  { &cg_thirdPerson, "cg_thirdPerson", "0", CVAR_ARCHIVE },
   { &cg_forceModel, "cg_forceModel", "0", CVAR_ARCHIVE  },
   { &cg_predictItems, "cg_predictItems", "1", CVAR_ARCHIVE },
   { &cg_deferPlayers, "cg_deferPlayers", "1", CVAR_ARCHIVE },
@@ -321,7 +323,7 @@ static cvarTable_t cvarTable[ ] =
   { &cg_noVoiceText, "cg_noVoiceText", "0", CVAR_ARCHIVE },
   { &cg_creepRes, "cg_creepRes", "16", CVAR_ARCHIVE },
   { &cg_drawSurfNormal, "cg_drawSurfNormal", "0", CVAR_CHEAT },
-  { &cg_drawBBOX, "cg_drawBBOX", "0", CVAR_CHEAT },
+  { &cg_drawBBOX, "cg_drawBBOX", "0", CVAR_ARCHIVE },
   { &cg_debugAlloc, "cg_debugAlloc", "0", 0 },
   { &cg_wwSmoothTime, "cg_wwSmoothTime", "300", CVAR_ARCHIVE },
   { &cg_wwFollow, "cg_wwFollow", "1", CVAR_ARCHIVE|CVAR_USERINFO },
@@ -384,8 +386,10 @@ static cvarTable_t cvarTable[ ] =
   { &cg_oldRail, "cg_oldRail", "1", CVAR_ARCHIVE},
   { &cg_oldRocket, "cg_oldRocket", "1", CVAR_ARCHIVE},
   { &cg_oldPlasma, "cg_oldPlasma", "1", CVAR_ARCHIVE},
-  { &cg_trueLightning, "cg_trueLightning", "0.0", CVAR_ARCHIVE}
+  { &cg_trueLightning, "cg_trueLightning", "0.0", CVAR_ARCHIVE},
 //  { &cg_pmove_fixed, "cg_pmove_fixed", "0", CVAR_USERINFO | CVAR_ARCHIVE }
+//ZdrytchX
+  { &cg_thirdpersonheight, "cg_thirdpersonheight", "12", CVAR_ARCHIVE}
 };
 
 static int   cvarTableSize = sizeof( cvarTable ) / sizeof( cvarTable[0] );

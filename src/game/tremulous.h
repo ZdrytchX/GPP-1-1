@@ -410,10 +410,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BLASTER_PUSH                50//Blasterjump effect, this is the actual damage before modding
 #define BLASTER_DMG_MOD             0.16f //Modifier for above damage
 #define BLASTER_RADIUS              100
-//Ignnore this, disabled via bg_misc.c
-#define BLASTER_MELEE               18
-#define BLASTER_MELLEE_REPEAT       0
-#define BLASTER_MELEE_RANGE         60
 //Prevent Blaster Spamming
 #define BLASTER_CLIPSIZE            6
 #define BLASTER_MAXCLIPS            1 //hacky fix for the lakitu7-qvm modded client, any number will do as long as it isn't 0
@@ -433,7 +429,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define PAINSAW_K_SCALE             1.0f
 #define PAINSAW_DAMAGE              HDM(12) //~>185 dmg/s
 #define PAINSAW_RANGE               60.0f //enough to touch below feet of a normal human without being OP [unlike gpp]
-//Following disabled via bg_misc.c and g_active.c
+//Following disabled via bg_misc.c and g_active.c, leave it for now
 #define PAINSAW_NODECAY             qtrue //Bleed ammo one per second if nodecay is qfalse
 #define PAINSAW_FUEL                0
 #define PAINSAW_BATTERIES           0 //not compatable with battery decay system, don't bother
@@ -455,15 +451,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define SHOTGUN_RELOAD              2000 //( SHOTGUN_SHELLS * 400 + 800 )
 #define SHOTGUN_SPREAD              900
 #define SHOTGUN_DMG                 HDM(4)
-
-//Stuns the player a little, yet more "accurate" for mid ranges
-//Disabled via bg_misc.c
-#define SHOTGUN_BLAST               38
-#define SHOTGUN_BLAST_RANGE         350
-#define SHOTGUN_BLAST_REPEAT        0//1500
-//#define SHOTGUN_BLAST_PELLETS       SHOTGUN_SHELLS  //Number of shells per clip, since if i use shells * pellets, the client would fk up
-#define SHOTGUN_BLAST_PELLET_DMG    3
-#define SHOTGUN_BLAST_SPREAD        500
 
 #define LASGUN_PRICE                250
 #define LASGUN_AMMO                 200
@@ -545,16 +532,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LCANNON_BATTERY_DECAY       11 //The value by which the luci starts struggling to power a full shot
 #define LCANNON_TAKE                11.0f //Maximum ammo that can be eaten by one bullet
 
-//Lockblob Launcher
-//Disabled cause this aint lolards
-#define LOCKBLOB_AMMO               12
-#define LOCKBLOB_MAXCLIPS           9
-#define LOCKBLOB_NUKE_REPEAT        2500 //Primary is declared in the alien buildable section for trapper
-#define AUTOSHOTTY_REPEAT           200
-#define AUTOSHOTTY_PELLET1          5   //Dmg for pellet '1', most accurate
-#define AUTOSHOTTY_PELLET2          3   //Dmg for pellet '2', inaccurate accurate
-#define AUTOSHOTTY_PELLET3          1   //Dmg for pellet '1', most inaccurate accurate
-
 #define HBUILD_PRICE                0
 #define HBUILD_REPEAT               1000 //1000
 #define HBUILD_DELAY                17500 //17500
@@ -568,7 +545,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /*
  * HUMAN upgrades
  */
-#define H_WEAP_SWITCH_DELAY         100 //Default start 200, end default 250 (total 450), this variable applies to both start and end
+#define H_WEAP_SWITCH_DELAY         80 //Default start 200
+#define H_WEAP_SWITCH_DELAY_END     120 //end default 250
 //TODO: Replace with cvar, bg_pmove and trem.h doesn't know from g_main/g_local.h which poses a problem, same for bunnyhop
 #define BUNNYHOP_TRUE               1 //Off = 0 on = 1
 

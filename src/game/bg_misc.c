@@ -3124,7 +3124,7 @@ weaponAttributes_t bg_weapons[ ] =
     BLASTER_INF_AMMO,     //int       infiniteAmmo;
     qfalse,               //int       usesEnergy;
     BLASTER_REPEAT,       //int       repeatRate1;
-    BLASTER_MELLEE_REPEAT, //int       repeatRate2;
+    0,                    //int       repeatRate2;
     0,                    //int       repeatRate3;
     0,                    //int       reloadTime;
     BLASTER_K_SCALE,      //float     knockbackScale;
@@ -3176,7 +3176,7 @@ weaponAttributes_t bg_weapons[ ] =
     qfalse,               //int       infiniteAmmo;
     qfalse,               //int       usesEnergy;
     SHOTGUN_REPEAT,       //int       repeatRate1;
-    SHOTGUN_BLAST_REPEAT,                    //int       repeatRate2;
+    0,                    //int       repeatRate2;
     0,                    //int       repeatRate3;
     SHOTGUN_RELOAD,       //int       reloadTime;
     SHOTGUN_K_SCALE,        //float     knockbackScale;
@@ -3717,15 +3717,15 @@ weaponAttributes_t bg_weapons[ ] =
     SLOT_WEAPON,          //int       slots;
     "lockblob",           //char      *weaponName;
     "Lock Blob",          //char      *weaponHumanName;
-    LOCKBLOB_AMMO,         //int       maxAmmo;
-    LOCKBLOB_MAXCLIPS,    //int       maxClips;
-    qfalse,                //int       infiniteAmmo;
+    0,                    //int       maxAmmo;
+    0,                    //int       maxClips;
+    qtrue,                //int       infiniteAmmo;
     qfalse,               //int       usesEnergy;
-    TRAPPER_REPEAT,                  //int       repeatRate1;
-    LOCKBLOB_NUKE_REPEAT, //int       repeatRate2; //nader so keep it low!
-    AUTOSHOTTY_REPEAT,    //int       repeatRate3;
-    2000,                    //int       reloadTime;
-    LOCKBLOB_K_SCALE,     //float     knockbackScale;
+    TRAPPER_REPEAT,       //int       repeatRate1;
+    0,                    //int       repeatRate2; //nader so keep it low!
+    0,                    //int       repeatRate3;
+    0,                    //int       reloadTime;
+    0,                    //float     knockbackScale;
     qtrue,               //qboolean  hasAltMode;
     qtrue,               //qboolean  hasThirdMode;
     qfalse,               //qboolean  canZoom;

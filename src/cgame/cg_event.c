@@ -82,13 +82,13 @@ static void CG_Obituary( entityState_t *ent )
   switch( mod )
   {
     case MOD_SUICIDE:
-      message = "thought that suiciding couldn't be more painful";
+      message = "just wanted to reincarnate via extreme pain";
       break;
     case MOD_FALLING:
-      message = "tried to fly";
+      message = "bounced to heaven using the Eq: F = mg";
       break;
     case MOD_CRUSH:
-      message = "now can fit in a filing cabinet";
+      message = "can now fit in a filing cabinet";
       break;
     case MOD_WATER:
       message = "didn't know how to swim properly";
@@ -97,10 +97,10 @@ static void CG_Obituary( entityState_t *ent )
       message = "thought ^2acid^7 tasted good";
       break;
     case MOD_LAVA:
-      message = "melted under some mysterious blazingly hot ^1red ^7substance";
+      message = "melted into hot slag";
       break;
-    case MOD_TARGET_LASER:
-      message = "shouldn't have touched that ^1laser";
+    case MOD_TARGET_LASER: //used by lockblob now
+      message = "almost dodged a vicious projectile";
       break;
     case MOD_TRIGGER_HURT:
       message = "must've died somehow";
@@ -109,7 +109,7 @@ static void CG_Obituary( entityState_t *ent )
       message = "was killed in some explosion.";
       break;
     case MOD_ASPAWN:
-      message = "shouldn't have been near that organic structure.";
+      message = "shouldn't have stayed near that organic structure's remains";
       break;
     case MOD_MGTURRET:
       message = "was shot down by a chainret";
@@ -118,19 +118,19 @@ static void CG_Obituary( entityState_t *ent )
       message = "had a deadly electrical massage";
       break;
     case MOD_ATUBE:
-      message = "shouldn't have gone near the alien base for a shower";
+      message = "went near the baby tubes to shower off his dead skin";
       break;
     case MOD_OVERMIND:
-      message = "shouldn't convince the ^4Overmind^7 for intercourse.";
+      message = "shouldn't have and couldn't convince the ^4Overmind^7 for an intercourse";
       break;
     case MOD_REACTOR:
       message = "didn't know what the ^4product^7 from an ^5electricity ^7generator was";
       break;
     case MOD_SLOWBLOB:
-      message = "was ^2gooed";
+      message = "failed to make love with the ^2goo";
       break;
     case MOD_SWARM:
-      message = "shouldn't have gone near that hive";
+      message = "shouldn't have approached that hive";
       break;
     default:
       message = NULL;
@@ -155,9 +155,9 @@ static void CG_Obituary( entityState_t *ent )
         if( gender == GENDER_FEMALE )
           message = "should've learned not to luci spam";
         else if( gender == GENDER_NEUTER )
-          message = "blew oneself's body up into the air making a magnificent firework display";
-        else
           message = "tried a luci jump";
+        else
+          message = "'s body blew up into a magnificent firework display"; //tried a luci jump
         break;
 
       case MOD_GRENADE:
@@ -205,49 +205,65 @@ static void CG_Obituary( entityState_t *ent )
   {
     switch( mod )
     {
+      case MOD_TARGET_LASER:
+        message = "was fked up by";
+	message2 = "'s sticky glue";
+        break;
+      case MOD_SLOWBLOB:
+        message = "shouldn't have messed with";
+        message2 = "'s ^2granger goo";
+        break;
       case MOD_PAINSAW:
-        message = "was scratched by";
+        message = "was scratched into peices by";
+        message2 = "'s ^5p^7eni^5s^7aw";
         break;
       case MOD_BLASTER:
-        message = "was =Powned by";
+        message = "was slowly =Powned with beauty by";
+        message2 = "'s energy pistol slug";
         break;
       case MOD_MACHINEGUN:
         message = "was exterminated by";
+        message2 = "'s bullet storm";
         break;
       case MOD_CHAINGUN:
-        message = "was mowed down by";
+        message = "was easily mowed down by";
+        message2 = "'s combat gatling gun";
         break;
       case MOD_SHOTGUN:
-        message = "was blasted apart by the pellets of";
+        message = "'s body suffered the shock of the pellets from";
+        message2 = "'s shotgun";
         break;
       case MOD_PRIFLE:
-        message = "had its mouth filled with plasma";
+        message = "couldn't run from";
+        message2 = "'s ^1plasma^7";
         break;
       case MOD_MDRIVER:
-        message = "learned a lesson in nuclear physics from";
+        message = "learnt a lesson in nuclear physics from le Prof.";
+        message2 = "'s particle acceleration device";
         break;
       case MOD_LASGUN:
-        message = "was laser spammed by";
+        message = "was spammed to gibs by";
+        message2 = "'s lasgun";
         break;
       case MOD_FLAMER:
-        message = "was unintentionally tanned by";
-        message2 = "'s grill";
+        message = "was ^1baked^7 by";
+        message2 = "'s ^1p^3ortable ^1i^3ncinerater";
         break;
       case MOD_FLAMER_SPLASH:
-        message = "was baked by";
-        message2 = "'s portable incinerater";
+        message = "was unintentionally caught in the flame of";
+        message2 = "'s grill";
         break;
       case MOD_LCANNON:
         message = "saw";
-        message2 = "'s pretty lights";
+        message2 = "'s pretty ^3lights ^7come too close";
         break;
       case MOD_LCANNON_SPLASH:
-        message = "was blown up by";
-        message2 = "'s exploding sun";
+        message = "was blown up by the vicinity of";
+        message2 = "'s ^3exploding sun";
         break;
       case MOD_GRENADE:
         message = "didn't see";
-        message2 = "drop the bottle";
+        message2 = " drop the bottle";
         break;
 
       case MOD_ABUILDER_CLAW:
@@ -256,56 +272,59 @@ static void CG_Obituary( entityState_t *ent )
         break;
       case MOD_LEVEL0_BITE:
         message = "was nibbled by";
-	message2 = "'s dretch";
+	message2 = "'s ^3dretch";
         break;
       case MOD_LEVEL1_CLAW:
-        message = "was assasinated by";
-//Canceled as basi-suit shares the same death message
-//        Com_sprintf( className, 64, "'s %s",
-//            BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL1 ) );
-//        message2 = className;
+        message = "was assasinated slowly and gracefully by";
+//Re-enabled as spy-suit nolonger uses level1upg
+        Com_sprintf( className, 64, "'s %s",
+            BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL1 ) );
+        message2 = className;
         break;
       case MOD_LEVEL2_CLAW:
-        message = "had his body parts robbed by";
-        Com_sprintf( className, 64, "'s %s",
-            BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL2 ) );
-        message2 = className;
+        message = "had noticed his body parts suddenly went missing as";
+//        Com_sprintf( className, 64, "'s %s",
+//            BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL2 ) );
+//        message2 = className;
+        message2 = " attempted to closen their ^3distance";
         break;
       case MOD_LEVEL2_ZAP:
         message = "'s life energy was drained by";
+/*
         Com_sprintf( className, 64, "'s %s",
             BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL2 ) );
-        message2 = className;
+*/
+        message2 = "'s blue light beam";
         break;
       case MOD_LEVEL3_CLAW:
-        message = "had been decapitated by";
+        message = "had been decapitated by the awe of";
         Com_sprintf( className, 64, "'s %s",
             BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL3 ) );
         message2 = className;
         break;
       case MOD_LEVEL3_POUNCE:
-        message = "had his lovely face munted by";
+        message = "had his lovely face munted as";
         Com_sprintf( className, 64, "'s %s",
             BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL3 ) );
-        message2 = className;
+        message2 = "'s dragoon flew past";
         break;
       case MOD_LEVEL3_BOUNCEBALL:
-        message = "accidentally caught the acid barb of";
+        message = "almost dodged";
         Com_sprintf( className, 64, "'s %s",
             BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL3 ) );
-        message2 = className;
+        message2 = "'s acid barb";//className;
         break;
       case MOD_LEVEL4_CLAW:
-        message = "should've yelled '^1TAAAANK!^7' when he saw";
-        Com_sprintf( className, 64, "'s %s",
-            BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL4 ) );
-        message2 = className;
+        message = "was filleted by";
+//        Com_sprintf( className, 64, "'s %s",
+//            BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL4 ) );
+        message2 = "'s Tyrant";
         break;
       case MOD_LEVEL4_CHARGE:
-        message = "was shoved away by";
-        Com_sprintf( className, 64, "'s %s",
-            BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL4 ) );
-        message2 = className;
+        message = " was mowed down when he heard";
+//        Com_sprintf( className, 64, "'s %s",
+//            BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL4 ) );
+        message2 = "'s RaWr";
         break;
 
       case MOD_POISON:
@@ -316,13 +335,13 @@ static void CG_Obituary( entityState_t *ent )
         message = "was drugged by";
 //        Com_sprintf( className, 64, "'s %s",
 //            BG_FindHumanNameForClassNum( PCL_ALIEN_LEVEL1 ) );
-//        message2 = className;
+        message2 = "'s basi ^1love ^2gas";
         break;
 
 
       case MOD_TELEFRAG:
         message = "should've moved from the teleporter when";
-        message2 = "teleported";
+        message2 = " arrived";
         break;
       default:
         message = "was murdered by";
@@ -337,7 +356,7 @@ static void CG_Obituary( entityState_t *ent )
         attackerName, message2 );
       if( teamKill && attacker == cg.clientNum )
       {
-        CG_CenterPrint( va ( "You broke the law by " S_COLOR_RED "RAPING TEAMMATE "
+        CG_CenterPrint( va ( "M8,  You broke the law by " S_COLOR_RED "RAPING TEAMMATE "
           S_COLOR_WHITE "%s", targetName ),
           SCREEN_HEIGHT * 0.30, BIGCHAR_WIDTH );
       }
@@ -885,7 +904,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position )
       if( cg.predictedPlayerState.stats[ STAT_PTEAM ] == PTE_ALIENS )
       {
         trap_S_StartLocalSound( cgs.media.alienOvermindAttack, CHAN_ANNOUNCER );
-        CG_CenterPrint( "The Overmind is under attack!", 200, GIANTCHAR_WIDTH * 4 );
+        CG_CenterPrint( "Our Overmind is under attack!", 200, GIANTCHAR_WIDTH * 4 );
       }
       break;
 
@@ -894,7 +913,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position )
       if( cg.predictedPlayerState.stats[ STAT_PTEAM ] == PTE_ALIENS )
       {
         trap_S_StartLocalSound( cgs.media.alienOvermindDying, CHAN_ANNOUNCER );
-        CG_CenterPrint( "The Overmind is about to die!", 200, GIANTCHAR_WIDTH * 4 );
+        CG_CenterPrint( "The Overmind is dying!", 200, GIANTCHAR_WIDTH * 4 );
       }
       break;
 
@@ -903,7 +922,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position )
       if( cg.predictedPlayerState.stats[ STAT_PTEAM ] == PTE_HUMANS )
       {
         //trap_S_StartLocalSound( cgs.media.humanDCCAttack, CHAN_ANNOUNCER );
-        CG_CenterPrint( "Aliens has been detetected attacking our base!", 200, GIANTCHAR_WIDTH * 4 );
+        CG_CenterPrint( "Our base has been attacked!", 200, GIANTCHAR_WIDTH * 4 );
       }
       break;
 

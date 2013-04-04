@@ -764,9 +764,7 @@ gentity_t *fire_lockblob( gentity_t *self, vec3_t start, vec3_t dir )
   bolt->clipmask = MASK_SHOT;
   bolt->target_ent = NULL;
 /*
-//  bolt->s.eFlags = EF_BOUNCE_HALF; //this means no more lockblob jumping :(
-//client-only lockblob launcher - applies to tyrants and human lockblob
-if ( self->client && self->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
+if ( self->client && self->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //'client' = buildable
 	{
   bolt->s.pos.trType = TR_GRAVITY;
   bolt->s.eFlags = EF_BOUNCE_HALF;

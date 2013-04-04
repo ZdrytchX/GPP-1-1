@@ -308,7 +308,7 @@ static void CG_OffsetThirdPersonView( void )
 
   VectorCopy( cg.refdef.vieworg, view );
 
-  VectorMA( view, 12, surfNormal, view );
+  VectorMA( view, cg_thirdpersonheight.integer, surfNormal, view ); //12
 
   //cg.refdefViewAngles[PITCH] *= 0.5;
 
@@ -329,7 +329,7 @@ static void CG_OffsetThirdPersonView( void )
     if( trace.fraction != 1.0 )
     {
       VectorCopy( trace.endpos, view );
-      view[ 2 ] += ( 1.0 - trace.fraction ) * 32;
+      view[ 2 ] += ( 1.0 - trace.fraction ) * 32; //*32
       // try another trace to this position, because a tunnel may have the ceiling
       // close enogh that this is poking out
 
@@ -785,7 +785,9 @@ static int CG_CalcFov( void )
       {
         f = ( cg.time - cg.zoomTime ) / (float)ZOOM_TIME;
 
-        if ( f <= 1.0 )
+        if ( f > 1.0 )
+          fov_x = fov_x;
+        else
           fov_x = zoomFov + f * ( fov_x - zoomFov );
 
         // BUTTON_ATTACK2 is held so zoom next time
@@ -1103,7 +1105,7 @@ static int CG_CalcViewValues( void )
   cg.bobcycle = ( ps->bobCycle & 128 ) >> 7;
   cg.bobfracsin = fabs( sin( ( ps->bobCycle & 127 ) / 127.0 * M_PI ) );
   cg.xyspeed = sqrt( ps->velocity[ 0 ] * ps->velocity[ 0 ] +
-    ps->velocity[ 1 ] * ps->velocity[ 1 ] );
+    ps->velocity[ 1 ] * ps->velocity[ 1 ] );//use for speedometer?
 
   VectorCopy( ps->origin, cg.refdef.vieworg );
 

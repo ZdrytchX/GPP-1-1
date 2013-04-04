@@ -1510,7 +1510,6 @@ qboolean CheckPounceAttack( gentity_t *ent )
   if( !traceEnt->takedamage )
     return qfalse;
 
-//original
   damage = (int)( ( (float)ent->client->pmext.pouncePayload
     / (float)LEVEL3_POUNCE_SPEED ) * LEVEL3_POUNCE_DMG ); 
 
@@ -1575,19 +1574,15 @@ void ChargeAttack( gentity_t *ent, gentity_t *victim )
   if( !victim->takedamage )
     return;
 
-//  damage = LEVEL4_CHARGE_DMG * (float)ent->client->ps.stats[ STAT_MISC ] /  LEVEL4_CHARGE_TIME;
   damage = LEVEL4_CHARGE_DMG * (float)ent->client->ps.stats[ STAT_MISC ] /
            LEVEL4_CHARGE_TIME + LEVEL4_CHARGE_EXTRA;
   //allow level4 charge to do only little damage to buildables so it isn't overpowered like hell
   if( victim->s.eType == ET_BUILDABLE )
   {
-    //hackery
     damage *= LEVEL4_TRAMPLE_DMG_B;
   }
 
   G_Damage( victim, ent, ent, forward, victim->s.origin, damage, 0|DAMAGE_NO_LOCDAMAGE, MOD_LEVEL4_CHARGE );
-
-// ent->client->ps.weaponTime += 100; // rehit player time
 }
 
 //======================================================================
@@ -1639,28 +1634,6 @@ void FireWeapon3( gentity_t *ent )
       slowBlobFire( ent );
       break;
 
-//    case WP_ALEVEL4:
-//      lockBlobLauncherFire( ent ); //thats right bitch, i'll trap you!
-//    break;
-/*
-    case WP_HBUILD2:
-      bulletFire( ent, 300, 1, MOD_TRIGGER_HURT );
-      bulletFire( ent, 300, 1, MOD_TRIGGER_HURT );
-      bulletFire( ent, 300, 1, MOD_TRIGGER_HURT );
-      break;
-*/
-    case WP_LOCKBLOB_LAUNCHER:
-      bulletFire( ent, 30, AUTOSHOTTY_PELLET1, MOD_MACHINEGUN );
-      bulletFire( ent, 50, AUTOSHOTTY_PELLET1, MOD_MACHINEGUN );
-      bulletFire( ent, 80, AUTOSHOTTY_PELLET1, MOD_MACHINEGUN );
-      bulletFire( ent, 100, AUTOSHOTTY_PELLET2, MOD_MACHINEGUN );
-      bulletFire( ent, 200, AUTOSHOTTY_PELLET2, MOD_MACHINEGUN );
-      bulletFire( ent, 300, AUTOSHOTTY_PELLET3, MOD_MACHINEGUN );
-      bulletFire( ent, 300, AUTOSHOTTY_PELLET3, MOD_MACHINEGUN );
-      bulletFire( ent, 300, AUTOSHOTTY_PELLET3, MOD_MACHINEGUN );
-      bulletFire( ent, 500, AUTOSHOTTY_PELLET3, MOD_MACHINEGUN );
-      break;
-
     default:
       break;
   }
@@ -1703,38 +1676,13 @@ void FireWeapon2( gentity_t *ent )
       LCChargeFire( ent, qtrue );
       break;
 
-//standard weapons w/o secondary just use melee
-//dictionary:
 //meleeAttack( ent, [range], [width], [damage], MOD_[means of death] );
 //note: keep width 20 for humans otherwise it will not hit the target in vents.
-    case WP_BLASTER:
-      meleeAttack( ent, BLASTER_MELEE_RANGE, 1, BLASTER_MELEE, MOD_BLASTER );
-      break;
-    case WP_SHOTGUN:
-      meleeAttack( ent, SHOTGUN_BLAST_RANGE, 1, SHOTGUN_BLAST, MOD_SHOTGUN ); //acts like a forward explosion for knockback
-
-      bulletFire( ent, SHOTGUN_BLAST_SPREAD/3, SHOTGUN_BLAST_PELLET_DMG, MOD_SHOTGUN ); //6 for 6 pellets per clip
-      bulletFire( ent, SHOTGUN_BLAST_SPREAD/2, SHOTGUN_BLAST_PELLET_DMG, MOD_SHOTGUN ); 
-      bulletFire( ent, SHOTGUN_BLAST_SPREAD, SHOTGUN_BLAST_PELLET_DMG, MOD_SHOTGUN ); 
-      break;
-    case WP_PULSE_RIFLE:
-      lasGunFire( ent, LASGUN_SPREAD*2 );
-      break;
 
     case WP_CHAINGUN:
       bulletFire( ent, CHAINGUN_SPREAD2, CHAINGUN_DMG/3, MOD_CHAINGUN ); 
       bulletFire( ent, CHAINGUN_SPREAD2, CHAINGUN_DMG/3, MOD_CHAINGUN ); 
       bulletFire( ent, CHAINGUN_SPREAD2, CHAINGUN_DMG/3, MOD_CHAINGUN );
-      break;
-
-    case WP_LOCKBLOB_LAUNCHER:
-      throwGrenade( ent );
-      break;
-
-    case WP_MGTURRET:
-      shotgunFire( ent );
-      shotgunFire( ent );
-      shotgunFire( ent );
       break;
 
     case WP_ABUILD:
@@ -1744,7 +1692,6 @@ void FireWeapon2( gentity_t *ent )
 
     case WP_HBUILD:
     case WP_HBUILD2:
-//      meleeAttack( ent, PAINSAW_RANGE, 10, HBUILD_TEAMHEALRATE, MOD_BLASTER ); //if this doesn't work, revert this negative value
       cancelBuildFire( ent );
       break;
     default:

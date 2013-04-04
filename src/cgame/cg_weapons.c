@@ -741,7 +741,7 @@ CG_MachinegunSpinAngle
 ======================
 */
 #define   SPIN_SPEED  0.9
-#define   COAST_TIME  3000
+#define   COAST_TIME  1000
 static float CG_MachinegunSpinAngle( centity_t *cent, qboolean firing )
 {
   int   delta;
@@ -1004,7 +1004,6 @@ void CG_AddViewWeapon( playerState_t *ps )
   if( ( ps->stats[ STAT_BUILDABLE ] & ~SB_VALID_TOGGLEBIT ) > BA_NONE )
     CG_GhostBuildable( ps->stats[ STAT_BUILDABLE ] & ~SB_VALID_TOGGLEBIT );
 
-//add bleep warning when overloading
   if( weapon == WP_LUCIFER_CANNON && ps->stats[ STAT_MISC ] > 0 )
   {
     if( ps->stats[ STAT_MISC ] > ( LCANNON_TOTAL_CHARGE - ( LCANNON_TOTAL_CHARGE / 3 ) ) )
@@ -1062,7 +1061,6 @@ void CG_AddViewWeapon( playerState_t *ps )
   VectorMA( hand.origin, cg_gun_y.value, cg.refdef.viewaxis[ 1 ], hand.origin );
   VectorMA( hand.origin, ( cg_gun_z.value + fovOffset ), cg.refdef.viewaxis[ 2 ], hand.origin );
 
-//shake gun
   if( weapon == WP_LUCIFER_CANNON && ps->stats[ STAT_MISC ] > 0 )
   {
     float fraction = (float)ps->stats[ STAT_MISC ] / (float)LCANNON_TOTAL_CHARGE;
@@ -1190,7 +1188,7 @@ void CG_DrawItemSelect( rectDef_t *rect, vec4_t color )
     iconsize = width;
     length = height / width;
   }
-  else
+  else if( height <= width )
   {
     vertical = qfalse;
     iconsize = height;

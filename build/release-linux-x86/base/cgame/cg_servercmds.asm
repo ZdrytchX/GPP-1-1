@@ -3736,6 +3736,7 @@ import CG_Error
 import CG_Printf
 import CG_Argv
 import CG_ConfigString
+import cg_thirdpersonheight
 import cg_unlagged
 import cg_projectileNudge
 import cg_optimizePrediction

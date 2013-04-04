@@ -7975,15 +7975,15 @@ byte 4 4
 byte 4 32
 address $1100
 address $1101
-byte 4 12
-byte 4 9
 byte 4 0
+byte 4 0
+byte 4 1
 byte 4 0
 byte 4 1000
-byte 4 2500
-byte 4 200
-byte 4 2000
-byte 4 3212836864
+byte 4 0
+byte 4 0
+byte 4 0
+byte 4 0
 byte 4 1
 byte 4 1
 byte 4 0

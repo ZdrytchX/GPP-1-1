@@ -182,18 +182,18 @@ typedef struct attachment_s
 //======================================================================
 
 //particle system stuff
-#define MAX_PARTICLE_FILES        128
+#define MAX_PARTICLE_FILES        256//128
 
 #define MAX_PS_SHADER_FRAMES      32
 #define MAX_PS_MODELS             8
-#define MAX_EJECTORS_PER_SYSTEM   4
-#define MAX_PARTICLES_PER_EJECTOR 4
+#define MAX_EJECTORS_PER_SYSTEM   8//4
+#define MAX_PARTICLES_PER_EJECTOR 8//4
 
-#define MAX_BASEPARTICLE_SYSTEMS  192
+#define MAX_BASEPARTICLE_SYSTEMS  384 //192
 #define MAX_BASEPARTICLE_EJECTORS MAX_BASEPARTICLE_SYSTEMS*MAX_EJECTORS_PER_SYSTEM
 #define MAX_BASEPARTICLES         MAX_BASEPARTICLE_EJECTORS*MAX_PARTICLES_PER_EJECTOR
 
-#define MAX_PARTICLE_SYSTEMS      48
+#define MAX_PARTICLE_SYSTEMS      72 //48
 #define MAX_PARTICLE_EJECTORS     MAX_PARTICLE_SYSTEMS*MAX_EJECTORS_PER_SYSTEM
 #define MAX_PARTICLES             MAX_PARTICLE_EJECTORS*5
 
@@ -639,7 +639,7 @@ typedef struct centity_s
   buildableAnimNumber_t oldBuildableAnim; //to detect when new anims are set
   particleSystem_t      *buildablePS;
   buildableStatus_t     buildableStatus;
-  int                   lastBuildableHealth;
+  float                 lastBuildableHealthScale;
   int                   lastBuildableDamageSoundTime;
 
   lightFlareStatus_t    lfs;
@@ -1532,6 +1532,9 @@ extern  vmCvar_t    cg_debugRandom;
 extern  vmCvar_t    cg_optimizePrediction;
 extern  vmCvar_t    cg_projectileNudge;
 extern  vmCvar_t    cg_unlagged;
+
+//ZdrytchX
+extern  vmCvar_t    cg_thirdpersonheight;
 
 //
 // cg_main.c

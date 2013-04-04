@@ -953,7 +953,7 @@ static void PM_JetPackMove( void )
   VectorCopy( wishvel, wishdir );
   wishspeed = VectorNormalize( wishdir );
 
-  PM_Accelerate( wishdir, wishspeed, pm_flyaccelerate );
+  PM_Accelerate( wishdir, wishspeed, pm_flyaccelerate ); //only goes to 0'th d.p.?
 
   PM_StepSlideMove( qfalse, qfalse );
 
@@ -1559,19 +1559,22 @@ static void PM_CrashLand( void )
   delta = delta*delta * 0.0001;
 
   // ducking while falling doubles damage
-  if( pm->ps->pm_flags & PMF_DUCKED )
-    delta *= 2;
+  //zdrytchx: I loved this, but people think it is a bug
+//  if( pm->ps->pm_flags & PMF_DUCKED )
+//    delta *= 2;
 
   // never take falling damage if completely underwater
+  //zdrytchx: quarter damage
   if( pm->waterlevel == 3 )
-    return;
+    delta *= 0.25;
+//    return;
 
   // reduce falling damage if there is standing water
   if( pm->waterlevel == 2 )
-    delta *= 0.25;
+    delta *= 0.38; //0.25
 
   if( pm->waterlevel == 1 )
-    delta *= 0.5;
+    delta *= 0.75; //0.5
 
   if( delta < 1 )
     return;
@@ -1677,7 +1680,8 @@ static void PM_GroundTraceMissed( void )
     // if they aren't in a jumping animation and the ground is a ways away, force into it
     // if we didn't do the trace, the player would be backflipping down staircases
     VectorCopy( pm->ps->origin, point );
-    point[ 2 ] -= 64.0f;
+    point[ 2 ] -= 96.0f; //zdrytchx: Still seems dodgy, backflip animation ~ 0.5s
+                         //def: 64.0f
 
     pm->trace( &trace, pm->ps->origin, NULL, NULL, point, pm->ps->clientNum, pm->tracemask );
     if( trace.fraction == 1.0f )
@@ -2631,7 +2635,7 @@ static void PM_BeginWeaponChange( int weapon )
 
   PM_AddEvent( EV_CHANGE_WEAPON );
   pm->ps->weaponstate = WEAPON_DROPPING;
-  pm->ps->weaponTime += H_WEAP_SWITCH_DELAY / 2;
+  pm->ps->weaponTime += H_WEAP_SWITCH_DELAY;
   pm->ps->persistant[ PERS_NEWWEAPON ] = weapon;
 
   //reset build weapon
@@ -2660,7 +2664,7 @@ static void PM_FinishWeaponChange( void )
 
   pm->ps->weapon = weapon;
   pm->ps->weaponstate = WEAPON_RAISING;
-  pm->ps->weaponTime += H_WEAP_SWITCH_DELAY / 2; //250
+  pm->ps->weaponTime += H_WEAP_SWITCH_DELAY_END; //250
 
   if( !( pm->ps->persistant[ PERS_STATE ] & PS_NONSEGMODEL ) )
     PM_StartTorsoAnim( TORSO_RAISE );
