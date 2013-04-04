@@ -1585,6 +1585,9 @@ extern  vmCvar_t  g_vampirebuildables_take;
 extern  vmCvar_t  g_weapswitchtime;
 extern  vmCvar_t  g_blaster_ammoregen;
 extern  vmCvar_t  g_bot_granger;
+extern  vmCvar_t  g_bot_dodge_jump;
+extern  vmCvar_t  g_bot_dodge_crouch;
+extern  vmCvar_t  g_bot_ping;
 
 void      trap_Printf( const char *fmt );
 void      trap_Error( const char *fmt );

@@ -263,11 +263,13 @@ vmCvar_t  g_bunnyhop;//not yet m8
 vmCvar_t  g_weapswitchtime;
 vmCvar_t  g_blaster_ammoregen;
 vmCvar_t  g_bot_granger;
+vmCvar_t  g_bot_dodge_jump;
+vmCvar_t  g_bot_dodge_crouch;
+vmCvar_t  g_bot_ping;
 
 static cvarTable_t   gameCvarTable[ ] =
 {
-  // don't override the cheat state set by the system
-  { &g_cheats, "sv_cheats", "", 0, 0, qfalse },
+  { &g_cheats, "sv_cheats", "0", CVAR_ARCHIVE, 0, qfalse },
 
   // noset vars
   { NULL, "gamename", GAME_VERSION , CVAR_SERVERINFO | CVAR_ROM, 0, qfalse  },
@@ -508,13 +510,17 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_strip_StructDmgPrcnt_def, "g_strip_StructDmgPrcnt_def", "100", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE | CVAR_NORESTART, 100, qtrue },
   { &g_connectedStripPrcnt,      "g_connectedStripPrcnt",       "50", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE | CVAR_NORESTART,  50, qtrue },
 //ZdrytchX
-  { &g_vampiremode,      "g_vampiremode",                        "0", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse }, //Not yet
-  { &g_vampiremode,      "g_vampirebuildables",                  "0", CVAR_ARCHIVE,  0, qfalse },
-  { &g_vampirebuildables_take,      "g_vampirebuildables_take",        "50", CVAR_ARCHIVE,  50, qfalse },
-//  { &g_bunnyhop,         "g_bunnyhop",                         "0", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },//Not Yet
-  { &g_weapswitchtime,   "g_weapswitchtime",                     "250", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },//Not Yet
-  { &g_blaster_ammoregen,   "g_blaster_ammoregen",                     "1100", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },
-  { &g_bot_granger,   "g_bot_granger",                           "0", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },
+  { &g_vampiremode,      "g_vampiremode",                        "0", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse }, //TODO
+  { &g_vampiremode,      "g_vampirebuildables",                  "0", CVAR_ARCHIVE,                        0, qfalse },
+  { &g_vampirebuildables_take,      "g_vampirebuildables_take",  "50", CVAR_ARCHIVE,                       50, qfalse },
+//  { &g_bunnyhop,         "g_bunnyhop",                          "0", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },//TODO
+  { &g_weapswitchtime,   "g_weapswitchtime",                     "250", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },//TODO
+  { &g_blaster_ammoregen,   "g_blaster_ammoregen",              "1150", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },
+  { &g_bot_granger,   "g_bot_granger",                            "0", /*CVAR_SERVERINFO |*/  CVAR_ARCHIVE,  0, qfalse },
+  { &g_bot_dodge_jump,   "g_bot_dodge_jump",                      "1", /*CVAR_SERVERINFO |*/  CVAR_ARCHIVE,  1, qfalse },
+  { &g_bot_dodge_crouch,   "g_bot_dodge_crouch",                  "1", /*CVAR_SERVERINFO |*/  CVAR_ARCHIVE,  1, qfalse },
+  { &g_bot_ping,   "g_bot_ping",                                 "50", /*CVAR_SERVERINFO |*/  CVAR_ARCHIVE,  50,qfalse },
+
 };
 
 static int gameCvarTableSize = sizeof( gameCvarTable ) / sizeof( gameCvarTable[ 0 ] );

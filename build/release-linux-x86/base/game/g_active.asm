@@ -5294,7 +5294,7 @@ ADDRLP4 44
 INDIRI4
 ASGNI4
 ADDRLP4 60
-CNSTI4 8
+CNSTI4 6
 ASGNI4
 ADDRLP4 56
 INDIRI4
@@ -11546,6 +11546,9 @@ import trap_RealTime
 import trap_Milliseconds
 import trap_Error
 import trap_Printf
+import g_bot_ping
+import g_bot_dodge_crouch
+import g_bot_dodge_jump
 import g_bot_granger
 import g_blaster_ammoregen
 import g_weapswitchtime

@@ -105,7 +105,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL2_AREAZAP_TIME         1000  //Divide by 0 fixed
 					//TODO: Allow graphics to continue running despite chain cut off early
 #define LEVEL2_AREAZAP_MAX_TARGETS  3
-#define LEVEL2_WALLJUMP_MAXSPEED    90000.0f //1290.0f //idk, don't really want a max
+#define LEVEL2_WALLJUMP_MAXSPEED    3870.0f //1290.0f //idk, don't really want a max
 #define LEVEL2_AREAZAP_K_SCALE      -3.0f //Chain-ees get pulled together with this
 
 //Goon modified heavily to get close to gpp values.
@@ -415,7 +415,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BLASTER_MELLEE_REPEAT       0
 #define BLASTER_MELEE_RANGE         60
 //Prevent Blaster Spamming
-#define BLASTER_CLIPSIZE            8
+#define BLASTER_CLIPSIZE            6
 #define BLASTER_MAXCLIPS            1 //hacky fix for the lakitu7-qvm modded client, any number will do as long as it isn't 0
 #define BLASTER_INF_AMMO            qtrue //qtrue
 

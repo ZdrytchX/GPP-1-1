@@ -2362,8 +2362,8 @@ void Com_Init( char *commandLine ) {
 
 	cl_paused = Cvar_Get ("cl_paused", "0", CVAR_ROM);
 	sv_paused = Cvar_Get ("sv_paused", "0", CVAR_ROM);
-	cl_packetdelay = Cvar_Get ("cl_packetdelay", "0", CVAR_CHEAT);
-	sv_packetdelay = Cvar_Get ("sv_packetdelay", "0", CVAR_CHEAT);
+	cl_packetdelay = Cvar_Get ("cl_packetdelay", "0", CVAR_ARCHIVE);
+	sv_packetdelay = Cvar_Get ("sv_packetdelay", "0", CVAR_ARCHIVE);
 	com_sv_running = Cvar_Get ("sv_running", "0", CVAR_ROM);
 	com_cl_running = Cvar_Get ("cl_running", "0", CVAR_ROM);
 	com_buildScript = Cvar_Get( "com_buildScript", "0", 0 );

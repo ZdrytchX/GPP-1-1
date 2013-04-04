@@ -88,7 +88,7 @@ void G_BotAdd( char *name, int team, int skill ) {
       Info_SetValueForKey( userinfo, "password", g_password.string);
     
     trap_SetUserinfo( clientNum, userinfo );
-
+    //zdrytchx: is this the cause for taking both a sv_maxclient and sv_private client slot?
     // have it connect to the game as a normal client
     if(ClientConnect(clientNum, qtrue) != NULL )
         // won't let us join
@@ -269,7 +269,7 @@ void G_BotThink( gentity_t *self) {
         G_AddCreditToClient(self->client, HUMAN_MAX_CREDITS, qtrue);
 
     //hacky ping fix
-    self->client->ps.ping = rand() % 100 + 90;
+    self->client->ps.ping = rand() % 20 + g_bot_ping.integer;
     
     G_BotModusManager(self);
     switch(self->botMind->currentModus) {
@@ -463,6 +463,9 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
         return;
     else botCmdBuffer->upmove = -1;
     
+    if (self->client->ps.stats[ STAT_STAMINA ] < -300)
+    botCmdBuffer->forwardmove = 64;//walk
+    else
     //move forward
     botCmdBuffer->forwardmove = 127;
     
@@ -472,9 +475,8 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
     }
     
     //this is here so we dont run out of stamina..
-    //basically, just me being too lazy to make bots stop and regain stamina
     //self->client->ps.stats[ STAT_STAMINA ] = MAX_STAMINA;
-    self->client->ps.stats[ STAT_STAMINA ] += (MAX_STAMINA/500);//Bots regain stamina
+    self->client->ps.stats[ STAT_STAMINA ] += (MAX_STAMINA/1000);
     
     //we have stopped moving forward, try to get around whatever is blocking us
     if( botPathIsBlocked(self) ) {
@@ -504,10 +506,13 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
 /* //TODO: dunno whats wrong
 	else if(self->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS &&
 DistanceSquared(self->s.pos.trBase,tmpVec) < Square(300) && self->s.weapon = WP_FLAMER && botTargetInAttackRange(self, target) && getTargetTeam(target) == PTE_ALIENS)
-	{
+	{ */
+/*
+        if(self->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS)
+            {
         	if (DistanceSquared(self->s.pos.trBase,tmpVec) > Square(200) && botTargetInAttackRange(self, target))
         	{
-            botCmdBuffer->forwardmove = 50; //Approach slowly
+            botCmdBuffer->forwardmove = 64; //Approach slowly
         	}
         	else if (DistanceSquared(self->s.pos.trBase,tmpVec) > Square(130) && botTargetInAttackRange(self, target))
         	{
@@ -517,7 +522,9 @@ DistanceSquared(self->s.pos.trBase,tmpVec) < Square(300) && self->s.weapon = WP_
         	{
             botCmdBuffer->forwardmove = -100; //Backup!
         	}
-	}
+            }
+*/
+/*	}
 */
         else if(self->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS && 
         DistanceSquared(self->s.pos.trBase,tmpVec) > Square(100) && botTargetInAttackRange(self, target) && self->s.weapon != WP_PAIN_SAW
@@ -1020,23 +1027,29 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
         if(self->client->ps.weapon == WP_FLAMER)
         {
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
-            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % 300 == 0)
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % 300 == 0 && g_bot_dodge_jump.integer == 1)
                 botCmdBuffer->upmove = 20; //only jump when too close
+
         } else if( self->client->ps.weapon == WP_LUCIFER_CANNON ) {
             if( self->client->time10000 % 1900 ) {
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
                 self->botMind->isFireing = qtrue;
             }
+
         } else if(self->client->ps.weapon == WP_HBUILD || self->client->ps.weapon == WP_HBUILD2) {
             botCmdBuffer->buttons |= BUTTON_ATTACK2;
+
         } else
             {
-            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL4_CLAW_RANGE * 3) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 3.5) && self->client->time1000 % 300 == 0)
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL4_CLAW_RANGE * 3) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 3.5) && self->client->time1000 % 300 == 0 && g_bot_dodge_jump.integer == 1)
                 botCmdBuffer->upmove = 20; //TODO: g_bot_react_jump
-            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE * 2) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 2) && self->client->time1000 % 300 <= 300)
+
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE * 2) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 2) && self->client->time1000 % 300 <= 300 && g_bot_dodge_crouch.integer == 1)
                 botCmdBuffer->upmove = -1;
-            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % 300 == 0)
+
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % 300 == 0 && g_bot_dodge_jump.integer == 1)
                 botCmdBuffer->upmove = 20;
+
             botCmdBuffer->buttons |= BUTTON_ATTACK; //just fire the damn gun!
             }
     }
@@ -1477,7 +1490,7 @@ void botSlowAim( gentity_t *self, vec3_t target, float slow, vec3_t *rVec) {
         slowness = slow*(15/1000.0);
         if(slowness > 1.0) slowness = 1.0;
         
-        VectorLerp( slowness, forward, aimVec, skilledVec);
+        VectorLerp( slowness, forward, aimVec, skilledVec); //TODO: Add Aiming Ahead
         
         VectorAdd(viewBase, skilledVec, *rVec);
 }
@@ -1530,7 +1543,7 @@ void doLastNodeAction(gentity_t *self, usercmd_t *botCmdBuffer) {
         case BOT_JUMP:  
             
             if( self->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS && 
-                self->client->ps.stats[ STAT_STAMINA ] < 0 )
+                self->client->ps.stats[ STAT_STAMINA ] < -800 )
             {break;}
             if( !BG_ClassHasAbility( self->client->ps.stats[ STAT_PCLASS ], SCA_WALLCLIMBER ) )
                 
@@ -1548,7 +1561,7 @@ void doLastNodeAction(gentity_t *self, usercmd_t *botCmdBuffer) {
         break;
         case BOT_POUNCE:if(self->client->ps.stats[STAT_PCLASS] == PCL_ALIEN_LEVEL3 && 
             self->client->ps.stats[ STAT_MISC ] < LEVEL3_POUNCE_SPEED) {
-            botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 6 - self->client->ps.delta_angles[PITCH];
+            botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 5.8 - self->client->ps.delta_angles[PITCH];
             botCmdBuffer->buttons |= BUTTON_ATTACK2;
             }else if(self->client->ps.stats[STAT_PCLASS] == PCL_ALIEN_LEVEL3_UPG && 
                 self->client->ps.stats[ STAT_MISC ] < LEVEL3_POUNCE_UPG_SPEED) {
@@ -1705,10 +1718,10 @@ void setSkill(gentity_t *self, int skill) {
     self->botMind->botSkill.level = skill;
     //different aim for different teams
     if(self->botMind->botTeam == PTE_HUMANS) {
-        self->botMind->botSkill.aimSlowness = (float) (skill * 3) / 50; //(100 / skill ^ 2);
+        self->botMind->botSkill.aimSlowness = (float) (skill * 1) / 10;
         self->botMind->botSkill.aimShake = (int) (20 - (skill * 2) );
     } else {
-        self->botMind->botSkill.aimSlowness = (float)( skill * 2) / 20; // ( 25 / ( skill / 2 ) ^ 2);
+        self->botMind->botSkill.aimSlowness = (float)( skill * 1) / 10;
         self->botMind->botSkill.aimShake = (int) (30 - skill * 3);
     }
 }

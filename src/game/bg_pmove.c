@@ -587,8 +587,9 @@ static qboolean PM_CheckWallJump( void )
 
   if( pm->ps->pm_flags & PMF_TIME_WALLJUMP )
     return qfalse;
-//TODO: Allow bunnyhop for marauder. Apparently marauder "walljumps" off grounds as well, although doesnt bunnyhop hence produces a problem here
+
   // must wait for jump to be released
+/*
   if( pm->ps->pm_flags & PMF_JUMP_HELD &&
       pm->ps->grapplePoint[ 2 ] == 1.0f )
   {
@@ -596,7 +597,7 @@ static qboolean PM_CheckWallJump( void )
     pm->cmd.upmove = 0;
     return qfalse;
   }
-
+*/
   pm->ps->pm_flags |= PMF_TIME_WALLJUMP;
   pm->ps->pm_time = 200;
 
@@ -629,10 +630,11 @@ static qboolean PM_CheckWallJump( void )
 
   //for a long run of wall jumps the velocity can get pretty large, this caps it
   //Apparently works as an anti-strafe for marauders as well, although fixed in gpp
-  if( VectorLength( pm->ps->velocity ) > LEVEL2_WALLJUMP_MAXSPEED )
+  if( VectorLength( pm->ps->velocity ) > LEVEL2_WALLJUMP_MAXSPEED && pm->ps->grapplePoint[ 2 ] == 1.0f ) //only if it's  wall (ground = o.k.) //TODO add a cvar
   {
     VectorNormalize( pm->ps->velocity );
     VectorScale( pm->ps->velocity, LEVEL2_WALLJUMP_MAXSPEED, pm->ps->velocity );
+//TODO: Make the "hard" limit 'sqrt(speed^2 − LEVEL2_WALLJUMP_MAXSPEED^2)' but sqrt() doesn't accept
   }
 
   PM_AddEvent( EV_JUMP );
@@ -664,7 +666,7 @@ static qboolean PM_CheckWallJump( void )
 PM_CheckJump
 =============
 */
-static qboolean PM_CheckJump( void )
+static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, I want to be able to scale the human's jump based on stamina.
 {
   if( BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] ) == 0.0f )
     return qfalse;
@@ -676,13 +678,13 @@ static qboolean PM_CheckJump( void )
   if( ( pm->ps->weapon == WP_ALEVEL3 ||
         pm->ps->weapon == WP_ALEVEL3_UPG ) &&
       pm->ps->stats[ STAT_MISC ] > 0 )
-    return qfalse;
+    return qfalse; //makes the char slower for some reason
 
   //can't jump and charge at the same time
   if( ( pm->ps->weapon == WP_ALEVEL4 ) &&
       pm->ps->stats[ STAT_MISC ] > 0 )
     return qfalse;
-
+//TODO: Scale jump mag
   if( ( pm->ps->stats[ STAT_PTEAM ] == PTE_HUMANS ) &&
       ( pm->ps->stats[ STAT_STAMINA ] < STAMINA_MIN_TO_JUMP ) )
     return qfalse;
@@ -796,7 +798,7 @@ static qboolean PM_CheckWaterJump( void )
   if( !( cont & CONTENTS_SOLID ) )
     return qfalse;
 
-  spot[ 2 ] += 16;
+  spot[ 2 ] += 16; //def: 16 Tyrants struggle to get out of pools //TODO: CVAR
   cont = pm->pointcontents( spot, pm->ps->clientNum );
 
   if( cont )
@@ -804,7 +806,10 @@ static qboolean PM_CheckWaterJump( void )
 
   // jump out of water
   VectorScale( pml.forward, 200, pm->ps->velocity );
+//don't replace unless Z-axis < 0
+  if(  pm->ps->velocity[ 2 ] <= 0 )
   pm->ps->velocity[ 2 ] = 350;
+  else pm->ps->velocity[ 2 ] += 350; //Tyrants struggle to get out of pools
 
   pm->ps->pm_flags |= PMF_TIME_WATERJUMP;
   pm->ps->pm_time = 2000;

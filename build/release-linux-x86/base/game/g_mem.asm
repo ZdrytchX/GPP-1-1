@@ -777,6 +777,9 @@ import trap_RealTime
 import trap_Milliseconds
 import trap_Error
 import trap_Printf
+import g_bot_ping
+import g_bot_dodge_crouch
+import g_bot_dodge_jump
 import g_bot_granger
 import g_blaster_ammoregen
 import g_weapswitchtime
