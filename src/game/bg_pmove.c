@@ -2632,18 +2632,15 @@ static void PM_BeginWeaponChange( int weapon )
   }
 
   if( pm->ps->weaponstate = WEAPON_RELOADING) { //often this stupid bug pops up
-    pm->ps->weaponTime = 0; //gets added below anyway
+    pm->ps->weaponTime = 0; //gets added and weaponstate gets replaced below anyway,
  }
-
-  if( pm->ps->weaponTime > H_WEAP_SWITCH_BENIFIT + H_WEAP_SWITCH_BENIFIT )
-    pm->ps->weaponTime -= H_WEAP_SWITCH_BENIFIT;
 
   // force this here to prevent flamer effect from continuing, among other issues
   pm->ps->generic1 = WPM_NOTFIRING;
 
   PM_AddEvent( EV_CHANGE_WEAPON );
   pm->ps->weaponstate = WEAPON_DROPPING;
-  pm->ps->weaponTime += H_WEAP_SWITCH_DELAY;
+  pm->ps->weaponTime += H_WEAP_SWITCH_DELAY + FASTFIRE / 2;
   pm->ps->persistant[ PERS_NEWWEAPON ] = weapon;
 
   //reset build weapon
@@ -2672,7 +2669,7 @@ static void PM_FinishWeaponChange( void )
 
   pm->ps->weapon = weapon;
   pm->ps->weaponstate = WEAPON_RAISING;
-  pm->ps->weaponTime += H_WEAP_SWITCH_DELAY_END; //250
+  pm->ps->weaponTime += H_WEAP_SWITCH_DELAY_END + FASTFIRE / 2; //250
 
   if( !( pm->ps->persistant[ PERS_STATE ] & PS_NONSEGMODEL ) )
     PM_StartTorsoAnim( TORSO_RAISE );
@@ -2793,13 +2790,13 @@ static void PM_Weapon( void )
     return;
 
   // change weapon if time
-  if( pm->ps->weaponstate == WEAPON_DROPPING && pm->ps->weaponTime > 0 )
+  if( pm->ps->weaponstate == WEAPON_DROPPING && pm->ps->weaponTime > H_WEAP_SWITCH_BENIFIT )
   {
     PM_FinishWeaponChange( );
     return;
   }
 
-  if( pm->ps->weaponstate == WEAPON_RAISING && pm->ps->weaponTime > 0 )
+  if( pm->ps->weaponstate == WEAPON_RAISING && pm->ps->weaponTime > H_WEAP_SWITCH_BENIFIT )
   {
     pm->ps->weaponstate = WEAPON_READY;
 
