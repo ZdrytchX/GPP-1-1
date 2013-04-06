@@ -153,6 +153,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL4_CHARGE_CHARGE_RATIO  (LEVEL4_CHARGE_TIME/LEVEL4_CHARGE_CHARGE_TIME)//JUST LEAVE AS IS (confusing shit)
 
 #define LEVEL4_CHARGE_REPEAT        150 //1000 //GPP uses '100', the more lower, the more ping-bias
+#define LEVEL4_CHARGE_TIMEOUT       LEVEL4_CHARGE_REPEAT //After charge has run out, wait this before you can swipe
 #define LEVEL4_CHARGE_DMG           ADM(56 + (VAMP_ON * 35)) //100 (to help with armoured)
 					//0.2s naked
 					//~0.4s helm
@@ -401,14 +402,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define HUMAN_WDMG_MODIFIER         1.0f
 #define HDM(d)                      ((int)((float)d*HUMAN_WDMG_MODIFIER))
 
-#define BLASTER_REPEAT              700
-#define BLASTER_K_SCALE             1.5f //direct only - Gets overpowered on mid-air shots //6.0f - apparently splash knockback applies
-#define BLASTER_K_SELF_SCALE        2.0f //gets multiplied for self only (splash)
+#define BLASTER_REPEAT              750 //+50
+#define BLASTER_K_SCALE             1.2f //direct only - Gets overpowered on mid-air shots //6.0f - apparently splash knockback applies
+#define BLASTER_K_SELF_SCALE        (100.0f/BLASTER_PUSH) //gets multiplied for self only (splash)
 #define BLASTER_SPREAD              0
 #define BLASTER_SPEED               1400
 #define BLASTER_DMG                 HDM(9)
-#define BLASTER_PUSH                50//Blasterjump effect, this is the actual damage before modding
-#define BLASTER_DMG_MOD             0.16f //Modifier for above damage
+#define BLASTER_PUSH                80//Blasterjump effect, this is the actual damage before modding
+#define BLASTER_DMG_MOD             (8.00f/BLASTER_PUSH) //Modifier for above damage
 #define BLASTER_RADIUS              100
 //Prevent Blaster Spamming
 #define BLASTER_CLIPSIZE            6
@@ -548,6 +549,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define H_WEAP_SWITCH_DELAY         80 //Default start 200
 #define H_WEAP_SWITCH_DELAY_END     120 //end default 250
 //TODO: Replace with cvar, bg_pmove and trem.h doesn't know from g_main/g_local.h which poses a problem, same for bunnyhop
+#define H_WEAP_SWITCH_BENIFIT       500 //Time taken of firing time if you're switching weaps
 #define BUNNYHOP_TRUE               1 //Off = 0 on = 1
 
 #define LIGHTARMOUR_PRICE           70
@@ -781,6 +783,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define MEDKIT_OVERHEAL             1.0f //yes > 1.0f | no = 1.0f | little = 1.2f | L4D-like = 0.8
                                          //note: this value * MAX_MAX_HEALTH * player's max health
 #define MEDKIT_EXTRA                0 //Extra raw health added to medkit.
+
+//misc
+#define FASTFIRE                    200 //Allows a short period of fast fire - includes aliens
 
 // g_suddenDeathMode settings
 #define SDMODE_BP                   ( REPEATER_BP + ARMOURY_BP + DC_BP + MEDISTAT_BP )

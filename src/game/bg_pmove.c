@@ -2626,9 +2626,17 @@ static void PM_BeginWeaponChange( int weapon )
     return;
 
   //special case to prevent storing a charged up lcannon
-  if( pm->ps->weapon == WP_LUCIFER_CANNON )
+  if( pm->ps->weapon == WP_LUCIFER_CANNON ) {
     pm->ps->stats[ STAT_MISC ] = 0;
+//    return; //return gives a weird bug where you can gain extra ammo
+  }
 
+  if( pm->ps->weaponstate = WEAPON_RELOADING) { //often this stupid bug pops up
+    pm->ps->weaponTime = 0; //gets added below anyway
+ }
+
+  if( pm->ps->weaponTime > H_WEAP_SWITCH_BENIFIT + H_WEAP_SWITCH_BENIFIT )
+    pm->ps->weaponTime -= H_WEAP_SWITCH_BENIFIT;
 
   // force this here to prevent flamer effect from continuing, among other issues
   pm->ps->generic1 = WPM_NOTFIRING;
@@ -2741,9 +2749,9 @@ static void PM_Weapon( void )
     pm->ps->weaponTime -= pml.msec;
 
   // check for weapon change
-  // can't change if weapon is firing, but can change
-  // again if lowering or raising
-  if( pm->ps->weaponTime <= 0 || pm->ps->weaponstate != WEAPON_FIRING )
+  // can't change if weapon is firing or charging, but can change
+  // again if raising //pm->ps->weaponTime <= 0
+  if( pm->ps->weaponTime <= H_WEAP_SWITCH_BENIFIT ||/* pm->ps->weaponstate != WEAPON_FIRING ||*/ pm->ps->weaponstate != WEAPON_DROPPING )
   {
     //TA: must press use to switch weapons
     if( pm->cmd.buttons & BUTTON_USE_HOLDABLE )
@@ -2753,8 +2761,8 @@ static void PM_Weapon( void )
         if( pm->cmd.weapon <= 32 )
         {
           //if trying to select a weapon, select it
-          if( pm->ps->weapon != pm->cmd.weapon )
-            PM_BeginWeaponChange( pm->cmd.weapon );
+          if( pm->ps->weapon != pm->cmd.weapon ) {
+            PM_BeginWeaponChange( pm->cmd.weapon ); }
         }
         else if( pm->cmd.weapon > 32 )
         {
@@ -2781,17 +2789,17 @@ static void PM_Weapon( void )
     }
   }
 
-  if( pm->ps->weaponTime > 0 )
+  if( pm->ps->weaponTime > FASTFIRE ) //0 //fire a bullet every server frame until this is reached - allows short burst fire
     return;
 
   // change weapon if time
-  if( pm->ps->weaponstate == WEAPON_DROPPING )
+  if( pm->ps->weaponstate == WEAPON_DROPPING && pm->ps->weaponTime > 0 )
   {
     PM_FinishWeaponChange( );
     return;
   }
 
-  if( pm->ps->weaponstate == WEAPON_RAISING )
+  if( pm->ps->weaponstate == WEAPON_RAISING && pm->ps->weaponTime > 0 )
   {
     pm->ps->weaponstate = WEAPON_READY;
 
@@ -2841,7 +2849,7 @@ static void PM_Weapon( void )
     //allow some time for the weapon to be raised
     pm->ps->weaponstate = WEAPON_RAISING;
     PM_StartTorsoAnim( TORSO_RAISE );
-    pm->ps->weaponTime += 250;
+    pm->ps->weaponTime += H_WEAP_SWITCH_DELAY_END;
     return;
   }
 
@@ -2867,7 +2875,6 @@ static void PM_Weapon( void )
     case WP_ALEVEL0:
       //venom is only autohit
 //original:
-/*
       attack1 = attack2 = attack3 = qfalse;
 
       if( !pm->autoWeaponHit[ pm->ps->weapon ] )
@@ -2876,7 +2883,8 @@ static void PM_Weapon( void )
         pm->ps->weaponstate = WEAPON_READY;
         return;
       }
-*/
+//Dretch claw disabled
+/*
       attack1 = attack3 = qfalse;
       attack2 = pm->cmd.buttons & BUTTON_ATTACK2;
       if( !pm->autoWeaponHit[ pm->ps->weapon ] && !attack1 && !attack2 && !attack3 )
@@ -2884,7 +2892,7 @@ static void PM_Weapon( void )
         pm->ps->weaponTime = 0;
         pm->ps->weaponstate = WEAPON_READY;
         return;
-      }
+      }*/
       break;
 
     case WP_ALEVEL3:
@@ -2916,7 +2924,7 @@ static void PM_Weapon( void )
           return;
         }
         else
-          attack1 = !attack1;
+          attack1 = !attack1; //zdrytchx: the fuck? Probably meant the client let go of attack1
       }
 
       //erp this looks confusing
@@ -2925,7 +2933,7 @@ static void PM_Weapon( void )
       else if( pm->ps->stats[ STAT_MISC ] > 0 )
       {
         pm->ps->stats[ STAT_MISC ] = 0;
-        pm->ps->weaponTime = 0;
+        pm->ps->weaponTime = LCANNON_CHARGEREPEAT; //0
         pm->ps->weaponstate = WEAPON_READY;
         return;
       }
@@ -2995,6 +3003,10 @@ static void PM_Weapon( void )
       pm->ps->weaponstate = WEAPON_READY; //don't play dodgy blaster fire animations when charging
     return;
   }
+
+ //ZdrytchX: Anti-Charge Combo
+   if( pm->ps->stats[ STAT_MISC ] > 0 && pm->ps->weapon == WP_ALEVEL4 )
+      addTime =  LEVEL4_CHARGE_TIMEOUT; //TODO: sv_fps.integer?
 	  
   //TA: fire events for non auto weapons
   if( attack3 )
