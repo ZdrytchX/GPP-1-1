@@ -2632,7 +2632,7 @@ static void PM_BeginWeaponChange( int weapon )
   }
 
   if( pm->ps->weaponstate = WEAPON_RELOADING) { //often this stupid bug pops up
-    pm->ps->weaponTime = 0; //gets added and weaponstate gets replaced below anyway,
+    pm->ps->weaponTime = 50; //gets added and weaponstate gets replaced below anyway,
  }
 
   // force this here to prevent flamer effect from continuing, among other issues
@@ -2640,7 +2640,7 @@ static void PM_BeginWeaponChange( int weapon )
 
   PM_AddEvent( EV_CHANGE_WEAPON );
   pm->ps->weaponstate = WEAPON_DROPPING;
-  pm->ps->weaponTime += H_WEAP_SWITCH_DELAY + FASTFIRE / 2;
+  pm->ps->weaponTime += H_WEAP_SWITCH_DELAY + FASTFIRE;
   pm->ps->persistant[ PERS_NEWWEAPON ] = weapon;
 
   //reset build weapon
@@ -2669,7 +2669,7 @@ static void PM_FinishWeaponChange( void )
 
   pm->ps->weapon = weapon;
   pm->ps->weaponstate = WEAPON_RAISING;
-  pm->ps->weaponTime += H_WEAP_SWITCH_DELAY_END + FASTFIRE / 2; //250
+  pm->ps->weaponTime += H_WEAP_SWITCH_DELAY_END + FASTFIRE; //250
 
   if( !( pm->ps->persistant[ PERS_STATE ] & PS_NONSEGMODEL ) )
     PM_StartTorsoAnim( TORSO_RAISE );
