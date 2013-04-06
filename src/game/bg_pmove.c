@@ -2790,13 +2790,13 @@ static void PM_Weapon( void )
     return;
 
   // change weapon if time
-  if( pm->ps->weaponstate == WEAPON_DROPPING && pm->ps->weaponTime > H_WEAP_SWITCH_BENIFIT )
+  if( pm->ps->weaponstate == WEAPON_DROPPING && pm->ps->weaponTime > 0 )
   {
     PM_FinishWeaponChange( );
     return;
   }
 
-  if( pm->ps->weaponstate == WEAPON_RAISING && pm->ps->weaponTime > H_WEAP_SWITCH_BENIFIT )
+  if( pm->ps->weaponstate == WEAPON_RAISING && pm->ps->weaponTime > 0 )
   {
     pm->ps->weaponstate = WEAPON_READY;
 
