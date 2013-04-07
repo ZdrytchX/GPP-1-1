@@ -1007,7 +1007,7 @@ INDIRP4
 CNSTI4 516
 ADDP4
 INDIRP4
-CNSTI4 920
+CNSTI4 924
 ADDP4
 INDIRI4
 ADDRLP4 4
@@ -4104,6 +4104,8 @@ import trap_RealTime
 import trap_Milliseconds
 import trap_Error
 import trap_Printf
+import g_teamStatusTime
+import g_teamStatus
 import g_bot_ping
 import g_bot_dodge_crouch
 import g_bot_dodge_jump

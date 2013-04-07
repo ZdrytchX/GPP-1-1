@@ -478,7 +478,7 @@ ADDRLP4 9380
 CNSTI4 516
 ASGNI4
 ADDRLP4 9384
-CNSTI4 920
+CNSTI4 924
 ASGNI4
 ADDRLP4 0
 INDIRP4
@@ -601,7 +601,7 @@ ADDRLP4 9384
 CNSTI4 516
 ASGNI4
 ADDRLP4 9388
-CNSTI4 920
+CNSTI4 924
 ASGNI4
 ADDRLP4 0
 INDIRP4
@@ -1125,6 +1125,8 @@ import trap_RealTime
 import trap_Milliseconds
 import trap_Error
 import trap_Printf
+import g_teamStatusTime
+import g_teamStatus
 import g_bot_ping
 import g_bot_dodge_crouch
 import g_bot_dodge_jump

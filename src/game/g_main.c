@@ -266,6 +266,8 @@ vmCvar_t  g_bot_granger;
 vmCvar_t  g_bot_dodge_jump;
 vmCvar_t  g_bot_dodge_crouch;
 vmCvar_t  g_bot_ping;
+vmCvar_t  g_teamStatus;
+vmCvar_t  g_teamStatusTime;
 
 static cvarTable_t   gameCvarTable[ ] =
 {
@@ -520,6 +522,8 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_bot_dodge_jump,   "g_bot_dodge_jump",                      "1", /*CVAR_SERVERINFO |*/  CVAR_ARCHIVE,  1, qfalse },
   { &g_bot_dodge_crouch,   "g_bot_dodge_crouch",                  "1", /*CVAR_SERVERINFO |*/  CVAR_ARCHIVE,  1, qfalse },
   { &g_bot_ping,   "g_bot_ping",                                 "50", /*CVAR_SERVERINFO |*/  CVAR_ARCHIVE,  50,qfalse },
+  { &g_teamStatus, "g_teamStatus",                               "0", CVAR_ARCHIVE,                          1, qfalse  },
+  { &g_teamStatusTime, "g_teamStatusTime",                       "10", CVAR_ARCHIVE,                         0, qfalse  },
 
 };
 

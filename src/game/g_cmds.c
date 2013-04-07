@@ -3822,6 +3822,155 @@ void Cmd_Reload_f( gentity_t *ent )
     ent->client->ps.pm_flags |= PMF_WEAPON_RELOAD;
 }
 
+/*
+=================
+Cmd_TeamStatus_f
+=================
+*/
+void Cmd_TeamStatus_f( gentity_t *ent )
+{
+  int i;
+  int builders = 0;
+  int arm = 0, medi = 0, boost = 0;
+  int omrc = 0;
+  qboolean omrcbuild = qfalse;
+  gentity_t *tmp;
+
+  if( !g_teamStatus.integer )
+  {
+    ADMP( "TeamStatus has been disabled.\n");
+    return;
+  }
+
+  if( ent->client->pers.muted )
+  {
+    trap_SendServerCommand( ent - g_entities,
+      "print \"You are muted and cannot use message commands.\n\"" );
+    return;
+  }
+
+  if( g_teamStatusTime.integer && ent->client->pers.lastTeamStatus && (level.time - ent->client->pers.lastTeamStatus) < g_teamStatusTime.integer * 1000 )
+  {
+    ADMP( va("You may only check your team's status once every %i seconds.\n", g_teamStatusTime.integer  ));
+    return;
+  }
+
+  ent->client->pers.lastTeamStatus = level.time;
+
+  // Aliens
+  if( ent->client->pers.teamSelection == PTE_ALIENS )
+  {
+    // OM detection
+    for ( i = 1, tmp = g_entities + i; i < level.num_entities; i++, tmp++ )
+    {
+      if( tmp->s.eType != ET_BUILDABLE )
+        continue;
+      
+      if( tmp->s.modelindex == BA_A_OVERMIND )
+      {
+        omrc = tmp->health;
+        omrcbuild = tmp->spawned;
+        break;
+      }
+    }
+
+    // Builder detection
+    for( i = 0; i < level.maxclients; i++ )
+    {
+      tmp = &g_entities[ i ];
+      if( !tmp->client )
+        continue;
+      if( tmp->client->pers.connected != CON_CONNECTED )
+        continue;
+      if( tmp->client->pers.teamSelection == PTE_NONE )
+        continue;
+      if( tmp->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_BUILDER0 ||
+          tmp->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_BUILDER0_UPG )
+        builders++;
+    }
+
+    // Booster detection
+    for ( i = 1, tmp = g_entities + i; i < level.num_entities; i++, tmp++ )
+    {
+      if( tmp->s.eType != ET_BUILDABLE )
+        continue;
+      if( tmp->s.modelindex == BA_A_BOOSTER )
+        boost++;
+    }
+
+    G_Say( ent, NULL, SAY_TEAM, va( "^5OM: %s(%d) ^5Eggs: %s%i ^5Builders: %s%i ^5Boosters: %s%i^7",
+      ( omrc <= 0 ) ? "^1Down" : ( omrcbuild ) ? "^2Up" : "^3Building",
+      ( omrc > 0 ) ? omrc * 100 / OVERMIND_HEALTH : 0,
+      ( level.numAlienSpawns <= 0 ) ? "^1" : "^2",
+      level.numAlienSpawns,
+      ( ( omrc <= 0 || level.numAlienSpawns <= 0 ) && builders <= 0 ) ? "^1" : "^2",
+      builders,
+      ( g_alienStage.integer >= 1 && boost <= 0 ) ? "^1" : "^2",
+      boost ) );
+  }
+
+  // Humans
+  if( ent->client->pers.teamSelection == PTE_HUMANS )
+  {
+    for ( i = 1, tmp = g_entities + i; i < level.num_entities; i++, tmp++ )
+    {
+      if( tmp->s.eType != ET_BUILDABLE )
+        continue;
+      if( tmp->s.modelindex == BA_H_REACTOR )
+      {
+        omrc = tmp->health;
+        omrcbuild = tmp->spawned;
+        break;
+      }
+    }
+
+    // Builder detection
+    for( i = 0; i < level.maxclients; i++ )
+    {
+      tmp = &g_entities[ i ];
+      if( !tmp->client )
+        continue;
+      if( tmp->client->pers.connected != CON_CONNECTED )
+        continue;
+      if( tmp->client->pers.teamSelection == PTE_NONE )
+        continue;
+      if( BG_InventoryContainsWeapon( WP_HBUILD, tmp->client->ps.stats ) ||
+          BG_InventoryContainsWeapon( WP_HBUILD2, tmp->client->ps.stats ) )
+        builders++;
+    }
+
+    // Armory detection
+    for ( i = 1, tmp = g_entities + i; i < level.num_entities; i++, tmp++ )
+    {
+      if( tmp->s.eType != ET_BUILDABLE )
+        continue;
+      if( tmp->s.modelindex == BA_H_ARMOURY )
+        arm++;
+    }
+
+    // Medi detection
+    for ( i = 1, tmp = g_entities + i; i < level.num_entities; i++, tmp++ )
+    {
+      if( tmp->s.eType != ET_BUILDABLE )
+        continue;
+      if( tmp->s.modelindex == BA_H_MEDISTAT )
+        medi++;
+    }
+
+    G_Say( ent, NULL, SAY_TEAM, va( "^5RC: %s(%d) ^5Telenodes: %s%i ^5Builders: %s%i ^5Armouries: %s%i ^5Medistations: %s%i^7",
+      ( omrc <= 0 ) ? "^1Down" : ( omrcbuild ) ? "^2Up" : "^3Building",
+      ( omrc > 0 ) ? omrc * 100 / REACTOR_HEALTH : 0,
+      ( level.numHumanSpawns <= 0 ) ? "^1" : "^2",
+      level.numHumanSpawns,
+      ( ( omrc <=0 || level.numHumanSpawns <= 0 ) && builders <= 0 ) ? "^1" : "^2",
+      builders,
+      ( arm <= 0 ) ? "^1" : "^2",
+      arm,
+      ( medi <= 0 ) ? "^1" : "^2",
+      medi ) );
+  }
+  return;
+}
 
 /*
 =================
@@ -5210,6 +5359,7 @@ commands_t cmds[ ] = {
 
   { "score", CMD_INTERMISSION, ScoreboardMessage },
   { "mystats", CMD_TEAM|CMD_INTERMISSION, Cmd_MyStats_f },
+  { "teamstatus", CMD_TEAM, Cmd_TeamStatus_f },
 
   // cheats
   { "give", CMD_CHEAT|CMD_TEAM|CMD_LIVING, Cmd_Give_f },

@@ -5740,6 +5740,9 @@ qboolean G_admin_help( gentity_t *ent, int skiparg )
     }
     if( ent && g_allowShare.integer )
       strcat( additional, " /share /donate" );
+
+    if( ent && g_teamStatus.integer )
+      strcat( additional, " /teamstatus" );
     
     if( count )
       ADMBP( "\n" );

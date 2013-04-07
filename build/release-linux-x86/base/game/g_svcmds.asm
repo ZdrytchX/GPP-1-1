@@ -1230,7 +1230,7 @@ ADDRGP4 $258
 JUMPV
 LABELV $261
 ADDRLP4 0
-CNSTI4 1936
+CNSTI4 1940
 ADDRLP4 8
 INDIRI4
 MULI4
@@ -1271,7 +1271,7 @@ ADDRGP4 $272
 JUMPV
 LABELV $269
 ADDRLP4 0
-CNSTI4 1936
+CNSTI4 1940
 ADDRLP4 4
 INDIRI4
 MULI4
@@ -2482,6 +2482,8 @@ import trap_RealTime
 import trap_Milliseconds
 import trap_Error
 import trap_Printf
+import g_teamStatusTime
+import g_teamStatus
 import g_bot_ping
 import g_bot_dodge_crouch
 import g_bot_dodge_jump

@@ -58,7 +58,7 @@ INDIRP4
 CVPU4 4
 SUBU4
 CVUI4 4
-CNSTI4 1936
+CNSTI4 1940
 DIVI4
 ASGNI4
 ADDRFP4 4
@@ -712,6 +712,8 @@ import trap_RealTime
 import trap_Milliseconds
 import trap_Error
 import trap_Printf
+import g_teamStatusTime
+import g_teamStatus
 import g_bot_ping
 import g_bot_dodge_crouch
 import g_bot_dodge_jump

@@ -525,6 +525,7 @@ typedef struct
   qboolean            nakedPlayer;
   qboolean            firstConnect;        // This is the first map since connect
   qboolean            useUnlagged;
+  int                 lastTeamStatus;
   statsCounters_t     statscounters;
 
   statsKeepForLevel_t LevelKeepStats;      // used by auto-strip and (in future) similar routines
@@ -1588,6 +1589,8 @@ extern  vmCvar_t  g_bot_granger;
 extern  vmCvar_t  g_bot_dodge_jump;
 extern  vmCvar_t  g_bot_dodge_crouch;
 extern  vmCvar_t  g_bot_ping;
+extern  vmCvar_t  g_teamStatus;
+extern  vmCvar_t  g_teamStatusTime;
 
 void      trap_Printf( const char *fmt );
 void      trap_Error( const char *fmt );
