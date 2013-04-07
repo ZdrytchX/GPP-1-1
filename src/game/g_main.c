@@ -514,15 +514,15 @@ static cvarTable_t   gameCvarTable[ ] =
 //ZdrytchX
   { &g_vampiremode,      "g_vampiremode",                        "0", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse }, //TODO
   { &g_vampiremode,      "g_vampirebuildables",                  "0", CVAR_ARCHIVE,                        0, qfalse },
-  { &g_vampirebuildables_take,      "g_vampirebuildables_take",  "50", CVAR_ARCHIVE,                       50, qfalse },
+  { &g_vampirebuildables_take,      "g_vampirebuildables_take",  "50", CVAR_ARCHIVE,                       0,  qfalse },
 //  { &g_bunnyhop,         "g_bunnyhop",                          "0", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },//TODO
   { &g_weapswitchtime,   "g_weapswitchtime",                     "250", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },//TODO
   { &g_blaster_ammoregen,   "g_blaster_ammoregen",              "1150", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },
   { &g_bot_granger,   "g_bot_granger",                            "0", /*CVAR_SERVERINFO |*/  CVAR_ARCHIVE,  0, qfalse },
   { &g_bot_dodge_jump,   "g_bot_dodge_jump",                      "1", /*CVAR_SERVERINFO |*/  CVAR_ARCHIVE,  1, qfalse },
   { &g_bot_dodge_crouch,   "g_bot_dodge_crouch",                  "1", /*CVAR_SERVERINFO |*/  CVAR_ARCHIVE,  1, qfalse },
-  { &g_bot_ping,   "g_bot_ping",                                 "50", /*CVAR_SERVERINFO |*/  CVAR_ARCHIVE,  50,qfalse },
-  { &g_teamStatus, "g_teamStatus",                               "0", CVAR_ARCHIVE,                          1, qfalse  },
+  { &g_bot_ping,   "g_bot_ping",                                 "50", /*CVAR_SERVERINFO |*/  CVAR_ARCHIVE,  0, qfalse },
+  { &g_teamStatus, "g_teamStatus",                               "1", CVAR_ARCHIVE,                          0, qfalse  },
   { &g_teamStatusTime, "g_teamStatusTime",                       "10", CVAR_ARCHIVE,                         0, qfalse  },
 
 };
