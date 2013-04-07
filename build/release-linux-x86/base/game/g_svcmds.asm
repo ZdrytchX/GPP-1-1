@@ -1230,7 +1230,7 @@ ADDRGP4 $259
 JUMPV
 LABELV $262
 ADDRLP4 0
-CNSTI4 1944
+CNSTI4 1952
 ADDRLP4 8
 INDIRI4
 MULI4
@@ -1271,7 +1271,7 @@ ADDRGP4 $273
 JUMPV
 LABELV $270
 ADDRLP4 0
-CNSTI4 1944
+CNSTI4 1952
 ADDRLP4 4
 INDIRI4
 MULI4
@@ -2564,6 +2564,8 @@ import g_publicSayadmins
 import g_decolourLogfiles
 import g_privateMessages
 import g_devmapKillerHP
+import g_feedingSpree
+import g_killingSpree
 import g_adminLeaveMsg
 import g_banNotice
 import g_minLevelToSpecMM1

@@ -270,6 +270,8 @@ vmCvar_t  g_teamStatus;
 vmCvar_t  g_teamStatusTime;
 vmCvar_t  g_demoState;
 vmCvar_t  g_allowBlackInNames;
+vmCvar_t  g_killingSpree;
+vmCvar_t  g_feedingSpree;
 
 static cvarTable_t   gameCvarTable[ ] =
 {
@@ -528,6 +530,8 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_teamStatusTime, "g_teamStatusTime",                       "10", CVAR_ARCHIVE,                         0, qfalse },
   { &g_demoState, "sv_demoState",                                "", 0,                                      0, qfalse },
   { &g_allowBlackInNames, "g_allowBlackInNames",                 "1", CVAR_ARCHIVE,                          0, qfalse },
+  { &g_killingSpree, "g_killingSpree",                           "5", CVAR_ARCHIVE,                          0, qfalse  },
+  { &g_feedingSpree, "g_feedingSpree",                           "5", CVAR_ARCHIVE,                          0, qfalse  },
 };
 
 static int gameCvarTableSize = sizeof( gameCvarTable ) / sizeof( gameCvarTable[ 0 ] );

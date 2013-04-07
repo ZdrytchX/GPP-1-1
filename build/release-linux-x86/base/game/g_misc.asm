@@ -215,7 +215,7 @@ INDIRP4
 CNSTI4 516
 ADDP4
 INDIRP4
-CNSTI4 928
+CNSTI4 936
 ADDP4
 INDIRI4
 CNSTI4 1
@@ -259,7 +259,7 @@ INDIRP4
 CNSTI4 516
 ADDP4
 INDIRP4
-CNSTI4 928
+CNSTI4 936
 ADDP4
 INDIRI4
 CNSTI4 1
@@ -1672,6 +1672,8 @@ import g_publicSayadmins
 import g_decolourLogfiles
 import g_privateMessages
 import g_devmapKillerHP
+import g_feedingSpree
+import g_killingSpree
 import g_adminLeaveMsg
 import g_banNotice
 import g_minLevelToSpecMM1

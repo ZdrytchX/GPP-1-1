@@ -436,7 +436,7 @@ ASGNI4
 ADDRGP4 $136
 JUMPV
 LABELV $133
-CNSTI4 1944
+CNSTI4 1952
 ADDRLP4 0
 INDIRI4
 MULI4
@@ -449,7 +449,7 @@ INDIRI4
 CNSTI4 2
 NEI4 $138
 ADDRLP4 8
-CNSTI4 1944
+CNSTI4 1952
 ADDRLP4 0
 INDIRI4
 MULI4
@@ -1466,7 +1466,7 @@ ARGI4
 ADDRGP4 level
 INDIRP4
 ARGP4
-CNSTI4 1944
+CNSTI4 1952
 ARGI4
 ADDRGP4 trap_LocateGameData
 CALLV
@@ -2698,6 +2698,8 @@ import g_publicSayadmins
 import g_decolourLogfiles
 import g_privateMessages
 import g_devmapKillerHP
+import g_feedingSpree
+import g_killingSpree
 import g_adminLeaveMsg
 import g_banNotice
 import g_minLevelToSpecMM1

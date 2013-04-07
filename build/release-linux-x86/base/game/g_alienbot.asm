@@ -58,7 +58,7 @@ INDIRP4
 CVPU4 4
 SUBU4
 CVUI4 4
-CNSTI4 1944
+CNSTI4 1952
 DIVI4
 ASGNI4
 ADDRFP4 4
@@ -794,6 +794,8 @@ import g_publicSayadmins
 import g_decolourLogfiles
 import g_privateMessages
 import g_devmapKillerHP
+import g_feedingSpree
+import g_killingSpree
 import g_adminLeaveMsg
 import g_banNotice
 import g_minLevelToSpecMM1
