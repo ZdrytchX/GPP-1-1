@@ -3003,7 +3003,11 @@ void Cmd_Destroy_f( gentity_t *ent )
 
       // Don't allow destruction of hovel with granger inside
       if( traceEnt->s.modelindex == BA_A_HOVEL && traceEnt->active )
-        return;
+	  {
+        trap_SendServerCommand( ent-g_entities,
+          "print \"Cannot deconstruct occupied Hovel\n\"" );
+		return;
+	  }
 
       // Don't allow destruction of buildables that cannot be rebuilt
       if(g_suddenDeath.integer && traceEnt->health > 0 &&
@@ -3018,6 +3022,13 @@ void Cmd_Destroy_f( gentity_t *ent )
           "can be rebuilt\n\"" );
         return;
       }
+     // Can't mark occupied hovel
+      if( traceEnt->s.modelindex == BA_A_HOVEL && traceEnt->active )
+	  {
+        trap_SendServerCommand( ent-g_entities,
+          "print \"Cannot mark occupied Hovel\n\"" );
+		return;
+	  }
 
       if( ent->client->ps.stats[ STAT_MISC ] > 0 )
       {

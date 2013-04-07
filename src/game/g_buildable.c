@@ -1330,7 +1330,18 @@ void AHovel_Use( gentity_t *self, gentity_t *other, gentity_t *activator )
       self->builder = activator;
       
       // Cancel pending suicides
-      activator->suicideTime = 0;
+         if( activator->suicideTime > 0 )
+	  {
+		activator->suicideTime = 0;
+		trap_SendServerCommand( activator-g_entities, "print \"Suicide canceled\n\"" );
+	  }
+
+      // Cancel mark
+	  if( self->deconstruct == qtrue )
+	  {
+        self->deconstruct = qfalse;
+		trap_SendServerCommand( activator-g_entities, "print \"Hovel no longer marked for deconstruction\n\"" );
+	  }
 
       VectorCopy( self->s.pos.trBase, hovelOrigin );
       VectorMA( hovelOrigin, 128.0f, self->s.origin2, hovelOrigin );
