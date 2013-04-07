@@ -4126,6 +4126,11 @@ qboolean G_admin_putteam( gentity_t *ent, int skiparg )
   }
   if( vic->client->pers.teamSelection == teamnum )
     return qfalse;
+  if( level.demoState == DS_PLAYBACK )
+  {
+  ADMP( "^3!putteam: ^7cannot join a team while a demo is playing\n" );
+    return qfalse;
+  }
   G_ChangeTeam( vic, teamnum );
 
   AP( va( "print \"^3!putteam: ^7%s^7 put %s^7 on to the %s team\n\"",
@@ -6007,6 +6012,7 @@ qboolean G_admin_rename( gentity_t *ent, int skiparg )
   char oldname[ MAX_NAME_LENGTH ];
   char err[ MAX_STRING_CHARS ];
   char userinfo[ MAX_INFO_STRING ];
+  char buf[ MAX_INFO_STRING ];
   char *s;
   gentity_t *victim = NULL;
 
@@ -6049,6 +6055,9 @@ qboolean G_admin_rename( gentity_t *ent, int skiparg )
         oldname,
         level.clients[ pids[ 0 ] ].pers.netname,
         ( ent ) ? G_admin_adminPrintName( ent ) : "console" ) );
+  // log renames to demo
+  Info_SetValueForKey( buf, "name", newname );
+  G_DemoCommand( DC_CLIENT_SET, va( "%d %s", (int)(victim - g_entities), buf ) );
   return qtrue;
 }
 

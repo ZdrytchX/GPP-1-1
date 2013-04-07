@@ -2,1370 +2,1377 @@ data
 align 4
 LABELV gameCvarTable
 address g_cheats
-address $88
 address $89
+address $90
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 byte 4 0
-address $90
 address $91
+address $92
 byte 4 68
 byte 4 0
 byte 4 0
 skip 4
 byte 4 0
-address $92
 address $93
+address $94
 byte 4 64
 byte 4 0
 byte 4 0
 skip 4
 address g_restarted
-address $94
-address $89
+address $95
+address $90
 byte 4 64
 byte 4 0
 byte 4 0
 skip 4
 address g_lockTeamsAtStart
-address $95
-address $89
+address $96
+address $90
 byte 4 64
 byte 4 0
 byte 4 0
 skip 4
 byte 4 0
-address $96
 address $97
-byte 4 68
-byte 4 0
-byte 4 0
-skip 4
-byte 4 0
 address $98
-address $97
 byte 4 68
 byte 4 0
 byte 4 0
 skip 4
 byte 4 0
 address $99
-address $89
+address $98
 byte 4 68
 byte 4 0
 byte 4 0
 skip 4
 byte 4 0
 address $100
+address $90
+byte 4 68
+byte 4 0
+byte 4 0
+skip 4
+byte 4 0
 address $101
+address $102
 byte 4 68
 byte 4 0
 byte 4 0
 skip 4
 address g_maxclients
-address $102
 address $103
+address $104
 byte 4 37
 byte 4 0
 byte 4 0
 skip 4
 address g_maxGameClients
-address $104
-address $89
+address $105
+address $90
 byte 4 1029
 byte 4 0
 byte 4 1
 skip 4
 address g_timelimit
-address $105
 address $106
+address $107
 byte 4 1029
 byte 4 0
 byte 4 1
 skip 4
 address g_suddenDeathTime
-address $107
 address $108
+address $109
 byte 4 1029
 byte 4 0
 byte 4 1
 skip 4
 address g_suddenDeathMode
-address $109
-address $89
+address $110
+address $90
 byte 4 1029
 byte 4 0
 byte 4 1
 skip 4
 address g_suddenDeath
-address $110
-address $89
+address $111
+address $90
 byte 4 1028
 byte 4 0
 byte 4 1
 skip 4
 address g_synchronousClients
-address $111
-address $89
+address $112
+address $90
 byte 4 8
 byte 4 0
 byte 4 0
 skip 4
 address g_friendlyFire
-address $112
-address $89
+address $113
+address $90
 byte 4 5
 byte 4 0
 byte 4 1
 skip 4
 address g_friendlyFireAliens
-address $113
-address $89
+address $114
+address $90
 byte 4 1
 byte 4 0
 byte 4 1
 skip 4
 address g_friendlyFireHumans
-address $114
-address $89
+address $115
+address $90
 byte 4 1
 byte 4 0
 byte 4 1
 skip 4
 address g_retribution
-address $115
-address $89
+address $116
+address $90
 byte 4 1
 byte 4 0
 byte 4 1
 skip 4
 address g_friendlyBuildableFire
-address $116
-address $89
+address $117
+address $90
 byte 4 5
 byte 4 0
 byte 4 1
 skip 4
 address g_friendlyFireMovementAttacks
-address $117
 address $118
+address $119
 byte 4 1
 byte 4 0
 byte 4 1
 skip 4
 address g_devmapNoGod
-address $119
-address $89
+address $120
+address $90
 byte 4 1
 byte 4 0
 byte 4 1
 skip 4
 address g_devmapNoStructDmg
-address $120
-address $89
+address $121
+address $90
 byte 4 1
 byte 4 0
 byte 4 1
 skip 4
 address g_teamAutoJoin
-address $121
-address $89
+address $122
+address $90
 byte 4 1
 skip 12
 address g_teamForceBalance
-address $122
-address $118
+address $123
+address $119
 byte 4 1
 skip 12
 address g_warmup
-address $123
 address $124
+address $125
 byte 4 1
 byte 4 0
 byte 4 1
 skip 4
 address g_warmupMode
-address $125
-address $118
+address $126
+address $119
 byte 4 1
 byte 4 0
 byte 4 1
 skip 4
 address g_doWarmup
-address $126
-address $118
+address $127
+address $119
 byte 4 1
 byte 4 0
 byte 4 1
 skip 4
 address g_logFile
-address $127
 address $128
+address $129
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_logFileSync
-address $129
-address $89
+address $130
+address $90
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_password
-address $130
-address $97
+address $131
+address $98
 byte 4 2
 byte 4 0
 byte 4 0
 skip 4
 address g_banIPs
-address $131
-address $97
+address $132
+address $98
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_filterBan
-address $132
-address $118
+address $133
+address $119
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_needpass
-address $133
-address $89
+address $134
+address $90
 byte 4 68
 byte 4 0
 byte 4 0
 skip 4
 address g_dedicated
-address $134
-address $89
+address $135
+address $90
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_speed
-address $135
 address $136
+address $137
 byte 4 4
 byte 4 0
 byte 4 1
 skip 4
 address g_gravity
-address $137
 address $138
+address $139
 byte 4 4
 byte 4 0
 byte 4 1
 skip 4
 address g_knockback
-address $139
 address $140
+address $141
 byte 4 4
 byte 4 0
 byte 4 1
 skip 4
 address g_quadfactor
-address $141
 address $142
+address $143
 byte 4 0
 byte 4 0
 byte 4 1
 skip 4
 address g_weaponRespawn
-address $143
 address $144
+address $145
 byte 4 0
 byte 4 0
 byte 4 1
 skip 4
 address g_weaponTeamRespawn
-address $145
-address $108
+address $146
+address $109
 byte 4 0
 byte 4 0
 byte 4 1
 skip 4
 address g_inactivity
-address $146
-address $89
+address $147
+address $90
 byte 4 0
 byte 4 0
 byte 4 1
 skip 4
 address g_debugMove
-address $147
-address $89
+address $148
+address $90
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_debugDamage
-address $148
-address $89
+address $149
+address $90
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_debugAlloc
-address $149
-address $89
+address $150
+address $90
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_motd
-address $150
-address $97
+address $151
+address $98
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_blood
-address $151
-address $118
+address $152
+address $119
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_podiumDist
-address $152
 address $153
+address $154
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_podiumDrop
-address $154
 address $155
+address $156
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_allowVote
-address $156
-address $118
+address $157
+address $119
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_requireVoteReasons
-address $157
-address $89
+address $158
+address $90
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_voteLimit
-address $158
-address $144
+address $159
+address $145
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_voteMinTime
-address $159
 address $160
+address $161
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_mapvoteMaxTime
-address $161
 address $162
+address $163
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_suddenDeathVotePercent
-address $163
 address $164
+address $165
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_suddenDeathVoteDelay
-address $165
 address $166
+address $167
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_mapVotesPercent
-address $167
 address $168
+address $169
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_designateVotes
-address $169
-address $89
+address $170
+address $90
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_listEntity
-address $170
-address $89
+address $171
+address $90
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_minCommandPeriod
-address $171
 address $172
+address $173
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_minNameChangePeriod
-address $173
-address $144
+address $174
+address $145
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_maxNameChanges
-address $174
-address $144
+address $175
+address $145
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_newbieNumbering
-address $175
-address $89
+address $176
+address $90
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_newbieNamePrefix
-address $176
 address $177
+address $178
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_newbieDenyBuild
-address $178
-address $89
+address $179
+address $90
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_smoothClients
-address $179
-address $118
+address $180
+address $119
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_clientUpgradeNotice
-address $180
-address $118
+address $181
+address $119
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address pmove_fixed
-address $181
-address $89
+address $182
+address $90
 byte 4 8
 byte 4 0
 byte 4 0
 skip 4
 address pmove_msec
-address $182
-address $103
+address $183
+address $104
 byte 4 8
 byte 4 0
 byte 4 0
 skip 4
 address g_humanBuildPoints
-address $183
 address $184
+address $185
 byte 4 4
 byte 4 0
 byte 4 0
 skip 4
 address g_alienBuildPoints
+address $186
 address $185
-address $184
 byte 4 4
 byte 4 0
 byte 4 0
 skip 4
 address g_humanStage
-address $186
-address $89
+address $187
+address $90
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_humanKills
-address $187
-address $89
+address $188
+address $90
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_humanMaxStage
-address $188
 address $189
+address $190
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_humanStage2Threshold
-address $190
 address $191
+address $192
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_humanStage3Threshold
-address $192
-address $155
+address $193
+address $156
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_alienStage
-address $193
-address $89
+address $194
+address $90
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_alienKills
-address $194
-address $89
+address $195
+address $90
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_alienMaxStage
-address $195
-address $189
+address $196
+address $190
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_alienStage2Threshold
-address $196
-address $191
+address $197
+address $192
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_alienStage3Threshold
-address $197
-address $155
+address $198
+address $156
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_teamImbalanceWarnings
-address $198
-address $108
+address $199
+address $109
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_unlagged
-address $199
-address $118
+address $200
+address $119
 byte 4 5
 byte 4 0
 byte 4 0
 skip 4
 address g_disabledEquipment
-address $200
-address $97
+address $201
+address $98
 byte 4 64
 byte 4 0
 byte 4 0
 skip 4
 address g_disabledClasses
-address $201
-address $97
+address $202
+address $98
 byte 4 64
 byte 4 0
 byte 4 0
 skip 4
 address g_disabledBuildables
-address $202
-address $97
+address $203
+address $98
 byte 4 64
 byte 4 0
 byte 4 0
 skip 4
 address g_chatTeamPrefix
-address $203
-address $118
+address $204
+address $119
 byte 4 1
 skip 12
 address g_actionPrefix
-address $204
 address $205
+address $206
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_floodMaxDemerits
-address $206
 address $207
+address $208
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_floodMinTime
-address $208
 address $209
+address $210
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_markDeconstruct
-address $210
-address $89
+address $211
+address $90
 byte 4 5
 byte 4 0
 byte 4 0
 skip 4
 address g_deconDead
-address $211
-address $89
+address $212
+address $90
 byte 4 1
 byte 4 0
 byte 4 1
 skip 4
 address g_debugMapRotation
-address $212
-address $89
+address $213
+address $90
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_currentMapRotation
-address $213
 address $214
+address $215
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_currentMap
-address $215
-address $89
+address $216
+address $90
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_nextMap
-address $216
-address $97
+address $217
+address $98
 byte 4 0
 byte 4 0
 byte 4 1
 skip 4
 address g_initialMapRotation
-address $217
-address $97
+address $218
+address $98
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_shove
-address $218
 address $219
+address $220
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_mapConfigs
-address $220
-address $97
-byte 4 1
-byte 4 0
-byte 4 0
-skip 4
-byte 4 0
 address $221
-address $89
-byte 4 64
+address $98
+byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 byte 4 0
 address $222
-address $89
+address $90
+byte 4 64
+byte 4 0
+byte 4 0
+skip 4
+byte 4 0
+address $223
+address $90
 byte 4 64
 byte 4 0
 byte 4 0
 skip 4
 address g_layouts
-address $223
-address $97
+address $224
+address $98
 byte 4 32
 byte 4 0
 byte 4 0
 skip 4
 address g_layoutAuto
-address $224
-address $118
+address $225
+address $119
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_admin
-address $225
 address $226
+address $227
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_adminLog
-address $227
 address $228
+address $229
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_adminParseSay
-address $229
-address $118
+address $230
+address $119
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_adminSayFilter
-address $230
-address $89
+address $231
+address $90
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_adminNameProtect
-address $231
-address $118
+address $232
+address $119
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_adminTempBan
-address $232
 address $233
+address $234
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_adminMaxBan
-address $234
 address $235
+address $236
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_adminMapLog
-address $236
-address $97
+address $237
+address $98
 byte 4 64
 byte 4 0
 byte 4 0
 skip 4
 address g_minLevelToJoinTeam
-address $237
-address $89
+address $238
+address $90
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_forceAutoSelect
-address $238
-address $89
+address $239
+address $90
 byte 4 1
 byte 4 0
 byte 4 1
 skip 4
 address g_privateMessages
-address $239
-address $118
+address $240
+address $119
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_decolourLogfiles
-address $240
-address $89
+address $241
+address $90
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_buildLogMaxLength
-address $241
-address $168
+address $242
+address $169
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_myStats
-address $242
-address $118
+address $243
+address $119
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_publicSayadmins
-address $243
-address $118
+address $244
+address $119
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_minLevelToSpecMM1
-address $244
-address $89
+address $245
+address $90
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_antiSpawnBlock
-address $245
 address $246
+address $247
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_devmapKillerHP
-address $247
-address $89
+address $248
+address $90
 byte 4 1
 byte 4 0
 byte 4 1
 skip 4
 address g_tag
-address $248
 address $249
+address $250
 byte 4 16
 byte 4 0
 byte 4 0
 skip 4
 address g_hiddenClients
-address $250
-address $89
+address $251
+address $90
 byte 4 5
 byte 4 0
 byte 4 0
 skip 4
 address g_dretchPunt
-address $251
-address $118
+address $252
+address $119
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_msg
-address $252
-address $97
+address $253
+address $98
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_msgTime
-address $253
-address $89
+address $254
+address $90
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_rankings
-address $254
-address $89
+address $255
+address $90
 byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 address g_allowShare
-address $255
-address $89
+address $256
+address $90
 byte 4 5
 byte 4 0
 byte 4 0
 skip 4
 address g_banNotice
-address $256
-address $97
+address $257
+address $98
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_adminLeaveMsg
-address $257
-address $97
+address $258
+address $98
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_buy
-address $258
-address $118
+address $259
+address $119
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_rifle
-address $259
-address $118
+address $260
+address $119
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_psaw
-address $260
-address $118
+address $261
+address $119
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_shotgun
-address $261
-address $118
+address $262
+address $119
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_las
-address $262
-address $118
+address $263
+address $119
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_mass
-address $263
-address $118
+address $264
+address $119
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_chain
-address $264
-address $118
+address $265
+address $119
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_pulse
-address $265
-address $118
+address $266
+address $119
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_flamer
-address $266
-address $118
+address $267
+address $119
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_luci
-address $267
-address $118
+address $268
+address $119
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_evolve
-address $268
-address $118
+address $269
+address $119
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_basi
-address $269
-address $89
+address $270
+address $90
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_advbasi
-address $270
-address $118
+address $271
+address $119
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_mara
-address $271
-address $118
+address $272
+address $119
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_advmara
-address $272
-address $118
+address $273
+address $119
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_goon
-address $273
-address $118
+address $274
+address $119
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_advgoon
-address $274
-address $118
+address $275
+address $119
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_tyrant
-address $275
-address $118
+address $276
+address $119
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_attackStruct
-address $276
-address $118
+address $277
+address $119
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_roam
-address $277
-address $118
+address $278
+address $119
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_infinite_funds
-address $278
-address $89
+address $279
+address $90
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_survival
-address $279
-address $89
+address $280
+address $90
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_wave_interval
-address $280
-address $160
+address $281
+address $161
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_teamkill
-address $281
-address $89
+address $282
+address $90
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_pathediting
-address $282
-address $89
+address $283
+address $90
 byte 4 1025
 byte 4 0
 byte 4 0
 skip 4
 address g_DebugMsg
-address $283
-address $89
+address $284
+address $90
 byte 4 1029
 byte 4 0
 byte 4 1
 skip 4
 address g_lesson_NoVotes
-address $284
 address $285
+address $286
 byte 4 5
 byte 4 0
 byte 4 0
 skip 4
 address g_ReservedNameMatch
-address $286
 address $287
+address $288
 byte 4 5
 byte 4 0
 byte 4 0
 skip 4
 address g_ReservedNameMinLev
-address $288
-address $189
+address $289
+address $190
 byte 4 1029
 byte 4 0
 byte 4 1
 skip 4
 address g_AutoStrip_kpmTreshold
-address $289
-address $89
+address $290
+address $90
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_AutoStrip_kpmAllowed
-address $290
-address $89
+address $291
+address $90
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_AutoStrip
-address $291
-address $89
+address $292
+address $90
 byte 4 5
 byte 4 0
 byte 4 1
 skip 4
 address g_AutoStrip_DebugMsg
-address $292
-address $89
+address $293
+address $90
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_AutoStrip_MinKillToFeed
-address $293
 address $294
+address $295
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_AutoStrip_MinKills
-address $295
-address $144
+address $296
+address $145
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_AutoStrip_KillsPerStage
-address $296
 address $297
+address $298
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_AutoStrip_BetterThanTeam
-address $298
 address $299
+address $300
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_AutoStrip_BetterThanEnemy
+address $301
 address $300
-address $299
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_AutoStrip_KillingSpreeLvl
-address $301
 address $302
+address $303
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_AutoStrip_KillingSpreePerStage
-address $303
-address $189
+address $304
+address $190
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_AutoStrip_KillingSpreeStageDif
-address $304
-address $118
+address $305
+address $119
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_AutoStrip_NotInLesson
-address $305
-address $89
+address $306
+address $90
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_StripEqChange
-address $306
-address $97
+address $307
+address $98
 byte 4 5
 byte 4 0
 byte 4 0
 skip 4
 address g_StripEqChange_def
-address $307
-address $97
+address $308
+address $98
 byte 4 5
 byte 4 0
 byte 4 0
 skip 4
 address g_StructNoDmg
-address $308
-address $89
+address $309
+address $90
 byte 4 1029
 byte 4 0
 byte 4 1
 skip 4
 address g_ShowKillerHealth
-address $309
-address $89
+address $310
+address $90
 byte 4 1029
 byte 4 0
 byte 4 1
 skip 4
 address g_lesson
-address $310
-address $89
+address $311
+address $90
 byte 4 1029
 byte 4 0
 byte 4 1
 skip 4
 address g_lesson_BlockEqStr
-address $311
-address $97
+address $312
+address $98
 byte 4 5
 byte 4 0
 byte 4 0
 skip 4
 address g_strip_PlayerDmgPrcnt
-address $312
-address $299
+address $313
+address $300
 byte 4 1025
 byte 4 100
 byte 4 1
 skip 4
 address g_strip_PlayerDmgPrcnt_def
-address $313
-address $299
+address $314
+address $300
 byte 4 1025
 byte 4 100
 byte 4 1
 skip 4
 address g_strip_StructDmgPrcnt
-address $314
-address $299
+address $315
+address $300
 byte 4 1025
 byte 4 100
 byte 4 1
 skip 4
 address g_strip_StructDmgPrcnt_def
-address $315
-address $299
+address $316
+address $300
 byte 4 1025
 byte 4 100
 byte 4 1
 skip 4
 address g_connectedStripPrcnt
-address $316
-address $168
+address $317
+address $169
 byte 4 1025
 byte 4 50
 byte 4 1
 skip 4
 address g_vampiremode
-address $317
-address $89
+address $318
+address $90
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_vampiremode
-address $318
-address $89
+address $319
+address $90
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_vampirebuildables_take
-address $319
-address $168
+address $320
+address $169
 byte 4 1
-byte 4 50
+byte 4 0
 byte 4 0
 skip 4
 address g_weapswitchtime
-address $320
 address $321
+address $322
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_blaster_ammoregen
-address $322
 address $323
+address $324
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_granger
-address $324
-address $89
+address $325
+address $90
 byte 4 1
 byte 4 0
 byte 4 0
 skip 4
 address g_bot_dodge_jump
-address $325
-address $118
+address $326
+address $119
 byte 4 1
 byte 4 1
 byte 4 0
 skip 4
 address g_bot_dodge_crouch
-address $326
-address $118
+address $327
+address $119
 byte 4 1
 byte 4 1
 byte 4 0
 skip 4
 address g_bot_ping
-address $327
-address $168
+address $328
+address $169
 byte 4 1
-byte 4 50
+byte 4 0
 byte 4 0
 skip 4
 address g_teamStatus
-address $328
-address $89
+address $329
+address $119
 byte 4 1
-byte 4 1
+byte 4 0
 byte 4 0
 skip 4
 address g_teamStatusTime
-address $329
-address $124
+address $330
+address $125
 byte 4 1
+byte 4 0
+byte 4 0
+skip 4
+address g_demoState
+address $331
+address $98
+byte 4 0
 byte 4 0
 byte 4 0
 skip 4
 align 4
 LABELV gameCvarTableSize
-byte 4 195
+byte 4 196
 export vmMain
 code
-proc vmMain 12 12
+proc vmMain 16 12
 ADDRLP4 0
 ADDRFP4 0
 INDIRI4
@@ -1373,34 +1380,35 @@ ASGNI4
 ADDRLP4 0
 INDIRI4
 CNSTI4 0
-LTI4 $331
+LTI4 $333
 ADDRLP4 0
 INDIRI4
-CNSTI4 9
-GTI4 $331
+CNSTI4 10
+GTI4 $333
 ADDRLP4 0
 INDIRI4
 CNSTI4 2
 LSHI4
-ADDRGP4 $343
+ADDRGP4 $351
 ADDP4
 INDIRP4
 JUMPV
 lit
 align 4
-LABELV $343
-address $333
-address $334
+LABELV $351
 address $335
-address $339
-address $337
-address $338
-address $340
 address $336
+address $337
 address $341
+address $339
+address $340
 address $342
+address $338
+address $343
+address $344
+address $345
 code
-LABELV $333
+LABELV $335
 ADDRFP4 4
 INDIRI4
 ARGI4
@@ -1415,9 +1423,9 @@ CALLV
 pop
 CNSTI4 0
 RETI4
-ADDRGP4 $330
+ADDRGP4 $332
 JUMPV
-LABELV $334
+LABELV $336
 ADDRFP4 4
 INDIRI4
 ARGI4
@@ -1426,9 +1434,9 @@ CALLV
 pop
 CNSTI4 0
 RETI4
-ADDRGP4 $330
+ADDRGP4 $332
 JUMPV
-LABELV $335
+LABELV $337
 ADDRFP4 4
 INDIRI4
 ARGI4
@@ -1444,9 +1452,9 @@ INDIRP4
 CVPU4 4
 CVUI4 4
 RETI4
-ADDRGP4 $330
+ADDRGP4 $332
 JUMPV
-LABELV $336
+LABELV $338
 ADDRFP4 4
 INDIRI4
 ARGI4
@@ -1455,9 +1463,9 @@ CALLV
 pop
 CNSTI4 0
 RETI4
-ADDRGP4 $330
+ADDRGP4 $332
 JUMPV
-LABELV $337
+LABELV $339
 ADDRFP4 4
 INDIRI4
 ARGI4
@@ -1466,9 +1474,9 @@ CALLV
 pop
 CNSTI4 0
 RETI4
-ADDRGP4 $330
+ADDRGP4 $332
 JUMPV
-LABELV $338
+LABELV $340
 ADDRFP4 4
 INDIRI4
 ARGI4
@@ -1477,9 +1485,9 @@ CALLV
 pop
 CNSTI4 0
 RETI4
-ADDRGP4 $330
+ADDRGP4 $332
 JUMPV
-LABELV $339
+LABELV $341
 ADDRFP4 4
 INDIRI4
 ARGI4
@@ -1488,9 +1496,9 @@ CALLV
 pop
 CNSTI4 0
 RETI4
-ADDRGP4 $330
+ADDRGP4 $332
 JUMPV
-LABELV $340
+LABELV $342
 ADDRFP4 4
 INDIRI4
 ARGI4
@@ -1499,9 +1507,9 @@ CALLV
 pop
 CNSTI4 0
 RETI4
-ADDRGP4 $330
+ADDRGP4 $332
 JUMPV
-LABELV $341
+LABELV $343
 ADDRFP4 4
 INDIRI4
 ARGI4
@@ -1510,9 +1518,9 @@ CALLV
 pop
 CNSTI4 0
 RETI4
-ADDRGP4 $330
+ADDRGP4 $332
 JUMPV
-LABELV $342
+LABELV $344
 ADDRLP4 8
 ADDRGP4 ConsoleCommand
 CALLI4
@@ -1520,13 +1528,54 @@ ASGNI4
 ADDRLP4 8
 INDIRI4
 RETI4
-ADDRGP4 $330
+ADDRGP4 $332
 JUMPV
-LABELV $331
+LABELV $345
+ADDRLP4 12
+ADDRFP4 4
+INDIRI4
+ASGNI4
+ADDRLP4 12
+INDIRI4
+CNSTI4 0
+EQI4 $348
+ADDRLP4 12
+INDIRI4
+CNSTI4 1
+EQI4 $349
+ADDRLP4 12
+INDIRI4
+CNSTI4 2
+EQI4 $350
+ADDRGP4 $346
+JUMPV
+LABELV $348
+ADDRGP4 G_DemoSetClient
+CALLV
+pop
+ADDRGP4 $347
+JUMPV
+LABELV $349
+ADDRGP4 G_DemoRemoveClient
+CALLV
+pop
+ADDRGP4 $347
+JUMPV
+LABELV $350
+ADDRGP4 G_DemoSetStage
+CALLV
+pop
+LABELV $346
+LABELV $347
+CNSTI4 0
+RETI4
+ADDRGP4 $332
+JUMPV
+LABELV $333
 CNSTI4 -1
 RETI4
-LABELV $330
-endproc vmMain 12 12
+LABELV $332
+endproc vmMain 16 12
 export G_Printf
 proc G_Printf 1028 12
 ADDRLP4 0
@@ -1551,7 +1600,7 @@ ARGP4
 ADDRGP4 trap_Printf
 CALLV
 pop
-LABELV $344
+LABELV $352
 endproc G_Printf 1028 12
 export G_Error
 proc G_Error 1028 12
@@ -1577,7 +1626,7 @@ ARGP4
 ADDRGP4 trap_Error
 CALLV
 pop
-LABELV $346
+LABELV $354
 endproc G_Error 1028 12
 export IsStringListMember
 proc IsStringListMember 552 8
@@ -1593,36 +1642,36 @@ ADDRFP4 4
 INDIRP4
 CVPU4 4
 CNSTU4 0
-EQU4 $351
+EQU4 $359
 ADDRFP4 4
 INDIRP4
 INDIRI1
 CVII4 1
 CNSTI4 0
-NEI4 $349
-LABELV $351
+NEI4 $357
+LABELV $359
 CNSTI4 0
 RETI4
-ADDRGP4 $348
+ADDRGP4 $356
 JUMPV
-LABELV $349
+LABELV $357
 ADDRFP4 0
 INDIRP4
 CVPU4 4
 CNSTU4 0
-EQU4 $354
+EQU4 $362
 ADDRFP4 0
 INDIRP4
 INDIRI1
 CVII4 1
 CNSTI4 0
-NEI4 $352
-LABELV $354
+NEI4 $360
+LABELV $362
 CNSTI4 0
 RETI4
-ADDRGP4 $348
+ADDRGP4 $356
 JUMPV
-LABELV $352
+LABELV $360
 ADDRLP4 12
 CNSTI1 44
 ASGNI1
@@ -1643,9 +1692,9 @@ ASGNI4
 ADDRLP4 0
 CNSTI4 0
 ASGNI4
-ADDRGP4 $358
+ADDRGP4 $366
 JUMPV
-LABELV $355
+LABELV $363
 ADDRLP4 0
 INDIRI4
 ADDRFP4 0
@@ -1654,7 +1703,7 @@ ADDP4
 INDIRI1
 CVII4 1
 CNSTI4 32
-EQI4 $359
+EQI4 $367
 ADDRLP4 0
 INDIRI4
 ADDRFP4 0
@@ -1663,16 +1712,16 @@ ADDP4
 INDIRI1
 CVII4 1
 CNSTI4 59
-NEI4 $361
+NEI4 $369
 ADDRLP4 4
 INDIRI4
 ADDRLP4 12
 ADDP4
 CNSTI1 44
 ASGNI1
-ADDRGP4 $362
+ADDRGP4 $370
 JUMPV
-LABELV $361
+LABELV $369
 ADDRLP4 4
 INDIRI4
 ADDRLP4 12
@@ -1684,27 +1733,27 @@ INDIRP4
 ADDP4
 INDIRI1
 ASGNI1
-LABELV $362
+LABELV $370
 ADDRLP4 4
 ADDRLP4 4
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $359
-LABELV $356
+LABELV $367
+LABELV $364
 ADDRLP4 0
 ADDRLP4 0
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $358
+LABELV $366
 ADDRLP4 0
 INDIRI4
 ADDRLP4 8
 INDIRI4
-LTI4 $355
+LTI4 $363
 ADDRLP4 4
 INDIRI4
 ADDRLP4 12
@@ -1737,9 +1786,9 @@ ASGNI4
 ADDRLP4 0
 CNSTI4 0
 ASGNI4
-ADDRGP4 $367
+ADDRGP4 $375
 JUMPV
-LABELV $364
+LABELV $372
 ADDRLP4 0
 INDIRI4
 ADDRFP4 4
@@ -1748,7 +1797,7 @@ ADDP4
 INDIRI1
 CVII4 1
 CNSTI4 32
-EQI4 $368
+EQI4 $376
 ADDRLP4 0
 INDIRI4
 ADDRFP4 4
@@ -1757,16 +1806,16 @@ ADDP4
 INDIRI1
 CVII4 1
 CNSTI4 59
-NEI4 $370
+NEI4 $378
 ADDRLP4 4
 INDIRI4
 ADDRLP4 271
 ADDP4
 CNSTI1 44
 ASGNI1
-ADDRGP4 $371
+ADDRGP4 $379
 JUMPV
-LABELV $370
+LABELV $378
 ADDRLP4 4
 INDIRI4
 ADDRLP4 271
@@ -1778,27 +1827,27 @@ INDIRP4
 ADDP4
 INDIRI1
 ASGNI1
-LABELV $371
+LABELV $379
 ADDRLP4 4
 ADDRLP4 4
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $368
-LABELV $365
+LABELV $376
+LABELV $373
 ADDRLP4 0
 ADDRLP4 0
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $367
+LABELV $375
 ADDRLP4 0
 INDIRI4
 ADDRLP4 8
 INDIRI4
-LTI4 $364
+LTI4 $372
 ADDRLP4 4
 INDIRI4
 ADDRLP4 271
@@ -1823,15 +1872,15 @@ ADDRLP4 548
 INDIRP4
 CVPU4 4
 CNSTU4 0
-NEU4 $373
+NEU4 $381
 CNSTI4 0
 RETI4
-ADDRGP4 $348
+ADDRGP4 $356
 JUMPV
-LABELV $373
+LABELV $381
 CNSTI4 1
 RETI4
-LABELV $348
+LABELV $356
 endproc IsStringListMember 552 8
 export G_FindTeams
 proc G_FindTeams 56 12
@@ -1857,19 +1906,19 @@ MULI4
 ADDRGP4 g_entities
 ADDP4
 ASGNP4
-ADDRGP4 $379
+ADDRGP4 $387
 JUMPV
-LABELV $376
+LABELV $384
 ADDRLP4 4
 INDIRP4
 CNSTI4 520
 ADDP4
 INDIRI4
 CNSTI4 0
-NEI4 $381
-ADDRGP4 $377
+NEI4 $389
+ADDRGP4 $385
 JUMPV
-LABELV $381
+LABELV $389
 ADDRLP4 4
 INDIRP4
 CNSTI4 664
@@ -1877,10 +1926,10 @@ ADDP4
 INDIRP4
 CVPU4 4
 CNSTU4 0
-NEU4 $383
-ADDRGP4 $377
+NEU4 $391
+ADDRGP4 $385
 JUMPV
-LABELV $383
+LABELV $391
 ADDRLP4 4
 INDIRP4
 CNSTI4 536
@@ -1889,10 +1938,10 @@ INDIRI4
 CNSTI4 1024
 BANDI4
 CNSTI4 0
-EQI4 $385
-ADDRGP4 $377
+EQI4 $393
+ADDRGP4 $385
 JUMPV
-LABELV $385
+LABELV $393
 ADDRLP4 4
 INDIRP4
 CNSTI4 852
@@ -1930,19 +1979,19 @@ INDIRP4
 CNSTI4 1828
 ADDP4
 ASGNP4
-ADDRGP4 $390
+ADDRGP4 $398
 JUMPV
-LABELV $387
+LABELV $395
 ADDRLP4 0
 INDIRP4
 CNSTI4 520
 ADDP4
 INDIRI4
 CNSTI4 0
-NEI4 $392
-ADDRGP4 $388
+NEI4 $400
+ADDRGP4 $396
 JUMPV
-LABELV $392
+LABELV $400
 ADDRLP4 0
 INDIRP4
 CNSTI4 664
@@ -1950,10 +1999,10 @@ ADDP4
 INDIRP4
 CVPU4 4
 CNSTU4 0
-NEU4 $394
-ADDRGP4 $388
+NEU4 $402
+ADDRGP4 $396
 JUMPV
-LABELV $394
+LABELV $402
 ADDRLP4 0
 INDIRP4
 CNSTI4 536
@@ -1962,10 +2011,10 @@ INDIRI4
 CNSTI4 1024
 BANDI4
 CNSTI4 0
-EQI4 $396
-ADDRGP4 $388
+EQI4 $404
+ADDRGP4 $396
 JUMPV
-LABELV $396
+LABELV $404
 ADDRLP4 36
 CNSTI4 664
 ASGNI4
@@ -1990,7 +2039,7 @@ ASGNI4
 ADDRLP4 40
 INDIRI4
 CNSTI4 0
-NEI4 $398
+NEI4 $406
 ADDRLP4 12
 ADDRLP4 12
 INDIRI4
@@ -2047,7 +2096,7 @@ ADDP4
 INDIRP4
 CVPU4 4
 CNSTU4 0
-EQU4 $400
+EQU4 $408
 ADDRLP4 52
 CNSTI4 660
 ASGNI4
@@ -2069,28 +2118,28 @@ CNSTI4 660
 ADDP4
 CNSTP4 0
 ASGNP4
-LABELV $400
+LABELV $408
+LABELV $406
+LABELV $396
+ADDRLP4 8
+ADDRLP4 8
+INDIRI4
+CNSTI4 1
+ADDI4
+ASGNI4
+ADDRLP4 0
+ADDRLP4 0
+INDIRP4
+CNSTI4 1828
+ADDP4
+ASGNP4
 LABELV $398
-LABELV $388
-ADDRLP4 8
-ADDRLP4 8
-INDIRI4
-CNSTI4 1
-ADDI4
-ASGNI4
-ADDRLP4 0
-ADDRLP4 0
-INDIRP4
-CNSTI4 1828
-ADDP4
-ASGNP4
-LABELV $390
 ADDRLP4 8
 INDIRI4
 ADDRGP4 level+12
 INDIRI4
-LTI4 $387
-LABELV $377
+LTI4 $395
+LABELV $385
 ADDRLP4 16
 ADDRLP4 16
 INDIRI4
@@ -2103,13 +2152,13 @@ INDIRP4
 CNSTI4 1828
 ADDP4
 ASGNP4
-LABELV $379
+LABELV $387
 ADDRLP4 16
 INDIRI4
 ADDRGP4 level+12
 INDIRI4
-LTI4 $376
-ADDRGP4 $402
+LTI4 $384
+ADDRGP4 $410
 ARGP4
 ADDRLP4 20
 INDIRI4
@@ -2120,11 +2169,11 @@ ARGI4
 ADDRGP4 G_Printf
 CALLV
 pop
-LABELV $375
+LABELV $383
 endproc G_FindTeams 56 12
 export G_RemapTeamShaders
 proc G_RemapTeamShaders 0 0
-LABELV $403
+LABELV $411
 endproc G_RemapTeamShaders 0 0
 export G_RegisterCvars
 proc G_RegisterCvars 20 16
@@ -2137,9 +2186,9 @@ ASGNI4
 ADDRLP4 0
 ADDRGP4 gameCvarTable
 ASGNP4
-ADDRGP4 $408
+ADDRGP4 $416
 JUMPV
-LABELV $405
+LABELV $413
 ADDRLP4 0
 INDIRP4
 INDIRP4
@@ -2170,7 +2219,7 @@ INDIRP4
 INDIRP4
 CVPU4 4
 CNSTU4 0
-EQU4 $409
+EQU4 $417
 ADDRLP4 0
 INDIRP4
 CNSTI4 16
@@ -2182,19 +2231,19 @@ CNSTI4 4
 ADDP4
 INDIRI4
 ASGNI4
-LABELV $409
+LABELV $417
 ADDRLP4 0
 INDIRP4
 CNSTI4 24
 ADDP4
 INDIRI4
 CNSTI4 0
-EQI4 $411
+EQI4 $419
 ADDRLP4 8
 CNSTI4 1
 ASGNI4
-LABELV $411
-LABELV $406
+LABELV $419
+LABELV $414
 ADDRLP4 4
 ADDRLP4 4
 INDIRI4
@@ -2207,21 +2256,21 @@ INDIRP4
 CNSTI4 28
 ADDP4
 ASGNP4
-LABELV $408
+LABELV $416
 ADDRLP4 4
 INDIRI4
 ADDRGP4 gameCvarTableSize
 INDIRI4
-LTI4 $405
+LTI4 $413
 ADDRLP4 8
 INDIRI4
 CNSTI4 0
-EQI4 $413
+EQI4 $421
 ADDRGP4 G_RemapTeamShaders
 CALLV
 pop
-LABELV $413
-LABELV $404
+LABELV $421
+LABELV $412
 endproc G_RegisterCvars 20 16
 export G_UpdateCvars
 proc G_UpdateCvars 28 12
@@ -2234,15 +2283,15 @@ ASGNI4
 ADDRLP4 0
 ADDRGP4 gameCvarTable
 ASGNP4
-ADDRGP4 $419
+ADDRGP4 $427
 JUMPV
-LABELV $416
+LABELV $424
 ADDRLP4 0
 INDIRP4
 INDIRP4
 CVPU4 4
 CNSTU4 0
-EQU4 $420
+EQU4 $428
 ADDRLP4 0
 INDIRP4
 INDIRP4
@@ -2261,7 +2310,7 @@ INDIRP4
 CNSTI4 4
 ADDP4
 INDIRI4
-EQI4 $422
+EQI4 $430
 ADDRLP4 0
 INDIRP4
 CNSTI4 16
@@ -2279,8 +2328,8 @@ CNSTI4 20
 ADDP4
 INDIRI4
 CNSTI4 0
-EQI4 $424
-ADDRGP4 $426
+EQI4 $432
+ADDRGP4 $434
 ARGP4
 ADDRLP4 0
 INDIRP4
@@ -2309,21 +2358,21 @@ pop
 ADDRGP4 CalculateRanks
 CALLV
 pop
-LABELV $424
+LABELV $432
 ADDRLP4 0
 INDIRP4
 CNSTI4 24
 ADDP4
 INDIRI4
 CNSTI4 0
-EQI4 $427
+EQI4 $435
 ADDRLP4 8
 CNSTI4 1
 ASGNI4
-LABELV $427
-LABELV $422
-LABELV $420
-LABELV $417
+LABELV $435
+LABELV $430
+LABELV $428
+LABELV $425
 ADDRLP4 4
 ADDRLP4 4
 INDIRI4
@@ -2336,21 +2385,21 @@ INDIRP4
 CNSTI4 28
 ADDP4
 ASGNP4
-LABELV $419
+LABELV $427
 ADDRLP4 4
 INDIRI4
 ADDRGP4 gameCvarTableSize
 INDIRI4
-LTI4 $416
+LTI4 $424
 ADDRLP4 8
 INDIRI4
 CNSTI4 0
-EQI4 $429
+EQI4 $437
 ADDRGP4 G_RemapTeamShaders
 CALLV
 pop
-LABELV $429
-LABELV $415
+LABELV $437
+LABELV $423
 endproc G_UpdateCvars 28 12
 export G_MapConfigs
 proc G_MapConfigs 12 12
@@ -2358,11 +2407,11 @@ ADDRGP4 g_mapConfigs+16
 INDIRI1
 CVII4 1
 CNSTI4 0
-NEI4 $432
-ADDRGP4 $431
+NEI4 $440
+ADDRGP4 $439
 JUMPV
-LABELV $432
-ADDRGP4 $221
+LABELV $440
+ADDRGP4 $222
 ARGP4
 ADDRLP4 0
 ADDRGP4 trap_Cvar_VariableIntegerValue
@@ -2371,11 +2420,11 @@ ASGNI4
 ADDRLP4 0
 INDIRI4
 CNSTI4 0
-EQI4 $435
-ADDRGP4 $431
+EQI4 $443
+ADDRGP4 $439
 JUMPV
-LABELV $435
-ADDRGP4 $437
+LABELV $443
+ADDRGP4 $445
 ARGP4
 ADDRGP4 g_mapConfigs+16
 ARGP4
@@ -2391,7 +2440,7 @@ ARGP4
 ADDRGP4 trap_SendConsoleCommand
 CALLV
 pop
-ADDRGP4 $439
+ADDRGP4 $447
 ARGP4
 ADDRGP4 g_mapConfigs+16
 ARGP4
@@ -2410,14 +2459,14 @@ ARGP4
 ADDRGP4 trap_SendConsoleCommand
 CALLV
 pop
-ADDRGP4 $221
+ADDRGP4 $222
 ARGP4
-ADDRGP4 $118
+ADDRGP4 $119
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-LABELV $431
+LABELV $439
 endproc G_MapConfigs 12 12
 export G_PathLoad
 proc G_PathLoad 1140 56
@@ -2430,10 +2479,10 @@ ASGNI4
 ADDRLP4 0
 CNSTI4 0
 ASGNI4
-ADDRGP4 level+25076
+ADDRGP4 level+25080
 CNSTI4 0
 ASGNI4
-ADDRGP4 $443
+ADDRGP4 $451
 ARGP4
 ADDRLP4 1048
 ARGP4
@@ -2445,12 +2494,12 @@ pop
 ADDRLP4 8
 CNSTI4 0
 ASGNI4
-LABELV $444
+LABELV $452
 CNSTI4 44
 ADDRLP4 8
 INDIRI4
 MULI4
-ADDRGP4 level+16276
+ADDRGP4 level+16280
 ADDP4
 CNSTF4 0
 ASGNF4
@@ -2458,7 +2507,7 @@ CNSTI4 44
 ADDRLP4 8
 INDIRI4
 MULI4
-ADDRGP4 level+16276+4
+ADDRGP4 level+16280+4
 ADDP4
 CNSTF4 0
 ASGNF4
@@ -2466,7 +2515,7 @@ CNSTI4 44
 ADDRLP4 8
 INDIRI4
 MULI4
-ADDRGP4 level+16276+8
+ADDRGP4 level+16280+8
 ADDP4
 CNSTF4 0
 ASGNF4
@@ -2474,7 +2523,7 @@ CNSTI4 44
 ADDRLP4 8
 INDIRI4
 MULI4
-ADDRGP4 level+16276+12
+ADDRGP4 level+16280+12
 ADDP4
 CNSTI4 -1
 ASGNI4
@@ -2482,7 +2531,7 @@ CNSTI4 44
 ADDRLP4 8
 INDIRI4
 MULI4
-ADDRGP4 level+16276+12+4
+ADDRGP4 level+16280+12+4
 ADDP4
 CNSTI4 -1
 ASGNI4
@@ -2490,7 +2539,7 @@ CNSTI4 44
 ADDRLP4 8
 INDIRI4
 MULI4
-ADDRGP4 level+16276+12+8
+ADDRGP4 level+16280+12+8
 ADDP4
 CNSTI4 -1
 ASGNI4
@@ -2498,7 +2547,7 @@ CNSTI4 44
 ADDRLP4 8
 INDIRI4
 MULI4
-ADDRGP4 level+16276+12+12
+ADDRGP4 level+16280+12+12
 ADDP4
 CNSTI4 -1
 ASGNI4
@@ -2506,7 +2555,7 @@ CNSTI4 44
 ADDRLP4 8
 INDIRI4
 MULI4
-ADDRGP4 level+16276+12+16
+ADDRGP4 level+16280+12+16
 ADDP4
 CNSTI4 -1
 ASGNI4
@@ -2514,7 +2563,7 @@ CNSTI4 44
 ADDRLP4 8
 INDIRI4
 MULI4
-ADDRGP4 level+16276+32
+ADDRGP4 level+16280+32
 ADDP4
 CNSTI4 -1
 ASGNI4
@@ -2522,7 +2571,7 @@ CNSTI4 44
 ADDRLP4 8
 INDIRI4
 MULI4
-ADDRGP4 level+16276+36
+ADDRGP4 level+16280+36
 ADDP4
 CNSTI4 10000
 ASGNI4
@@ -2530,11 +2579,11 @@ CNSTI4 44
 ADDRLP4 8
 INDIRI4
 MULI4
-ADDRGP4 level+16276+40
+ADDRGP4 level+16280+40
 ADDP4
 CNSTI4 0
 ASGNI4
-LABELV $445
+LABELV $453
 ADDRLP4 8
 ADDRLP4 8
 INDIRI4
@@ -2544,8 +2593,8 @@ ASGNI4
 ADDRLP4 8
 INDIRI4
 CNSTI4 200
-LTI4 $444
-ADDRGP4 $473
+LTI4 $452
+ADDRGP4 $481
 ARGP4
 ADDRLP4 1048
 ARGP4
@@ -2571,15 +2620,15 @@ ASGNI4
 ADDRLP4 1040
 INDIRI4
 CNSTI4 0
-GEI4 $474
-ADDRGP4 $476
+GEI4 $482
+ADDRGP4 $484
 ARGP4
 ADDRGP4 G_Printf
 CALLV
 pop
-ADDRGP4 $441
+ADDRGP4 $449
 JUMPV
-LABELV $474
+LABELV $482
 ADDRLP4 1040
 INDIRI4
 CNSTI4 1
@@ -2621,22 +2670,22 @@ pop
 ADDRLP4 8
 CNSTI4 0
 ASGNI4
-ADDRGP4 $478
+ADDRGP4 $486
 JUMPV
-LABELV $477
+LABELV $485
 ADDRLP4 8
 INDIRI4
 CVIU4 4
 CNSTU4 1023
-LTU4 $480
-ADDRGP4 $482
+LTU4 $488
+ADDRGP4 $490
 ARGP4
 ADDRGP4 G_Printf
 CALLV
 pop
-ADDRGP4 $441
+ADDRGP4 $449
 JUMPV
-LABELV $480
+LABELV $488
 ADDRLP4 1124
 ADDRLP4 8
 INDIRI4
@@ -2666,142 +2715,142 @@ INDIRP4
 INDIRI1
 CVII4 1
 CNSTI4 10
-NEI4 $483
+NEI4 $491
 ADDRLP4 8
 CNSTI4 0
 ASGNI4
-ADDRGP4 level+25076
+ADDRGP4 level+25080
 INDIRI4
 CNSTI4 200
-LTI4 $485
-ADDRGP4 $488
+LTI4 $493
+ADDRGP4 $496
 ARGP4
 ADDRGP4 G_Printf
 CALLV
 pop
-ADDRGP4 $441
+ADDRGP4 $449
 JUMPV
-LABELV $485
+LABELV $493
 ADDRLP4 16
 ARGP4
-ADDRGP4 $489
+ADDRGP4 $497
 ARGP4
-ADDRGP4 level+25076
+ADDRGP4 level+25080
 ARGP4
 ADDRLP4 1128
 CNSTI4 44
 ASGNI4
 ADDRLP4 1128
 INDIRI4
-ADDRGP4 level+25076
+ADDRGP4 level+25080
 INDIRI4
 MULI4
-ADDRGP4 level+16276
+ADDRGP4 level+16280
 ADDP4
 ARGP4
 ADDRLP4 1128
 INDIRI4
-ADDRGP4 level+25076
+ADDRGP4 level+25080
 INDIRI4
 MULI4
-ADDRGP4 level+16276+4
+ADDRGP4 level+16280+4
 ADDP4
 ARGP4
 ADDRLP4 1128
 INDIRI4
-ADDRGP4 level+25076
+ADDRGP4 level+25080
 INDIRI4
 MULI4
-ADDRGP4 level+16276+8
+ADDRGP4 level+16280+8
 ADDP4
 ARGP4
 ADDRLP4 1128
 INDIRI4
-ADDRGP4 level+25076
+ADDRGP4 level+25080
 INDIRI4
 MULI4
-ADDRGP4 level+16276+12
+ADDRGP4 level+16280+12
 ADDP4
 ARGP4
 ADDRLP4 1128
 INDIRI4
-ADDRGP4 level+25076
+ADDRGP4 level+25080
 INDIRI4
 MULI4
-ADDRGP4 level+16276+12+4
+ADDRGP4 level+16280+12+4
 ADDP4
 ARGP4
 ADDRLP4 1128
 INDIRI4
-ADDRGP4 level+25076
+ADDRGP4 level+25080
 INDIRI4
 MULI4
-ADDRGP4 level+16276+12+8
+ADDRGP4 level+16280+12+8
 ADDP4
 ARGP4
 ADDRLP4 1128
 INDIRI4
-ADDRGP4 level+25076
+ADDRGP4 level+25080
 INDIRI4
 MULI4
-ADDRGP4 level+16276+12+12
+ADDRGP4 level+16280+12+12
 ADDP4
 ARGP4
 ADDRLP4 1128
 INDIRI4
-ADDRGP4 level+25076
+ADDRGP4 level+25080
 INDIRI4
 MULI4
-ADDRGP4 level+16276+12+16
+ADDRGP4 level+16280+12+16
 ADDP4
 ARGP4
 ADDRLP4 1128
 INDIRI4
-ADDRGP4 level+25076
+ADDRGP4 level+25080
 INDIRI4
 MULI4
-ADDRGP4 level+16276+32
+ADDRGP4 level+16280+32
 ADDP4
 ARGP4
 ADDRLP4 1128
 INDIRI4
-ADDRGP4 level+25076
+ADDRGP4 level+25080
 INDIRI4
 MULI4
-ADDRGP4 level+16276+36
+ADDRGP4 level+16280+36
 ADDP4
 ARGP4
 ADDRLP4 1128
 INDIRI4
-ADDRGP4 level+25076
+ADDRGP4 level+25080
 INDIRI4
 MULI4
-ADDRGP4 level+16276+40
+ADDRGP4 level+16280+40
 ADDP4
 ARGP4
 ADDRGP4 sscanf
 CALLI4
 pop
 CNSTI4 44
-ADDRGP4 level+25076
+ADDRGP4 level+25080
 INDIRI4
 MULI4
-ADDRGP4 level+16276+36
+ADDRGP4 level+16280+36
 ADDP4
 INDIRI4
 CNSTI4 0
-GTI4 $527
+GTI4 $535
 CNSTI4 44
-ADDRGP4 level+25076
+ADDRGP4 level+25080
 INDIRI4
 MULI4
-ADDRGP4 level+16276+36
+ADDRGP4 level+16280+36
 ADDP4
 CNSTI4 10000
 ASGNI4
-LABELV $527
+LABELV $535
 ADDRLP4 1132
-ADDRGP4 level+25076
+ADDRGP4 level+25080
 ASGNP4
 ADDRLP4 1132
 INDIRP4
@@ -2811,32 +2860,32 @@ INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $483
+LABELV $491
 ADDRLP4 12
 ADDRLP4 12
 INDIRP4
 CNSTI4 1
 ADDP4
 ASGNP4
-LABELV $478
+LABELV $486
 ADDRLP4 12
 INDIRP4
 INDIRI1
 CVII4 1
 CNSTI4 0
-NEI4 $477
+NEI4 $485
 ADDRLP4 8
 CNSTI4 0
 ASGNI4
-LABELV $536
+LABELV $544
 ADDRLP4 4
 CNSTI4 0
 ASGNI4
-LABELV $540
+LABELV $548
 ADDRLP4 0
 CNSTI4 0
 ASGNI4
-LABELV $544
+LABELV $552
 ADDRLP4 0
 INDIRI4
 CNSTI4 2
@@ -2845,13 +2894,13 @@ CNSTI4 44
 ADDRLP4 8
 INDIRI4
 MULI4
-ADDRGP4 level+16276+12
+ADDRGP4 level+16280+12
 ADDP4
 ADDP4
 INDIRI4
 ADDRLP4 4
 INDIRI4
-NEI4 $548
+NEI4 $556
 ADDRLP4 1124
 CNSTI4 44
 ASGNI4
@@ -2860,7 +2909,7 @@ INDIRI4
 ADDRLP4 8
 INDIRI4
 MULI4
-ADDRGP4 level+16276
+ADDRGP4 level+16280
 ADDP4
 ARGP4
 ADDRLP4 1124
@@ -2868,7 +2917,7 @@ INDIRI4
 ADDRLP4 4
 INDIRI4
 MULI4
-ADDRGP4 level+16276
+ADDRGP4 level+16280
 ADDP4
 ARGP4
 ADDRLP4 1136
@@ -2883,7 +2932,7 @@ CNSTI4 800
 ADDRLP4 8
 INDIRI4
 MULI4
-ADDRGP4 level+25084
+ADDRGP4 level+25088
 ADDP4
 ADDP4
 ADDRLP4 1136
@@ -2893,9 +2942,9 @@ ASGNI4
 ADDRLP4 0
 CNSTI4 5
 ASGNI4
-ADDRGP4 $549
+ADDRGP4 $557
 JUMPV
-LABELV $548
+LABELV $556
 ADDRLP4 4
 INDIRI4
 CNSTI4 2
@@ -2904,13 +2953,13 @@ CNSTI4 800
 ADDRLP4 8
 INDIRI4
 MULI4
-ADDRGP4 level+25084
+ADDRGP4 level+25088
 ADDP4
 ADDP4
 CNSTI4 999999999
 ASGNI4
-LABELV $549
-LABELV $545
+LABELV $557
+LABELV $553
 ADDRLP4 0
 ADDRLP4 0
 INDIRI4
@@ -2920,32 +2969,32 @@ ASGNI4
 ADDRLP4 0
 INDIRI4
 CNSTI4 5
+LTI4 $552
+LABELV $549
+ADDRLP4 4
+ADDRLP4 4
+INDIRI4
+CNSTI4 1
+ADDI4
+ASGNI4
+ADDRLP4 4
+INDIRI4
+CNSTI4 200
+LTI4 $548
+LABELV $545
+ADDRLP4 8
+ADDRLP4 8
+INDIRI4
+CNSTI4 1
+ADDI4
+ASGNI4
+ADDRLP4 8
+INDIRI4
+CNSTI4 200
 LTI4 $544
-LABELV $541
-ADDRLP4 4
-ADDRLP4 4
-INDIRI4
-CNSTI4 1
-ADDI4
-ASGNI4
-ADDRLP4 4
-INDIRI4
-CNSTI4 200
-LTI4 $540
-LABELV $537
-ADDRLP4 8
-ADDRLP4 8
-INDIRI4
-CNSTI4 1
-ADDI4
-ASGNI4
-ADDRLP4 8
-INDIRI4
-CNSTI4 200
-LTI4 $536
-ADDRGP4 $556
+ADDRGP4 $564
 ARGP4
-ADDRGP4 level+25076
+ADDRGP4 level+25080
 INDIRI4
 ARGI4
 ADDRLP4 1124
@@ -2958,16 +3007,16 @@ ARGP4
 ADDRGP4 G_Printf
 CALLV
 pop
-LABELV $441
+LABELV $449
 endproc G_PathLoad 1140 56
 lit
 align 1
-LABELV $595
+LABELV $610
 byte 1 0
 skip 255
 export G_InitGame
 code
-proc G_InitGame 1080 28
+proc G_InitGame 1352 28
 ADDRFP4 4
 INDIRI4
 CVIU4 4
@@ -2978,21 +3027,21 @@ pop
 ADDRGP4 G_RegisterCvars
 CALLV
 pop
-ADDRGP4 $559
+ADDRGP4 $567
 ARGP4
 ADDRGP4 G_Printf
 CALLV
 pop
-ADDRGP4 $560
+ADDRGP4 $568
 ARGP4
-ADDRGP4 $91
+ADDRGP4 $92
 ARGP4
 ADDRGP4 G_Printf
 CALLV
 pop
-ADDRGP4 $561
+ADDRGP4 $569
 ARGP4
-ADDRGP4 $93
+ADDRGP4 $94
 ARGP4
 ADDRGP4 G_Printf
 CALLV
@@ -3007,7 +3056,7 @@ ADDRGP4 level
 ARGP4
 CNSTI4 0
 ARGI4
-CNSTI4 185092
+CNSTI4 185096
 ARGI4
 ADDRGP4 memset
 CALLP4
@@ -3020,39 +3069,86 @@ ADDRGP4 level+40
 ADDRFP4 0
 INDIRI4
 ASGNI4
-ADDRLP4 4
+ADDRLP4 268
 ADDRGP4 level+40
 INDIRI4
 ASGNI4
 ADDRGP4 level+15956
-ADDRLP4 4
+ADDRLP4 268
 INDIRI4
 ASGNI4
 ADDRGP4 level+15952
-ADDRLP4 4
+ADDRLP4 268
 INDIRI4
 ASGNI4
 ADDRGP4 level+15948
-ADDRLP4 4
+ADDRLP4 268
 INDIRI4
 ASGNI4
 ADDRGP4 level+15944
-ADDRLP4 4
+ADDRLP4 268
 INDIRI4
 ASGNI4
-ADDRGP4 $570
+ADDRGP4 $577
 ARGP4
-ADDRLP4 8
+ADDRLP4 4
+ARGP4
+CNSTI4 256
+ARGI4
+ADDRGP4 trap_Cvar_VariableStringBuffer
+CALLV
+pop
+ADDRLP4 4
+ARGP4
+ADDRGP4 $578
+ARGP4
+ADDRLP4 260
+ARGP4
+ADDRLP4 264
+ARGP4
+ADDRGP4 sscanf
+CALLI4
+pop
+ADDRGP4 $103
+ARGP4
+ADDRLP4 272
+ADDRGP4 trap_Cvar_VariableIntegerValue
+CALLI4
+ASGNI4
+ADDRLP4 260
+INDIRI4
+ADDRLP4 272
+INDIRI4
+NEI4 $582
+ADDRGP4 $581
+ARGP4
+ADDRLP4 276
+ADDRGP4 trap_Cvar_VariableIntegerValue
+CALLI4
+ASGNI4
+ADDRLP4 264
+INDIRI4
+ADDRLP4 276
+INDIRI4
+EQI4 $579
+LABELV $582
+ADDRGP4 level+56
+CNSTI4 1
+ASGNI4
+LABELV $579
+ADDRGP4 $585
+ARGP4
+ADDRLP4 280
 ADDRGP4 G_SoundIndex
 CALLI4
 ASGNI4
 ADDRGP4 level+336
-ADDRLP4 8
+ADDRLP4 280
 INDIRI4
 ASGNI4
-ADDRGP4 $100
-ARGP4
 ADDRGP4 $101
+ARGP4
+ADDRGP4 $102
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
@@ -3061,11 +3157,11 @@ ADDRGP4 g_logFile+16
 INDIRI1
 CVII4 1
 CNSTI4 0
-EQI4 $571
+EQI4 $586
 ADDRGP4 g_logFileSync+12
 INDIRI4
 CNSTI4 0
-EQI4 $574
+EQI4 $589
 ADDRGP4 g_logFile+16
 ARGP4
 ADDRGP4 level+16
@@ -3075,9 +3171,9 @@ ARGI4
 ADDRGP4 trap_FS_FOpenFile
 CALLI4
 pop
-ADDRGP4 $575
+ADDRGP4 $590
 JUMPV
-LABELV $574
+LABELV $589
 ADDRGP4 g_logFile+16
 ARGP4
 ADDRGP4 level+16
@@ -3087,156 +3183,156 @@ ARGI4
 ADDRGP4 trap_FS_FOpenFile
 CALLI4
 pop
-LABELV $575
+LABELV $590
 ADDRGP4 level+16
 INDIRI4
 CNSTI4 0
-NEI4 $581
-ADDRGP4 $584
+NEI4 $596
+ADDRGP4 $599
 ARGP4
 ADDRGP4 g_logFile+16
 ARGP4
 ADDRGP4 G_Printf
 CALLV
 pop
-ADDRGP4 $572
+ADDRGP4 $587
 JUMPV
-LABELV $581
-ADDRLP4 48
+LABELV $596
+ADDRLP4 320
 ARGP4
 CNSTI4 1024
 ARGI4
 ADDRGP4 trap_GetServerinfo
 CALLV
 pop
-ADDRGP4 $586
+ADDRGP4 $601
 ARGP4
 ADDRGP4 G_LogPrintf
 CALLV
 pop
-ADDRGP4 $587
+ADDRGP4 $602
 ARGP4
-ADDRLP4 48
+ADDRLP4 320
 ARGP4
 ADDRGP4 G_LogPrintf
 CALLV
 pop
-ADDRLP4 12
+ADDRLP4 284
 ARGP4
-ADDRLP4 1076
+ADDRLP4 1348
 ADDRGP4 trap_RealTime
 CALLI4
 ASGNI4
-ADDRLP4 1072
-ADDRLP4 1076
+ADDRLP4 1344
+ADDRLP4 1348
 INDIRI4
 ASGNI4
-ADDRGP4 $588
+ADDRGP4 $603
 ARGP4
-ADDRLP4 12+20
+ADDRLP4 284+20
 INDIRI4
 CNSTI4 1900
 ADDI4
 ARGI4
-ADDRLP4 12+16
+ADDRLP4 284+16
 INDIRI4
 CNSTI4 1
 ADDI4
 ARGI4
-ADDRLP4 12+12
+ADDRLP4 284+12
 INDIRI4
 ARGI4
-ADDRLP4 12+8
+ADDRLP4 284+8
 INDIRI4
 ARGI4
-ADDRLP4 12+4
+ADDRLP4 284+4
 INDIRI4
 ARGI4
-ADDRLP4 12
+ADDRLP4 284
 INDIRI4
 ARGI4
 ADDRGP4 G_LogPrintf
 CALLV
 pop
-ADDRGP4 $572
+ADDRGP4 $587
 JUMPV
-LABELV $571
-ADDRGP4 $594
+LABELV $586
+ADDRGP4 $609
 ARGP4
 ADDRGP4 G_Printf
 CALLV
 pop
-LABELV $572
-ADDRLP4 12
-ADDRGP4 $595
+LABELV $587
+ADDRLP4 284
+ADDRGP4 $610
 INDIRB
 ASGNB 256
-ADDRGP4 $443
+ADDRGP4 $451
 ARGP4
-ADDRLP4 12
+ADDRLP4 284
 ARGP4
 CNSTI4 256
 ARGI4
 ADDRGP4 trap_Cvar_VariableStringBuffer
 CALLV
 pop
-ADDRLP4 12
+ADDRLP4 284
 ARGP4
 ADDRGP4 G_MapConfigs
 CALLV
 pop
-ADDRGP4 $306
+ADDRGP4 $307
 ARGP4
 ADDRGP4 g_StripEqChange_def+16
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-ADDRGP4 $308
+ADDRGP4 $309
 ARGP4
-ADDRGP4 $89
-ARGP4
-ADDRGP4 trap_Cvar_Set
-CALLV
-pop
-ADDRGP4 $310
-ARGP4
-ADDRGP4 $89
+ADDRGP4 $90
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
 ADDRGP4 $311
 ARGP4
-ADDRGP4 $97
+ADDRGP4 $90
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
 ADDRGP4 $312
 ARGP4
+ADDRGP4 $98
+ARGP4
+ADDRGP4 trap_Cvar_Set
+CALLV
+pop
+ADDRGP4 $313
+ARGP4
 ADDRGP4 g_strip_PlayerDmgPrcnt_def+16
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-ADDRGP4 $314
+ADDRGP4 $315
 ARGP4
 ADDRGP4 g_strip_StructDmgPrcnt_def+16
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-ADDRGP4 $221
+ADDRGP4 $222
 ARGP4
-ADDRGP4 $89
+ADDRGP4 $90
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-ADDRGP4 $222
+ADDRGP4 $223
 ARGP4
-ADDRGP4 $89
+ADDRGP4 $90
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
@@ -3245,7 +3341,7 @@ ADDRGP4 g_admin+16
 INDIRI1
 CVII4 1
 CNSTI4 0
-EQI4 $599
+EQI4 $614
 CNSTP4 0
 ARGP4
 CNSTI4 0
@@ -3253,7 +3349,7 @@ ARGI4
 ADDRGP4 G_admin_readconfig
 CALLI4
 pop
-LABELV $599
+LABELV $614
 ADDRGP4 g_entities
 ARGP4
 CNSTI4 0
@@ -3274,7 +3370,7 @@ ADDRGP4 g_clients
 ARGP4
 CNSTI4 0
 ARGI4
-CNSTI4 124160
+CNSTI4 124416
 ARGI4
 ADDRGP4 memset
 CALLP4
@@ -3285,16 +3381,16 @@ ASGNP4
 ADDRLP4 0
 CNSTI4 0
 ASGNI4
-ADDRGP4 $608
+ADDRGP4 $623
 JUMPV
-LABELV $605
+LABELV $620
 CNSTI4 1828
 ADDRLP4 0
 INDIRI4
 MULI4
 ADDRGP4 g_entities+516
 ADDP4
-CNSTI4 1940
+CNSTI4 1944
 ADDRLP4 0
 INDIRI4
 MULI4
@@ -3302,19 +3398,19 @@ ADDRGP4 level
 INDIRP4
 ADDP4
 ASGNP4
-LABELV $606
+LABELV $621
 ADDRLP4 0
 ADDRLP4 0
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $608
+LABELV $623
 ADDRLP4 0
 INDIRI4
 ADDRGP4 level+20
 INDIRI4
-LTI4 $605
+LTI4 $620
 ADDRGP4 level+12
 CNSTI4 64
 ASGNI4
@@ -3329,14 +3425,14 @@ ARGI4
 ADDRGP4 level
 INDIRP4
 ARGP4
-CNSTI4 1940
+CNSTI4 1944
 ARGI4
 ADDRGP4 trap_LocateGameData
 CALLV
 pop
 CNSTI4 22
 ARGI4
-ADDRGP4 $89
+ADDRGP4 $90
 ARGP4
 ADDRGP4 trap_SetConfigstring
 CALLV
@@ -3387,58 +3483,58 @@ pop
 ADDRGP4 g_debugMapRotation+12
 INDIRI4
 CNSTI4 0
-EQI4 $616
+EQI4 $631
 ADDRGP4 G_PrintRotations
 CALLV
 pop
-LABELV $616
-ADDRGP4 $619
+LABELV $631
+ADDRGP4 $634
 ARGP4
 CNSTI4 0
 ARGI4
-ADDRLP4 16
+ADDRLP4 288
 ADDRGP4 va
 CALLP4
 ASGNP4
-ADDRGP4 $193
-ARGP4
-ADDRLP4 16
-INDIRP4
-ARGP4
-ADDRGP4 trap_Cvar_Set
-CALLV
-pop
-ADDRGP4 $619
-ARGP4
-CNSTI4 0
-ARGI4
-ADDRLP4 20
-ADDRGP4 va
-CALLP4
-ASGNP4
-ADDRGP4 $186
-ARGP4
-ADDRLP4 20
-INDIRP4
-ARGP4
-ADDRGP4 trap_Cvar_Set
-CALLV
-pop
 ADDRGP4 $194
 ARGP4
-CNSTP4 0
+ADDRLP4 288
+INDIRP4
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
+ADDRGP4 $634
+ARGP4
+CNSTI4 0
+ARGI4
+ADDRLP4 292
+ADDRGP4 va
+CALLP4
+ASGNP4
 ADDRGP4 $187
 ARGP4
+ADDRLP4 292
+INDIRP4
+ARGP4
+ADDRGP4 trap_Cvar_Set
+CALLV
+pop
+ADDRGP4 $195
+ARGP4
 CNSTP4 0
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-ADDRGP4 $110
+ADDRGP4 $188
+ARGP4
+CNSTP4 0
+ARGP4
+ADDRGP4 trap_Cvar_Set
+CALLV
+pop
+ADDRGP4 $111
 ARGP4
 CNSTP4 0
 ARGP4
@@ -3451,14 +3547,14 @@ ADDRGP4 g_suddenDeathTime+12
 INDIRI4
 MULI4
 ASGNI4
-ADDRGP4 level+185088
+ADDRGP4 level+185092
 ADDRGP4 level+40
 INDIRI4
 ASGNI4
-ADDRGP4 level+185084
+ADDRGP4 level+185088
 CNSTI4 1
 ASGNI4
-ADDRGP4 $625
+ADDRGP4 $640
 ARGP4
 ADDRGP4 G_Printf
 CALLV
@@ -3475,37 +3571,37 @@ pop
 ADDRGP4 g_lockTeamsAtStart+12
 INDIRI4
 CNSTI4 0
-EQI4 $626
+EQI4 $641
 ADDRGP4 level+15968
 CNSTI4 1
 ASGNI4
 ADDRGP4 level+15972
 CNSTI4 1
 ASGNI4
-ADDRGP4 $95
+ADDRGP4 $96
 ARGP4
-ADDRGP4 $89
+ADDRGP4 $90
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-LABELV $626
-LABELV $558
-endproc G_InitGame 1080 28
+LABELV $641
+LABELV $566
+endproc G_InitGame 1352 28
 proc G_ClearVotes 0 8
 ADDRGP4 level+2392
 CNSTI4 0
 ASGNI4
 CNSTI4 8
 ARGI4
-ADDRGP4 $97
+ADDRGP4 $98
 ARGP4
 ADDRGP4 trap_SetConfigstring
 CALLV
 pop
 CNSTI4 9
 ARGI4
-ADDRGP4 $97
+ADDRGP4 $98
 ARGP4
 ADDRGP4 trap_SetConfigstring
 CALLV
@@ -3515,14 +3611,14 @@ CNSTI4 0
 ASGNI4
 CNSTI4 12
 ARGI4
-ADDRGP4 $97
+ADDRGP4 $98
 ARGP4
 ADDRGP4 trap_SetConfigstring
 CALLV
 pop
 CNSTI4 14
 ARGI4
-ADDRGP4 $97
+ADDRGP4 $98
 ARGP4
 ADDRGP4 trap_SetConfigstring
 CALLV
@@ -3532,26 +3628,26 @@ CNSTI4 0
 ASGNI4
 CNSTI4 13
 ARGI4
-ADDRGP4 $97
+ADDRGP4 $98
 ARGP4
 ADDRGP4 trap_SetConfigstring
 CALLV
 pop
 CNSTI4 15
 ARGI4
-ADDRGP4 $97
+ADDRGP4 $98
 ARGP4
 ADDRGP4 trap_SetConfigstring
 CALLV
 pop
-LABELV $631
+LABELV $646
 endproc G_ClearVotes 0 8
 export G_ShutdownGame
 proc G_ShutdownGame 0 8
 ADDRGP4 G_ClearVotes
 CALLV
 pop
-ADDRGP4 $637
+ADDRGP4 $652
 ARGP4
 ADDRGP4 G_Printf
 CALLV
@@ -3559,13 +3655,13 @@ pop
 ADDRGP4 level+16
 INDIRI4
 CNSTI4 0
-EQI4 $638
-ADDRGP4 $641
+EQI4 $653
+ADDRGP4 $656
 ARGP4
 ADDRGP4 G_LogPrintf
 CALLV
 pop
-ADDRGP4 $586
+ADDRGP4 $601
 ARGP4
 ADDRGP4 G_LogPrintf
 CALLV
@@ -3576,7 +3672,7 @@ ARGI4
 ADDRGP4 trap_FS_FCloseFile
 CALLV
 pop
-LABELV $638
+LABELV $653
 ADDRGP4 G_WriteSessionData
 CALLV
 pop
@@ -3594,12 +3690,12 @@ CNSTI4 0
 ASGNI4
 CNSTI4 23
 ARGI4
-ADDRGP4 $97
+ADDRGP4 $98
 ARGP4
 ADDRGP4 trap_SetConfigstring
 CALLV
 pop
-LABELV $636
+LABELV $651
 endproc G_ShutdownGame 0 8
 export Com_Error
 proc Com_Error 1028 12
@@ -3620,14 +3716,14 @@ pop
 ADDRLP4 0
 CNSTP4 0
 ASGNP4
-ADDRGP4 $647
+ADDRGP4 $662
 ARGP4
 ADDRLP4 4
 ARGP4
 ADDRGP4 G_Error
 CALLV
 pop
-LABELV $645
+LABELV $660
 endproc Com_Error 1028 12
 export Com_Printf
 proc Com_Printf 1028 12
@@ -3648,19 +3744,19 @@ pop
 ADDRLP4 0
 CNSTP4 0
 ASGNP4
-ADDRGP4 $647
+ADDRGP4 $662
 ARGP4
 ADDRLP4 4
 ARGP4
 ADDRGP4 G_Printf
 CALLV
 pop
-LABELV $648
+LABELV $663
 endproc Com_Printf 1028 12
 export SortRanks
 proc SortRanks 24 0
 ADDRLP4 8
-CNSTI4 1940
+CNSTI4 1944
 ASGNI4
 ADDRLP4 12
 ADDRGP4 level
@@ -3703,12 +3799,12 @@ ADDRLP4 16
 INDIRI4
 ADDP4
 INDIRI4
-LEI4 $651
+LEI4 $666
 CNSTI4 -1
 RETI4
-ADDRGP4 $650
+ADDRGP4 $665
 JUMPV
-LABELV $651
+LABELV $666
 ADDRLP4 20
 CNSTI4 688
 ASGNI4
@@ -3724,15 +3820,15 @@ ADDRLP4 20
 INDIRI4
 ADDP4
 INDIRI4
-GEI4 $653
+GEI4 $668
 CNSTI4 1
 RETI4
-ADDRGP4 $650
+ADDRGP4 $665
 JUMPV
-LABELV $653
+LABELV $668
 CNSTI4 0
 RETI4
-LABELV $650
+LABELV $665
 endproc SortRanks 24 0
 export G_InitSpawnQueue
 proc G_InitSpawnQueue 20 0
@@ -3783,7 +3879,7 @@ ASGNI4
 ADDRLP4 0
 CNSTI4 0
 ASGNI4
-LABELV $656
+LABELV $671
 ADDRLP4 0
 INDIRI4
 CNSTI4 2
@@ -3793,7 +3889,7 @@ INDIRP4
 ADDP4
 CNSTI4 -1
 ASGNI4
-LABELV $657
+LABELV $672
 ADDRLP4 0
 ADDRLP4 0
 INDIRI4
@@ -3803,8 +3899,8 @@ ASGNI4
 ADDRLP4 0
 INDIRI4
 CNSTI4 64
-LTI4 $656
-LABELV $655
+LTI4 $671
+LABELV $670
 endproc G_InitSpawnQueue 20 0
 export G_GetSpawnQueueLength
 proc G_GetSpawnQueueLength 8 0
@@ -3827,38 +3923,38 @@ SUBI4
 CNSTI4 1
 ADDI4
 ASGNI4
-ADDRGP4 $662
+ADDRGP4 $677
 JUMPV
-LABELV $661
+LABELV $676
 ADDRLP4 0
 ADDRLP4 0
 INDIRI4
 CNSTI4 64
 ADDI4
 ASGNI4
-LABELV $662
+LABELV $677
 ADDRLP4 0
 INDIRI4
 CNSTI4 0
-LTI4 $661
-ADDRGP4 $665
+LTI4 $676
+ADDRGP4 $680
 JUMPV
-LABELV $664
+LABELV $679
 ADDRLP4 0
 ADDRLP4 0
 INDIRI4
 CNSTI4 64
 SUBI4
 ASGNI4
-LABELV $665
+LABELV $680
 ADDRLP4 0
 INDIRI4
 CNSTI4 64
-GEI4 $664
+GEI4 $679
 ADDRLP4 0
 INDIRI4
 RETI4
-LABELV $660
+LABELV $675
 endproc G_GetSpawnQueueLength 8 0
 export G_PopSpawnQueue
 proc G_PopSpawnQueue 24 4
@@ -3889,7 +3985,7 @@ ASGNI4
 ADDRLP4 8
 INDIRI4
 CNSTI4 0
-LEI4 $668
+LEI4 $683
 ADDRFP4 0
 INDIRP4
 CNSTI4 256
@@ -3940,12 +4036,12 @@ ASGNI4
 ADDRLP4 0
 INDIRI4
 RETI4
-ADDRGP4 $667
+ADDRGP4 $682
 JUMPV
-LABELV $668
+LABELV $683
 CNSTI4 -1
 RETI4
-LABELV $667
+LABELV $682
 endproc G_PopSpawnQueue 24 4
 export G_PeekSpawnQueue
 proc G_PeekSpawnQueue 4 0
@@ -3965,7 +4061,7 @@ INDIRP4
 ADDP4
 INDIRI4
 RETI4
-LABELV $671
+LABELV $686
 endproc G_PeekSpawnQueue 4 0
 export G_SearchSpawnQueue
 proc G_SearchSpawnQueue 4 0
@@ -3980,7 +4076,7 @@ ASGNI4
 ADDRLP4 0
 CNSTI4 0
 ASGNI4
-LABELV $673
+LABELV $688
 ADDRLP4 0
 INDIRI4
 CNSTI4 2
@@ -3991,13 +4087,13 @@ ADDP4
 INDIRI4
 ADDRFP4 4
 INDIRI4
-NEI4 $677
+NEI4 $692
 CNSTI4 1
 RETI4
-ADDRGP4 $672
+ADDRGP4 $687
 JUMPV
-LABELV $677
-LABELV $674
+LABELV $692
+LABELV $689
 ADDRLP4 0
 ADDRLP4 0
 INDIRI4
@@ -4007,10 +4103,10 @@ ASGNI4
 ADDRLP4 0
 INDIRI4
 CNSTI4 64
-LTI4 $673
+LTI4 $688
 CNSTI4 0
 RETI4
-LABELV $672
+LABELV $687
 endproc G_SearchSpawnQueue 4 0
 export G_PushSpawnQueue
 proc G_PushSpawnQueue 16 8
@@ -4035,12 +4131,12 @@ ASGNI4
 ADDRLP4 0
 INDIRI4
 CNSTI4 0
-EQI4 $680
+EQI4 $695
 CNSTI4 0
 RETI4
-ADDRGP4 $679
+ADDRGP4 $694
 JUMPV
-LABELV $680
+LABELV $695
 ADDRLP4 4
 ADDRFP4 0
 INDIRP4
@@ -4091,7 +4187,7 @@ BORI4
 ASGNI4
 CNSTI4 1
 RETI4
-LABELV $679
+LABELV $694
 endproc G_PushSpawnQueue 16 8
 export G_RemoveFromSpawnQueue
 proc G_RemoveFromSpawnQueue 20 4
@@ -4120,8 +4216,8 @@ ASGNI4
 ADDRLP4 4
 INDIRI4
 CNSTI4 0
-EQI4 $684
-LABELV $686
+EQI4 $699
+LABELV $701
 ADDRLP4 0
 INDIRI4
 CNSTI4 2
@@ -4132,8 +4228,8 @@ ADDP4
 INDIRI4
 ADDRFP4 4
 INDIRI4
-NEI4 $689
-LABELV $691
+NEI4 $704
+LABELV $706
 ADDRLP4 12
 CNSTI4 2
 ASGNI4
@@ -4167,7 +4263,7 @@ ADDI4
 CNSTI4 64
 MODI4
 ASGNI4
-LABELV $692
+LABELV $707
 ADDRLP4 0
 INDIRI4
 ADDRFP4 0
@@ -4179,7 +4275,7 @@ CNSTI4 1
 ADDI4
 CNSTI4 64
 MODI4
-NEI4 $691
+NEI4 $706
 ADDRLP4 8
 ADDRFP4 0
 INDIRP4
@@ -4224,9 +4320,9 @@ BANDI4
 ASGNI4
 CNSTI4 1
 RETI4
-ADDRGP4 $683
+ADDRGP4 $698
 JUMPV
-LABELV $689
+LABELV $704
 ADDRLP4 0
 ADDRLP4 0
 INDIRI4
@@ -4235,7 +4331,7 @@ ADDI4
 CNSTI4 64
 MODI4
 ASGNI4
-LABELV $687
+LABELV $702
 ADDRLP4 0
 INDIRI4
 ADDRFP4 0
@@ -4247,11 +4343,11 @@ CNSTI4 1
 ADDI4
 CNSTI4 64
 MODI4
-NEI4 $686
-LABELV $684
+NEI4 $701
+LABELV $699
 CNSTI4 0
 RETI4
-LABELV $683
+LABELV $698
 endproc G_RemoveFromSpawnQueue 20 4
 export G_GetPosInSpawnQueue
 proc G_GetPosInSpawnQueue 8 4
@@ -4280,8 +4376,8 @@ ASGNI4
 ADDRLP4 4
 INDIRI4
 CNSTI4 0
-EQI4 $696
-LABELV $698
+EQI4 $711
+LABELV $713
 ADDRLP4 0
 INDIRI4
 CNSTI4 2
@@ -4292,7 +4388,7 @@ ADDP4
 INDIRI4
 ADDRFP4 4
 INDIRI4
-NEI4 $701
+NEI4 $716
 ADDRLP4 0
 INDIRI4
 ADDRFP4 0
@@ -4300,7 +4396,7 @@ INDIRP4
 CNSTI4 256
 ADDP4
 INDIRI4
-GEI4 $703
+GEI4 $718
 ADDRLP4 0
 INDIRI4
 CNSTI4 64
@@ -4312,9 +4408,9 @@ ADDP4
 INDIRI4
 SUBI4
 RETI4
-ADDRGP4 $695
+ADDRGP4 $710
 JUMPV
-LABELV $703
+LABELV $718
 ADDRLP4 0
 INDIRI4
 ADDRFP4 0
@@ -4324,9 +4420,9 @@ ADDP4
 INDIRI4
 SUBI4
 RETI4
-ADDRGP4 $695
+ADDRGP4 $710
 JUMPV
-LABELV $701
+LABELV $716
 ADDRLP4 0
 ADDRLP4 0
 INDIRI4
@@ -4335,7 +4431,7 @@ ADDI4
 CNSTI4 64
 MODI4
 ASGNI4
-LABELV $699
+LABELV $714
 ADDRLP4 0
 INDIRI4
 ADDRFP4 0
@@ -4347,11 +4443,11 @@ CNSTI4 1
 ADDI4
 CNSTI4 64
 MODI4
-NEI4 $698
-LABELV $696
+NEI4 $713
+LABELV $711
 CNSTI4 -1
 RETI4
-LABELV $695
+LABELV $710
 endproc G_GetPosInSpawnQueue 8 4
 export G_PrintSpawnQueue
 proc G_PrintSpawnQueue 16 16
@@ -4377,7 +4473,7 @@ ADDRLP4 4
 ADDRLP4 8
 INDIRI4
 ASGNI4
-ADDRGP4 $706
+ADDRGP4 $721
 ARGP4
 ADDRLP4 4
 INDIRI4
@@ -4400,8 +4496,8 @@ pop
 ADDRLP4 4
 INDIRI4
 CNSTI4 0
-LEI4 $707
-LABELV $709
+LEI4 $722
+LABELV $724
 ADDRLP4 0
 INDIRI4
 CNSTI4 2
@@ -4411,16 +4507,16 @@ INDIRP4
 ADDP4
 INDIRI4
 CNSTI4 -1
-NEI4 $712
-ADDRGP4 $714
+NEI4 $727
+ADDRGP4 $729
 ARGP4
 ADDRGP4 G_Printf
 CALLV
 pop
-ADDRGP4 $713
+ADDRGP4 $728
 JUMPV
-LABELV $712
-ADDRGP4 $715
+LABELV $727
+ADDRGP4 $730
 ARGP4
 ADDRLP4 0
 INDIRI4
@@ -4434,7 +4530,7 @@ ARGI4
 ADDRGP4 G_Printf
 CALLV
 pop
-LABELV $713
+LABELV $728
 ADDRLP4 0
 ADDRLP4 0
 INDIRI4
@@ -4443,7 +4539,7 @@ ADDI4
 CNSTI4 64
 MODI4
 ASGNI4
-LABELV $710
+LABELV $725
 ADDRLP4 0
 INDIRI4
 ADDRFP4 0
@@ -4455,14 +4551,14 @@ CNSTI4 1
 ADDI4
 CNSTI4 64
 MODI4
-NEI4 $709
-LABELV $707
-ADDRGP4 $716
+NEI4 $724
+LABELV $722
+ADDRGP4 $731
 ARGP4
 ADDRGP4 G_Printf
 CALLV
 pop
-LABELV $705
+LABELV $720
 endproc G_PrintSpawnQueue 16 16
 export G_SpawnClients
 proc G_SpawnClients 64 16
@@ -4475,16 +4571,16 @@ ASGNI4
 ADDRGP4 g_doWarmup+12
 INDIRI4
 CNSTI4 0
-EQI4 $718
+EQI4 $733
 ADDRGP4 g_warmupMode+12
 INDIRI4
 CNSTI4 1
-EQI4 $726
+EQI4 $741
 ADDRGP4 g_warmupMode+12
 INDIRI4
 CNSTI4 2
-NEI4 $718
-LABELV $726
+NEI4 $733
+LABELV $741
 ADDRGP4 level+28
 INDIRI4
 ADDRGP4 level+40
@@ -4494,14 +4590,14 @@ CNSTI4 1000
 ADDRGP4 g_warmup+12
 INDIRI4
 MULI4
-GEI4 $718
-ADDRGP4 $717
+GEI4 $733
+ADDRGP4 $732
 JUMPV
-LABELV $718
+LABELV $733
 ADDRFP4 0
 INDIRI4
 CNSTI4 1
-NEI4 $727
+NEI4 $742
 ADDRLP4 0
 ADDRGP4 level+15416
 ASGNP4
@@ -4509,13 +4605,13 @@ ADDRLP4 4
 ADDRGP4 level+11212
 INDIRI4
 ASGNI4
-ADDRGP4 $728
+ADDRGP4 $743
 JUMPV
-LABELV $727
+LABELV $742
 ADDRFP4 0
 INDIRI4
 CNSTI4 2
-NEI4 $731
+NEI4 $746
 ADDRLP4 0
 ADDRGP4 level+15680
 ASGNP4
@@ -4523,8 +4619,8 @@ ADDRLP4 4
 ADDRGP4 level+11216
 INDIRI4
 ASGNI4
-LABELV $731
-LABELV $728
+LABELV $746
+LABELV $743
 ADDRLP4 0
 INDIRP4
 ARGP4
@@ -4539,12 +4635,12 @@ ADDRLP4 44
 INDIRI4
 ADDRLP4 48
 INDIRI4
-LEI4 $735
+LEI4 $750
 ADDRLP4 4
 INDIRI4
 ADDRLP4 48
 INDIRI4
-LEI4 $735
+LEI4 $750
 ADDRLP4 0
 INDIRP4
 ARGP4
@@ -4591,7 +4687,7 @@ ADDRLP4 56
 INDIRP4
 CVPU4 4
 CNSTU4 0
-EQU4 $737
+EQU4 $752
 ADDRLP4 0
 INDIRP4
 ARGP4
@@ -4606,10 +4702,10 @@ ASGNI4
 ADDRLP4 8
 INDIRI4
 CNSTI4 0
-GEI4 $739
-ADDRGP4 $717
+GEI4 $754
+ADDRGP4 $732
 JUMPV
-LABELV $739
+LABELV $754
 ADDRLP4 12
 CNSTI4 1828
 ADDRLP4 8
@@ -4623,7 +4719,7 @@ INDIRP4
 CNSTI4 516
 ADDP4
 INDIRP4
-CNSTI4 924
+CNSTI4 928
 ADDP4
 CNSTI4 0
 ASGNI4
@@ -4646,9 +4742,9 @@ ARGP4
 ADDRGP4 ClientSpawn
 CALLV
 pop
-LABELV $737
-LABELV $735
-LABELV $717
+LABELV $752
+LABELV $750
+LABELV $732
 endproc G_SpawnClients 64 16
 export G_CountSpawns
 proc G_CountSpawns 24 12
@@ -4669,33 +4765,33 @@ MULI4
 ADDRGP4 g_entities
 ADDP4
 ASGNP4
-ADDRGP4 $747
+ADDRGP4 $762
 JUMPV
-LABELV $744
+LABELV $759
 ADDRLP4 0
 INDIRP4
 CNSTI4 520
 ADDP4
 INDIRI4
 CNSTI4 0
-NEI4 $749
-ADDRGP4 $745
+NEI4 $764
+ADDRGP4 $760
 JUMPV
-LABELV $749
+LABELV $764
 ADDRLP4 0
 INDIRP4
 CNSTI4 160
 ADDP4
 INDIRI4
 CNSTI4 1
-NEI4 $751
+NEI4 $766
 ADDRLP4 0
 INDIRP4
 CNSTI4 796
 ADDP4
 INDIRI4
 CNSTI4 0
-LEI4 $751
+LEI4 $766
 ADDRLP4 12
 ADDRGP4 level+11212
 ASGNP4
@@ -4707,21 +4803,21 @@ INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $751
+LABELV $766
 ADDRLP4 0
 INDIRP4
 CNSTI4 160
 ADDP4
 INDIRI4
 CNSTI4 9
-NEI4 $754
+NEI4 $769
 ADDRLP4 0
 INDIRP4
 CNSTI4 796
 ADDP4
 INDIRI4
 CNSTI4 0
-LEI4 $754
+LEI4 $769
 ADDRLP4 20
 ADDRGP4 level+11216
 ASGNP4
@@ -4733,8 +4829,8 @@ INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $754
-LABELV $745
+LABELV $769
+LABELV $760
 ADDRLP4 4
 ADDRLP4 4
 INDIRI4
@@ -4747,13 +4843,13 @@ INDIRP4
 CNSTI4 1828
 ADDP4
 ASGNP4
-LABELV $747
+LABELV $762
 ADDRLP4 4
 INDIRI4
 ADDRGP4 level+12
 INDIRI4
-LTI4 $744
-ADDRGP4 $757
+LTI4 $759
+ADDRGP4 $772
 ARGP4
 ADDRGP4 level+11212
 INDIRI4
@@ -4773,7 +4869,7 @@ ARGP4
 ADDRGP4 trap_SetConfigstring
 CALLV
 pop
-LABELV $741
+LABELV $756
 endproc G_CountSpawns 24 12
 export G_TimeTilSuddenDeath
 proc G_TimeTilSuddenDeath 4 0
@@ -4784,23 +4880,23 @@ ADDRGP4 g_suddenDeathTime+12
 INDIRI4
 ADDRLP4 0
 INDIRI4
-NEI4 $767
+NEI4 $782
 ADDRGP4 level+15404
 INDIRI4
 ADDRLP4 0
 INDIRI4
-EQI4 $766
-LABELV $767
+EQI4 $781
+LABELV $782
 ADDRGP4 level+15404
 INDIRI4
 CNSTI4 0
-GEI4 $761
-LABELV $766
+GEI4 $776
+LABELV $781
 CNSTI4 999999999
 RETI4
-ADDRGP4 $760
+ADDRGP4 $775
 JUMPV
-LABELV $761
+LABELV $776
 ADDRGP4 level+15404
 INDIRI4
 ADDRGP4 level+28
@@ -4810,7 +4906,7 @@ INDIRI4
 SUBI4
 SUBI4
 RETI4
-LABELV $760
+LABELV $775
 endproc G_TimeTilSuddenDeath 4 0
 export G_CalculateBuildPoints
 proc G_CalculateBuildPoints 84 28
@@ -4829,12 +4925,12 @@ ADDRGP4 g_suddenDeath+12
 INDIRI4
 ADDRLP4 20
 INDIRI4
-NEI4 $774
+NEI4 $789
 ADDRGP4 level+15400
 INDIRI4
 ADDRLP4 20
 INDIRI4
-EQI4 $774
+EQI4 $789
 ADDRGP4 level+15400
 CNSTI4 0
 ASGNI4
@@ -4853,29 +4949,29 @@ CNSTI4 60000
 ADDRGP4 g_suddenDeathTime+12
 INDIRI4
 MULI4
-GEI4 $781
+GEI4 $796
 ADDRGP4 level+15404
 CNSTI4 60000
 ADDRGP4 g_suddenDeathTime+12
 INDIRI4
 MULI4
 ASGNI4
-ADDRGP4 $782
+ADDRGP4 $797
 JUMPV
-LABELV $781
+LABELV $796
 ADDRGP4 level+15404
 CNSTI4 -1
 ASGNI4
-LABELV $782
-LABELV $774
+LABELV $797
+LABELV $789
 ADDRGP4 level+15400
 INDIRI4
 CNSTI4 0
-NEI4 $789
+NEI4 $804
 ADDRGP4 g_suddenDeath+12
 INDIRI4
 CNSTI4 0
-NEI4 $795
+NEI4 $810
 ADDRLP4 24
 ADDRGP4 G_TimeTilSuddenDeath
 CALLI4
@@ -4883,20 +4979,20 @@ ASGNI4
 ADDRLP4 24
 INDIRI4
 CNSTI4 0
-GTI4 $792
-LABELV $795
+GTI4 $807
+LABELV $810
 ADDRGP4 level+15408
 INDIRI4
 CNSTI4 2
-GEI4 $793
+GEI4 $808
 CNSTI4 -1
 ARGI4
-ADDRGP4 $799
+ADDRGP4 $814
 ARGP4
 ADDRGP4 trap_SendServerCommand
 CALLV
 pop
-ADDRGP4 $800
+ADDRGP4 $815
 ARGP4
 ADDRGP4 g_suddenDeathMode+12
 INDIRI4
@@ -4919,7 +5015,7 @@ ADDRGP4 g_suddenDeathMode+12
 INDIRI4
 ADDRLP4 28
 INDIRI4
-NEI4 $802
+NEI4 $817
 ADDRLP4 8
 CNSTI4 1
 ASGNI4
@@ -4931,19 +5027,19 @@ MULI4
 ADDRGP4 g_entities
 ADDP4
 ASGNP4
-ADDRGP4 $808
+ADDRGP4 $823
 JUMPV
-LABELV $805
+LABELV $820
 ADDRLP4 0
 INDIRP4
 CNSTI4 4
 ADDP4
 INDIRI4
 CNSTI4 3
-EQI4 $810
-ADDRGP4 $806
+EQI4 $825
+ADDRGP4 $821
 JUMPV
-LABELV $810
+LABELV $825
 ADDRLP4 0
 INDIRP4
 CNSTI4 160
@@ -4957,7 +5053,7 @@ ASGNI4
 ADDRLP4 32
 INDIRI4
 CNSTI4 0
-EQI4 $812
+EQI4 $827
 ADDRLP4 0
 INDIRP4
 CNSTI4 160
@@ -4975,7 +5071,7 @@ ASGNI4
 ADDRLP4 36
 INDIRI4
 CNSTI4 2
-NEI4 $814
+NEI4 $829
 ADDRLP4 0
 INDIRP4
 CNSTI4 160
@@ -4993,13 +5089,13 @@ ADDRLP4 44
 INDIRI4
 ADDI4
 ASGNI4
-ADDRGP4 $815
+ADDRGP4 $830
 JUMPV
-LABELV $814
+LABELV $829
 ADDRLP4 36
 INDIRI4
 CNSTI4 1
-NEI4 $816
+NEI4 $831
 ADDRLP4 0
 INDIRP4
 CNSTI4 160
@@ -5017,10 +5113,10 @@ ADDRLP4 48
 INDIRI4
 ADDI4
 ASGNI4
-LABELV $816
-LABELV $815
-LABELV $812
-LABELV $806
+LABELV $831
+LABELV $830
+LABELV $827
+LABELV $821
 ADDRLP4 8
 ADDRLP4 8
 INDIRI4
@@ -5033,13 +5129,13 @@ INDIRP4
 CNSTI4 1828
 ADDP4
 ASGNP4
-LABELV $808
+LABELV $823
 ADDRLP4 8
 INDIRI4
 ADDRGP4 level+12
 INDIRI4
-LTI4 $805
-LABELV $802
+LTI4 $820
+LABELV $817
 ADDRGP4 level+15396
 ADDRLP4 12
 INDIRI4
@@ -5055,9 +5151,9 @@ ASGNI4
 ADDRGP4 level+15400
 CNSTI4 1
 ASGNI4
-ADDRGP4 $110
+ADDRGP4 $111
 ARGP4
-ADDRGP4 $118
+ADDRGP4 $119
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
@@ -5065,9 +5161,9 @@ pop
 ADDRGP4 level+15408
 CNSTI4 2
 ASGNI4
-ADDRGP4 $793
+ADDRGP4 $808
 JUMPV
-LABELV $792
+LABELV $807
 ADDRLP4 28
 ADDRGP4 G_TimeTilSuddenDeath
 CALLI4
@@ -5075,16 +5171,16 @@ ASGNI4
 ADDRLP4 28
 INDIRI4
 CNSTI4 60000
-GTI4 $824
+GTI4 $839
 ADDRGP4 level+15408
 INDIRI4
 CNSTI4 1
-GEI4 $824
+GEI4 $839
 ADDRLP4 32
 ADDRGP4 G_TimeTilSuddenDeath
 CALLI4
 ASGNI4
-ADDRGP4 $827
+ADDRGP4 $842
 ARGP4
 ADDRLP4 32
 INDIRI4
@@ -5106,13 +5202,13 @@ pop
 ADDRGP4 level+15408
 CNSTI4 1
 ASGNI4
-LABELV $824
-LABELV $793
-LABELV $789
+LABELV $839
+LABELV $808
+LABELV $804
 ADDRGP4 g_suddenDeath+12
 INDIRI4
 CNSTI4 0
-EQI4 $829
+EQI4 $844
 ADDRLP4 12
 ADDRGP4 level+15396
 INDIRI4
@@ -5121,9 +5217,9 @@ ADDRLP4 16
 ADDRGP4 level+15392
 INDIRI4
 ASGNI4
-ADDRGP4 $830
+ADDRGP4 $845
 JUMPV
-LABELV $829
+LABELV $844
 ADDRLP4 12
 ADDRGP4 g_humanBuildPoints+12
 INDIRI4
@@ -5132,7 +5228,7 @@ ADDRLP4 16
 ADDRGP4 g_alienBuildPoints+12
 INDIRI4
 ASGNI4
-LABELV $830
+LABELV $845
 ADDRGP4 level+11260
 ADDRLP4 12
 INDIRI4
@@ -5162,29 +5258,29 @@ MULI4
 ADDRGP4 g_entities
 ADDP4
 ASGNP4
-ADDRGP4 $844
+ADDRGP4 $859
 JUMPV
-LABELV $841
+LABELV $856
 ADDRLP4 0
 INDIRP4
 CNSTI4 520
 ADDP4
 INDIRI4
 CNSTI4 0
-NEI4 $846
-ADDRGP4 $842
+NEI4 $861
+ADDRGP4 $857
 JUMPV
-LABELV $846
+LABELV $861
 ADDRLP4 0
 INDIRP4
 CNSTI4 4
 ADDP4
 INDIRI4
 CNSTI4 3
-EQI4 $848
-ADDRGP4 $842
+EQI4 $863
+ADDRGP4 $857
 JUMPV
-LABELV $848
+LABELV $863
 ADDRLP4 4
 ADDRLP4 0
 INDIRP4
@@ -5195,11 +5291,11 @@ ASGNI4
 ADDRLP4 4
 INDIRI4
 CNSTI4 0
-EQI4 $850
+EQI4 $865
 ADDRLP4 4
 INDIRI4
 CNSTI4 15
-NEI4 $852
+NEI4 $867
 ADDRLP4 32
 CNSTI4 0
 ASGNI4
@@ -5210,7 +5306,7 @@ ADDP4
 INDIRI4
 ADDRLP4 32
 INDIRI4
-EQI4 $852
+EQI4 $867
 ADDRLP4 0
 INDIRP4
 CNSTI4 796
@@ -5218,15 +5314,15 @@ ADDP4
 INDIRI4
 ADDRLP4 32
 INDIRI4
-LEI4 $852
+LEI4 $867
 ADDRGP4 level+15372
 CNSTI4 1
 ASGNI4
-LABELV $852
+LABELV $867
 ADDRLP4 4
 INDIRI4
 CNSTI4 2
-NEI4 $855
+NEI4 $870
 ADDRLP4 40
 CNSTI4 0
 ASGNI4
@@ -5237,7 +5333,7 @@ ADDP4
 INDIRI4
 ADDRLP4 40
 INDIRI4
-EQI4 $855
+EQI4 $870
 ADDRLP4 0
 INDIRP4
 CNSTI4 796
@@ -5245,15 +5341,15 @@ ADDP4
 INDIRI4
 ADDRLP4 40
 INDIRI4
-LEI4 $855
+LEI4 $870
 ADDRGP4 level+15376
 CNSTI4 1
 ASGNI4
-LABELV $855
+LABELV $870
 ADDRGP4 g_suddenDeath+12
 INDIRI4
 CNSTI4 0
-EQI4 $861
+EQI4 $876
 ADDRLP4 4
 INDIRI4
 ARGI4
@@ -5264,8 +5360,8 @@ ASGNI4
 ADDRLP4 44
 INDIRI4
 CNSTI4 0
-EQI4 $858
-LABELV $861
+EQI4 $873
+LABELV $876
 ADDRLP4 4
 INDIRI4
 ARGI4
@@ -5276,7 +5372,7 @@ ASGNI4
 ADDRLP4 48
 INDIRI4
 CNSTI4 2
-NEI4 $862
+NEI4 $877
 ADDRLP4 4
 INDIRI4
 ARGI4
@@ -5302,7 +5398,7 @@ CNSTI4 912
 ADDP4
 INDIRI4
 CNSTI4 0
-EQI4 $863
+EQI4 $878
 ADDRLP4 4
 INDIRI4
 ARGI4
@@ -5322,9 +5418,9 @@ ADDRLP4 60
 INDIRI4
 SUBI4
 ASGNI4
-ADDRGP4 $863
+ADDRGP4 $878
 JUMPV
-LABELV $862
+LABELV $877
 ADDRLP4 4
 INDIRI4
 ARGI4
@@ -5344,10 +5440,10 @@ ADDRLP4 52
 INDIRI4
 SUBI4
 ASGNI4
-LABELV $863
-LABELV $858
-LABELV $850
-LABELV $842
+LABELV $878
+LABELV $873
+LABELV $865
+LABELV $857
 ADDRLP4 8
 ADDRLP4 8
 INDIRI4
@@ -5360,16 +5456,16 @@ INDIRP4
 CNSTI4 1828
 ADDP4
 ASGNP4
-LABELV $844
+LABELV $859
 ADDRLP4 8
 INDIRI4
 ADDRGP4 level+12
 INDIRI4
-LTI4 $841
+LTI4 $856
 ADDRGP4 level+11256
 INDIRI4
 CNSTI4 0
-GEI4 $869
+GEI4 $884
 ADDRLP4 12
 ADDRLP4 12
 INDIRI4
@@ -5392,11 +5488,11 @@ ASGNI4
 ADDRGP4 level+11256
 CNSTI4 0
 ASGNI4
-LABELV $869
+LABELV $884
 ADDRGP4 level+11252
 INDIRI4
 CNSTI4 0
-GEI4 $876
+GEI4 $891
 ADDRLP4 16
 ADDRLP4 16
 INDIRI4
@@ -5407,8 +5503,8 @@ ASGNI4
 ADDRGP4 level+11252
 CNSTI4 0
 ASGNI4
-LABELV $876
-ADDRGP4 $881
+LABELV $891
+ADDRGP4 $896
 ARGP4
 ADDRGP4 level+11252
 INDIRI4
@@ -5452,19 +5548,19 @@ ASGNF4
 ADDRLP4 32
 INDIRF4
 CNSTF4 1036831949
-GEF4 $887
+GEF4 $902
 ADDRLP4 32
 CNSTF4 1036831949
 ASGNF4
-LABELV $887
+LABELV $902
 ADDRLP4 36
 INDIRF4
 CNSTF4 1036831949
-GEF4 $889
+GEF4 $904
 ADDRLP4 36
 CNSTF4 1036831949
 ASGNF4
-LABELV $889
+LABELV $904
 ADDRLP4 48
 CNSTI4 0
 ASGNI4
@@ -5472,12 +5568,12 @@ ADDRGP4 g_alienStage+12
 INDIRI4
 ADDRLP4 48
 INDIRI4
-NEI4 $891
+NEI4 $906
 ADDRGP4 g_alienMaxStage+12
 INDIRI4
 ADDRLP4 48
 INDIRI4
-LEI4 $891
+LEI4 $906
 ADDRGP4 g_alienStage2Threshold+12
 INDIRI4
 CVIF4 4
@@ -5494,9 +5590,9 @@ ADDRLP4 52
 INDIRF4
 CVFI4 4
 ASGNI4
-ADDRGP4 $892
+ADDRGP4 $907
 JUMPV
-LABELV $891
+LABELV $906
 ADDRLP4 56
 CNSTI4 1
 ASGNI4
@@ -5504,12 +5600,12 @@ ADDRGP4 g_alienStage+12
 INDIRI4
 ADDRLP4 56
 INDIRI4
-NEI4 $896
+NEI4 $911
 ADDRGP4 g_alienMaxStage+12
 INDIRI4
 ADDRLP4 56
 INDIRI4
-LEI4 $896
+LEI4 $911
 ADDRGP4 g_alienStage3Threshold+12
 INDIRI4
 CVIF4 4
@@ -5526,14 +5622,14 @@ ADDRLP4 60
 INDIRF4
 CVFI4 4
 ASGNI4
-ADDRGP4 $897
+ADDRGP4 $912
 JUMPV
-LABELV $896
+LABELV $911
 ADDRLP4 40
 CNSTI4 -1
 ASGNI4
-LABELV $897
-LABELV $892
+LABELV $912
+LABELV $907
 ADDRLP4 64
 CNSTI4 0
 ASGNI4
@@ -5541,12 +5637,12 @@ ADDRGP4 g_humanStage+12
 INDIRI4
 ADDRLP4 64
 INDIRI4
-NEI4 $901
+NEI4 $916
 ADDRGP4 g_humanMaxStage+12
 INDIRI4
 ADDRLP4 64
 INDIRI4
-LEI4 $901
+LEI4 $916
 ADDRGP4 g_humanStage2Threshold+12
 INDIRI4
 CVIF4 4
@@ -5563,9 +5659,9 @@ ADDRLP4 68
 INDIRF4
 CVFI4 4
 ASGNI4
-ADDRGP4 $902
+ADDRGP4 $917
 JUMPV
-LABELV $901
+LABELV $916
 ADDRLP4 72
 CNSTI4 1
 ASGNI4
@@ -5573,12 +5669,12 @@ ADDRGP4 g_humanStage+12
 INDIRI4
 ADDRLP4 72
 INDIRI4
-NEI4 $906
+NEI4 $921
 ADDRGP4 g_humanMaxStage+12
 INDIRI4
 ADDRLP4 72
 INDIRI4
-LEI4 $906
+LEI4 $921
 ADDRGP4 g_humanStage3Threshold+12
 INDIRI4
 CVIF4 4
@@ -5595,15 +5691,15 @@ ADDRLP4 76
 INDIRF4
 CVFI4 4
 ASGNI4
-ADDRGP4 $907
+ADDRGP4 $922
 JUMPV
-LABELV $906
+LABELV $921
 ADDRLP4 44
 CNSTI4 -1
 ASGNI4
-LABELV $907
-LABELV $902
-ADDRGP4 $911
+LABELV $922
+LABELV $917
+ADDRGP4 $926
 ARGP4
 ADDRGP4 g_alienStage+12
 INDIRI4
@@ -5635,18 +5731,24 @@ ARGP4
 ADDRGP4 trap_SetConfigstring
 CALLV
 pop
-LABELV $771
+LABELV $786
 endproc G_CalculateBuildPoints 84 28
 data
 align 4
-LABELV $919
+LABELV $934
 byte 4 1
 align 4
-LABELV $920
+LABELV $935
 byte 4 1
+align 4
+LABELV $936
+byte 4 -1
+align 4
+LABELV $937
+byte 4 -1
 export G_CalculateStages
 code
-proc G_CalculateStages 44 8
+proc G_CalculateStages 60 12
 ADDRLP4 0
 ADDRGP4 level+11228
 INDIRF4
@@ -5662,19 +5764,19 @@ ASGNF4
 ADDRLP4 0
 INDIRF4
 CNSTF4 1036831949
-GEF4 $921
+GEF4 $938
 ADDRLP4 0
 CNSTF4 1036831949
 ASGNF4
-LABELV $921
+LABELV $938
 ADDRLP4 4
 INDIRF4
 CNSTF4 1036831949
-GEF4 $923
+GEF4 $940
 ADDRLP4 4
 CNSTF4 1036831949
 ASGNF4
-LABELV $923
+LABELV $940
 ADDRGP4 g_alienStage2Threshold+12
 INDIRI4
 CVIF4 4
@@ -5691,7 +5793,7 @@ INDIRI4
 ADDRLP4 8
 INDIRF4
 CVFI4 4
-LTI4 $925
+LTI4 $942
 ADDRLP4 12
 CNSTI4 0
 ASGNI4
@@ -5699,13 +5801,13 @@ ADDRGP4 g_alienStage+12
 INDIRI4
 ADDRLP4 12
 INDIRI4
-NEI4 $925
+NEI4 $942
 ADDRGP4 g_alienMaxStage+12
 INDIRI4
 ADDRLP4 12
 INDIRI4
-LEI4 $925
-ADDRGP4 $619
+LEI4 $942
+ADDRGP4 $634
 ARGP4
 CNSTI4 1
 ARGI4
@@ -5713,7 +5815,7 @@ ADDRLP4 16
 ADDRGP4 va
 CALLP4
 ASGNP4
-ADDRGP4 $193
+ADDRGP4 $194
 ARGP4
 ADDRLP4 16
 INDIRP4
@@ -5725,16 +5827,16 @@ ADDRGP4 level+15944
 ADDRGP4 level+28
 INDIRI4
 ASGNI4
-ADDRGP4 $919
+ADDRGP4 $934
 ADDRGP4 g_alienStage+4
 INDIRI4
 ASGNI4
-ADDRGP4 $934
+ADDRGP4 $951
 ARGP4
 ADDRGP4 G_LogPrintf
 CALLV
 pop
-LABELV $925
+LABELV $942
 ADDRGP4 g_alienStage3Threshold+12
 INDIRI4
 CVIF4 4
@@ -5751,7 +5853,7 @@ INDIRI4
 ADDRLP4 16
 INDIRF4
 CVFI4 4
-LTI4 $935
+LTI4 $952
 ADDRLP4 20
 CNSTI4 1
 ASGNI4
@@ -5759,13 +5861,13 @@ ADDRGP4 g_alienStage+12
 INDIRI4
 ADDRLP4 20
 INDIRI4
-NEI4 $935
+NEI4 $952
 ADDRGP4 g_alienMaxStage+12
 INDIRI4
 ADDRLP4 20
 INDIRI4
-LEI4 $935
-ADDRGP4 $619
+LEI4 $952
+ADDRGP4 $634
 ARGP4
 CNSTI4 2
 ARGI4
@@ -5773,7 +5875,7 @@ ADDRLP4 24
 ADDRGP4 va
 CALLP4
 ASGNP4
-ADDRGP4 $193
+ADDRGP4 $194
 ARGP4
 ADDRLP4 24
 INDIRP4
@@ -5785,16 +5887,16 @@ ADDRGP4 level+15948
 ADDRGP4 level+28
 INDIRI4
 ASGNI4
-ADDRGP4 $919
+ADDRGP4 $934
 ADDRGP4 g_alienStage+4
 INDIRI4
 ASGNI4
-ADDRGP4 $944
+ADDRGP4 $961
 ARGP4
 ADDRGP4 G_LogPrintf
 CALLV
 pop
-LABELV $935
+LABELV $952
 ADDRGP4 g_humanStage2Threshold+12
 INDIRI4
 CVIF4 4
@@ -5811,7 +5913,7 @@ INDIRI4
 ADDRLP4 24
 INDIRF4
 CVFI4 4
-LTI4 $945
+LTI4 $962
 ADDRLP4 28
 CNSTI4 0
 ASGNI4
@@ -5819,13 +5921,13 @@ ADDRGP4 g_humanStage+12
 INDIRI4
 ADDRLP4 28
 INDIRI4
-NEI4 $945
+NEI4 $962
 ADDRGP4 g_humanMaxStage+12
 INDIRI4
 ADDRLP4 28
 INDIRI4
-LEI4 $945
-ADDRGP4 $619
+LEI4 $962
+ADDRGP4 $634
 ARGP4
 CNSTI4 1
 ARGI4
@@ -5833,7 +5935,7 @@ ADDRLP4 32
 ADDRGP4 va
 CALLP4
 ASGNP4
-ADDRGP4 $186
+ADDRGP4 $187
 ARGP4
 ADDRLP4 32
 INDIRP4
@@ -5845,16 +5947,16 @@ ADDRGP4 level+15952
 ADDRGP4 level+28
 INDIRI4
 ASGNI4
-ADDRGP4 $920
+ADDRGP4 $935
 ADDRGP4 g_humanStage+4
 INDIRI4
 ASGNI4
-ADDRGP4 $954
+ADDRGP4 $971
 ARGP4
 ADDRGP4 G_LogPrintf
 CALLV
 pop
-LABELV $945
+LABELV $962
 ADDRGP4 g_humanStage3Threshold+12
 INDIRI4
 CVIF4 4
@@ -5871,7 +5973,7 @@ INDIRI4
 ADDRLP4 32
 INDIRF4
 CVFI4 4
-LTI4 $955
+LTI4 $972
 ADDRLP4 36
 CNSTI4 1
 ASGNI4
@@ -5879,13 +5981,13 @@ ADDRGP4 g_humanStage+12
 INDIRI4
 ADDRLP4 36
 INDIRI4
-NEI4 $955
+NEI4 $972
 ADDRGP4 g_humanMaxStage+12
 INDIRI4
 ADDRLP4 36
 INDIRI4
-LEI4 $955
-ADDRGP4 $619
+LEI4 $972
+ADDRGP4 $634
 ARGP4
 CNSTI4 2
 ARGI4
@@ -5893,7 +5995,7 @@ ADDRLP4 40
 ADDRGP4 va
 CALLP4
 ASGNP4
-ADDRGP4 $186
+ADDRGP4 $187
 ARGP4
 ADDRLP4 40
 INDIRP4
@@ -5905,21 +6007,21 @@ ADDRGP4 level+15956
 ADDRGP4 level+28
 INDIRI4
 ASGNI4
-ADDRGP4 $963
+ADDRGP4 $980
 ARGP4
 ADDRGP4 G_LogPrintf
 CALLV
 pop
-ADDRGP4 $920
+ADDRGP4 $935
 ADDRGP4 g_humanStage+4
 INDIRI4
 ASGNI4
-LABELV $955
+LABELV $972
 ADDRGP4 g_alienStage+4
 INDIRI4
-ADDRGP4 $919
+ADDRGP4 $934
 INDIRI4
-LEI4 $965
+LEI4 $982
 CNSTI4 1
 ARGI4
 ADDRGP4 g_alienStage+12
@@ -5931,34 +6033,34 @@ pop
 ADDRGP4 g_alienStage+12
 INDIRI4
 CNSTI4 1
-NEI4 $969
+NEI4 $986
 ADDRGP4 level+15944
 ADDRGP4 level+28
 INDIRI4
 ASGNI4
-ADDRGP4 $970
+ADDRGP4 $987
 JUMPV
-LABELV $969
+LABELV $986
 ADDRGP4 g_alienStage+12
 INDIRI4
 CNSTI4 2
-NEI4 $974
+NEI4 $991
 ADDRGP4 level+15948
 ADDRGP4 level+28
 INDIRI4
 ASGNI4
-LABELV $974
-LABELV $970
-ADDRGP4 $919
+LABELV $991
+LABELV $987
+ADDRGP4 $934
 ADDRGP4 g_alienStage+4
 INDIRI4
 ASGNI4
-LABELV $965
+LABELV $982
 ADDRGP4 g_humanStage+4
 INDIRI4
-ADDRGP4 $920
+ADDRGP4 $935
 INDIRI4
-LEI4 $980
+LEI4 $997
 CNSTI4 2
 ARGI4
 ADDRGP4 g_humanStage+12
@@ -5970,53 +6072,121 @@ pop
 ADDRGP4 g_humanStage+12
 INDIRI4
 CNSTI4 1
-NEI4 $984
+NEI4 $1001
 ADDRGP4 level+15952
 ADDRGP4 level+28
 INDIRI4
 ASGNI4
-ADDRGP4 $985
+ADDRGP4 $1002
 JUMPV
-LABELV $984
+LABELV $1001
 ADDRGP4 g_humanStage+12
 INDIRI4
 CNSTI4 2
-NEI4 $989
+NEI4 $1006
 ADDRGP4 level+15956
 ADDRGP4 level+28
 INDIRI4
 ASGNI4
-LABELV $989
-LABELV $985
-ADDRGP4 $920
+LABELV $1006
+LABELV $1002
+ADDRGP4 $935
 ADDRGP4 g_humanStage+4
 INDIRI4
 ASGNI4
-LABELV $980
-LABELV $916
-endproc G_CalculateStages 44 8
+LABELV $997
+ADDRGP4 level+16116
+INDIRI4
+CNSTI4 2
+NEI4 $1012
+ADDRGP4 $194
+ARGP4
+ADDRLP4 40
+ADDRGP4 trap_Cvar_VariableIntegerValue
+CALLI4
+ASGNI4
+ADDRLP4 40
+INDIRI4
+ADDRGP4 $936
+INDIRI4
+NEI4 $1015
+ADDRGP4 $187
+ARGP4
+ADDRLP4 44
+ADDRGP4 trap_Cvar_VariableIntegerValue
+CALLI4
+ASGNI4
+ADDRLP4 44
+INDIRI4
+ADDRGP4 $937
+INDIRI4
+EQI4 $1012
+LABELV $1015
+ADDRGP4 $194
+ARGP4
+ADDRLP4 48
+ADDRGP4 trap_Cvar_VariableIntegerValue
+CALLI4
+ASGNI4
+ADDRGP4 $936
+ADDRLP4 48
+INDIRI4
+ASGNI4
+ADDRGP4 $187
+ARGP4
+ADDRLP4 52
+ADDRGP4 trap_Cvar_VariableIntegerValue
+CALLI4
+ASGNI4
+ADDRGP4 $937
+ADDRLP4 52
+INDIRI4
+ASGNI4
+ADDRGP4 $772
+ARGP4
+ADDRGP4 $937
+INDIRI4
+ARGI4
+ADDRGP4 $936
+INDIRI4
+ARGI4
+ADDRLP4 56
+ADDRGP4 va
+CALLP4
+ASGNP4
+CNSTI4 2
+ARGI4
+ADDRLP4 56
+INDIRP4
+ARGP4
+ADDRGP4 G_DemoCommand
+CALLV
+pop
+LABELV $1012
+LABELV $931
+endproc G_CalculateStages 60 12
 export G_CalculateWaves
 proc G_CalculateWaves 36 8
 ADDRGP4 g_bot_survival+12
 INDIRI4
 CNSTI4 1
-NEI4 $996
+NEI4 $1017
 CNSTI4 1000
 ADDRGP4 g_bot_wave_interval+12
 INDIRI4
 MULI4
-ADDRGP4 level+185088
+ADDRGP4 level+185092
 INDIRI4
 ADDI4
 ADDRGP4 level+28
 INDIRI4
-GEI4 $999
-ADDRGP4 level+185084
+GEI4 $1020
+ADDRGP4 level+185088
 INDIRI4
 CNSTI4 8
-GEI4 $999
+GEI4 $1020
 ADDRLP4 0
-ADDRGP4 level+185084
+ADDRGP4 level+185088
 ASGNP4
 ADDRLP4 0
 INDIRP4
@@ -6026,282 +6196,282 @@ INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-ADDRGP4 level+185088
+ADDRGP4 level+185092
 ADDRGP4 level+28
 INDIRI4
 ASGNI4
 ADDRLP4 4
-ADDRGP4 level+185084
+ADDRGP4 level+185088
 INDIRI4
 ASGNI4
 ADDRLP4 4
 INDIRI4
 CNSTI4 1
-LTI4 $1008
+LTI4 $1029
 ADDRLP4 4
 INDIRI4
 CNSTI4 8
-GTI4 $1008
+GTI4 $1029
 ADDRLP4 4
 INDIRI4
 CNSTI4 2
 LSHI4
-ADDRGP4 $1028-4
+ADDRGP4 $1049-4
 ADDP4
 INDIRP4
 JUMPV
 lit
 align 4
-LABELV $1028
-address $1011
-address $1013
-address $1016
-address $1018
-address $1020
-address $1022
-address $1024
-address $1026
+LABELV $1049
+address $1032
+address $1034
+address $1037
+address $1039
+address $1041
+address $1043
+address $1045
+address $1047
 code
-LABELV $1011
-ADDRGP4 $268
-ARGP4
-ADDRGP4 $118
-ARGP4
-ADDRGP4 trap_Cvar_Set
-CALLV
-pop
-ADDRGP4 $258
-ARGP4
-ADDRGP4 $118
-ARGP4
-ADDRGP4 trap_Cvar_Set
-CALLV
-pop
-ADDRGP4 $1012
-ARGP4
-ADDRGP4 $118
-ARGP4
-ADDRGP4 trap_Cvar_Set
-CALLV
-pop
-ADDRGP4 $1009
-JUMPV
-LABELV $1013
+LABELV $1032
 ADDRGP4 $269
 ARGP4
-ADDRGP4 $118
+ADDRGP4 $119
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
 ADDRGP4 $259
 ARGP4
-ADDRGP4 $118
+ADDRGP4 $119
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-ADDRGP4 $1014
+ADDRGP4 $1033
 ARGP4
-ADDRGP4 $1015
+ADDRGP4 $119
 ARGP4
-ADDRLP4 8
-ADDRGP4 va
-CALLP4
-ASGNP4
-CNSTI4 2
-ARGI4
-ADDRLP4 8
-INDIRP4
-ARGP4
-ADDRGP4 trap_SendConsoleCommand
+ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-ADDRGP4 $1009
+ADDRGP4 $1030
 JUMPV
-LABELV $1016
+LABELV $1034
 ADDRGP4 $270
 ARGP4
-ADDRGP4 $118
+ADDRGP4 $119
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-ADDRGP4 $262
+ADDRGP4 $260
 ARGP4
-ADDRGP4 $118
+ADDRGP4 $119
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-ADDRGP4 $1014
+ADDRGP4 $1035
 ARGP4
-ADDRGP4 $1017
+ADDRGP4 $1036
 ARGP4
-ADDRLP4 12
+ADDRLP4 8
 ADDRGP4 va
 CALLP4
 ASGNP4
 CNSTI4 2
 ARGI4
-ADDRLP4 12
+ADDRLP4 8
 INDIRP4
 ARGP4
 ADDRGP4 trap_SendConsoleCommand
 CALLV
 pop
-ADDRGP4 $1009
+ADDRGP4 $1030
 JUMPV
-LABELV $1018
+LABELV $1037
 ADDRGP4 $271
 ARGP4
-ADDRGP4 $118
+ADDRGP4 $119
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
 ADDRGP4 $263
 ARGP4
-ADDRGP4 $118
+ADDRGP4 $119
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-ADDRGP4 $1014
+ADDRGP4 $1035
 ARGP4
-ADDRGP4 $1019
+ADDRGP4 $1038
 ARGP4
-ADDRLP4 16
+ADDRLP4 12
 ADDRGP4 va
 CALLP4
 ASGNP4
 CNSTI4 2
 ARGI4
-ADDRLP4 16
+ADDRLP4 12
 INDIRP4
 ARGP4
 ADDRGP4 trap_SendConsoleCommand
 CALLV
 pop
-ADDRGP4 $1009
+ADDRGP4 $1030
 JUMPV
-LABELV $1020
+LABELV $1039
 ADDRGP4 $272
 ARGP4
-ADDRGP4 $118
+ADDRGP4 $119
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
 ADDRGP4 $264
 ARGP4
-ADDRGP4 $118
+ADDRGP4 $119
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-ADDRGP4 $1014
+ADDRGP4 $1035
 ARGP4
-ADDRGP4 $1021
+ADDRGP4 $1040
 ARGP4
-ADDRLP4 20
+ADDRLP4 16
 ADDRGP4 va
 CALLP4
 ASGNP4
 CNSTI4 2
 ARGI4
-ADDRLP4 20
+ADDRLP4 16
 INDIRP4
 ARGP4
 ADDRGP4 trap_SendConsoleCommand
 CALLV
 pop
-ADDRGP4 $1009
+ADDRGP4 $1030
 JUMPV
-LABELV $1022
+LABELV $1041
 ADDRGP4 $273
 ARGP4
-ADDRGP4 $118
+ADDRGP4 $119
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
 ADDRGP4 $265
 ARGP4
-ADDRGP4 $118
+ADDRGP4 $119
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-ADDRGP4 $1014
+ADDRGP4 $1035
 ARGP4
-ADDRGP4 $1023
+ADDRGP4 $1042
 ARGP4
-ADDRLP4 24
+ADDRLP4 20
 ADDRGP4 va
 CALLP4
 ASGNP4
 CNSTI4 2
 ARGI4
-ADDRLP4 24
+ADDRLP4 20
 INDIRP4
 ARGP4
 ADDRGP4 trap_SendConsoleCommand
 CALLV
 pop
-ADDRGP4 $1009
+ADDRGP4 $1030
 JUMPV
-LABELV $1024
+LABELV $1043
 ADDRGP4 $274
 ARGP4
-ADDRGP4 $118
+ADDRGP4 $119
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
 ADDRGP4 $266
 ARGP4
-ADDRGP4 $118
+ADDRGP4 $119
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-ADDRGP4 $1014
+ADDRGP4 $1035
 ARGP4
-ADDRGP4 $1025
+ADDRGP4 $1044
 ARGP4
-ADDRLP4 28
+ADDRLP4 24
 ADDRGP4 va
 CALLP4
 ASGNP4
 CNSTI4 2
 ARGI4
-ADDRLP4 28
+ADDRLP4 24
 INDIRP4
 ARGP4
 ADDRGP4 trap_SendConsoleCommand
 CALLV
 pop
-ADDRGP4 $1009
+ADDRGP4 $1030
 JUMPV
-LABELV $1026
+LABELV $1045
 ADDRGP4 $275
 ARGP4
-ADDRGP4 $118
+ADDRGP4 $119
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
 ADDRGP4 $267
 ARGP4
-ADDRGP4 $118
+ADDRGP4 $119
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-ADDRGP4 $1014
+ADDRGP4 $1035
 ARGP4
-ADDRGP4 $1027
+ADDRGP4 $1046
+ARGP4
+ADDRLP4 28
+ADDRGP4 va
+CALLP4
+ASGNP4
+CNSTI4 2
+ARGI4
+ADDRLP4 28
+INDIRP4
+ARGP4
+ADDRGP4 trap_SendConsoleCommand
+CALLV
+pop
+ADDRGP4 $1030
+JUMPV
+LABELV $1047
+ADDRGP4 $276
+ARGP4
+ADDRGP4 $119
+ARGP4
+ADDRGP4 trap_Cvar_Set
+CALLV
+pop
+ADDRGP4 $268
+ARGP4
+ADDRGP4 $119
+ARGP4
+ADDRGP4 trap_Cvar_Set
+CALLV
+pop
+ADDRGP4 $1035
+ARGP4
+ADDRGP4 $1048
 ARGP4
 ADDRLP4 32
 ADDRGP4 va
@@ -6315,44 +6485,44 @@ ARGP4
 ADDRGP4 trap_SendConsoleCommand
 CALLV
 pop
-LABELV $1008
-LABELV $1009
-LABELV $999
-LABELV $996
-LABELV $995
+LABELV $1029
+LABELV $1030
+LABELV $1020
+LABELV $1017
+LABELV $1016
 endproc G_CalculateWaves 36 8
 export G_CalculateAvgPlayers
 proc G_CalculateAvgPlayers 8 8
 ADDRGP4 level+11220
 INDIRI4
 CNSTI4 0
-NEI4 $1031
+NEI4 $1052
 ADDRGP4 level+11232
 CNSTI4 0
 ASGNI4
-ADDRGP4 $194
+ADDRGP4 $195
 ARGP4
-ADDRGP4 $89
+ADDRGP4 $90
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-LABELV $1031
+LABELV $1052
 ADDRGP4 level+11224
 INDIRI4
 CNSTI4 0
-NEI4 $1035
+NEI4 $1056
 ADDRGP4 level+11240
 CNSTI4 0
 ASGNI4
-ADDRGP4 $187
+ADDRGP4 $188
 ARGP4
-ADDRGP4 $89
+ADDRGP4 $90
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-LABELV $1035
+LABELV $1056
 ADDRGP4 level+11228
 ADDRGP4 level+11228
 INDIRF4
@@ -6411,18 +6581,18 @@ INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $1030
+LABELV $1051
 endproc G_CalculateAvgPlayers 8 8
 lit
 align 1
-LABELV $1052
+LABELV $1073
 byte 1 0
 skip 64
 export CalculateRanks
 code
-proc CalculateRanks 104 16
+proc CalculateRanks 116 16
 ADDRLP4 4
-ADDRGP4 $1052
+ADDRGP4 $1073
 INDIRB
 ASGNB 65
 ADDRLP4 72
@@ -6455,27 +6625,44 @@ ASGNI4
 ADDRLP4 0
 CNSTI4 0
 ASGNI4
-ADDRGP4 $1064
+ADDRGP4 $1085
 JUMPV
-LABELV $1061
+LABELV $1082
 ADDRLP4 0
 INDIRI4
 ADDRLP4 4
 ADDP4
 CNSTI1 45
 ASGNI1
-CNSTI4 1940
+ADDRLP4 76
+CNSTI4 1944
 ADDRLP4 0
 INDIRI4
 MULI4
 ADDRGP4 level
 INDIRP4
 ADDP4
+ASGNP4
+ADDRLP4 80
+CNSTI4 0
+ASGNI4
+ADDRLP4 76
+INDIRP4
 CNSTI4 508
 ADDP4
 INDIRI4
-CNSTI4 0
-EQI4 $1066
+ADDRLP4 80
+INDIRI4
+NEI4 $1089
+ADDRLP4 76
+INDIRP4
+CNSTI4 776
+ADDP4
+INDIRI4
+ADDRLP4 80
+INDIRI4
+EQI4 $1087
+LABELV $1089
 ADDRGP4 level+64
 INDIRI4
 CNSTI4 2
@@ -6485,12 +6672,12 @@ ADDP4
 ADDRLP4 0
 INDIRI4
 ASGNI4
-ADDRLP4 76
+ADDRLP4 84
 ADDRGP4 level+64
 ASGNP4
-ADDRLP4 76
+ADDRLP4 84
 INDIRP4
-ADDRLP4 76
+ADDRLP4 84
 INDIRP4
 INDIRI4
 CNSTI4 1
@@ -6500,7 +6687,7 @@ ADDRLP4 0
 INDIRI4
 ADDRLP4 4
 ADDP4
-CNSTI4 1940
+CNSTI4 1944
 ADDRLP4 0
 INDIRI4
 MULI4
@@ -6514,33 +6701,45 @@ CNSTI4 48
 ADDI4
 CVII1 4
 ASGNI1
-CNSTI4 1940
+ADDRLP4 92
+CNSTI4 1944
 ADDRLP4 0
 INDIRI4
 MULI4
 ADDRGP4 level
 INDIRP4
 ADDP4
+ASGNP4
+ADDRLP4 92
+INDIRP4
 CNSTI4 508
 ADDP4
 INDIRI4
 CNSTI4 2
-EQI4 $1071
-ADDRGP4 $1062
+NEI4 $1095
+ADDRLP4 92
+INDIRP4
+CNSTI4 776
+ADDP4
+INDIRI4
+CNSTI4 0
+EQI4 $1093
+LABELV $1095
+ADDRGP4 $1083
 JUMPV
-LABELV $1071
-ADDRLP4 84
+LABELV $1093
+ADDRLP4 96
 ADDRGP4 level+2408
 ASGNP4
-ADDRLP4 84
+ADDRLP4 96
 INDIRP4
-ADDRLP4 84
+ADDRLP4 96
 INDIRP4
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-CNSTI4 1940
+CNSTI4 1944
 ADDRLP4 0
 INDIRI4
 MULI4
@@ -6551,43 +6750,43 @@ CNSTI4 664
 ADDP4
 INDIRI4
 CNSTI4 0
-EQI4 $1074
-ADDRLP4 88
+EQI4 $1097
+ADDRLP4 100
 ADDRGP4 level+72
 ASGNP4
-ADDRLP4 88
+ADDRLP4 100
 INDIRP4
-ADDRLP4 88
+ADDRLP4 100
 INDIRP4
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-CNSTI4 1940
+CNSTI4 1944
 ADDRLP4 0
 INDIRI4
 MULI4
 ADDRGP4 level
 INDIRP4
 ADDP4
-CNSTI4 924
+CNSTI4 928
 ADDP4
 INDIRI4
 CNSTI4 1
-EQI4 $1077
-ADDRLP4 92
+EQI4 $1100
+ADDRLP4 104
 ADDRGP4 level+68
 ASGNP4
-ADDRLP4 92
+ADDRLP4 104
 INDIRP4
-ADDRLP4 92
+ADDRLP4 104
 INDIRP4
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $1077
-CNSTI4 1940
+LABELV $1100
+CNSTI4 1944
 ADDRLP4 0
 INDIRI4
 MULI4
@@ -6598,45 +6797,45 @@ CNSTI4 664
 ADDP4
 INDIRI4
 CNSTI4 1
-NEI4 $1080
-ADDRLP4 96
+NEI4 $1103
+ADDRLP4 108
 ADDRGP4 level+11220
 ASGNP4
-ADDRLP4 96
+ADDRLP4 108
 INDIRP4
-ADDRLP4 96
+ADDRLP4 108
 INDIRP4
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-CNSTI4 1940
+CNSTI4 1944
 ADDRLP4 0
 INDIRI4
 MULI4
 ADDRGP4 level
 INDIRP4
 ADDP4
-CNSTI4 924
+CNSTI4 928
 ADDP4
 INDIRI4
 CNSTI4 1
-EQI4 $1081
-ADDRLP4 100
+EQI4 $1104
+ADDRLP4 112
 ADDRGP4 level+11244
 ASGNP4
-ADDRLP4 100
+ADDRLP4 112
 INDIRP4
-ADDRLP4 100
+ADDRLP4 112
 INDIRP4
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-ADDRGP4 $1081
+ADDRGP4 $1104
 JUMPV
-LABELV $1080
-CNSTI4 1940
+LABELV $1103
+CNSTI4 1944
 ADDRLP4 0
 INDIRI4
 MULI4
@@ -6647,59 +6846,59 @@ CNSTI4 664
 ADDP4
 INDIRI4
 CNSTI4 2
-NEI4 $1086
-ADDRLP4 96
+NEI4 $1109
+ADDRLP4 108
 ADDRGP4 level+11224
 ASGNP4
-ADDRLP4 96
+ADDRLP4 108
 INDIRP4
-ADDRLP4 96
+ADDRLP4 108
 INDIRP4
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-CNSTI4 1940
+CNSTI4 1944
 ADDRLP4 0
 INDIRI4
 MULI4
 ADDRGP4 level
 INDIRP4
 ADDP4
-CNSTI4 924
+CNSTI4 928
 ADDP4
 INDIRI4
 CNSTI4 1
-EQI4 $1089
-ADDRLP4 100
+EQI4 $1112
+ADDRLP4 112
 ADDRGP4 level+11248
 ASGNP4
-ADDRLP4 100
+ADDRLP4 112
 INDIRP4
-ADDRLP4 100
+ADDRLP4 112
 INDIRP4
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $1089
-LABELV $1086
-LABELV $1081
-LABELV $1074
-LABELV $1066
-LABELV $1062
+LABELV $1112
+LABELV $1109
+LABELV $1104
+LABELV $1097
+LABELV $1087
+LABELV $1083
 ADDRLP4 0
 ADDRLP4 0
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $1064
+LABELV $1085
 ADDRLP4 0
 INDIRI4
 ADDRGP4 level+20
 INDIRI4
-LTI4 $1061
+LTI4 $1082
 ADDRGP4 level+6532
 ADDRGP4 level+11224
 INDIRI4
@@ -6714,7 +6913,7 @@ ADDRLP4 4
 ADDP4
 CNSTI1 0
 ASGNI1
-ADDRGP4 $98
+ADDRGP4 $99
 ARGP4
 ADDRLP4 4
 ARGP4
@@ -6724,48 +6923,48 @@ pop
 ADDRGP4 g_friendlyFire+8
 INDIRF4
 CNSTF4 0
-LEF4 $1097
+LEF4 $1120
 ADDRLP4 72
 ADDRLP4 72
 INDIRI4
 CNSTI4 3
 BORI4
 ASGNI4
-LABELV $1097
+LABELV $1120
 ADDRGP4 g_friendlyFireHumans+8
 INDIRF4
 CNSTF4 0
-LEF4 $1100
+LEF4 $1123
 ADDRLP4 72
 ADDRLP4 72
 INDIRI4
 CNSTI4 1
 BORI4
 ASGNI4
-LABELV $1100
+LABELV $1123
 ADDRGP4 g_friendlyFireAliens+8
 INDIRF4
 CNSTF4 0
-LEF4 $1103
+LEF4 $1126
 ADDRLP4 72
 ADDRLP4 72
 INDIRI4
 CNSTI4 2
 BORI4
 ASGNI4
-LABELV $1103
+LABELV $1126
 ADDRGP4 g_friendlyBuildableFire+8
 INDIRF4
 CNSTF4 0
-LEF4 $1106
+LEF4 $1129
 ADDRLP4 72
 ADDRLP4 72
 INDIRI4
 CNSTI4 4
 BORI4
 ASGNI4
-LABELV $1106
-ADDRGP4 $1109
+LABELV $1129
+ADDRGP4 $1132
 ARGP4
 ADDRLP4 72
 INDIRI4
@@ -6774,7 +6973,7 @@ ADDRLP4 76
 ADDRGP4 va
 CALLP4
 ASGNP4
-ADDRGP4 $99
+ADDRGP4 $100
 ARGP4
 ADDRLP4 76
 INDIRP4
@@ -6800,22 +6999,256 @@ pop
 ADDRGP4 level+11164
 INDIRI4
 CNSTI4 0
-EQI4 $1113
+EQI4 $1136
 ADDRGP4 SendScoreboardMessageToAllClients
 CALLV
 pop
-LABELV $1113
-LABELV $1051
-endproc CalculateRanks 104 16
+LABELV $1136
+LABELV $1072
+endproc CalculateRanks 116 16
+export G_DemoCommand
+proc G_DemoCommand 0 8
+ADDRGP4 level+16116
+INDIRI4
+CNSTI4 2
+NEI4 $1140
+ADDRFP4 0
+INDIRI4
+ARGI4
+ADDRFP4 4
+INDIRP4
+ARGP4
+ADDRGP4 trap_DemoCommand
+CALLV
+pop
+LABELV $1140
+LABELV $1139
+endproc G_DemoCommand 0 8
+export G_DemoSetClient
+proc G_DemoSetClient 1052 12
+CNSTI4 0
+ARGI4
+ADDRLP4 0
+ARGP4
+CNSTI4 1024
+ARGI4
+ADDRGP4 trap_Argv
+CALLV
+pop
+ADDRLP4 0
+ARGP4
+ADDRLP4 1032
+ADDRGP4 atoi
+CALLI4
+ASGNI4
+ADDRLP4 1028
+CNSTI4 1944
+ADDRLP4 1032
+INDIRI4
+MULI4
+ADDRGP4 level
+INDIRP4
+ADDP4
+ASGNP4
+ADDRLP4 1028
+INDIRP4
+CNSTI4 776
+ADDP4
+CNSTI4 1
+ASGNI4
+CNSTI4 1
+ARGI4
+ADDRLP4 0
+ARGP4
+CNSTI4 1024
+ARGI4
+ADDRGP4 trap_Argv
+CALLV
+pop
+ADDRLP4 0
+ARGP4
+ADDRGP4 $1144
+ARGP4
+ADDRLP4 1036
+ADDRGP4 Info_ValueForKey
+CALLP4
+ASGNP4
+ADDRLP4 1024
+ADDRLP4 1036
+INDIRP4
+ASGNP4
+ADDRLP4 1024
+INDIRP4
+INDIRI1
+CVII4 1
+CNSTI4 0
+EQI4 $1145
+ADDRLP4 1028
+INDIRP4
+CNSTI4 552
+ADDP4
+ARGP4
+ADDRLP4 1024
+INDIRP4
+ARGP4
+CNSTI4 36
+ARGI4
+ADDRGP4 Q_strncpyz
+CALLV
+pop
+LABELV $1145
+ADDRLP4 0
+ARGP4
+ADDRGP4 $1147
+ARGP4
+ADDRLP4 1040
+ADDRGP4 Info_ValueForKey
+CALLP4
+ASGNP4
+ADDRLP4 1024
+ADDRLP4 1040
+INDIRP4
+ASGNP4
+ADDRLP4 1024
+INDIRP4
+INDIRI1
+CVII4 1
+CNSTI4 0
+EQI4 $1148
+ADDRLP4 1028
+INDIRP4
+CNSTI4 753
+ADDP4
+ARGP4
+ADDRLP4 1024
+INDIRP4
+ARGP4
+CNSTI4 16
+ARGI4
+ADDRGP4 Q_strncpyz
+CALLV
+pop
+LABELV $1148
+ADDRLP4 0
+ARGP4
+ADDRGP4 $1150
+ARGP4
+ADDRLP4 1044
+ADDRGP4 Info_ValueForKey
+CALLP4
+ASGNP4
+ADDRLP4 1024
+ADDRLP4 1044
+INDIRP4
+ASGNP4
+ADDRLP4 1024
+INDIRP4
+INDIRI1
+CVII4 1
+CNSTI4 0
+EQI4 $1151
+ADDRLP4 1024
+INDIRP4
+ARGP4
+ADDRLP4 1048
+ADDRGP4 atoi
+CALLI4
+ASGNI4
+ADDRLP4 1028
+INDIRP4
+CNSTI4 664
+ADDP4
+ADDRLP4 1048
+INDIRI4
+ASGNI4
+LABELV $1151
+ADDRLP4 1028
+INDIRP4
+CNSTI4 940
+ADDP4
+CNSTI4 0
+ASGNI4
+LABELV $1143
+endproc G_DemoSetClient 1052 12
+export G_DemoRemoveClient
+proc G_DemoRemoveClient 12 12
+CNSTI4 0
+ARGI4
+ADDRLP4 0
+ARGP4
+CNSTI4 3
+ARGI4
+ADDRGP4 trap_Argv
+CALLV
+pop
+ADDRLP4 0
+ARGP4
+ADDRLP4 8
+ADDRGP4 atoi
+CALLI4
+ASGNI4
+ADDRLP4 4
+CNSTI4 1944
+ADDRLP4 8
+INDIRI4
+MULI4
+ADDRGP4 level
+INDIRP4
+ADDP4
+ASGNP4
+ADDRLP4 4
+INDIRP4
+CNSTI4 776
+ADDP4
+CNSTI4 0
+ASGNI4
+LABELV $1153
+endproc G_DemoRemoveClient 12 12
+export G_DemoSetStage
+proc G_DemoSetStage 2 12
+CNSTI4 0
+ARGI4
+ADDRLP4 0
+ARGP4
+CNSTI4 2
+ARGI4
+ADDRGP4 trap_Argv
+CALLV
+pop
+ADDRGP4 $187
+ARGP4
+ADDRLP4 0
+ARGP4
+ADDRGP4 trap_Cvar_Set
+CALLV
+pop
+CNSTI4 1
+ARGI4
+ADDRLP4 0
+ARGP4
+CNSTI4 2
+ARGI4
+ADDRGP4 trap_Argv
+CALLV
+pop
+ADDRGP4 $194
+ARGP4
+ADDRLP4 0
+ARGP4
+ADDRGP4 trap_Cvar_Set
+CALLV
+pop
+LABELV $1154
+endproc G_DemoSetStage 2 12
 export SendScoreboardMessageToAllClients
 proc SendScoreboardMessageToAllClients 4 4
 ADDRLP4 0
 CNSTI4 0
 ASGNI4
-ADDRGP4 $1120
+ADDRGP4 $1159
 JUMPV
-LABELV $1117
-CNSTI4 1940
+LABELV $1156
+CNSTI4 1944
 ADDRLP4 0
 INDIRI4
 MULI4
@@ -6826,7 +7259,7 @@ CNSTI4 508
 ADDP4
 INDIRI4
 CNSTI4 2
-NEI4 $1122
+NEI4 $1161
 CNSTI4 1828
 ADDRLP4 0
 INDIRI4
@@ -6837,21 +7270,21 @@ ARGP4
 ADDRGP4 ScoreboardMessage
 CALLV
 pop
-LABELV $1122
-LABELV $1118
+LABELV $1161
+LABELV $1157
 ADDRLP4 0
 ADDRLP4 0
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $1120
+LABELV $1159
 ADDRLP4 0
 INDIRI4
 ADDRGP4 level+20
 INDIRI4
-LTI4 $1117
-LABELV $1116
+LTI4 $1156
+LABELV $1155
 endproc SendScoreboardMessageToAllClients 4 4
 export MoveClientToIntermission
 proc MoveClientToIntermission 0 12
@@ -6864,18 +7297,18 @@ INDIRP4
 CNSTI4 516
 ADDP4
 INDIRP4
-CNSTI4 936
+CNSTI4 940
 ADDP4
 INDIRI4
 CNSTI4 3
-NEI4 $1125
+NEI4 $1164
 ADDRFP4 0
 INDIRP4
 ARGP4
 ADDRGP4 G_StopFollowing
 CALLV
 pop
-LABELV $1125
+LABELV $1164
 ADDRFP4 0
 INDIRP4
 CNSTI4 92
@@ -6972,7 +7405,7 @@ CNSTI4 460
 ADDP4
 CNSTI4 0
 ASGNI4
-LABELV $1124
+LABELV $1163
 endproc MoveClientToIntermission 0 12
 export FindIntermissionPoint
 proc FindIntermissionPoint 32 12
@@ -6980,7 +7413,7 @@ CNSTP4 0
 ARGP4
 CNSTI4 524
 ARGI4
-ADDRGP4 $1131
+ADDRGP4 $1170
 ARGP4
 ADDRLP4 20
 ADDRGP4 G_Find
@@ -6994,7 +7427,7 @@ ADDRLP4 0
 INDIRP4
 CVPU4 4
 CNSTU4 0
-NEU4 $1132
+NEU4 $1171
 ADDRGP4 vec3_origin
 ARGP4
 ADDRGP4 level+11180
@@ -7004,9 +7437,9 @@ ARGP4
 ADDRGP4 G_SelectSpawnPoint
 CALLP4
 pop
-ADDRGP4 $1133
+ADDRGP4 $1172
 JUMPV
-LABELV $1132
+LABELV $1171
 ADDRGP4 level+11180
 ADDRLP4 0
 INDIRP4
@@ -7028,7 +7461,7 @@ ADDP4
 INDIRP4
 CVPU4 4
 CNSTU4 0
-EQU4 $1138
+EQU4 $1177
 ADDRLP4 0
 INDIRP4
 CNSTI4 656
@@ -7047,7 +7480,7 @@ ADDRLP4 4
 INDIRP4
 CVPU4 4
 CNSTU4 0
-EQU4 $1140
+EQU4 $1179
 ADDRLP4 28
 ADDRLP4 4
 INDIRP4
@@ -7089,20 +7522,20 @@ ARGP4
 ADDRGP4 vectoangles
 CALLV
 pop
-LABELV $1140
-LABELV $1138
-LABELV $1133
-LABELV $1130
+LABELV $1179
+LABELV $1177
+LABELV $1172
+LABELV $1169
 endproc FindIntermissionPoint 32 12
 export BeginIntermission
 proc BeginIntermission 8 4
 ADDRGP4 level+11164
 INDIRI4
 CNSTI4 0
-EQI4 $1151
-ADDRGP4 $1150
+EQI4 $1190
+ADDRGP4 $1189
 JUMPV
-LABELV $1151
+LABELV $1190
 ADDRGP4 level+16108
 CNSTI4 99
 ASGNI4
@@ -7119,9 +7552,9 @@ pop
 ADDRLP4 4
 CNSTI4 0
 ASGNI4
-ADDRGP4 $1160
+ADDRGP4 $1199
 JUMPV
-LABELV $1157
+LABELV $1196
 ADDRLP4 0
 CNSTI4 1828
 ADDRLP4 4
@@ -7136,53 +7569,53 @@ CNSTI4 520
 ADDP4
 INDIRI4
 CNSTI4 0
-NEI4 $1162
-ADDRGP4 $1158
+NEI4 $1201
+ADDRGP4 $1197
 JUMPV
-LABELV $1162
+LABELV $1201
 ADDRLP4 0
 INDIRP4
 CNSTI4 796
 ADDP4
 INDIRI4
 CNSTI4 0
-GTI4 $1164
+GTI4 $1203
 ADDRLP4 0
 INDIRP4
 ARGP4
 ADDRGP4 respawn
 CALLV
 pop
-LABELV $1164
+LABELV $1203
 ADDRLP4 0
 INDIRP4
 ARGP4
 ADDRGP4 MoveClientToIntermission
 CALLV
 pop
-LABELV $1158
+LABELV $1197
 ADDRLP4 4
 ADDRLP4 4
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $1160
+LABELV $1199
 ADDRLP4 4
 INDIRI4
 ADDRGP4 level+20
 INDIRI4
-LTI4 $1157
+LTI4 $1196
 ADDRGP4 SendScoreboardMessageToAllClients
 CALLV
 pop
-LABELV $1150
+LABELV $1189
 endproc BeginIntermission 8 4
 export ExitLevel
 proc ExitLevel 32 8
-ADDRGP4 $1168
+ADDRGP4 $1207
 JUMPV
-LABELV $1167
+LABELV $1206
 ADDRGP4 level+16096
 ADDRGP4 level+16096
 INDIRP4
@@ -7190,9 +7623,9 @@ CNSTI4 100
 ADDP4
 INDIRP4
 ASGNP4
-ADDRGP4 $1174
+ADDRGP4 $1213
 JUMPV
-LABELV $1173
+LABELV $1212
 ADDRLP4 0
 ADDRLP4 0
 INDIRP4
@@ -7206,7 +7639,7 @@ ARGP4
 ADDRGP4 G_Free
 CALLV
 pop
-LABELV $1174
+LABELV $1213
 ADDRLP4 4
 ADDRLP4 0
 INDIRP4
@@ -7215,8 +7648,8 @@ ADDRLP4 0
 INDIRP4
 CVPU4 4
 CNSTU4 0
-NEU4 $1173
-LABELV $1168
+NEU4 $1212
+LABELV $1207
 ADDRLP4 16
 ADDRGP4 level+16096
 INDIRP4
@@ -7229,7 +7662,7 @@ ADDRLP4 16
 INDIRP4
 CVPU4 4
 CNSTU4 0
-NEU4 $1167
+NEU4 $1206
 ADDRGP4 g_nextMap+16
 ARGP4
 ADDRLP4 20
@@ -7239,8 +7672,8 @@ ASGNI4
 ADDRLP4 20
 INDIRI4
 CNSTI4 0
-EQI4 $1176
-ADDRGP4 $1179
+EQI4 $1215
+ADDRGP4 $1218
 ARGP4
 ADDRGP4 g_nextMap+16
 ARGP4
@@ -7256,9 +7689,9 @@ ARGP4
 ADDRGP4 trap_SendConsoleCommand
 CALLV
 pop
-ADDRGP4 $1177
+ADDRGP4 $1216
 JUMPV
-LABELV $1176
+LABELV $1215
 ADDRLP4 28
 ADDRGP4 G_MapRotationActive
 CALLI4
@@ -7266,25 +7699,25 @@ ASGNI4
 ADDRLP4 28
 INDIRI4
 CNSTI4 0
-EQI4 $1181
+EQI4 $1220
 ADDRGP4 G_AdvanceMapRotation
 CALLI4
 pop
-ADDRGP4 $1182
+ADDRGP4 $1221
 JUMPV
-LABELV $1181
+LABELV $1220
 CNSTI4 2
 ARGI4
-ADDRGP4 $1183
+ADDRGP4 $1222
 ARGP4
 ADDRGP4 trap_SendConsoleCommand
 CALLV
 pop
-LABELV $1182
-LABELV $1177
-ADDRGP4 $216
+LABELV $1221
+LABELV $1216
+ADDRGP4 $217
 ARGP4
-ADDRGP4 $97
+ADDRGP4 $98
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
@@ -7301,11 +7734,11 @@ ASGNI4
 ADDRLP4 8
 CNSTI4 0
 ASGNI4
-ADDRGP4 $1190
+ADDRGP4 $1229
 JUMPV
-LABELV $1187
+LABELV $1226
 ADDRLP4 12
-CNSTI4 1940
+CNSTI4 1944
 ADDRLP4 8
 INDIRI4
 MULI4
@@ -7319,39 +7752,39 @@ CNSTI4 508
 ADDP4
 INDIRI4
 CNSTI4 2
-EQI4 $1192
-ADDRGP4 $1188
+EQI4 $1231
+ADDRGP4 $1227
 JUMPV
-LABELV $1192
+LABELV $1231
 ADDRLP4 12
 INDIRP4
 CNSTI4 248
 ADDP4
 CNSTI4 0
 ASGNI4
-LABELV $1188
+LABELV $1227
 ADDRLP4 8
 ADDRLP4 8
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $1190
+LABELV $1229
 ADDRLP4 8
 INDIRI4
 ADDRGP4 g_maxclients+12
 INDIRI4
-LTI4 $1187
+LTI4 $1226
 ADDRGP4 G_WriteSessionData
 CALLV
 pop
 ADDRLP4 8
 CNSTI4 0
 ASGNI4
-ADDRGP4 $1197
+ADDRGP4 $1236
 JUMPV
-LABELV $1194
-CNSTI4 1940
+LABELV $1233
+CNSTI4 1944
 ADDRLP4 8
 INDIRI4
 MULI4
@@ -7362,8 +7795,8 @@ CNSTI4 508
 ADDP4
 INDIRI4
 CNSTI4 2
-NEI4 $1199
-CNSTI4 1940
+NEI4 $1238
+CNSTI4 1944
 ADDRLP4 8
 INDIRI4
 MULI4
@@ -7374,21 +7807,21 @@ CNSTI4 508
 ADDP4
 CNSTI4 1
 ASGNI4
-LABELV $1199
-LABELV $1195
+LABELV $1238
+LABELV $1234
 ADDRLP4 8
 ADDRLP4 8
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $1197
+LABELV $1236
 ADDRLP4 8
 INDIRI4
 ADDRGP4 g_maxclients+12
 INDIRI4
-LTI4 $1194
-LABELV $1166
+LTI4 $1233
+LABELV $1205
 endproc ExitLevel 32 8
 export G_AdminsPrintf
 proc G_AdminsPrintf 1044 12
@@ -7412,9 +7845,9 @@ ASGNP4
 ADDRLP4 0
 CNSTI4 0
 ASGNI4
-ADDRGP4 $1206
+ADDRGP4 $1245
 JUMPV
-LABELV $1203
+LABELV $1242
 ADDRLP4 4
 CNSTI4 1828
 ADDRLP4 0
@@ -7435,8 +7868,8 @@ ASGNI4
 ADDRLP4 1036
 INDIRI4
 CNSTI4 0
-EQI4 $1208
-ADDRGP4 $1210
+EQI4 $1247
+ADDRGP4 $1249
 ARGP4
 ADDRLP4 8
 ARGP4
@@ -7460,28 +7893,28 @@ ARGP4
 ADDRGP4 trap_SendServerCommand
 CALLV
 pop
-LABELV $1208
-LABELV $1204
+LABELV $1247
+LABELV $1243
 ADDRLP4 0
 ADDRLP4 0
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $1206
+LABELV $1245
 ADDRLP4 0
 INDIRI4
 ADDRGP4 level+20
 INDIRI4
-LTI4 $1203
-ADDRGP4 $647
+LTI4 $1242
+ADDRGP4 $662
 ARGP4
 ADDRLP4 8
 ARGP4
 ADDRGP4 G_LogPrintf
 CALLV
 pop
-LABELV $1201
+LABELV $1240
 endproc G_AdminsPrintf 1044 12
 export G_LogPrintf
 proc G_LogPrintf 2092 24
@@ -7538,7 +7971,7 @@ ADDRLP4 4
 ARGP4
 CNSTI4 1024
 ARGI4
-ADDRGP4 $1214
+ADDRGP4 $1253
 ARGP4
 ADDRLP4 1032
 INDIRI4
@@ -7572,26 +8005,26 @@ ASGNP4
 ADDRGP4 g_dedicated+12
 INDIRI4
 CNSTI4 0
-EQI4 $1217
-ADDRGP4 $647
+EQI4 $1256
+ADDRGP4 $662
 ARGP4
 ADDRLP4 4+7
 ARGP4
 ADDRGP4 G_Printf
 CALLV
 pop
-LABELV $1217
+LABELV $1256
 ADDRGP4 level+16
 INDIRI4
 CNSTI4 0
-NEI4 $1221
-ADDRGP4 $1211
+NEI4 $1260
+ADDRGP4 $1250
 JUMPV
-LABELV $1221
+LABELV $1260
 ADDRGP4 g_decolourLogfiles+12
 INDIRI4
 CNSTI4 0
-EQI4 $1224
+EQI4 $1263
 ADDRLP4 4
 ARGP4
 ADDRLP4 1040
@@ -7616,9 +8049,9 @@ ARGI4
 ADDRGP4 trap_FS_Write
 CALLV
 pop
-ADDRGP4 $1225
+ADDRGP4 $1264
 JUMPV
-LABELV $1224
+LABELV $1263
 ADDRLP4 4
 ARGP4
 ADDRLP4 2088
@@ -7636,8 +8069,8 @@ ARGI4
 ADDRGP4 trap_FS_Write
 CALLV
 pop
-LABELV $1225
-LABELV $1211
+LABELV $1264
+LABELV $1250
 endproc G_LogPrintf 2092 24
 export G_LogPrintfColoured
 proc G_LogPrintfColoured 1068 24
@@ -7694,7 +8127,7 @@ ADDRLP4 4
 ARGP4
 CNSTI4 1024
 ARGI4
-ADDRGP4 $1214
+ADDRGP4 $1253
 ARGP4
 ADDRLP4 1032
 INDIRI4
@@ -7728,22 +8161,22 @@ ASGNP4
 ADDRGP4 g_dedicated+12
 INDIRI4
 CNSTI4 0
-EQI4 $1234
-ADDRGP4 $647
+EQI4 $1273
+ADDRGP4 $662
 ARGP4
 ADDRLP4 4+7
 ARGP4
 ADDRGP4 G_Printf
 CALLV
 pop
-LABELV $1234
+LABELV $1273
 ADDRGP4 level+16
 INDIRI4
 CNSTI4 0
-NEI4 $1238
-ADDRGP4 $1229
+NEI4 $1277
+ADDRGP4 $1268
 JUMPV
-LABELV $1238
+LABELV $1277
 ADDRLP4 4
 ARGP4
 ADDRLP4 1064
@@ -7761,7 +8194,7 @@ ARGI4
 ADDRGP4 trap_FS_Write
 CALLV
 pop
-LABELV $1229
+LABELV $1268
 endproc G_LogPrintfColoured 1068 24
 export G_LogOnlyPrintf
 proc G_LogOnlyPrintf 2092 24
@@ -7818,7 +8251,7 @@ ADDRLP4 4
 ARGP4
 CNSTI4 1024
 ARGI4
-ADDRGP4 $1214
+ADDRGP4 $1253
 ARGP4
 ADDRLP4 1032
 INDIRI4
@@ -7852,14 +8285,14 @@ ASGNP4
 ADDRGP4 level+16
 INDIRI4
 CNSTI4 0
-NEI4 $1247
-ADDRGP4 $1242
+NEI4 $1286
+ADDRGP4 $1281
 JUMPV
-LABELV $1247
+LABELV $1286
 ADDRGP4 g_decolourLogfiles+12
 INDIRI4
 CNSTI4 0
-EQI4 $1250
+EQI4 $1289
 ADDRLP4 4
 ARGP4
 ADDRLP4 1040
@@ -7884,9 +8317,9 @@ ARGI4
 ADDRGP4 trap_FS_Write
 CALLV
 pop
-ADDRGP4 $1251
+ADDRGP4 $1290
 JUMPV
-LABELV $1250
+LABELV $1289
 ADDRLP4 4
 ARGP4
 ADDRLP4 2088
@@ -7904,12 +8337,12 @@ ARGI4
 ADDRGP4 trap_FS_Write
 CALLV
 pop
-LABELV $1251
-LABELV $1242
+LABELV $1290
+LABELV $1281
 endproc G_LogOnlyPrintf 2092 24
 export G_SendGameStat
 proc G_SendGameStat 10300 72
-ADDRGP4 $443
+ADDRGP4 $451
 ARGP4
 ADDRLP4 9233
 ARGP4
@@ -7925,34 +8358,34 @@ ASGNI4
 ADDRLP4 10260
 INDIRI4
 CNSTI4 0
-EQI4 $1261
+EQI4 $1300
 ADDRLP4 10260
 INDIRI4
 CNSTI4 1
-EQI4 $1259
+EQI4 $1298
 ADDRLP4 10260
 INDIRI4
 CNSTI4 2
-EQI4 $1260
-ADDRGP4 $1255
+EQI4 $1299
+ADDRGP4 $1294
 JUMPV
-LABELV $1259
+LABELV $1298
 ADDRLP4 1040
 CNSTI1 65
 ASGNI1
-ADDRGP4 $1257
+ADDRGP4 $1296
 JUMPV
-LABELV $1260
+LABELV $1299
 ADDRLP4 1040
 CNSTI1 72
 ASGNI1
-ADDRGP4 $1257
+ADDRGP4 $1296
 JUMPV
-LABELV $1261
+LABELV $1300
 ADDRLP4 1040
 CNSTI1 76
 ASGNI1
-LABELV $1257
+LABELV $1296
 ADDRLP4 10268
 ADDRGP4 G_TimeTilSuddenDeath
 CALLI4
@@ -7961,9 +8394,9 @@ ADDRLP4 1041
 ARGP4
 CNSTI4 8192
 ARGI4
-ADDRGP4 $1262
+ADDRGP4 $1301
 ARGP4
-ADDRGP4 $1263
+ADDRGP4 $1302
 ARGP4
 ADDRGP4 g_tag+16
 ARGP4
@@ -8037,11 +8470,11 @@ ASGNI4
 ADDRLP4 4
 CNSTI4 0
 ASGNI4
-ADDRGP4 $1283
+ADDRGP4 $1322
 JUMPV
-LABELV $1280
+LABELV $1319
 ADDRLP4 0
-CNSTI4 1940
+CNSTI4 1944
 ADDRLP4 4
 INDIRI4
 CNSTI4 2
@@ -8060,20 +8493,20 @@ CNSTI4 508
 ADDP4
 INDIRI4
 CNSTI4 1
-NEI4 $1286
+NEI4 $1325
 ADDRLP4 10276
 CNSTI4 -1
 ASGNI4
-ADDRGP4 $1287
+ADDRGP4 $1326
 JUMPV
-LABELV $1286
+LABELV $1325
 ADDRLP4 0
 INDIRP4
 CNSTI4 452
 ADDP4
 INDIRI4
 CNSTI4 999
-GEI4 $1289
+GEI4 $1328
 ADDRLP4 10280
 ADDRLP4 0
 INDIRP4
@@ -8081,18 +8514,18 @@ CNSTI4 452
 ADDP4
 INDIRI4
 ASGNI4
-ADDRGP4 $1290
+ADDRGP4 $1329
 JUMPV
-LABELV $1289
+LABELV $1328
 ADDRLP4 10280
 CNSTI4 999
 ASGNI4
-LABELV $1290
+LABELV $1329
 ADDRLP4 10276
 ADDRLP4 10280
 INDIRI4
 ASGNI4
-LABELV $1287
+LABELV $1326
 ADDRLP4 10284
 ADDRLP4 0
 INDIRP4
@@ -8103,39 +8536,39 @@ ASGNI4
 ADDRLP4 10284
 INDIRI4
 CNSTI4 0
-EQI4 $1296
+EQI4 $1335
 ADDRLP4 10284
 INDIRI4
 CNSTI4 1
-EQI4 $1294
+EQI4 $1333
 ADDRLP4 10284
 INDIRI4
 CNSTI4 2
-EQI4 $1295
-ADDRGP4 $1255
+EQI4 $1334
+ADDRGP4 $1294
 JUMPV
-LABELV $1294
+LABELV $1333
 ADDRLP4 1040
 CNSTI1 65
 ASGNI1
-ADDRGP4 $1292
+ADDRGP4 $1331
 JUMPV
-LABELV $1295
+LABELV $1334
 ADDRLP4 1040
 CNSTI1 72
 ASGNI1
-ADDRGP4 $1292
+ADDRGP4 $1331
 JUMPV
-LABELV $1296
+LABELV $1335
 ADDRLP4 1040
 CNSTI1 83
 ASGNI1
-LABELV $1292
+LABELV $1331
 ADDRLP4 12
 ARGP4
 CNSTI4 1024
 ARGI4
-ADDRGP4 $1297
+ADDRGP4 $1336
 ARGP4
 ADDRLP4 0
 INDIRP4
@@ -8185,10 +8618,10 @@ ADDRLP4 1036
 INDIRI4
 ADDI4
 CNSTI4 8192
-LTI4 $1299
-ADDRGP4 $1282
+LTI4 $1338
+ADDRGP4 $1321
 JUMPV
-LABELV $1299
+LABELV $1338
 ADDRLP4 8
 INDIRI4
 ADDRLP4 1041
@@ -8206,30 +8639,30 @@ ADDRLP4 1036
 INDIRI4
 ADDI4
 ASGNI4
-LABELV $1281
+LABELV $1320
 ADDRLP4 4
 ADDRLP4 4
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $1283
+LABELV $1322
 ADDRLP4 4
 INDIRI4
 ADDRGP4 level+64
 INDIRI4
-LTI4 $1280
-LABELV $1282
+LTI4 $1319
+LABELV $1321
 ADDRLP4 1041
 ARGP4
 ADDRGP4 trap_SendGameStat
 CALLV
 pop
-LABELV $1255
+LABELV $1294
 endproc G_SendGameStat 10300 72
 export LogExit
 proc LogExit 28 20
-ADDRGP4 $1302
+ADDRGP4 $1341
 ARGP4
 ADDRFP4 0
 INDIRP4
@@ -8243,7 +8676,7 @@ INDIRI4
 ASGNI4
 CNSTI4 22
 ARGI4
-ADDRGP4 $118
+ADDRGP4 $119
 ARGP4
 ADDRGP4 trap_SetConfigstring
 CALLV
@@ -8255,19 +8688,19 @@ ASGNI4
 ADDRLP4 12
 INDIRI4
 CNSTI4 32
-LEI4 $1306
+LEI4 $1345
 ADDRLP4 12
 CNSTI4 32
 ASGNI4
-LABELV $1306
+LABELV $1345
 ADDRLP4 4
 CNSTI4 0
 ASGNI4
-ADDRGP4 $1311
+ADDRGP4 $1350
 JUMPV
-LABELV $1308
+LABELV $1347
 ADDRLP4 0
-CNSTI4 1940
+CNSTI4 1944
 ADDRLP4 4
 INDIRI4
 CNSTI4 2
@@ -8286,27 +8719,27 @@ CNSTI4 216
 ADDP4
 INDIRI4
 CNSTI4 0
-NEI4 $1313
-ADDRGP4 $1309
+NEI4 $1352
+ADDRGP4 $1348
 JUMPV
-LABELV $1313
+LABELV $1352
 ADDRLP4 0
 INDIRP4
 CNSTI4 508
 ADDP4
 INDIRI4
 CNSTI4 1
-NEI4 $1315
-ADDRGP4 $1309
+NEI4 $1354
+ADDRGP4 $1348
 JUMPV
-LABELV $1315
+LABELV $1354
 ADDRLP4 0
 INDIRP4
 CNSTI4 452
 ADDP4
 INDIRI4
 CNSTI4 999
-GEI4 $1318
+GEI4 $1357
 ADDRLP4 20
 ADDRLP4 0
 INDIRP4
@@ -8314,18 +8747,18 @@ CNSTI4 452
 ADDP4
 INDIRI4
 ASGNI4
-ADDRGP4 $1319
+ADDRGP4 $1358
 JUMPV
-LABELV $1318
+LABELV $1357
 ADDRLP4 20
 CNSTI4 999
 ASGNI4
-LABELV $1319
+LABELV $1358
 ADDRLP4 16
 ADDRLP4 20
 INDIRI4
 ASGNI4
-ADDRGP4 $1320
+ADDRGP4 $1359
 ARGP4
 ADDRLP4 0
 INDIRP4
@@ -8352,19 +8785,19 @@ ARGP4
 ADDRGP4 G_LogPrintf
 CALLV
 pop
-LABELV $1309
+LABELV $1348
 ADDRLP4 4
 ADDRLP4 4
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $1311
+LABELV $1350
 ADDRLP4 4
 INDIRI4
 ADDRLP4 12
 INDIRI4
-LTI4 $1308
+LTI4 $1347
 ADDRLP4 4
 CNSTI4 1
 ASGNI4
@@ -8376,26 +8809,26 @@ MULI4
 ADDRGP4 g_entities
 ADDP4
 ASGNP4
-ADDRGP4 $1325
+ADDRGP4 $1364
 JUMPV
-LABELV $1322
+LABELV $1361
 ADDRLP4 8
 INDIRP4
 CNSTI4 520
 ADDP4
 INDIRI4
 CNSTI4 0
-NEI4 $1327
-ADDRGP4 $1323
+NEI4 $1366
+ADDRGP4 $1362
 JUMPV
-LABELV $1327
+LABELV $1366
 ADDRLP4 8
 INDIRP4
 CNSTI4 524
 ADDP4
 INDIRP4
 ARGP4
-ADDRGP4 $1331
+ADDRGP4 $1370
 ARGP4
 ADDRLP4 16
 ADDRGP4 Q_stricmp
@@ -8404,7 +8837,7 @@ ASGNI4
 ADDRLP4 16
 INDIRI4
 CNSTI4 0
-NEI4 $1329
+NEI4 $1368
 ADDRGP4 level+15388
 INDIRI4
 ADDRLP4 8
@@ -8412,7 +8845,7 @@ INDIRP4
 CNSTI4 892
 ADDP4
 INDIRI4
-NEI4 $1332
+NEI4 $1371
 ADDRLP4 8
 INDIRP4
 ARGP4
@@ -8429,9 +8862,9 @@ ADDP4
 INDIRP4
 CALLV
 pop
-LABELV $1332
-LABELV $1329
-LABELV $1323
+LABELV $1371
+LABELV $1368
+LABELV $1362
 ADDRLP4 4
 ADDRLP4 4
 INDIRI4
@@ -8444,32 +8877,32 @@ INDIRP4
 CNSTI4 1828
 ADDP4
 ASGNP4
-LABELV $1325
+LABELV $1364
 ADDRLP4 4
 INDIRI4
 ADDRGP4 level+12
 INDIRI4
-LTI4 $1322
+LTI4 $1361
 ADDRGP4 level+15388
 INDIRI4
 ARGI4
 ADDRGP4 G_SendGameStat
 CALLV
 pop
-LABELV $1301
+LABELV $1340
 endproc LogExit 28 20
 export CheckIntermissionExit
 proc CheckIntermissionExit 36 8
 ADDRGP4 level+64
 INDIRI4
 CNSTI4 0
-NEI4 $1337
+NEI4 $1376
 ADDRGP4 ExitLevel
 CALLV
 pop
-ADDRGP4 $1336
+ADDRGP4 $1375
 JUMPV
-LABELV $1337
+LABELV $1376
 ADDRLP4 24
 CNSTI4 0
 ASGNI4
@@ -8493,11 +8926,11 @@ ADDRLP4 4
 ADDRLP4 24
 INDIRI4
 ASGNI4
-ADDRGP4 $1343
+ADDRGP4 $1382
 JUMPV
-LABELV $1340
+LABELV $1379
 ADDRLP4 0
-CNSTI4 1940
+CNSTI4 1944
 ADDRLP4 4
 INDIRI4
 MULI4
@@ -8511,27 +8944,27 @@ CNSTI4 508
 ADDP4
 INDIRI4
 CNSTI4 2
-EQI4 $1345
-ADDRGP4 $1341
+EQI4 $1384
+ADDRGP4 $1380
 JUMPV
-LABELV $1345
+LABELV $1384
 ADDRLP4 0
 INDIRP4
 CNSTI4 216
 ADDP4
 INDIRI4
 CNSTI4 0
-NEI4 $1347
-ADDRGP4 $1341
+NEI4 $1386
+ADDRGP4 $1380
 JUMPV
-LABELV $1347
+LABELV $1386
 ADDRLP4 0
 INDIRP4
-CNSTI4 964
+CNSTI4 968
 ADDP4
 INDIRI4
 CNSTI4 0
-EQI4 $1349
+EQI4 $1388
 ADDRLP4 12
 ADDRLP4 12
 INDIRI4
@@ -8541,7 +8974,7 @@ ASGNI4
 ADDRLP4 4
 INDIRI4
 CNSTI4 16
-GEI4 $1350
+GEI4 $1389
 ADDRLP4 20
 ADDRLP4 20
 INDIRI4
@@ -8551,36 +8984,36 @@ INDIRI4
 LSHI4
 BORI4
 ASGNI4
-ADDRGP4 $1350
+ADDRGP4 $1389
 JUMPV
-LABELV $1349
+LABELV $1388
 ADDRLP4 16
 ADDRLP4 16
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $1350
+LABELV $1389
 ADDRLP4 8
 ADDRLP4 8
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $1341
+LABELV $1380
 ADDRLP4 4
 ADDRLP4 4
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $1343
+LABELV $1382
 ADDRLP4 4
 INDIRI4
 ADDRGP4 g_maxclients+12
 INDIRI4
-LTI4 $1340
-ADDRGP4 $619
+LTI4 $1379
+ADDRGP4 $634
 ARGP4
 ADDRLP4 20
 INDIRI4
@@ -8603,23 +9036,23 @@ ADDRGP4 level+11164
 INDIRI4
 CNSTI4 5000
 ADDI4
-GEI4 $1353
-ADDRGP4 $1336
+GEI4 $1392
+ADDRGP4 $1375
 JUMPV
-LABELV $1353
+LABELV $1392
 ADDRGP4 level+28
 INDIRI4
 ADDRGP4 level+11164
 INDIRI4
 CNSTI4 60000
 ADDI4
-LEI4 $1357
+LEI4 $1396
 ADDRGP4 ExitLevel
 CALLV
 pop
-ADDRGP4 $1336
+ADDRGP4 $1375
 JUMPV
-LABELV $1357
+LABELV $1396
 ADDRLP4 32
 CNSTI4 0
 ASGNI4
@@ -8627,32 +9060,32 @@ ADDRLP4 12
 INDIRI4
 ADDRLP4 32
 INDIRI4
-NEI4 $1361
+NEI4 $1400
 ADDRLP4 8
 INDIRI4
 ADDRLP4 32
 INDIRI4
-EQI4 $1361
+EQI4 $1400
 ADDRGP4 level+11172
 CNSTI4 0
 ASGNI4
-ADDRGP4 $1336
+ADDRGP4 $1375
 JUMPV
-LABELV $1361
+LABELV $1400
 ADDRLP4 16
 INDIRI4
 CNSTI4 0
-NEI4 $1364
+NEI4 $1403
 ADDRGP4 ExitLevel
 CALLV
 pop
-ADDRGP4 $1336
+ADDRGP4 $1375
 JUMPV
-LABELV $1364
+LABELV $1403
 ADDRGP4 level+11172
 INDIRI4
 CNSTI4 0
-NEI4 $1366
+NEI4 $1405
 ADDRGP4 level+11172
 CNSTI4 1
 ASGNI4
@@ -8660,35 +9093,35 @@ ADDRGP4 level+11176
 ADDRGP4 level+28
 INDIRI4
 ASGNI4
-LABELV $1366
+LABELV $1405
 ADDRGP4 level+28
 INDIRI4
 ADDRGP4 level+11176
 INDIRI4
 CNSTI4 30000
 ADDI4
-GEI4 $1372
-ADDRGP4 $1336
+GEI4 $1411
+ADDRGP4 $1375
 JUMPV
-LABELV $1372
+LABELV $1411
 ADDRGP4 ExitLevel
 CALLV
 pop
-LABELV $1336
+LABELV $1375
 endproc CheckIntermissionExit 36 8
 export ScoreIsTied
 proc ScoreIsTied 24 0
 ADDRGP4 level+72
 INDIRI4
 CNSTI4 2
-GEI4 $1377
+GEI4 $1416
 CNSTI4 0
 RETI4
-ADDRGP4 $1376
+ADDRGP4 $1415
 JUMPV
-LABELV $1377
+LABELV $1416
 ADDRLP4 12
-CNSTI4 1940
+CNSTI4 1944
 ASGNI4
 ADDRLP4 16
 ADDRGP4 level
@@ -8729,245 +9162,77 @@ ADDRLP4 0
 INDIRI4
 ADDRLP4 4
 INDIRI4
-NEI4 $1384
+NEI4 $1423
 ADDRLP4 8
 CNSTI4 1
 ASGNI4
-ADDRGP4 $1385
+ADDRGP4 $1424
 JUMPV
-LABELV $1384
+LABELV $1423
 ADDRLP4 8
 CNSTI4 0
 ASGNI4
-LABELV $1385
+LABELV $1424
 ADDRLP4 8
 INDIRI4
 RETI4
-LABELV $1376
+LABELV $1415
 endproc ScoreIsTied 24 0
 export CheckExitRules
 proc CheckExitRules 8 8
+ADDRGP4 level+16116
+INDIRI4
+CNSTI4 1
+NEI4 $1426
+ADDRGP4 $1425
+JUMPV
+LABELV $1426
 ADDRGP4 level+11164
 INDIRI4
 CNSTI4 0
-EQI4 $1387
+EQI4 $1429
 ADDRGP4 CheckIntermissionExit
 CALLV
 pop
-ADDRGP4 $1386
+ADDRGP4 $1425
 JUMPV
-LABELV $1387
+LABELV $1429
 ADDRGP4 level+11160
 INDIRI4
 CNSTI4 0
-EQI4 $1390
+EQI4 $1432
 ADDRGP4 level+28
 INDIRI4
 ADDRGP4 level+11160
 INDIRI4
 SUBI4
 CNSTI4 1000
-LTI4 $1386
+LTI4 $1425
 ADDRGP4 level+11160
 CNSTI4 0
 ASGNI4
 ADDRGP4 BeginIntermission
 CALLV
 pop
-ADDRGP4 $1386
-JUMPV
-LABELV $1390
-ADDRGP4 g_timelimit+12
-INDIRI4
-CNSTI4 0
-EQI4 $1398
-ADDRGP4 level+28
-INDIRI4
-ADDRGP4 level+40
-INDIRI4
-SUBI4
-CNSTI4 60000
-ADDRGP4 g_timelimit+12
-INDIRI4
-MULI4
-LTI4 $1401
-ADDRGP4 level+15388
-CNSTI4 0
-ASGNI4
-CNSTI4 -1
-ARGI4
-ADDRGP4 $1407
-ARGP4
-ADDRGP4 trap_SendServerCommand
-CALLV
-pop
-CNSTI4 23
-ARGI4
-ADDRGP4 $1408
-ARGP4
-ADDRGP4 trap_SetConfigstring
-CALLV
-pop
-ADDRGP4 $1409
-ARGP4
-ADDRGP4 LogExit
-CALLV
-pop
-ADDRGP4 $1410
-ARGP4
-ADDRGP4 G_admin_maplog_result
-CALLV
-pop
-ADDRGP4 $1386
-JUMPV
-LABELV $1401
-ADDRGP4 level+28
-INDIRI4
-ADDRGP4 level+40
-INDIRI4
-SUBI4
-CNSTI4 60000
-ADDRGP4 g_timelimit+12
-INDIRI4
-MULI4
-CNSTI4 300000
-SUBI4
-LTI4 $1411
-ADDRGP4 level+15412
-INDIRI4
-CNSTI4 1
-GEI4 $1411
-CNSTI4 -1
-ARGI4
-ADDRGP4 $1417
-ARGP4
-ADDRGP4 trap_SendServerCommand
-CALLV
-pop
-ADDRGP4 level+15412
-CNSTI4 1
-ASGNI4
-ADDRGP4 $1412
-JUMPV
-LABELV $1411
-ADDRLP4 0
-CNSTI4 60000
-ASGNI4
-ADDRGP4 level+28
-INDIRI4
-ADDRGP4 level+40
-INDIRI4
-SUBI4
-ADDRLP4 0
-INDIRI4
-ADDRGP4 g_timelimit+12
-INDIRI4
-MULI4
-ADDRLP4 0
-INDIRI4
-SUBI4
-LTI4 $1419
-ADDRGP4 level+15412
-INDIRI4
-CNSTI4 2
-GEI4 $1419
-CNSTI4 -1
-ARGI4
 ADDRGP4 $1425
-ARGP4
-ADDRGP4 trap_SendServerCommand
-CALLV
-pop
-ADDRGP4 level+15412
-CNSTI4 2
-ASGNI4
-LABELV $1419
-LABELV $1412
-LABELV $1398
-ADDRLP4 0
-CNSTI4 0
-ASGNI4
-ADDRGP4 level+15964
-INDIRI4
-ADDRLP4 0
-INDIRI4
-NEI4 $1434
-ADDRGP4 level+28
-INDIRI4
-ADDRGP4 level+40
-INDIRI4
-CNSTI4 1000
-ADDI4
-LEI4 $1427
-ADDRGP4 level+11212
-INDIRI4
-ADDRLP4 0
-INDIRI4
-NEI4 $1427
-ADDRGP4 level+11244
-INDIRI4
-ADDRLP4 0
-INDIRI4
-NEI4 $1427
-LABELV $1434
-ADDRGP4 level+15388
-CNSTI4 2
-ASGNI4
-CNSTI4 -1
-ARGI4
-ADDRGP4 $1436
-ARGP4
-ADDRGP4 trap_SendServerCommand
-CALLV
-pop
-CNSTI4 23
-ARGI4
-ADDRGP4 $1437
-ARGP4
-ADDRGP4 trap_SetConfigstring
-CALLV
-pop
-ADDRGP4 $1438
-ARGP4
-ADDRGP4 LogExit
-CALLV
-pop
-ADDRGP4 $1439
-ARGP4
-ADDRGP4 G_admin_maplog_result
-CALLV
-pop
-ADDRGP4 $1428
 JUMPV
-LABELV $1427
-ADDRLP4 4
+LABELV $1432
+ADDRGP4 g_timelimit+12
+INDIRI4
 CNSTI4 0
-ASGNI4
-ADDRGP4 level+15960
-INDIRI4
-ADDRLP4 4
-INDIRI4
-NEI4 $1447
+EQI4 $1440
 ADDRGP4 level+28
 INDIRI4
 ADDRGP4 level+40
 INDIRI4
-CNSTI4 1000
-ADDI4
-LEI4 $1440
-ADDRGP4 level+11216
+SUBI4
+CNSTI4 60000
+ADDRGP4 g_timelimit+12
 INDIRI4
-ADDRLP4 4
-INDIRI4
-NEI4 $1440
-ADDRGP4 level+11248
-INDIRI4
-ADDRLP4 4
-INDIRI4
-NEI4 $1440
-LABELV $1447
+MULI4
+LTI4 $1443
 ADDRGP4 level+15388
-CNSTI4 1
+CNSTI4 0
 ASGNI4
 CNSTI4 -1
 ARGI4
@@ -8993,9 +9258,184 @@ ARGP4
 ADDRGP4 G_admin_maplog_result
 CALLV
 pop
+ADDRGP4 $1425
+JUMPV
+LABELV $1443
+ADDRGP4 level+28
+INDIRI4
+ADDRGP4 level+40
+INDIRI4
+SUBI4
+CNSTI4 60000
+ADDRGP4 g_timelimit+12
+INDIRI4
+MULI4
+CNSTI4 300000
+SUBI4
+LTI4 $1453
+ADDRGP4 level+15412
+INDIRI4
+CNSTI4 1
+GEI4 $1453
+CNSTI4 -1
+ARGI4
+ADDRGP4 $1459
+ARGP4
+ADDRGP4 trap_SendServerCommand
+CALLV
+pop
+ADDRGP4 level+15412
+CNSTI4 1
+ASGNI4
+ADDRGP4 $1454
+JUMPV
+LABELV $1453
+ADDRLP4 0
+CNSTI4 60000
+ASGNI4
+ADDRGP4 level+28
+INDIRI4
+ADDRGP4 level+40
+INDIRI4
+SUBI4
+ADDRLP4 0
+INDIRI4
+ADDRGP4 g_timelimit+12
+INDIRI4
+MULI4
+ADDRLP4 0
+INDIRI4
+SUBI4
+LTI4 $1461
+ADDRGP4 level+15412
+INDIRI4
+CNSTI4 2
+GEI4 $1461
+CNSTI4 -1
+ARGI4
+ADDRGP4 $1467
+ARGP4
+ADDRGP4 trap_SendServerCommand
+CALLV
+pop
+ADDRGP4 level+15412
+CNSTI4 2
+ASGNI4
+LABELV $1461
+LABELV $1454
 LABELV $1440
-LABELV $1428
-LABELV $1386
+ADDRLP4 0
+CNSTI4 0
+ASGNI4
+ADDRGP4 level+15964
+INDIRI4
+ADDRLP4 0
+INDIRI4
+NEI4 $1476
+ADDRGP4 level+28
+INDIRI4
+ADDRGP4 level+40
+INDIRI4
+CNSTI4 1000
+ADDI4
+LEI4 $1469
+ADDRGP4 level+11212
+INDIRI4
+ADDRLP4 0
+INDIRI4
+NEI4 $1469
+ADDRGP4 level+11244
+INDIRI4
+ADDRLP4 0
+INDIRI4
+NEI4 $1469
+LABELV $1476
+ADDRGP4 level+15388
+CNSTI4 2
+ASGNI4
+CNSTI4 -1
+ARGI4
+ADDRGP4 $1478
+ARGP4
+ADDRGP4 trap_SendServerCommand
+CALLV
+pop
+CNSTI4 23
+ARGI4
+ADDRGP4 $1479
+ARGP4
+ADDRGP4 trap_SetConfigstring
+CALLV
+pop
+ADDRGP4 $1480
+ARGP4
+ADDRGP4 LogExit
+CALLV
+pop
+ADDRGP4 $1481
+ARGP4
+ADDRGP4 G_admin_maplog_result
+CALLV
+pop
+ADDRGP4 $1470
+JUMPV
+LABELV $1469
+ADDRLP4 4
+CNSTI4 0
+ASGNI4
+ADDRGP4 level+15960
+INDIRI4
+ADDRLP4 4
+INDIRI4
+NEI4 $1489
+ADDRGP4 level+28
+INDIRI4
+ADDRGP4 level+40
+INDIRI4
+CNSTI4 1000
+ADDI4
+LEI4 $1482
+ADDRGP4 level+11216
+INDIRI4
+ADDRLP4 4
+INDIRI4
+NEI4 $1482
+ADDRGP4 level+11248
+INDIRI4
+ADDRLP4 4
+INDIRI4
+NEI4 $1482
+LABELV $1489
+ADDRGP4 level+15388
+CNSTI4 1
+ASGNI4
+CNSTI4 -1
+ARGI4
+ADDRGP4 $1491
+ARGP4
+ADDRGP4 trap_SendServerCommand
+CALLV
+pop
+CNSTI4 23
+ARGI4
+ADDRGP4 $1492
+ARGP4
+ADDRGP4 trap_SetConfigstring
+CALLV
+pop
+ADDRGP4 $1493
+ARGP4
+ADDRGP4 LogExit
+CALLV
+pop
+ADDRGP4 $1494
+ARGP4
+ADDRGP4 G_admin_maplog_result
+CALLV
+pop
+LABELV $1482
+LABELV $1470
+LABELV $1425
 endproc CheckExitRules 8 8
 export CheckVote
 proc CheckVote 32 12
@@ -9006,18 +9446,18 @@ ASGNI4
 ADDRGP4 level+2396
 INDIRI4
 CNSTI4 0
-EQI4 $1455
+EQI4 $1497
 ADDRGP4 level+2396
 INDIRI4
 ADDRGP4 level+28
 INDIRI4
-GEI4 $1455
+GEI4 $1497
 ADDRGP4 level+2396
 CNSTI4 0
 ASGNI4
 ADDRGP4 level+340
 ARGP4
-ADDRGP4 $1464
+ADDRGP4 $1506
 ARGP4
 ADDRLP4 8
 ADDRGP4 Q_stricmp
@@ -9026,18 +9466,18 @@ ASGNI4
 ADDRLP4 8
 INDIRI4
 CNSTI4 0
-NEI4 $1461
-ADDRGP4 $1465
+NEI4 $1503
+ADDRGP4 $1507
 ARGP4
 ADDRGP4 G_admin_maplog_result
 CALLV
 pop
-ADDRGP4 $1462
+ADDRGP4 $1504
 JUMPV
-LABELV $1461
+LABELV $1503
 ADDRGP4 level+340
 ARGP4
-ADDRGP4 $1469
+ADDRGP4 $1511
 ARGP4
 CNSTI4 3
 ARGI4
@@ -9048,17 +9488,17 @@ ASGNI4
 ADDRLP4 12
 INDIRI4
 CNSTI4 0
-NEI4 $1466
-ADDRGP4 $1470
+NEI4 $1508
+ADDRGP4 $1512
 ARGP4
 ADDRGP4 G_admin_maplog_result
 CALLV
 pop
-LABELV $1466
-LABELV $1462
+LABELV $1508
+LABELV $1504
 ADDRGP4 level+340
 ARGP4
-ADDRGP4 $1474
+ADDRGP4 $1516
 ARGP4
 ADDRLP4 16
 ADDRGP4 Q_stricmp
@@ -9067,7 +9507,7 @@ ASGNI4
 ADDRLP4 16
 INDIRI4
 CNSTI4 0
-NEI4 $1471
+NEI4 $1513
 ADDRGP4 level+15404
 ADDRGP4 level+28
 INDIRI4
@@ -9086,8 +9526,8 @@ ASGNI1
 ADDRGP4 g_suddenDeathVoteDelay+12
 INDIRI4
 CNSTI4 0
-EQI4 $1480
-ADDRGP4 $1483
+EQI4 $1522
+ADDRGP4 $1525
 ARGP4
 ADDRGP4 g_suddenDeathVoteDelay+12
 INDIRI4
@@ -9104,14 +9544,14 @@ ARGP4
 ADDRGP4 trap_SendServerCommand
 CALLV
 pop
-LABELV $1480
-LABELV $1471
+LABELV $1522
+LABELV $1513
 ADDRGP4 level+340
 INDIRI1
 CVII4 1
 CNSTI4 0
-EQI4 $1485
-ADDRGP4 $1488
+EQI4 $1527
+ADDRGP4 $1530
 ARGP4
 ADDRGP4 level+340
 ARGP4
@@ -9127,10 +9567,10 @@ ARGP4
 ADDRGP4 trap_SendConsoleCommand
 CALLV
 pop
-LABELV $1485
+LABELV $1527
 ADDRGP4 level+340
 ARGP4
-ADDRGP4 $1464
+ADDRGP4 $1506
 ARGP4
 ADDRLP4 24
 ADDRGP4 Q_stricmp
@@ -9139,10 +9579,10 @@ ASGNI4
 ADDRLP4 24
 INDIRI4
 CNSTI4 0
-EQI4 $1494
+EQI4 $1536
 ADDRGP4 level+340
 ARGP4
-ADDRGP4 $1469
+ADDRGP4 $1511
 ARGP4
 CNSTI4 3
 ARGI4
@@ -9153,27 +9593,27 @@ ASGNI4
 ADDRLP4 28
 INDIRI4
 CNSTI4 0
-NEI4 $1490
-LABELV $1494
+NEI4 $1532
+LABELV $1536
 ADDRGP4 level+60
 CNSTI4 1
 ASGNI4
-LABELV $1490
-LABELV $1455
+LABELV $1532
+LABELV $1497
 ADDRGP4 level+2392
 INDIRI4
 CNSTI4 0
-NEI4 $1496
-ADDRGP4 $1453
+NEI4 $1538
+ADDRGP4 $1495
 JUMPV
-LABELV $1496
+LABELV $1538
 ADDRGP4 level+2400
 INDIRI4
 ADDRGP4 level+2404
 INDIRI4
 ADDI4
 CNSTI4 0
-LEI4 $1499
+LEI4 $1541
 ADDRLP4 4
 CNSTI4 100
 ADDRGP4 level+2400
@@ -9186,20 +9626,20 @@ INDIRI4
 ADDI4
 DIVI4
 ASGNI4
-ADDRGP4 $1500
+ADDRGP4 $1542
 JUMPV
-LABELV $1499
+LABELV $1541
 ADDRLP4 4
 CNSTI4 0
 ASGNI4
-LABELV $1500
+LABELV $1542
 ADDRGP4 level+28
 INDIRI4
 ADDRGP4 level+2392
 INDIRI4
 SUBI4
 CNSTI4 30000
-GEI4 $1513
+GEI4 $1555
 ADDRGP4 level+2400
 INDIRI4
 ADDRGP4 level+2404
@@ -9207,19 +9647,19 @@ INDIRI4
 ADDI4
 ADDRGP4 level+64
 INDIRI4
-NEI4 $1506
-LABELV $1513
+NEI4 $1548
+LABELV $1555
 ADDRLP4 4
 INDIRI4
 ADDRLP4 0
 INDIRI4
-GTI4 $1517
+GTI4 $1559
 ADDRGP4 level+2404
 INDIRI4
 CNSTI4 0
-NEI4 $1514
-LABELV $1517
-ADDRGP4 $1518
+NEI4 $1556
+LABELV $1559
+ADDRGP4 $1560
 ARGP4
 ADDRGP4 level+2400
 INDIRI4
@@ -9239,7 +9679,7 @@ ARGP4
 ADDRGP4 trap_SendServerCommand
 CALLV
 pop
-ADDRGP4 $1521
+ADDRGP4 $1563
 ARGP4
 ADDRGP4 level+2400
 INDIRI4
@@ -9256,10 +9696,10 @@ INDIRI4
 CNSTI4 3000
 ADDI4
 ASGNI4
-ADDRGP4 $1507
+ADDRGP4 $1549
 JUMPV
-LABELV $1514
-ADDRGP4 $1526
+LABELV $1556
+ADDRGP4 $1568
 ARGP4
 ADDRGP4 level+2400
 INDIRI4
@@ -9279,7 +9719,7 @@ ARGP4
 ADDRGP4 trap_SendServerCommand
 CALLV
 pop
-ADDRGP4 $1529
+ADDRGP4 $1571
 ARGP4
 ADDRGP4 level+2400
 INDIRI4
@@ -9290,9 +9730,9 @@ ARGI4
 ADDRGP4 G_LogPrintf
 CALLV
 pop
-ADDRGP4 $1507
+ADDRGP4 $1549
 JUMPV
-LABELV $1506
+LABELV $1548
 ADDRGP4 level+2400
 INDIRI4
 ADDRGP4 level+64
@@ -9305,8 +9745,8 @@ CNSTF4 1120403456
 DIVF4
 MULF4
 CVFI4 4
-LEI4 $1532
-ADDRGP4 $1518
+LEI4 $1574
+ADDRGP4 $1560
 ARGP4
 ADDRGP4 level+2400
 INDIRI4
@@ -9326,7 +9766,7 @@ ARGP4
 ADDRGP4 trap_SendServerCommand
 CALLV
 pop
-ADDRGP4 $1538
+ADDRGP4 $1580
 ARGP4
 ADDRGP4 level+2400
 INDIRI4
@@ -9343,9 +9783,9 @@ INDIRI4
 CNSTI4 3000
 ADDI4
 ASGNI4
-ADDRGP4 $1533
+ADDRGP4 $1575
 JUMPV
-LABELV $1532
+LABELV $1574
 ADDRLP4 8
 CNSTF4 1120403456
 ASGNF4
@@ -9365,8 +9805,8 @@ INDIRF4
 DIVF4
 MULF4
 CVFI4 4
-LEI4 $1453
-ADDRGP4 $1526
+LEI4 $1495
+ADDRGP4 $1568
 ARGP4
 ADDRGP4 level+2400
 INDIRI4
@@ -9386,54 +9826,54 @@ ARGP4
 ADDRGP4 trap_SendServerCommand
 CALLV
 pop
-ADDRGP4 $1549
+ADDRGP4 $1591
 ARGP4
 ADDRGP4 G_LogPrintf
 CALLV
 pop
-LABELV $1544
-LABELV $1533
-LABELV $1507
+LABELV $1586
+LABELV $1575
+LABELV $1549
 ADDRGP4 level+2392
 CNSTI4 0
 ASGNI4
 CNSTI4 8
 ARGI4
-ADDRGP4 $97
+ADDRGP4 $98
 ARGP4
 ADDRGP4 trap_SetConfigstring
 CALLV
 pop
 CNSTI4 9
 ARGI4
-ADDRGP4 $97
+ADDRGP4 $98
 ARGP4
 ADDRGP4 trap_SetConfigstring
 CALLV
 pop
-LABELV $1453
+LABELV $1495
 endproc CheckVote 32 12
 export CheckTeamVote
 proc CheckTeamVote 32 12
 ADDRFP4 0
 INDIRI4
 CNSTI4 2
-NEI4 $1552
+NEI4 $1594
 ADDRLP4 0
 CNSTI4 0
 ASGNI4
-ADDRGP4 $1553
+ADDRGP4 $1595
 JUMPV
-LABELV $1552
+LABELV $1594
 ADDRFP4 0
 INDIRI4
 CNSTI4 1
-NEI4 $1551
+NEI4 $1593
 ADDRLP4 0
 CNSTI4 1
 ASGNI4
-LABELV $1555
-LABELV $1553
+LABELV $1597
+LABELV $1595
 ADDRLP4 0
 INDIRI4
 CNSTI4 2
@@ -9442,10 +9882,10 @@ ADDRGP4 level+6508
 ADDP4
 INDIRI4
 CNSTI4 0
-NEI4 $1556
-ADDRGP4 $1551
+NEI4 $1598
+ADDRGP4 $1593
 JUMPV
-LABELV $1556
+LABELV $1598
 ADDRGP4 level+28
 INDIRI4
 ADDRLP4 0
@@ -9457,7 +9897,7 @@ ADDP4
 INDIRI4
 SUBI4
 CNSTI4 30000
-LTI4 $1559
+LTI4 $1601
 ADDRLP4 4
 CNSTI4 2
 ASGNI4
@@ -9478,7 +9918,7 @@ INDIRI4
 ADDRGP4 level+6524
 ADDP4
 INDIRI4
-LEI4 $1563
+LEI4 $1605
 ADDRLP4 8
 INDIRI4
 ADDRGP4 level+6516
@@ -9486,8 +9926,8 @@ ADDP4
 INDIRI4
 ADDRLP4 4
 INDIRI4
-LTI4 $1563
-ADDRGP4 $1568
+LTI4 $1605
+ADDRGP4 $1610
 ARGP4
 ADDRLP4 12
 ADDRLP4 0
@@ -9519,7 +9959,7 @@ ARGP4
 ADDRGP4 trap_SendServerCommand
 CALLV
 pop
-ADDRGP4 $1488
+ADDRGP4 $1530
 ARGP4
 ADDRLP4 0
 INDIRI4
@@ -9540,10 +9980,10 @@ ARGP4
 ADDRGP4 trap_SendConsoleCommand
 CALLV
 pop
-ADDRGP4 $1560
+ADDRGP4 $1602
 JUMPV
-LABELV $1563
-ADDRGP4 $1572
+LABELV $1605
+ADDRGP4 $1614
 ARGP4
 ADDRLP4 12
 ADDRLP4 0
@@ -9575,7 +10015,7 @@ ARGP4
 ADDRGP4 trap_SendServerCommand
 CALLV
 pop
-ADDRGP4 $1575
+ADDRGP4 $1617
 ARGP4
 ADDRLP4 20
 ADDRLP4 0
@@ -9598,9 +10038,9 @@ ARGI4
 ADDRGP4 G_LogPrintf
 CALLV
 pop
-ADDRGP4 $1560
+ADDRGP4 $1602
 JUMPV
-LABELV $1559
+LABELV $1601
 ADDRLP4 4
 CNSTI4 2
 ASGNI4
@@ -9624,8 +10064,8 @@ INDIRI4
 ADDRLP4 4
 INDIRI4
 DIVI4
-LEI4 $1578
-ADDRGP4 $1568
+LEI4 $1620
+ADDRGP4 $1610
 ARGP4
 ADDRLP4 12
 ADDRLP4 0
@@ -9657,7 +10097,7 @@ ARGP4
 ADDRGP4 trap_SendServerCommand
 CALLV
 pop
-ADDRGP4 $1584
+ADDRGP4 $1626
 ARGP4
 ADDRLP4 20
 ADDRLP4 0
@@ -9680,7 +10120,7 @@ ARGI4
 ADDRGP4 G_LogPrintf
 CALLV
 pop
-ADDRGP4 $1488
+ADDRGP4 $1530
 ARGP4
 ADDRLP4 0
 INDIRI4
@@ -9701,9 +10141,9 @@ ARGP4
 ADDRGP4 trap_SendConsoleCommand
 CALLV
 pop
-ADDRGP4 $1579
+ADDRGP4 $1621
 JUMPV
-LABELV $1578
+LABELV $1620
 ADDRLP4 12
 CNSTI4 2
 ASGNI4
@@ -9727,8 +10167,8 @@ INDIRI4
 ADDRLP4 12
 INDIRI4
 DIVI4
-LTI4 $1551
-ADDRGP4 $1572
+LTI4 $1593
+ADDRGP4 $1614
 ARGP4
 ADDRLP4 20
 ADDRLP4 0
@@ -9760,7 +10200,7 @@ ARGP4
 ADDRGP4 trap_SendServerCommand
 CALLV
 pop
-ADDRGP4 $1575
+ADDRGP4 $1617
 ARGP4
 ADDRLP4 28
 ADDRLP4 0
@@ -9783,9 +10223,9 @@ ARGI4
 ADDRGP4 G_LogPrintf
 CALLV
 pop
-LABELV $1589
-LABELV $1579
-LABELV $1560
+LABELV $1631
+LABELV $1621
+LABELV $1602
 ADDRLP4 0
 INDIRI4
 CNSTI4 2
@@ -9799,7 +10239,7 @@ INDIRI4
 CNSTI4 12
 ADDI4
 ARGI4
-ADDRGP4 $97
+ADDRGP4 $98
 ARGP4
 ADDRGP4 trap_SetConfigstring
 CALLV
@@ -9809,22 +10249,22 @@ INDIRI4
 CNSTI4 14
 ADDI4
 ARGI4
-ADDRGP4 $97
+ADDRGP4 $98
 ARGP4
 ADDRGP4 trap_SetConfigstring
 CALLV
 pop
-LABELV $1551
+LABELV $1593
 endproc CheckTeamVote 32 12
 export CheckMsgTimer
 proc CheckMsgTimer 1040 12
 ADDRGP4 g_msgTime+12
 INDIRI4
 CNSTI4 0
-NEI4 $1598
-ADDRGP4 $1597
+NEI4 $1640
+ADDRGP4 $1639
 JUMPV
-LABELV $1598
+LABELV $1640
 ADDRGP4 g_msgTime+12
 INDIRI4
 ARGI4
@@ -9841,10 +10281,10 @@ CNSTI4 60000
 ADDRLP4 0
 INDIRI4
 MULI4
-GEI4 $1601
-ADDRGP4 $1597
+GEI4 $1643
+ADDRGP4 $1639
 JUMPV
-LABELV $1601
+LABELV $1643
 ADDRLP4 4
 CNSTI4 0
 ASGNI4
@@ -9852,15 +10292,15 @@ ADDRGP4 level+16112
 INDIRI4
 ADDRLP4 4
 INDIRI4
-EQI4 $1606
+EQI4 $1648
 ADDRGP4 g_msgTime+12
 INDIRI4
 ADDRLP4 4
 INDIRI4
-GEI4 $1606
-ADDRGP4 $1597
+GEI4 $1648
+ADDRGP4 $1639
 JUMPV
-LABELV $1606
+LABELV $1648
 ADDRGP4 level+16112
 ADDRGP4 level+28
 INDIRI4
@@ -9869,7 +10309,7 @@ ADDRGP4 g_msg+16
 INDIRI1
 CVII4 1
 CNSTI4 0
-EQI4 $1612
+EQI4 $1654
 ADDRLP4 8
 ARGP4
 ADDRGP4 g_msg+16
@@ -9884,7 +10324,7 @@ ARGP4
 ADDRGP4 G_ParseEscapedString
 CALLV
 pop
-ADDRGP4 $1616
+ADDRGP4 $1658
 ARGP4
 ADDRLP4 8
 ARGP4
@@ -9900,7 +10340,7 @@ ARGP4
 ADDRGP4 trap_SendServerCommand
 CALLV
 pop
-ADDRGP4 $1617
+ADDRGP4 $1659
 ARGP4
 ADDRLP4 8
 ARGP4
@@ -9916,12 +10356,12 @@ ARGP4
 ADDRGP4 trap_SendServerCommand
 CALLV
 pop
-LABELV $1612
-LABELV $1597
+LABELV $1654
+LABELV $1639
 endproc CheckMsgTimer 1040 12
 data
 align 4
-LABELV $1619
+LABELV $1661
 byte 4 0
 export CheckCountdown
 code
@@ -9945,35 +10385,35 @@ ADDRGP4 g_doWarmup+12
 INDIRI4
 ADDRLP4 4
 INDIRI4
-EQI4 $1626
+EQI4 $1668
 ADDRLP4 0
 INDIRI4
 ADDRLP4 4
 INDIRI4
-GEI4 $1623
-LABELV $1626
-ADDRGP4 $1618
+GEI4 $1665
+LABELV $1668
+ADDRGP4 $1660
 JUMPV
-LABELV $1623
+LABELV $1665
 ADDRGP4 level+28
 INDIRI4
-ADDRGP4 $1619
+ADDRGP4 $1661
 INDIRI4
 SUBI4
 CNSTI4 1000
-GEI4 $1627
-ADDRGP4 $1618
+GEI4 $1669
+ADDRGP4 $1660
 JUMPV
-LABELV $1627
-ADDRGP4 $1619
+LABELV $1669
+ADDRGP4 $1661
 ADDRGP4 level+28
 INDIRI4
 ASGNI4
 ADDRLP4 0
 INDIRI4
 CNSTI4 0
-LEI4 $1631
-ADDRGP4 $1633
+LEI4 $1673
+ADDRGP4 $1675
 ARGP4
 ADDRLP4 12
 ADDRLP4 0
@@ -10002,43 +10442,43 @@ ARGP4
 ADDRGP4 trap_SendServerCommand
 CALLV
 pop
-ADDRGP4 $1632
+ADDRGP4 $1674
 JUMPV
-LABELV $1631
+LABELV $1673
 ADDRLP4 0
 INDIRI4
 CNSTI4 0
-NEI4 $1634
+NEI4 $1676
 CNSTI4 -1
 ARGI4
-ADDRGP4 $1636
+ADDRGP4 $1678
 ARGP4
 ADDRGP4 trap_SendServerCommand
 CALLV
 pop
-LABELV $1634
-LABELV $1632
-LABELV $1618
+LABELV $1676
+LABELV $1674
+LABELV $1660
 endproc CheckCountdown 20 16
 data
 align 4
-LABELV $1638
+LABELV $1680
 byte 4 -1
 align 4
-LABELV $1639
+LABELV $1681
 byte 4 -1
 align 4
-LABELV $1640
+LABELV $1682
 byte 4 -1
 export CheckCvars
 code
 proc CheckCvars 8 8
 ADDRGP4 g_password+4
 INDIRI4
-ADDRGP4 $1638
+ADDRGP4 $1680
 INDIRI4
-EQI4 $1641
-ADDRGP4 $1638
+EQI4 $1683
+ADDRGP4 $1680
 ADDRGP4 g_password+4
 INDIRI4
 ASGNI4
@@ -10046,10 +10486,10 @@ ADDRGP4 g_password+16
 INDIRI1
 CVII4 1
 CNSTI4 0
-EQI4 $1645
+EQI4 $1687
 ADDRGP4 g_password+16
 ARGP4
-ADDRGP4 $1649
+ADDRGP4 $1691
 ARGP4
 ADDRLP4 0
 ADDRGP4 Q_stricmp
@@ -10058,32 +10498,32 @@ ASGNI4
 ADDRLP4 0
 INDIRI4
 CNSTI4 0
-EQI4 $1645
-ADDRGP4 $133
+EQI4 $1687
+ADDRGP4 $134
 ARGP4
-ADDRGP4 $118
+ADDRGP4 $119
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-ADDRGP4 $1646
+ADDRGP4 $1688
 JUMPV
-LABELV $1645
-ADDRGP4 $133
+LABELV $1687
+ADDRGP4 $134
 ARGP4
-ADDRGP4 $89
+ADDRGP4 $90
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-LABELV $1646
-LABELV $1641
+LABELV $1688
+LABELV $1683
 ADDRGP4 g_markDeconstruct+4
 INDIRI4
-ADDRGP4 $1639
+ADDRGP4 $1681
 INDIRI4
-EQI4 $1650
-ADDRGP4 $1639
+EQI4 $1692
+ADDRGP4 $1681
 ADDRGP4 g_markDeconstruct+4
 INDIRI4
 ASGNI4
@@ -10098,36 +10538,36 @@ MULI4
 ADDRGP4 g_entities
 ADDP4
 ASGNP4
-ADDRGP4 $1657
+ADDRGP4 $1699
 JUMPV
-LABELV $1654
+LABELV $1696
 ADDRLP4 0
 INDIRP4
 CNSTI4 520
 ADDP4
 INDIRI4
 CNSTI4 0
-NEI4 $1659
-ADDRGP4 $1655
+NEI4 $1701
+ADDRGP4 $1697
 JUMPV
-LABELV $1659
+LABELV $1701
 ADDRLP4 0
 INDIRP4
 CNSTI4 4
 ADDP4
 INDIRI4
 CNSTI4 3
-EQI4 $1661
-ADDRGP4 $1655
+EQI4 $1703
+ADDRGP4 $1697
 JUMPV
-LABELV $1661
+LABELV $1703
 ADDRLP4 0
 INDIRP4
 CNSTI4 948
 ADDP4
 CNSTI4 0
 ASGNI4
-LABELV $1655
+LABELV $1697
 ADDRLP4 4
 ADDRLP4 4
 INDIRI4
@@ -10140,19 +10580,19 @@ INDIRP4
 CNSTI4 1828
 ADDP4
 ASGNP4
-LABELV $1657
+LABELV $1699
 ADDRLP4 4
 INDIRI4
 ADDRGP4 level+12
 INDIRI4
-LTI4 $1654
-LABELV $1650
+LTI4 $1696
+LABELV $1692
 ADDRGP4 g_suddenDeathTime+4
 INDIRI4
-ADDRGP4 $1640
+ADDRGP4 $1682
 INDIRI4
-EQI4 $1663
-ADDRGP4 $1640
+EQI4 $1705
+ADDRGP4 $1682
 ADDRGP4 g_suddenDeathTime+4
 INDIRI4
 ASGNI4
@@ -10162,7 +10602,7 @@ ADDRGP4 g_suddenDeathTime+12
 INDIRI4
 MULI4
 ASGNI4
-LABELV $1663
+LABELV $1705
 ADDRLP4 0
 ADDRGP4 trap_Milliseconds
 CALLI4
@@ -10171,8 +10611,234 @@ ADDRGP4 level+36
 ADDRLP4 0
 INDIRI4
 ASGNI4
-LABELV $1637
+LABELV $1679
 endproc CheckCvars 8 8
+lit
+align 1
+LABELV $1720
+byte 1 0
+skip 1023
+export CheckDemo
+code
+proc CheckDemo 1036 12
+ADDRGP4 g_demoState+12
+INDIRI4
+ADDRGP4 level+16116
+INDIRI4
+NEI4 $1713
+ADDRGP4 $1712
+JUMPV
+LABELV $1713
+ADDRGP4 g_demoState+12
+INDIRI4
+CNSTI4 2
+NEI4 $1717
+ADDRLP4 4
+ADDRGP4 $1720
+INDIRB
+ASGNB 1024
+ADDRLP4 0
+CNSTI4 0
+ASGNI4
+ADDRGP4 $1724
+JUMPV
+LABELV $1721
+CNSTI4 1944
+ADDRLP4 0
+INDIRI4
+MULI4
+ADDRGP4 level
+INDIRP4
+ADDP4
+CNSTI4 508
+ADDP4
+INDIRI4
+CNSTI4 2
+NEI4 $1726
+ADDRLP4 4
+ARGP4
+ADDRGP4 $1144
+ARGP4
+CNSTI4 1944
+ADDRLP4 0
+INDIRI4
+MULI4
+ADDRGP4 level
+INDIRP4
+ADDP4
+CNSTI4 552
+ADDP4
+ARGP4
+ADDRGP4 Info_SetValueForKey
+CALLV
+pop
+ADDRLP4 4
+ARGP4
+ADDRGP4 $1147
+ARGP4
+CNSTI4 1944
+ADDRLP4 0
+INDIRI4
+MULI4
+ADDRGP4 level
+INDIRP4
+ADDP4
+CNSTI4 753
+ADDP4
+ARGP4
+ADDRGP4 Info_SetValueForKey
+CALLV
+pop
+ADDRGP4 $634
+ARGP4
+CNSTI4 1944
+ADDRLP4 0
+INDIRI4
+MULI4
+ADDRGP4 level
+INDIRP4
+ADDP4
+CNSTI4 664
+ADDP4
+INDIRI4
+ARGI4
+ADDRLP4 1028
+ADDRGP4 va
+CALLP4
+ASGNP4
+ADDRLP4 4
+ARGP4
+ADDRGP4 $1150
+ARGP4
+ADDRLP4 1028
+INDIRP4
+ARGP4
+ADDRGP4 Info_SetValueForKey
+CALLV
+pop
+ADDRGP4 $1728
+ARGP4
+ADDRLP4 0
+INDIRI4
+ARGI4
+ADDRLP4 4
+ARGP4
+ADDRLP4 1032
+ADDRGP4 va
+CALLP4
+ASGNP4
+CNSTI4 0
+ARGI4
+ADDRLP4 1032
+INDIRP4
+ARGP4
+ADDRGP4 G_DemoCommand
+CALLV
+pop
+LABELV $1726
+LABELV $1722
+ADDRLP4 0
+ADDRLP4 0
+INDIRI4
+CNSTI4 1
+ADDI4
+ASGNI4
+LABELV $1724
+ADDRLP4 0
+INDIRI4
+ADDRGP4 level+20
+INDIRI4
+LTI4 $1721
+ADDRGP4 $1718
+JUMPV
+LABELV $1717
+ADDRGP4 g_demoState+12
+INDIRI4
+CNSTI4 1
+NEI4 $1729
+CNSTI4 -1
+ARGI4
+ADDRGP4 $1732
+ARGP4
+ADDRGP4 trap_SendServerCommand
+CALLV
+pop
+ADDRGP4 level+6524
+ADDRGP4 level+64
+INDIRI4
+ASGNI4
+ADDRGP4 level+6516
+CNSTI4 0
+ASGNI4
+CNSTI4 2
+ARGI4
+ADDRGP4 CheckTeamVote
+CALLV
+pop
+ADDRGP4 level+6524+4
+ADDRGP4 level+64
+INDIRI4
+ASGNI4
+ADDRGP4 level+6516+4
+CNSTI4 0
+ASGNI4
+CNSTI4 1
+ARGI4
+ADDRGP4 CheckTeamVote
+CALLV
+pop
+ADDRLP4 0
+CNSTI4 0
+ASGNI4
+ADDRGP4 $1744
+JUMPV
+LABELV $1741
+CNSTI4 1944
+ADDRLP4 0
+INDIRI4
+MULI4
+ADDRGP4 level
+INDIRP4
+ADDP4
+CNSTI4 664
+ADDP4
+INDIRI4
+CNSTI4 0
+EQI4 $1746
+CNSTI4 1828
+ADDRLP4 0
+INDIRI4
+MULI4
+ADDRGP4 g_entities
+ADDP4
+ARGP4
+CNSTI4 0
+ARGI4
+ADDRGP4 G_ChangeTeam
+CALLV
+pop
+LABELV $1746
+LABELV $1742
+ADDRLP4 0
+ADDRLP4 0
+INDIRI4
+CNSTI4 1
+ADDI4
+ASGNI4
+LABELV $1744
+ADDRLP4 0
+INDIRI4
+ADDRGP4 level+20
+INDIRI4
+LTI4 $1741
+LABELV $1729
+LABELV $1718
+ADDRGP4 level+16116
+ADDRGP4 g_demoState+12
+INDIRI4
+ASGNI4
+LABELV $1712
+endproc CheckDemo 1036 12
 export G_RunThink
 proc G_RunThink 8 4
 ADDRFP4 0
@@ -10190,19 +10856,19 @@ ASGNF4
 ADDRLP4 0
 INDIRF4
 CNSTF4 0
-GTF4 $1671
-ADDRGP4 $1670
+GTF4 $1751
+ADDRGP4 $1750
 JUMPV
-LABELV $1671
+LABELV $1751
 ADDRLP4 0
 INDIRF4
 ADDRGP4 level+28
 INDIRI4
 CVIF4 4
-LEF4 $1673
-ADDRGP4 $1670
+LEF4 $1753
+ADDRGP4 $1750
 JUMPV
-LABELV $1673
+LABELV $1753
 ADDRFP4 0
 INDIRP4
 CNSTI4 752
@@ -10216,13 +10882,13 @@ ADDP4
 INDIRP4
 CVPU4 4
 CNSTU4 0
-NEU4 $1676
-ADDRGP4 $1678
+NEU4 $1756
+ADDRGP4 $1758
 ARGP4
 ADDRGP4 G_Error
 CALLV
 pop
-LABELV $1676
+LABELV $1756
 ADDRFP4 0
 INDIRP4
 ARGP4
@@ -10233,7 +10899,7 @@ ADDP4
 INDIRP4
 CALLV
 pop
-LABELV $1670
+LABELV $1750
 endproc G_RunThink 8 4
 export G_EvaluateAcceleration
 proc G_EvaluateAcceleration 48 0
@@ -10421,10 +11087,10 @@ CNSTI4 716
 ADDP4
 INDIRB
 ASGNB 12
-LABELV $1679
+LABELV $1759
 endproc G_EvaluateAcceleration 48 0
 export G_RunFrame
-proc G_RunFrame 44 12
+proc G_RunFrame 48 12
 ADDRFP4 0
 ADDRFP4 0
 INDIRI4
@@ -10432,14 +11098,14 @@ ASGNI4
 ADDRGP4 level+60
 INDIRI4
 CNSTI4 0
-EQI4 $1689
-ADDRGP4 $1688
+EQI4 $1769
+ADDRGP4 $1768
 JUMPV
-LABELV $1689
+LABELV $1769
 ADDRGP4 level+15976
 INDIRI4
 CNSTI4 0
-EQI4 $1692
+EQI4 $1772
 ADDRGP4 level+15980
 ADDRFP4 0
 INDIRI4
@@ -10452,22 +11118,22 @@ INDIRI4
 CNSTI4 3000
 MODI4
 CNSTI4 0
-NEI4 $1697
+NEI4 $1777
 CNSTI4 -1
 ARGI4
-ADDRGP4 $1700
+ADDRGP4 $1780
 ARGP4
 ADDRGP4 trap_SendServerCommand
 CALLV
 pop
-LABELV $1697
+LABELV $1777
 ADDRLP4 4
 CNSTI4 0
 ASGNI4
-ADDRGP4 $1704
+ADDRGP4 $1784
 JUMPV
-LABELV $1701
-CNSTI4 1940
+LABELV $1781
+CNSTI4 1944
 ADDRLP4 4
 INDIRI4
 MULI4
@@ -10477,22 +11143,22 @@ ADDP4
 ADDRFP4 0
 INDIRI4
 ASGNI4
-LABELV $1702
+LABELV $1782
 ADDRLP4 4
 ADDRLP4 4
 INDIRI4
 CNSTI4 1
 ADDI4
 ASGNI4
-LABELV $1704
+LABELV $1784
 ADDRLP4 4
 INDIRI4
 ADDRGP4 level+20
 INDIRI4
-LTI4 $1701
-ADDRGP4 $1688
+LTI4 $1781
+ADDRGP4 $1768
 JUMPV
-LABELV $1692
+LABELV $1772
 ADDRGP4 CheckMsgTimer
 CALLV
 pop
@@ -10535,6 +11201,9 @@ pop
 ADDRGP4 G_UpdateCvars
 CALLV
 pop
+ADDRGP4 CheckDemo
+CALLV
+pop
 ADDRLP4 24
 ADDRGP4 trap_Milliseconds
 CALLI4
@@ -10549,19 +11218,19 @@ ASGNP4
 ADDRLP4 4
 CNSTI4 0
 ASGNI4
-ADDRGP4 $1716
+ADDRGP4 $1796
 JUMPV
-LABELV $1713
+LABELV $1793
 ADDRLP4 0
 INDIRP4
 CNSTI4 520
 ADDP4
 INDIRI4
 CNSTI4 0
-NEI4 $1718
-ADDRGP4 $1714
+NEI4 $1801
+ADDRGP4 $1794
 JUMPV
-LABELV $1718
+LABELV $1801
 ADDRGP4 level+28
 INDIRI4
 ADDRLP4 0
@@ -10571,14 +11240,14 @@ ADDP4
 INDIRI4
 SUBI4
 CNSTI4 300
-LEI4 $1720
+LEI4 $1803
 ADDRLP4 0
 INDIRP4
 CNSTI4 180
 ADDP4
 INDIRI4
 CNSTI4 0
-EQI4 $1723
+EQI4 $1806
 ADDRLP4 0
 INDIRP4
 CNSTI4 180
@@ -10592,7 +11261,7 @@ ADDP4
 INDIRP4
 CVPU4 4
 CNSTU4 0
-EQU4 $1725
+EQU4 $1808
 ADDRLP4 0
 INDIRP4
 CNSTI4 516
@@ -10602,31 +11271,31 @@ CNSTI4 128
 ADDP4
 CNSTI4 0
 ASGNI4
-LABELV $1725
-LABELV $1723
+LABELV $1808
+LABELV $1806
 ADDRLP4 0
 INDIRP4
 CNSTI4 556
 ADDP4
 INDIRI4
 CNSTI4 0
-EQI4 $1727
+EQI4 $1810
 ADDRLP4 0
 INDIRP4
 ARGP4
 ADDRGP4 G_FreeEntity
 CALLV
 pop
-ADDRGP4 $1714
+ADDRGP4 $1794
 JUMPV
-LABELV $1727
+LABELV $1810
 ADDRLP4 0
 INDIRP4
 CNSTI4 560
 ADDP4
 INDIRI4
 CNSTI4 0
-EQI4 $1729
+EQI4 $1812
 ADDRLP4 0
 INDIRP4
 CNSTI4 560
@@ -10639,25 +11308,25 @@ ARGP4
 ADDRGP4 trap_UnlinkEntity
 CALLV
 pop
-LABELV $1729
-LABELV $1720
+LABELV $1812
+LABELV $1803
 ADDRLP4 0
 INDIRP4
 CNSTI4 556
 ADDP4
 INDIRI4
 CNSTI4 0
-EQI4 $1731
-ADDRGP4 $1714
+EQI4 $1814
+ADDRGP4 $1794
 JUMPV
-LABELV $1731
+LABELV $1814
 ADDRLP4 0
 INDIRP4
 CNSTI4 700
 ADDP4
 INDIRI4
 CNSTI4 0
-EQI4 $1733
+EQI4 $1816
 ADDRLP4 0
 INDIRP4
 ARGP4
@@ -10667,7 +11336,7 @@ ARGI4
 ADDRGP4 G_EvaluateAcceleration
 CALLV
 pop
-LABELV $1733
+LABELV $1816
 ADDRLP4 32
 CNSTI4 0
 ASGNI4
@@ -10678,7 +11347,7 @@ ADDP4
 INDIRI4
 ADDRLP4 32
 INDIRI4
-NEI4 $1735
+NEI4 $1818
 ADDRLP4 0
 INDIRP4
 CNSTI4 532
@@ -10686,10 +11355,10 @@ ADDP4
 INDIRI4
 ADDRLP4 32
 INDIRI4
-EQI4 $1735
-ADDRGP4 $1714
+EQI4 $1818
+ADDRGP4 $1794
 JUMPV
-LABELV $1735
+LABELV $1818
 ADDRLP4 36
 CNSTI4 4
 ASGNI4
@@ -10701,23 +11370,23 @@ ADDP4
 INDIRI4
 ADDRLP4 36
 INDIRI4
-NEI4 $1737
+NEI4 $1820
 ADDRLP4 0
 INDIRP4
 ARGP4
 ADDRGP4 G_RunMissile
 CALLV
 pop
-ADDRGP4 $1714
+ADDRGP4 $1794
 JUMPV
-LABELV $1737
+LABELV $1820
 ADDRLP4 0
 INDIRP4
 CNSTI4 4
 ADDP4
 INDIRI4
 CNSTI4 3
-NEI4 $1739
+NEI4 $1822
 ADDRLP4 0
 INDIRP4
 ARGP4
@@ -10727,24 +11396,24 @@ ARGI4
 ADDRGP4 G_BuildableThink
 CALLV
 pop
-ADDRGP4 $1714
+ADDRGP4 $1794
 JUMPV
-LABELV $1739
+LABELV $1822
 ADDRLP4 0
 INDIRP4
 CNSTI4 4
 ADDP4
 INDIRI4
 CNSTI4 13
-EQI4 $1743
+EQI4 $1826
 ADDRLP4 0
 INDIRP4
 CNSTI4 564
 ADDP4
 INDIRI4
 CNSTI4 0
-EQI4 $1741
-LABELV $1743
+EQI4 $1824
+LABELV $1826
 ADDRLP4 0
 INDIRP4
 ARGP4
@@ -10754,45 +11423,45 @@ ARGI4
 ADDRGP4 G_Physics
 CALLV
 pop
-ADDRGP4 $1714
+ADDRGP4 $1794
 JUMPV
-LABELV $1741
+LABELV $1824
 ADDRLP4 0
 INDIRP4
 CNSTI4 4
 ADDP4
 INDIRI4
 CNSTI4 5
-NEI4 $1744
+NEI4 $1827
 ADDRLP4 0
 INDIRP4
 ARGP4
 ADDRGP4 G_RunMover
 CALLV
 pop
-ADDRGP4 $1714
+ADDRGP4 $1794
 JUMPV
-LABELV $1744
+LABELV $1827
 ADDRLP4 4
 INDIRI4
 CNSTI4 64
-GEI4 $1746
+GEI4 $1829
 ADDRLP4 0
 INDIRP4
 ARGP4
 ADDRGP4 G_RunClient
 CALLV
 pop
-ADDRGP4 $1714
+ADDRGP4 $1794
 JUMPV
-LABELV $1746
+LABELV $1829
 ADDRLP4 0
 INDIRP4
 ARGP4
 ADDRGP4 G_RunThink
 CALLV
 pop
-LABELV $1714
+LABELV $1794
 ADDRLP4 4
 ADDRLP4 4
 INDIRI4
@@ -10805,26 +11474,42 @@ INDIRP4
 CNSTI4 1828
 ADDP4
 ASGNP4
-LABELV $1716
-ADDRLP4 4
+LABELV $1796
+ADDRGP4 level+16116
 INDIRI4
+CNSTI4 1
+NEI4 $1831
+ADDRLP4 28
+ADDRGP4 g_maxclients+12
+INDIRI4
+ASGNI4
+ADDRGP4 $1832
+JUMPV
+LABELV $1831
+ADDRLP4 28
 ADDRGP4 level+12
 INDIRI4
-LTI4 $1713
+ASGNI4
+LABELV $1832
+ADDRLP4 4
+INDIRI4
 ADDRLP4 28
+INDIRI4
+LTI4 $1793
+ADDRLP4 32
 ADDRGP4 trap_Milliseconds
 CALLI4
 ASGNI4
 ADDRLP4 16
-ADDRLP4 28
+ADDRLP4 32
 INDIRI4
 ASGNI4
-ADDRLP4 32
+ADDRLP4 36
 ADDRGP4 trap_Milliseconds
 CALLI4
 ASGNI4
 ADDRLP4 12
-ADDRLP4 32
+ADDRLP4 36
 INDIRI4
 ASGNI4
 ADDRLP4 0
@@ -10833,24 +11518,24 @@ ASGNP4
 ADDRLP4 4
 CNSTI4 0
 ASGNI4
-ADDRGP4 $1751
+ADDRGP4 $1836
 JUMPV
-LABELV $1748
+LABELV $1833
 ADDRLP4 0
 INDIRP4
 CNSTI4 520
 ADDP4
 INDIRI4
 CNSTI4 0
-EQI4 $1753
+EQI4 $1838
 ADDRLP4 0
 INDIRP4
 ARGP4
 ADDRGP4 ClientEndFrame
 CALLV
 pop
-LABELV $1753
-LABELV $1749
+LABELV $1838
+LABELV $1834
 ADDRLP4 4
 ADDRLP4 4
 INDIRI4
@@ -10863,21 +11548,21 @@ INDIRP4
 CNSTI4 1828
 ADDP4
 ASGNP4
-LABELV $1751
+LABELV $1836
 ADDRLP4 4
 INDIRI4
 ADDRGP4 level+20
 INDIRI4
-LTI4 $1748
+LTI4 $1833
 ADDRGP4 G_UnlaggedStore
 CALLV
 pop
-ADDRLP4 36
+ADDRLP4 40
 ADDRGP4 trap_Milliseconds
 CALLI4
 ASGNI4
 ADDRLP4 16
-ADDRLP4 36
+ADDRLP4 40
 INDIRI4
 ASGNI4
 ADDRGP4 G_CountSpawns
@@ -10936,12 +11621,12 @@ pop
 ADDRGP4 g_listEntity+12
 INDIRI4
 CNSTI4 0
-EQI4 $1755
+EQI4 $1840
 ADDRLP4 4
 CNSTI4 0
 ASGNI4
-LABELV $1758
-ADDRGP4 $1762
+LABELV $1843
+ADDRGP4 $1847
 ARGP4
 ADDRLP4 4
 INDIRI4
@@ -10957,7 +11642,7 @@ ARGP4
 ADDRGP4 G_Printf
 CALLV
 pop
-LABELV $1759
+LABELV $1844
 ADDRLP4 4
 ADDRLP4 4
 INDIRI4
@@ -10967,21 +11652,25 @@ ASGNI4
 ADDRLP4 4
 INDIRI4
 CNSTI4 1024
-LTI4 $1758
-ADDRGP4 $170
+LTI4 $1843
+ADDRGP4 $171
 ARGP4
-ADDRGP4 $89
+ADDRGP4 $90
 ARGP4
 ADDRGP4 trap_Cvar_Set
 CALLV
 pop
-LABELV $1755
+LABELV $1840
 ADDRGP4 level+15980
 CNSTI4 0
 ASGNI4
-LABELV $1688
-endproc G_RunFrame 44 12
+LABELV $1768
+endproc G_RunFrame 48 12
 bss
+export g_demoState
+align 4
+LABELV g_demoState
+skip 272
 export g_bunnyhop
 align 4
 LABELV g_bunnyhop
@@ -11029,10 +11718,11 @@ skip 272
 export g_clients
 align 4
 LABELV g_clients
-skip 124160
+skip 124416
 import DrawNodes
 import nodethink
 import spawnnode
+import trap_DemoCommand
 import trap_SendGameStat
 import trap_SnapVector
 import trap_GetEntityToken
@@ -11812,7 +12502,7 @@ skip 1871872
 export level
 align 4
 LABELV level
-skip 185092
+skip 185096
 import G_FindConnectionForCode
 import G_ResetPTRConnections
 import G_GenerateNewConnection
@@ -12401,7 +13091,7 @@ import srand
 import qsort
 lit
 align 1
-LABELV $1762
+LABELV $1847
 byte 1 37
 byte 1 52
 byte 1 105
@@ -12412,7 +13102,7 @@ byte 1 115
 byte 1 10
 byte 1 0
 align 1
-LABELV $1700
+LABELV $1780
 byte 1 99
 byte 1 112
 byte 1 32
@@ -12458,7 +13148,7 @@ byte 1 46
 byte 1 34
 byte 1 0
 align 1
-LABELV $1678
+LABELV $1758
 byte 1 78
 byte 1 85
 byte 1 76
@@ -12476,14 +13166,72 @@ byte 1 110
 byte 1 107
 byte 1 0
 align 1
-LABELV $1649
+LABELV $1732
+byte 1 112
+byte 1 114
+byte 1 105
+byte 1 110
+byte 1 116
+byte 1 32
+byte 1 34
+byte 1 65
+byte 1 32
+byte 1 100
+byte 1 101
+byte 1 109
+byte 1 111
+byte 1 32
+byte 1 104
+byte 1 97
+byte 1 115
+byte 1 32
+byte 1 98
+byte 1 101
+byte 1 101
+byte 1 110
+byte 1 32
+byte 1 115
+byte 1 116
+byte 1 97
+byte 1 114
+byte 1 116
+byte 1 101
+byte 1 100
+byte 1 32
+byte 1 111
+byte 1 110
+byte 1 32
+byte 1 116
+byte 1 104
+byte 1 101
+byte 1 32
+byte 1 115
+byte 1 101
+byte 1 114
+byte 1 118
+byte 1 101
+byte 1 114
+byte 1 46
+byte 1 10
+byte 1 34
+byte 1 0
+align 1
+LABELV $1728
+byte 1 37
+byte 1 100
+byte 1 32
+byte 1 37
+byte 1 115
+byte 1 0
+align 1
+LABELV $1691
 byte 1 110
 byte 1 111
 byte 1 110
 byte 1 101
 byte 1 0
 align 1
-LABELV $1636
+LABELV $1678
 byte 1 99
 byte 1 112
 byte 1 32
@@ -12510,7 +13258,7 @@ byte 1 55
 byte 1 34
 byte 1 0
 align 1
-LABELV $1633
+LABELV $1675
 byte 1 99
 byte 1 112
 byte 1 32
@@ -12557,7 +13305,7 @@ byte 1 45
 byte 1 34
 byte 1 0
 align 1
-LABELV $1617
+LABELV $1659
 byte 1 112
 byte 1 114
 byte 1 105
@@ -12571,7 +13319,7 @@ byte 1 10
 byte 1 34
 byte 1 0
 align 1
-LABELV $1616
+LABELV $1658
 byte 1 99
 byte 1 112
 byte 1 32
@@ -12581,7 +13329,7 @@ byte 1 115
 byte 1 34
 byte 1 0
 align 1
-LABELV $1584
+LABELV $1626
 byte 1 84
 byte 1 101
 byte 1 97
@@ -12621,7 +13369,7 @@ byte 1 41
 byte 1 10
 byte 1 0
 align 1
-LABELV $1575
+LABELV $1617
 byte 1 84
 byte 1 101
 byte 1 97
@@ -12661,7 +13409,7 @@ byte 1 41
 byte 1 10
 byte 1 0
 align 1
-LABELV $1572
+LABELV $1614
 byte 1 112
 byte 1 114
 byte 1 105
@@ -12698,6 +13446,122 @@ byte 1 100
 byte 1 41
 byte 1 10
 byte 1 34
+byte 1 0
+align 1
+LABELV $1610
+byte 1 112
+byte 1 114
+byte 1 105
+byte 1 110
+byte 1 116
+byte 1 32
+byte 1 34
+byte 1 84
+byte 1 101
+byte 1 97
+byte 1 109
+byte 1 32
+byte 1 118
+byte 1 111
+byte 1 116
+byte 1 101
+byte 1 32
+byte 1 112
+byte 1 97
+byte 1 115
+byte 1 115
+byte 1 101
+byte 1 100
+byte 1 32
+byte 1 32
+byte 1 40
+byte 1 37
+byte 1 100
+byte 1 32
+byte 1 45
+byte 1 32
+byte 1 37
+byte 1 100
+byte 1 41
+byte 1 10
+byte 1 34
+byte 1 0
+align 1
+LABELV $1591
+byte 1 86
+byte 1 111
+byte 1 116
+byte 1 101
+byte 1 32
+byte 1 102
+byte 1 97
+byte 1 105
+byte 1 108
+byte 1 101
+byte 1 100
+byte 1 10
+byte 1 0
+align 1
+LABELV $1580
+byte 1 86
+byte 1 111
+byte 1 116
+byte 1 101
+byte 1 58
+byte 1 32
+byte 1 86
+byte 1 111
+byte 1 116
+byte 1 101
+byte 1 32
+byte 1 112
+byte 1 97
+byte 1 115
+byte 1 115
+byte 1 101
+byte 1 100
+byte 1 32
+byte 1 40
+byte 1 37
+byte 1 100
+byte 1 32
+byte 1 45
+byte 1 32
+byte 1 37
+byte 1 100
+byte 1 41
+byte 1 10
+byte 1 0
+align 1
+LABELV $1571
+byte 1 86
+byte 1 111
+byte 1 116
+byte 1 101
+byte 1 58
+byte 1 32
+byte 1 86
+byte 1 111
+byte 1 116
+byte 1 101
+byte 1 32
+byte 1 102
+byte 1 97
+byte 1 105
+byte 1 108
+byte 1 101
+byte 1 100
+byte 1 32
+byte 1 40
+byte 1 37
+byte 1 100
+byte 1 32
+byte 1 45
+byte 1 32
+byte 1 37
+byte 1 100
+byte 1 41
+byte 1 10
 byte 1 0
 align 1
 LABELV $1568
@@ -12708,122 +13572,6 @@ byte 1 110
 byte 1 116
 byte 1 32
 byte 1 34
-byte 1 84
-byte 1 101
-byte 1 97
-byte 1 109
-byte 1 32
-byte 1 118
-byte 1 111
-byte 1 116
-byte 1 101
-byte 1 32
-byte 1 112
-byte 1 97
-byte 1 115
-byte 1 115
-byte 1 101
-byte 1 100
-byte 1 32
-byte 1 32
-byte 1 40
-byte 1 37
-byte 1 100
-byte 1 32
-byte 1 45
-byte 1 32
-byte 1 37
-byte 1 100
-byte 1 41
-byte 1 10
-byte 1 34
-byte 1 0
-align 1
-LABELV $1549
-byte 1 86
-byte 1 111
-byte 1 116
-byte 1 101
-byte 1 32
-byte 1 102
-byte 1 97
-byte 1 105
-byte 1 108
-byte 1 101
-byte 1 100
-byte 1 10
-byte 1 0
-align 1
-LABELV $1538
-byte 1 86
-byte 1 111
-byte 1 116
-byte 1 101
-byte 1 58
-byte 1 32
-byte 1 86
-byte 1 111
-byte 1 116
-byte 1 101
-byte 1 32
-byte 1 112
-byte 1 97
-byte 1 115
-byte 1 115
-byte 1 101
-byte 1 100
-byte 1 32
-byte 1 40
-byte 1 37
-byte 1 100
-byte 1 32
-byte 1 45
-byte 1 32
-byte 1 37
-byte 1 100
-byte 1 41
-byte 1 10
-byte 1 0
-align 1
-LABELV $1529
-byte 1 86
-byte 1 111
-byte 1 116
-byte 1 101
-byte 1 58
-byte 1 32
-byte 1 86
-byte 1 111
-byte 1 116
-byte 1 101
-byte 1 32
-byte 1 102
-byte 1 97
-byte 1 105
-byte 1 108
-byte 1 101
-byte 1 100
-byte 1 32
-byte 1 40
-byte 1 37
-byte 1 100
-byte 1 32
-byte 1 45
-byte 1 32
-byte 1 37
-byte 1 100
-byte 1 41
-byte 1 10
-byte 1 0
-align 1
-LABELV $1526
-byte 1 112
-byte 1 114
-byte 1 105
-byte 1 110
-byte 1 116
-byte 1 32
-byte 1 34
 byte 1 86
 byte 1 111
 byte 1 116
@@ -12849,7 +13597,7 @@ byte 1 10
 byte 1 34
 byte 1 0
 align 1
-LABELV $1521
+LABELV $1563
 byte 1 86
 byte 1 111
 byte 1 116
@@ -12878,7 +13626,7 @@ byte 1 41
 byte 1 10
 byte 1 0
 align 1
-LABELV $1518
+LABELV $1560
 byte 1 112
 byte 1 114
 byte 1 105
@@ -12911,13 +13659,13 @@ byte 1 10
 byte 1 34
 byte 1 0
 align 1
-LABELV $1488
+LABELV $1530
 byte 1 37
 byte 1 115
 byte 1 10
 byte 1 0
 align 1
-LABELV $1483
+LABELV $1525
 byte 1 99
 byte 1 112
 byte 1 32
@@ -12963,7 +13711,7 @@ byte 1 10
 byte 1 34
 byte 1 0
 align 1
-LABELV $1474
+LABELV $1516
 byte 1 115
 byte 1 117
 byte 1 100
@@ -12977,21 +13725,21 @@ byte 1 116
 byte 1 104
 byte 1 0
 align 1
-LABELV $1470
+LABELV $1512
 byte 1 109
 byte 1 0
 align 1
-LABELV $1469
+LABELV $1511
 byte 1 109
 byte 1 97
 byte 1 112
 byte 1 0
 align 1
-LABELV $1465
+LABELV $1507
 byte 1 114
 byte 1 0
 align 1
-LABELV $1464
+LABELV $1506
 byte 1 109
 byte 1 97
 byte 1 112
@@ -13005,11 +13753,11 @@ byte 1 114
 byte 1 116
 byte 1 0
 align 1
-LABELV $1452
+LABELV $1494
 byte 1 97
 byte 1 0
 align 1
-LABELV $1451
+LABELV $1493
 byte 1 65
 byte 1 108
 byte 1 105
@@ -13023,7 +13771,7 @@ byte 1 110
 byte 1 46
 byte 1 0
 align 1
-LABELV $1450
+LABELV $1492
 byte 1 65
 byte 1 108
 byte 1 105
@@ -13036,7 +13784,7 @@ byte 1 105
 byte 1 110
 byte 1 0
 align 1
-LABELV $1449
+LABELV $1491
 byte 1 112
 byte 1 114
 byte 1 105
@@ -13058,11 +13806,11 @@ byte 1 10
 byte 1 34
 byte 1 0
 align 1
-LABELV $1439
+LABELV $1481
 byte 1 104
 byte 1 0
 align 1
-LABELV $1438
+LABELV $1480
 byte 1 72
 byte 1 117
 byte 1 109
@@ -13076,7 +13824,7 @@ byte 1 110
 byte 1 46
 byte 1 0
 align 1
-LABELV $1437
+LABELV $1479
 byte 1 72
 byte 1 117
 byte 1 109
@@ -13089,7 +13837,7 @@ byte 1 105
 byte 1 110
 byte 1 0
 align 1
-LABELV $1436
+LABELV $1478
 byte 1 112
 byte 1 114
 byte 1 105
@@ -13111,7 +13859,7 @@ byte 1 10
 byte 1 34
 byte 1 0
 align 1
-LABELV $1425
+LABELV $1467
 byte 1 99
 byte 1 112
 byte 1 32
@@ -13138,7 +13886,7 @@ byte 1 33
 byte 1 34
 byte 1 0
 align 1
-LABELV $1417
+LABELV $1459
 byte 1 99
 byte 1 112
 byte 1 32
@@ -13166,11 +13914,11 @@ byte 1 33
 byte 1 34
 byte 1 0
 align 1
-LABELV $1410
+LABELV $1452
 byte 1 116
 byte 1 0
 align 1
-LABELV $1409
+LABELV $1451
 byte 1 84
 byte 1 105
 byte 1 109
@@ -13187,7 +13935,7 @@ byte 1 116
 byte 1 46
 byte 1 0
 align 1
-LABELV $1408
+LABELV $1450
 byte 1 83
 byte 1 116
 byte 1 97
@@ -13199,7 +13947,7 @@ byte 1 116
 byte 1 101
 byte 1 0
 align 1
-LABELV $1407
+LABELV $1449
 byte 1 112
 byte 1 114
 byte 1 105
@@ -13224,7 +13972,7 @@ byte 1 10
 byte 1 34
 byte 1 0
 align 1
-LABELV $1331
+LABELV $1370
 byte 1 116
 byte 1 114
 byte 1 105
@@ -13238,7 +13986,7 @@ byte 1 105
 byte 1 110
 byte 1 0
 align 1
-LABELV $1320
+LABELV $1359
 byte 1 115
 byte 1 99
 byte 1 111
@@ -13276,7 +14024,7 @@ byte 1 115
 byte 1 10
 byte 1 0
 align 1
-LABELV $1302
+LABELV $1341
 byte 1 69
 byte 1 120
 byte 1 105
@@ -13288,7 +14036,7 @@ byte 1 115
 byte 1 10
 byte 1 0
 align 1
-LABELV $1297
+LABELV $1336
 byte 1 32
 byte 1 34
 byte 1 37
@@ -13308,7 +14056,7 @@ byte 1 37
 byte 1 100
 byte 1 0
 align 1
-LABELV $1263
+LABELV $1302
 byte 1 116
 byte 1 114
 byte 1 101
@@ -13326,7 +14074,7 @@ byte 1 46
 byte 1 48
 byte 1 0
 align 1
-LABELV $1262
+LABELV $1301
 byte 1 37
 byte 1 115
 byte 1 32
@@ -13415,7 +14163,7 @@ byte 1 37
 byte 1 100
 byte 1 0
 align 1
-LABELV $1214
+LABELV $1253
 byte 1 37
 byte 1 51
 byte 1 105
@@ -13427,7 +14175,7 @@ byte 1 105
 byte 1 32
 byte 1 0
 align 1
-LABELV $1210
+LABELV $1249
 byte 1 112
 byte 1 114
 byte 1 105
@@ -13453,7 +14201,7 @@ byte 1 115
 byte 1 34
 byte 1 0
 align 1
-LABELV $1183
+LABELV $1222
 byte 1 109
 byte 1 97
 byte 1 112
@@ -13468,7 +14216,7 @@ byte 1 116
 byte 1 10
 byte 1 0
 align 1
-LABELV $1179
+LABELV $1218
 byte 1 33
 byte 1 109
 byte 1 97
@@ -13479,7 +14227,7 @@ byte 1 115
 byte 1 10
 byte 1 0
 align 1
-LABELV $1131
+LABELV $1170
 byte 1 105
 byte 1 110
 byte 1 102
@@ -13506,12 +14254,31 @@ byte 1 111
 byte 1 110
 byte 1 0
 align 1
-LABELV $1109
+LABELV $1150
+byte 1 116
+byte 1 101
+byte 1 97
+byte 1 109
+byte 1 0
+align 1
+LABELV $1147
+byte 1 105
+byte 1 112
+byte 1 0
+align 1
+LABELV $1144
+byte 1 110
+byte 1 97
+byte 1 109
+byte 1 101
+byte 1 0
+align 1
+LABELV $1132
 byte 1 37
 byte 1 105
 byte 1 0
 align 1
-LABELV $1027
+LABELV $1048
 byte 1 87
 byte 1 97
 byte 1 118
@@ -13522,7 +14289,7 @@ byte 1 51
 byte 1 56
 byte 1 0
 align 1
-LABELV $1025
+LABELV $1046
 byte 1 87
 byte 1 97
 byte 1 118
@@ -13533,7 +14300,7 @@ byte 1 51
 byte 1 55
 byte 1 0
 align 1
-LABELV $1023
+LABELV $1044
 byte 1 87
 byte 1 97
 byte 1 118
@@ -13544,7 +14311,7 @@ byte 1 51
 byte 1 54
 byte 1 0
 align 1
-LABELV $1021
+LABELV $1042
 byte 1 87
 byte 1 97
 byte 1 118
@@ -13555,7 +14322,7 @@ byte 1 51
 byte 1 53
 byte 1 0
 align 1
-LABELV $1019
+LABELV $1040
 byte 1 87
 byte 1 97
 byte 1 118
@@ -13566,7 +14333,7 @@ byte 1 51
 byte 1 52
 byte 1 0
 align 1
-LABELV $1017
+LABELV $1038
 byte 1 87
 byte 1 97
 byte 1 118
@@ -13577,7 +14344,7 @@ byte 1 51
 byte 1 51
 byte 1 0
 align 1
-LABELV $1015
+LABELV $1036
 byte 1 87
 byte 1 97
 byte 1 118
@@ -13588,7 +14355,7 @@ byte 1 51
 byte 1 50
 byte 1 0
 align 1
-LABELV $1014
+LABELV $1035
 byte 1 33
 byte 1 99
 byte 1 112
@@ -13598,7 +14365,7 @@ byte 1 115
 byte 1 10
 byte 1 0
 align 1
-LABELV $1012
+LABELV $1033
 byte 1 103
 byte 1 95
 byte 1 98
@@ -13613,7 +14380,7 @@ byte 1 99
 byte 1 104
 byte 1 0
 align 1
-LABELV $963
+LABELV $980
 byte 1 83
 byte 1 116
 byte 1 97
@@ -13651,7 +14418,7 @@ byte 1 51
 byte 1 10
 byte 1 0
 align 1
-LABELV $954
+LABELV $971
 byte 1 83
 byte 1 116
 byte 1 97
@@ -13689,7 +14456,7 @@ byte 1 50
 byte 1 10
 byte 1 0
 align 1
-LABELV $944
+LABELV $961
 byte 1 83
 byte 1 116
 byte 1 97
@@ -13727,7 +14494,7 @@ byte 1 51
 byte 1 10
 byte 1 0
 align 1
-LABELV $934
+LABELV $951
 byte 1 83
 byte 1 116
 byte 1 97
@@ -13765,7 +14532,7 @@ byte 1 50
 byte 1 10
 byte 1 0
 align 1
-LABELV $911
+LABELV $926
 byte 1 37
 byte 1 100
 byte 1 32
@@ -13785,7 +14552,7 @@ byte 1 37
 byte 1 100
 byte 1 0
 align 1
-LABELV $881
+LABELV $896
 byte 1 37
 byte 1 100
 byte 1 32
@@ -13802,7 +14569,7 @@ byte 1 37
 byte 1 100
 byte 1 0
 align 1
-LABELV $827
+LABELV $842
 byte 1 99
 byte 1 112
 byte 1 32
@@ -13837,7 +14604,7 @@ byte 1 33
 byte 1 34
 byte 1 0
 align 1
-LABELV $800
+LABELV $815
 byte 1 66
 byte 1 101
 byte 1 103
@@ -13873,7 +14640,7 @@ byte 1 41
 byte 1 10
 byte 1 0
 align 1
-LABELV $799
+LABELV $814
 byte 1 99
 byte 1 112
 byte 1 32
@@ -13894,7 +14661,7 @@ byte 1 33
 byte 1 34
 byte 1 0
 align 1
-LABELV $757
+LABELV $772
 byte 1 37
 byte 1 100
 byte 1 32
@@ -13902,22 +14669,22 @@ byte 1 37
 byte 1 100
 byte 1 0
 align 1
-LABELV $716
+LABELV $731
 byte 1 10
 byte 1 0
 align 1
-LABELV $715
+LABELV $730
 byte 1 37
 byte 1 100
 byte 1 58
 byte 1 0
 align 1
-LABELV $714
+LABELV $729
 byte 1 42
 byte 1 58
 byte 1 0
 align 1
-LABELV $706
+LABELV $721
 byte 1 108
 byte 1 58
 byte 1 37
@@ -13939,12 +14706,12 @@ byte 1 32
 byte 1 58
 byte 1 0
 align 1
-LABELV $647
+LABELV $662
 byte 1 37
 byte 1 115
 byte 1 0
 align 1
-LABELV $641
+LABELV $656
 byte 1 83
 byte 1 104
 byte 1 117
@@ -13961,7 +14728,7 @@ byte 1 58
 byte 1 10
 byte 1 0
 align 1
-LABELV $637
+LABELV $652
 byte 1 61
 byte 1 61
 byte 1 61
@@ -13987,7 +14754,7 @@ byte 1 61
 byte 1 10
 byte 1 0
 align 1
-LABELV $625
+LABELV $640
 byte 1 45
 byte 1 45
 byte 1 45
@@ -14026,12 +14793,12 @@ byte 1 45
 byte 1 10
 byte 1 0
 align 1
-LABELV $619
+LABELV $634
 byte 1 37
 byte 1 100
 byte 1 0
 align 1
-LABELV $594
+LABELV $609
 byte 1 78
 byte 1 111
 byte 1 116
@@ -14054,7 +14821,7 @@ byte 1 107
 byte 1 10
 byte 1 0
 align 1
-LABELV $588
+LABELV $603
 byte 1 82
 byte 1 101
 byte 1 97
@@ -14097,7 +14864,7 @@ byte 1 105
 byte 1 10
 byte 1 0
 align 1
-LABELV $587
+LABELV $602
 byte 1 73
 byte 1 110
 byte 1 105
@@ -14113,7 +14880,7 @@ byte 1 115
 byte 1 10
 byte 1 0
 align 1
-LABELV $586
+LABELV $601
 byte 1 45
 byte 1 45
 byte 1 45
@@ -14177,7 +14944,7 @@ byte 1 45
 byte 1 10
 byte 1 0
 align 1
-LABELV $584
+LABELV $599
 byte 1 87
 byte 1 65
 byte 1 82
@@ -14215,7 +14982,7 @@ byte 1 115
 byte 1 10
 byte 1 0
 align 1
-LABELV $570
+LABELV $585
 byte 1 115
 byte 1 111
 byte 1 117
@@ -14236,7 +15003,42 @@ byte 1 97
 byte 1 118
 byte 1 0
 align 1
-LABELV $561
+LABELV $581
+byte 1 115
+byte 1 118
+byte 1 95
+byte 1 100
+byte 1 101
+byte 1 109
+byte 1 111
+byte 1 99
+byte 1 108
+byte 1 105
+byte 1 101
+byte 1 110
+byte 1 116
+byte 1 115
+byte 1 0
+align 1
+LABELV $578
+byte 1 37
+byte 1 105
+byte 1 32
+byte 1 37
+byte 1 105
+byte 1 0
+align 1
+LABELV $577
+byte 1 115
+byte 1 101
+byte 1 115
+byte 1 115
+byte 1 105
+byte 1 111
+byte 1 110
+byte 1 0
+align 1
+LABELV $569
 byte 1 103
 byte 1 97
 byte 1 109
@@ -14252,7 +15054,7 @@ byte 1 115
 byte 1 10
 byte 1 0
 align 1
-LABELV $560
+LABELV $568
 byte 1 103
 byte 1 97
 byte 1 109
@@ -14268,7 +15070,7 @@ byte 1 115
 byte 1 10
 byte 1 0
 align 1
-LABELV $559
+LABELV $567
 byte 1 45
 byte 1 45
 byte 1 45
@@ -14307,7 +15109,7 @@ byte 1 45
 byte 1 10
 byte 1 0
 align 1
-LABELV $556
+LABELV $564
 byte 1 76
 byte 1 111
 byte 1 97
@@ -14326,7 +15128,7 @@ byte 1 115
 byte 1 10
 byte 1 0
 align 1
-LABELV $489
+LABELV $497
 byte 1 37
 byte 1 100
 byte 1 32
@@ -14365,7 +15167,7 @@ byte 1 100
 byte 1 10
 byte 1 0
 align 1
-LABELV $488
+LABELV $496
 byte 1 82
 byte 1 101
 byte 1 97
@@ -14387,7 +15189,7 @@ byte 1 116
 byte 1 10
 byte 1 0
 align 1
-LABELV $482
+LABELV $490
 byte 1 69
 byte 1 114
 byte 1 114
@@ -14421,7 +15223,7 @@ byte 1 112
 byte 1 10
 byte 1 0
 align 1
-LABELV $476
+LABELV $484
 byte 1 70
 byte 1 111
 byte 1 117
@@ -14450,7 +15252,7 @@ byte 1 112
 byte 1 10
 byte 1 0
 align 1
-LABELV $473
+LABELV $481
 byte 1 112
 byte 1 97
 byte 1 116
@@ -14470,7 +15272,7 @@ byte 1 97
 byte 1 116
 byte 1 0
 align 1
-LABELV $443
+LABELV $451
 byte 1 109
 byte 1 97
 byte 1 112
@@ -14480,7 +15282,7 @@ byte 1 109
 byte 1 101
 byte 1 0
 align 1
-LABELV $439
+LABELV $447
 byte 1 101
 byte 1 120
 byte 1 101
@@ -14500,7 +15302,7 @@ byte 1 34
 byte 1 10
 byte 1 0
 align 1
-LABELV $437
+LABELV $445
 byte 1 101
 byte 1 120
 byte 1 101
@@ -14525,7 +15327,7 @@ byte 1 34
 byte 1 10
 byte 1 0
 align 1
-LABELV $426
+LABELV $434
 byte 1 112
 byte 1 114
 byte 1 105
@@ -14561,7 +15363,7 @@ byte 1 10
 byte 1 34
 byte 1 0
 align 1
-LABELV $402
+LABELV $410
 byte 1 37
 byte 1 105
 byte 1 32
@@ -14590,7 +15392,22 @@ byte 1 115
 byte 1 10
 byte 1 0
 align 1
-LABELV $329
+LABELV $331
+byte 1 115
+byte 1 118
+byte 1 95
+byte 1 100
+byte 1 101
+byte 1 109
+byte 1 111
+byte 1 83
+byte 1 116
+byte 1 97
+byte 1 116
+byte 1 101
+byte 1 0
+align 1
+LABELV $330
 byte 1 103
 byte 1 95
 byte 1 116
@@ -14609,7 +15426,7 @@ byte 1 109
 byte 1 101
 byte 1 0
 align 1
-LABELV $328
+LABELV $329
 byte 1 103
 byte 1 95
 byte 1 116
@@ -14624,7 +15441,7 @@ byte 1 117
 byte 1 115
 byte 1 0
 align 1
-LABELV $327
+LABELV $328
 byte 1 103
 byte 1 95
 byte 1 98
@@ -14637,7 +15454,7 @@ byte 1 110
 byte 1 103
 byte 1 0
 align 1
-LABELV $326
+LABELV $327
 byte 1 103
 byte 1 95
 byte 1 98
@@ -14658,7 +15475,7 @@ byte 1 99
 byte 1 104
 byte 1 0
 align 1
-LABELV $325
+LABELV $326
 byte 1 103
 byte 1 95
 byte 1 98
@@ -14677,7 +15494,7 @@ byte 1 109
 byte 1 112
 byte 1 0
 align 1
-LABELV $324
+LABELV $325
 byte 1 103
 byte 1 95
 byte 1 98
@@ -14693,14 +15510,14 @@ byte 1 101
 byte 1 114
 byte 1 0
 align 1
-LABELV $323
+LABELV $324
 byte 1 49
 byte 1 49
 byte 1 53
 byte 1 48
 byte 1 0
 align 1
-LABELV $322
+LABELV $323
 byte 1 103
 byte 1 95
 byte 1 98
@@ -14722,13 +15539,13 @@ byte 1 101
 byte 1 110
 byte 1 0
 align 1
-LABELV $321
+LABELV $322
 byte 1 50
 byte 1 53
 byte 1 48
 byte 1 0
 align 1
-LABELV $320
+LABELV $321
 byte 1 103
 byte 1 95
 byte 1 119
@@ -14747,7 +15564,7 @@ byte 1 109
 byte 1 101
 byte 1 0
 align 1
-LABELV $319
+LABELV $320
 byte 1 103
 byte 1 95
 byte 1 118
@@ -14774,7 +15591,7 @@ byte 1 107
 byte 1 101
 byte 1 0
 align 1
-LABELV $318
+LABELV $319
 byte 1 103
 byte 1 95
 byte 1 118
@@ -14796,7 +15613,7 @@ byte 1 101
 byte 1 115
 byte 1 0
 align 1
-LABELV $317
+LABELV $318
 byte 1 103
 byte 1 95
 byte 1 118
@@ -14812,7 +15629,7 @@ byte 1 100
 byte 1 101
 byte 1 0
 align 1
-LABELV $316
+LABELV $317
 byte 1 103
 byte 1 95
 byte 1 99
@@ -14834,6 +15651,35 @@ byte 1 114
 byte 1 99
 byte 1 110
 byte 1 116
+byte 1 0
+align 1
+LABELV $316
+byte 1 103
+byte 1 95
+byte 1 115
+byte 1 116
+byte 1 114
+byte 1 105
+byte 1 112
+byte 1 95
+byte 1 83
+byte 1 116
+byte 1 114
+byte 1 117
+byte 1 99
+byte 1 116
+byte 1 68
+byte 1 109
+byte 1 103
+byte 1 80
+byte 1 114
+byte 1 99
+byte 1 110
+byte 1 116
+byte 1 95
+byte 1 100
+byte 1 101
+byte 1 102
 byte 1 0
 align 1
 LABELV $315
@@ -14859,10 +15705,6 @@ byte 1 114
 byte 1 99
 byte 1 110
 byte 1 116
-byte 1 95
-byte 1 100
-byte 1 101
-byte 1 102
 byte 1 0
 align 1
 LABELV $314
@@ -14874,12 +15716,12 @@ byte 1 114
 byte 1 105
 byte 1 112
 byte 1 95
-byte 1 83
-byte 1 116
+byte 1 80
+byte 1 108
+byte 1 97
+byte 1 121
+byte 1 101
 byte 1 114
-byte 1 117
-byte 1 99
-byte 1 116
 byte 1 68
 byte 1 109
 byte 1 103
@@ -14888,6 +15730,10 @@ byte 1 114
 byte 1 99
 byte 1 110
 byte 1 116
+byte 1 95
+byte 1 100
+byte 1 101
+byte 1 102
 byte 1 0
 align 1
 LABELV $313
@@ -14913,38 +15759,9 @@ byte 1 114
 byte 1 99
 byte 1 110
 byte 1 116
-byte 1 95
-byte 1 100
-byte 1 101
-byte 1 102
 byte 1 0
 align 1
 LABELV $312
-byte 1 103
-byte 1 95
-byte 1 115
-byte 1 116
-byte 1 114
-byte 1 105
-byte 1 112
-byte 1 95
-byte 1 80
-byte 1 108
-byte 1 97
-byte 1 121
-byte 1 101
-byte 1 114
-byte 1 68
-byte 1 109
-byte 1 103
-byte 1 80
-byte 1 114
-byte 1 99
-byte 1 110
-byte 1 116
-byte 1 0
-align 1
-LABELV $311
 byte 1 103
 byte 1 95
 byte 1 108
@@ -14966,7 +15783,7 @@ byte 1 116
 byte 1 114
 byte 1 0
 align 1
-LABELV $310
+LABELV $311
 byte 1 103
 byte 1 95
 byte 1 108
@@ -14977,7 +15794,7 @@ byte 1 111
 byte 1 110
 byte 1 0
 align 1
-LABELV $309
+LABELV $310
 byte 1 103
 byte 1 95
 byte 1 83
@@ -14998,7 +15815,7 @@ byte 1 116
 byte 1 104
 byte 1 0
 align 1
-LABELV $308
+LABELV $309
 byte 1 103
 byte 1 95
 byte 1 83
@@ -15014,7 +15831,7 @@ byte 1 109
 byte 1 103
 byte 1 0
 align 1
-LABELV $307
+LABELV $308
 byte 1 103
 byte 1 95
 byte 1 83
@@ -15036,7 +15853,7 @@ byte 1 101
 byte 1 102
 byte 1 0
 align 1
-LABELV $306
+LABELV $307
 byte 1 103
 byte 1 95
 byte 1 83
@@ -15054,7 +15871,7 @@ byte 1 103
 byte 1 101
 byte 1 0
 align 1
-LABELV $305
+LABELV $306
 byte 1 103
 byte 1 95
 byte 1 65
@@ -15078,6 +15895,41 @@ byte 1 115
 byte 1 115
 byte 1 111
 byte 1 110
+byte 1 0
+align 1
+LABELV $305
+byte 1 103
+byte 1 95
+byte 1 65
+byte 1 117
+byte 1 116
+byte 1 111
+byte 1 83
+byte 1 116
+byte 1 114
+byte 1 105
+byte 1 112
+byte 1 95
+byte 1 75
+byte 1 105
+byte 1 108
+byte 1 108
+byte 1 105
+byte 1 110
+byte 1 103
+byte 1 83
+byte 1 112
+byte 1 114
+byte 1 101
+byte 1 101
+byte 1 83
+byte 1 116
+byte 1 97
+byte 1 103
+byte 1 101
+byte 1 68
+byte 1 105
+byte 1 102
 byte 1 0
 align 1
 LABELV $304
@@ -15105,41 +15957,6 @@ byte 1 112
 byte 1 114
 byte 1 101
 byte 1 101
-byte 1 83
-byte 1 116
-byte 1 97
-byte 1 103
-byte 1 101
-byte 1 68
-byte 1 105
-byte 1 102
-byte 1 0
-align 1
-LABELV $303
-byte 1 103
-byte 1 95
-byte 1 65
-byte 1 117
-byte 1 116
-byte 1 111
-byte 1 83
-byte 1 116
-byte 1 114
-byte 1 105
-byte 1 112
-byte 1 95
-byte 1 75
-byte 1 105
-byte 1 108
-byte 1 108
-byte 1 105
-byte 1 110
-byte 1 103
-byte 1 83
-byte 1 112
-byte 1 114
-byte 1 101
-byte 1 101
 byte 1 80
 byte 1 101
 byte 1 114
@@ -15150,11 +15967,11 @@ byte 1 103
 byte 1 101
 byte 1 0
 align 1
-LABELV $302
+LABELV $303
 byte 1 54
 byte 1 0
 align 1
-LABELV $301
+LABELV $302
 byte 1 103
 byte 1 95
 byte 1 65
@@ -15184,7 +16001,7 @@ byte 1 118
 byte 1 108
 byte 1 0
 align 1
-LABELV $300
+LABELV $301
 byte 1 103
 byte 1 95
 byte 1 65
@@ -15214,13 +16031,13 @@ byte 1 109
 byte 1 121
 byte 1 0
 align 1
-LABELV $299
+LABELV $300
 byte 1 49
 byte 1 48
 byte 1 48
 byte 1 0
 align 1
-LABELV $298
+LABELV $299
 byte 1 103
 byte 1 95
 byte 1 65
@@ -15249,11 +16066,11 @@ byte 1 97
 byte 1 109
 byte 1 0
 align 1
-LABELV $297
+LABELV $298
 byte 1 52
 byte 1 0
 align 1
-LABELV $296
+LABELV $297
 byte 1 103
 byte 1 95
 byte 1 65
@@ -15281,7 +16098,7 @@ byte 1 103
 byte 1 101
 byte 1 0
 align 1
-LABELV $295
+LABELV $296
 byte 1 103
 byte 1 95
 byte 1 65
@@ -15304,13 +16121,13 @@ byte 1 108
 byte 1 115
 byte 1 0
 align 1
-LABELV $294
+LABELV $295
 byte 1 49
 byte 1 46
 byte 1 48
 byte 1 0
 align 1
-LABELV $293
+LABELV $294
 byte 1 103
 byte 1 95
 byte 1 65
@@ -15338,7 +16155,7 @@ byte 1 101
 byte 1 100
 byte 1 0
 align 1
-LABELV $292
+LABELV $293
 byte 1 103
 byte 1 95
 byte 1 65
@@ -15361,6 +16178,20 @@ byte 1 115
 byte 1 103
 byte 1 0
 align 1
+LABELV $292
+byte 1 103
+byte 1 95
+byte 1 65
+byte 1 117
+byte 1 116
+byte 1 111
+byte 1 83
+byte 1 116
+byte 1 114
+byte 1 105
+byte 1 112
+byte 1 0
+align 1
 LABELV $291
 byte 1 103
 byte 1 95
@@ -15373,6 +16204,17 @@ byte 1 116
 byte 1 114
 byte 1 105
 byte 1 112
+byte 1 95
+byte 1 107
+byte 1 112
+byte 1 109
+byte 1 65
+byte 1 108
+byte 1 108
+byte 1 111
+byte 1 119
+byte 1 101
+byte 1 100
 byte 1 0
 align 1
 LABELV $290
@@ -15391,31 +16233,6 @@ byte 1 95
 byte 1 107
 byte 1 112
 byte 1 109
-byte 1 65
-byte 1 108
-byte 1 108
-byte 1 111
-byte 1 119
-byte 1 101
-byte 1 100
-byte 1 0
-align 1
-LABELV $289
-byte 1 103
-byte 1 95
-byte 1 65
-byte 1 117
-byte 1 116
-byte 1 111
-byte 1 83
-byte 1 116
-byte 1 114
-byte 1 105
-byte 1 112
-byte 1 95
-byte 1 107
-byte 1 112
-byte 1 109
 byte 1 84
 byte 1 114
 byte 1 101
@@ -15426,7 +16243,7 @@ byte 1 108
 byte 1 100
 byte 1 0
 align 1
-LABELV $288
+LABELV $289
 byte 1 103
 byte 1 95
 byte 1 82
@@ -15449,7 +16266,7 @@ byte 1 101
 byte 1 118
 byte 1 0
 align 1
-LABELV $287
+LABELV $288
 byte 1 83
 byte 1 117
 byte 1 112
@@ -15461,7 +16278,7 @@ byte 1 119
 byte 1 35
 byte 1 0
 align 1
-LABELV $286
+LABELV $287
 byte 1 103
 byte 1 95
 byte 1 82
@@ -15484,7 +16301,7 @@ byte 1 104
 byte 1 101
 byte 1 0
 align 1
-LABELV $285
+LABELV $286
 byte 1 109
 byte 1 97
 byte 1 112
@@ -15512,7 +16329,7 @@ byte 1 97
 byte 1 112
 byte 1 0
 align 1
-LABELV $284
+LABELV $285
 byte 1 103
 byte 1 95
 byte 1 108
@@ -15531,7 +16348,7 @@ byte 1 101
 byte 1 115
 byte 1 0
 align 1
-LABELV $283
+LABELV $284
 byte 1 103
 byte 1 95
 byte 1 68
@@ -15544,7 +16361,7 @@ byte 1 115
 byte 1 103
 byte 1 0
 align 1
-LABELV $282
+LABELV $283
 byte 1 103
 byte 1 95
 byte 1 112
@@ -15560,7 +16377,7 @@ byte 1 110
 byte 1 103
 byte 1 0
 align 1
-LABELV $281
+LABELV $282
 byte 1 103
 byte 1 95
 byte 1 98
@@ -15577,7 +16394,7 @@ byte 1 108
 byte 1 108
 byte 1 0
 align 1
-LABELV $280
+LABELV $281
 byte 1 103
 byte 1 95
 byte 1 98
@@ -15599,7 +16416,7 @@ byte 1 97
 byte 1 108
 byte 1 0
 align 1
-LABELV $279
+LABELV $280
 byte 1 103
 byte 1 95
 byte 1 98
@@ -15616,7 +16433,7 @@ byte 1 97
 byte 1 108
 byte 1 0
 align 1
-LABELV $278
+LABELV $279
 byte 1 103
 byte 1 95
 byte 1 98
@@ -15639,7 +16456,7 @@ byte 1 100
 byte 1 115
 byte 1 0
 align 1
-LABELV $277
+LABELV $278
 byte 1 103
 byte 1 95
 byte 1 98
@@ -15652,7 +16469,7 @@ byte 1 97
 byte 1 109
 byte 1 0
 align 1
-LABELV $276
+LABELV $277
 byte 1 103
 byte 1 95
 byte 1 98
@@ -15673,7 +16490,7 @@ byte 1 99
 byte 1 116
 byte 1 0
 align 1
-LABELV $275
+LABELV $276
 byte 1 103
 byte 1 95
 byte 1 98
@@ -15688,7 +16505,7 @@ byte 1 110
 byte 1 116
 byte 1 0
 align 1
-LABELV $274
+LABELV $275
 byte 1 103
 byte 1 95
 byte 1 98
@@ -15698,6 +16515,19 @@ byte 1 95
 byte 1 97
 byte 1 100
 byte 1 118
+byte 1 103
+byte 1 111
+byte 1 111
+byte 1 110
+byte 1 0
+align 1
+LABELV $274
+byte 1 103
+byte 1 95
+byte 1 98
+byte 1 111
+byte 1 116
+byte 1 95
 byte 1 103
 byte 1 111
 byte 1 111
@@ -15711,10 +16541,13 @@ byte 1 98
 byte 1 111
 byte 1 116
 byte 1 95
-byte 1 103
-byte 1 111
-byte 1 111
-byte 1 110
+byte 1 97
+byte 1 100
+byte 1 118
+byte 1 109
+byte 1 97
+byte 1 114
+byte 1 97
 byte 1 0
 align 1
 LABELV $272
@@ -15724,9 +16557,6 @@ byte 1 98
 byte 1 111
 byte 1 116
 byte 1 95
-byte 1 97
-byte 1 100
-byte 1 118
 byte 1 109
 byte 1 97
 byte 1 114
@@ -15740,10 +16570,13 @@ byte 1 98
 byte 1 111
 byte 1 116
 byte 1 95
-byte 1 109
 byte 1 97
-byte 1 114
+byte 1 100
+byte 1 118
+byte 1 98
 byte 1 97
+byte 1 115
+byte 1 105
 byte 1 0
 align 1
 LABELV $270
@@ -15753,9 +16586,6 @@ byte 1 98
 byte 1 111
 byte 1 116
 byte 1 95
-byte 1 97
-byte 1 100
-byte 1 118
 byte 1 98
 byte 1 97
 byte 1 115
@@ -15769,19 +16599,6 @@ byte 1 98
 byte 1 111
 byte 1 116
 byte 1 95
-byte 1 98
-byte 1 97
-byte 1 115
-byte 1 105
-byte 1 0
-align 1
-LABELV $268
-byte 1 103
-byte 1 95
-byte 1 98
-byte 1 111
-byte 1 116
-byte 1 95
 byte 1 101
 byte 1 118
 byte 1 111
@@ -15790,7 +16607,7 @@ byte 1 118
 byte 1 101
 byte 1 0
 align 1
-LABELV $267
+LABELV $268
 byte 1 103
 byte 1 95
 byte 1 98
@@ -15803,7 +16620,7 @@ byte 1 99
 byte 1 105
 byte 1 0
 align 1
-LABELV $266
+LABELV $267
 byte 1 103
 byte 1 95
 byte 1 98
@@ -15818,7 +16635,7 @@ byte 1 101
 byte 1 114
 byte 1 0
 align 1
-LABELV $265
+LABELV $266
 byte 1 103
 byte 1 95
 byte 1 98
@@ -15832,7 +16649,7 @@ byte 1 115
 byte 1 101
 byte 1 0
 align 1
-LABELV $264
+LABELV $265
 byte 1 103
 byte 1 95
 byte 1 98
@@ -15846,7 +16663,7 @@ byte 1 105
 byte 1 110
 byte 1 0
 align 1
-LABELV $263
+LABELV $264
 byte 1 103
 byte 1 95
 byte 1 98
@@ -15859,7 +16676,7 @@ byte 1 115
 byte 1 115
 byte 1 0
 align 1
-LABELV $262
+LABELV $263
 byte 1 103
 byte 1 95
 byte 1 98
@@ -15871,7 +16688,7 @@ byte 1 97
 byte 1 115
 byte 1 0
 align 1
-LABELV $261
+LABELV $262
 byte 1 103
 byte 1 95
 byte 1 98
@@ -15887,7 +16704,7 @@ byte 1 117
 byte 1 110
 byte 1 0
 align 1
-LABELV $260
+LABELV $261
 byte 1 103
 byte 1 95
 byte 1 98
@@ -15900,7 +16717,7 @@ byte 1 97
 byte 1 119
 byte 1 0
 align 1
-LABELV $259
+LABELV $260
 byte 1 103
 byte 1 95
 byte 1 98
@@ -15914,7 +16731,7 @@ byte 1 108
 byte 1 101
 byte 1 0
 align 1
-LABELV $258
+LABELV $259
 byte 1 103
 byte 1 95
 byte 1 98
@@ -15926,7 +16743,7 @@ byte 1 117
 byte 1 121
 byte 1 0
 align 1
-LABELV $257
+LABELV $258
 byte 1 103
 byte 1 95
 byte 1 97
@@ -15944,7 +16761,7 @@ byte 1 115
 byte 1 103
 byte 1 0
 align 1
-LABELV $256
+LABELV $257
 byte 1 103
 byte 1 95
 byte 1 98
@@ -15958,7 +16775,7 @@ byte 1 99
 byte 1 101
 byte 1 0
 align 1
-LABELV $255
+LABELV $256
 byte 1 103
 byte 1 95
 byte 1 97
@@ -15973,7 +16790,7 @@ byte 1 114
 byte 1 101
 byte 1 0
 align 1
-LABELV $254
+LABELV $255
 byte 1 103
 byte 1 95
 byte 1 114
@@ -15986,7 +16803,7 @@ byte 1 103
 byte 1 115
 byte 1 0
 align 1
-LABELV $253
+LABELV $254
 byte 1 103
 byte 1 95
 byte 1 109
@@ -15998,7 +16815,7 @@ byte 1 109
 byte 1 101
 byte 1 0
 align 1
-LABELV $252
+LABELV $253
 byte 1 103
 byte 1 95
 byte 1 109
@@ -16006,7 +16823,7 @@ byte 1 115
 byte 1 103
 byte 1 0
 align 1
-LABELV $251
+LABELV $252
 byte 1 103
 byte 1 95
 byte 1 100
@@ -16021,7 +16838,7 @@ byte 1 110
 byte 1 116
 byte 1 0
 align 1
-LABELV $250
+LABELV $251
 byte 1 103
 byte 1 95
 byte 1 104
@@ -16039,14 +16856,14 @@ byte 1 116
 byte 1 115
 byte 1 0
 align 1
-LABELV $249
+LABELV $250
 byte 1 109
 byte 1 97
 byte 1 105
 byte 1 110
 byte 1 0
 align 1
-LABELV $248
+LABELV $249
 byte 1 103
 byte 1 95
 byte 1 116
@@ -16054,7 +16871,7 @@ byte 1 97
 byte 1 103
 byte 1 0
 align 1
-LABELV $247
+LABELV $248
 byte 1 103
 byte 1 95
 byte 1 100
@@ -16073,13 +16890,13 @@ byte 1 72
 byte 1 80
 byte 1 0
 align 1
-LABELV $246
+LABELV $247
 byte 1 49
 byte 1 53
 byte 1 48
 byte 1 0
 align 1
-LABELV $245
+LABELV $246
 byte 1 103
 byte 1 95
 byte 1 97
@@ -16098,7 +16915,7 @@ byte 1 99
 byte 1 107
 byte 1 0
 align 1
-LABELV $244
+LABELV $245
 byte 1 103
 byte 1 95
 byte 1 109
@@ -16120,7 +16937,7 @@ byte 1 77
 byte 1 49
 byte 1 0
 align 1
-LABELV $243
+LABELV $244
 byte 1 103
 byte 1 95
 byte 1 112
@@ -16140,7 +16957,7 @@ byte 1 110
 byte 1 115
 byte 1 0
 align 1
-LABELV $242
+LABELV $243
 byte 1 103
 byte 1 95
 byte 1 109
@@ -16152,7 +16969,7 @@ byte 1 116
 byte 1 115
 byte 1 0
 align 1
-LABELV $241
+LABELV $242
 byte 1 103
 byte 1 95
 byte 1 98
@@ -16174,7 +16991,7 @@ byte 1 116
 byte 1 104
 byte 1 0
 align 1
-LABELV $240
+LABELV $241
 byte 1 103
 byte 1 95
 byte 1 100
@@ -16195,7 +17012,7 @@ byte 1 101
 byte 1 115
 byte 1 0
 align 1
-LABELV $239
+LABELV $240
 byte 1 103
 byte 1 95
 byte 1 112
@@ -16215,7 +17032,7 @@ byte 1 101
 byte 1 115
 byte 1 0
 align 1
-LABELV $238
+LABELV $239
 byte 1 103
 byte 1 95
 byte 1 102
@@ -16235,7 +17052,7 @@ byte 1 99
 byte 1 116
 byte 1 0
 align 1
-LABELV $237
+LABELV $238
 byte 1 103
 byte 1 95
 byte 1 109
@@ -16258,7 +17075,7 @@ byte 1 97
 byte 1 109
 byte 1 0
 align 1
-LABELV $236
+LABELV $237
 byte 1 103
 byte 1 95
 byte 1 97
@@ -16274,12 +17091,12 @@ byte 1 111
 byte 1 103
 byte 1 0
 align 1
-LABELV $235
+LABELV $236
 byte 1 50
 byte 1 119
 byte 1 0
 align 1
-LABELV $234
+LABELV $235
 byte 1 103
 byte 1 95
 byte 1 97
@@ -16295,12 +17112,12 @@ byte 1 97
 byte 1 110
 byte 1 0
 align 1
-LABELV $233
+LABELV $234
 byte 1 50
 byte 1 109
 byte 1 0
 align 1
-LABELV $232
+LABELV $233
 byte 1 103
 byte 1 95
 byte 1 97
@@ -16317,7 +17134,7 @@ byte 1 97
 byte 1 110
 byte 1 0
 align 1
-LABELV $231
+LABELV $232
 byte 1 103
 byte 1 95
 byte 1 97
@@ -16338,7 +17155,7 @@ byte 1 99
 byte 1 116
 byte 1 0
 align 1
-LABELV $230
+LABELV $231
 byte 1 103
 byte 1 95
 byte 1 97
@@ -16357,7 +17174,7 @@ byte 1 101
 byte 1 114
 byte 1 0
 align 1
-LABELV $229
+LABELV $230
 byte 1 103
 byte 1 95
 byte 1 97
@@ -16375,7 +17192,7 @@ byte 1 97
 byte 1 121
 byte 1 0
 align 1
-LABELV $228
+LABELV $229
 byte 1 97
 byte 1 100
 byte 1 109
@@ -16387,7 +17204,7 @@ byte 1 111
 byte 1 103
 byte 1 0
 align 1
-LABELV $227
+LABELV $228
 byte 1 103
 byte 1 95
 byte 1 97
@@ -16400,7 +17217,7 @@ byte 1 111
 byte 1 103
 byte 1 0
 align 1
-LABELV $226
+LABELV $227
 byte 1 97
 byte 1 100
 byte 1 109
@@ -16412,7 +17229,7 @@ byte 1 97
 byte 1 116
 byte 1 0
 align 1
-LABELV $225
+LABELV $226
 byte 1 103
 byte 1 95
 byte 1 97
@@ -16422,7 +17239,7 @@ byte 1 105
 byte 1 110
 byte 1 0
 align 1
-LABELV $224
+LABELV $225
 byte 1 103
 byte 1 95
 byte 1 108
@@ -16437,7 +17254,7 @@ byte 1 116
 byte 1 111
 byte 1 0
 align 1
-LABELV $223
+LABELV $224
 byte 1 103
 byte 1 95
 byte 1 108
@@ -16449,7 +17266,7 @@ byte 1 116
 byte 1 115
 byte 1 0
 align 1
-LABELV $222
+LABELV $223
 byte 1 103
 byte 1 95
 byte 1 76
@@ -16458,6 +17275,27 @@ byte 1 121
 byte 1 111
 byte 1 117
 byte 1 116
+byte 1 67
+byte 1 111
+byte 1 110
+byte 1 102
+byte 1 105
+byte 1 103
+byte 1 115
+byte 1 76
+byte 1 111
+byte 1 97
+byte 1 100
+byte 1 101
+byte 1 100
+byte 1 0
+align 1
+LABELV $222
+byte 1 103
+byte 1 95
+byte 1 109
+byte 1 97
+byte 1 112
 byte 1 67
 byte 1 111
 byte 1 110
@@ -16486,35 +17324,14 @@ byte 1 102
 byte 1 105
 byte 1 103
 byte 1 115
-byte 1 76
-byte 1 111
-byte 1 97
-byte 1 100
-byte 1 101
-byte 1 100
 byte 1 0
 align 1
 LABELV $220
-byte 1 103
-byte 1 95
-byte 1 109
-byte 1 97
-byte 1 112
-byte 1 67
-byte 1 111
-byte 1 110
-byte 1 102
-byte 1 105
-byte 1 103
-byte 1 115
-byte 1 0
-align 1
-LABELV $219
 byte 1 49
 byte 1 53
 byte 1 0
 align 1
-LABELV $218
+LABELV $219
 byte 1 103
 byte 1 95
 byte 1 115
@@ -16524,7 +17341,7 @@ byte 1 118
 byte 1 101
 byte 1 0
 align 1
-LABELV $217
+LABELV $218
 byte 1 103
 byte 1 95
 byte 1 105
@@ -16547,7 +17364,7 @@ byte 1 111
 byte 1 110
 byte 1 0
 align 1
-LABELV $216
+LABELV $217
 byte 1 103
 byte 1 95
 byte 1 110
@@ -16559,7 +17376,7 @@ byte 1 97
 byte 1 112
 byte 1 0
 align 1
-LABELV $215
+LABELV $216
 byte 1 103
 byte 1 95
 byte 1 99
@@ -16574,12 +17391,12 @@ byte 1 97
 byte 1 112
 byte 1 0
 align 1
-LABELV $214
+LABELV $215
 byte 1 45
 byte 1 49
 byte 1 0
 align 1
-LABELV $213
+LABELV $214
 byte 1 103
 byte 1 95
 byte 1 99
@@ -16602,7 +17419,7 @@ byte 1 111
 byte 1 110
 byte 1 0
 align 1
-LABELV $212
+LABELV $213
 byte 1 103
 byte 1 95
 byte 1 100
@@ -16623,7 +17440,7 @@ byte 1 111
 byte 1 110
 byte 1 0
 align 1
-LABELV $211
+LABELV $212
 byte 1 103
 byte 1 95
 byte 1 100
@@ -16637,7 +17454,7 @@ byte 1 97
 byte 1 100
 byte 1 0
 align 1
-LABELV $210
+LABELV $211
 byte 1 103
 byte 1 95
 byte 1 109
@@ -16657,14 +17474,14 @@ byte 1 99
 byte 1 116
 byte 1 0
 align 1
-LABELV $209
+LABELV $210
 byte 1 50
 byte 1 48
 byte 1 48
 byte 1 48
 byte 1 0
 align 1
-LABELV $208
+LABELV $209
 byte 1 103
 byte 1 95
 byte 1 102
@@ -16681,14 +17498,14 @@ byte 1 109
 byte 1 101
 byte 1 0
 align 1
-LABELV $207
+LABELV $208
 byte 1 53
 byte 1 48
 byte 1 48
 byte 1 48
 byte 1 0
 align 1
-LABELV $206
+LABELV $207
 byte 1 103
 byte 1 95
 byte 1 102
@@ -16709,12 +17526,12 @@ byte 1 116
 byte 1 115
 byte 1 0
 align 1
-LABELV $205
+LABELV $206
 byte 1 42
 byte 1 32
 byte 1 0
 align 1
-LABELV $204
+LABELV $205
 byte 1 103
 byte 1 95
 byte 1 97
@@ -16731,7 +17548,7 @@ byte 1 105
 byte 1 120
 byte 1 0
 align 1
-LABELV $203
+LABELV $204
 byte 1 103
 byte 1 95
 byte 1 99
@@ -16750,7 +17567,7 @@ byte 1 105
 byte 1 120
 byte 1 0
 align 1
-LABELV $202
+LABELV $203
 byte 1 103
 byte 1 95
 byte 1 100
@@ -16773,7 +17590,7 @@ byte 1 101
 byte 1 115
 byte 1 0
 align 1
-LABELV $201
+LABELV $202
 byte 1 103
 byte 1 95
 byte 1 100
@@ -16793,7 +17610,7 @@ byte 1 101
 byte 1 115
 byte 1 0
 align 1
-LABELV $200
+LABELV $201
 byte 1 103
 byte 1 95
 byte 1 100
@@ -16815,7 +17632,7 @@ byte 1 110
 byte 1 116
 byte 1 0
 align 1
-LABELV $199
+LABELV $200
 byte 1 103
 byte 1 95
 byte 1 117
@@ -16828,7 +17645,7 @@ byte 1 101
 byte 1 100
 byte 1 0
 align 1
-LABELV $198
+LABELV $199
 byte 1 103
 byte 1 95
 byte 1 116
@@ -16854,7 +17671,7 @@ byte 1 103
 byte 1 115
 byte 1 0
 align 1
-LABELV $197
+LABELV $198
 byte 1 103
 byte 1 95
 byte 1 97
@@ -16868,6 +17685,31 @@ byte 1 97
 byte 1 103
 byte 1 101
 byte 1 51
+byte 1 84
+byte 1 104
+byte 1 114
+byte 1 101
+byte 1 115
+byte 1 104
+byte 1 111
+byte 1 108
+byte 1 100
+byte 1 0
+align 1
+LABELV $197
+byte 1 103
+byte 1 95
+byte 1 97
+byte 1 108
+byte 1 105
+byte 1 101
+byte 1 110
+byte 1 83
+byte 1 116
+byte 1 97
+byte 1 103
+byte 1 101
+byte 1 50
 byte 1 84
 byte 1 104
 byte 1 114
@@ -16887,21 +17729,14 @@ byte 1 108
 byte 1 105
 byte 1 101
 byte 1 110
+byte 1 77
+byte 1 97
+byte 1 120
 byte 1 83
 byte 1 116
 byte 1 97
 byte 1 103
 byte 1 101
-byte 1 50
-byte 1 84
-byte 1 104
-byte 1 114
-byte 1 101
-byte 1 115
-byte 1 104
-byte 1 111
-byte 1 108
-byte 1 100
 byte 1 0
 align 1
 LABELV $195
@@ -16912,14 +17747,11 @@ byte 1 108
 byte 1 105
 byte 1 101
 byte 1 110
-byte 1 77
-byte 1 97
-byte 1 120
-byte 1 83
-byte 1 116
-byte 1 97
-byte 1 103
-byte 1 101
+byte 1 75
+byte 1 105
+byte 1 108
+byte 1 108
+byte 1 115
 byte 1 0
 align 1
 LABELV $194
@@ -16930,31 +17762,16 @@ byte 1 108
 byte 1 105
 byte 1 101
 byte 1 110
-byte 1 75
-byte 1 105
-byte 1 108
-byte 1 108
-byte 1 115
+byte 1 83
+byte 1 116
+byte 1 97
+byte 1 103
+byte 1 101
 byte 1 0
 align 1
 LABELV $193
 byte 1 103
 byte 1 95
-byte 1 97
-byte 1 108
-byte 1 105
-byte 1 101
-byte 1 110
-byte 1 83
-byte 1 116
-byte 1 97
-byte 1 103
-byte 1 101
-byte 1 0
-align 1
-LABELV $192
-byte 1 103
-byte 1 95
 byte 1 104
 byte 1 117
 byte 1 109
@@ -16977,12 +17794,12 @@ byte 1 108
 byte 1 100
 byte 1 0
 align 1
-LABELV $191
+LABELV $192
 byte 1 51
 byte 1 53
 byte 1 0
 align 1
-LABELV $190
+LABELV $191
 byte 1 103
 byte 1 95
 byte 1 104
@@ -17007,11 +17824,11 @@ byte 1 108
 byte 1 100
 byte 1 0
 align 1
-LABELV $189
+LABELV $190
 byte 1 50
 byte 1 0
 align 1
-LABELV $188
+LABELV $189
 byte 1 103
 byte 1 95
 byte 1 104
@@ -17029,7 +17846,7 @@ byte 1 103
 byte 1 101
 byte 1 0
 align 1
-LABELV $187
+LABELV $188
 byte 1 103
 byte 1 95
 byte 1 104
@@ -17044,7 +17861,7 @@ byte 1 108
 byte 1 115
 byte 1 0
 align 1
-LABELV $186
+LABELV $187
 byte 1 103
 byte 1 95
 byte 1 104
@@ -17059,7 +17876,7 @@ byte 1 103
 byte 1 101
 byte 1 0
 align 1
-LABELV $185
+LABELV $186
 byte 1 103
 byte 1 95
 byte 1 97
@@ -17080,13 +17897,13 @@ byte 1 116
 byte 1 115
 byte 1 0
 align 1
-LABELV $184
+LABELV $185
 byte 1 49
 byte 1 52
 byte 1 48
 byte 1 0
 align 1
-LABELV $183
+LABELV $184
 byte 1 103
 byte 1 95
 byte 1 104
@@ -17107,7 +17924,7 @@ byte 1 116
 byte 1 115
 byte 1 0
 align 1
-LABELV $182
+LABELV $183
 byte 1 112
 byte 1 109
 byte 1 111
@@ -17120,7 +17937,7 @@ byte 1 101
 byte 1 99
 byte 1 0
 align 1
-LABELV $181
+LABELV $182
 byte 1 112
 byte 1 109
 byte 1 111
@@ -17134,7 +17951,7 @@ byte 1 101
 byte 1 100
 byte 1 0
 align 1
-LABELV $180
+LABELV $181
 byte 1 103
 byte 1 95
 byte 1 99
@@ -17158,7 +17975,7 @@ byte 1 99
 byte 1 101
 byte 1 0
 align 1
-LABELV $179
+LABELV $180
 byte 1 103
 byte 1 95
 byte 1 115
@@ -17176,7 +17993,7 @@ byte 1 116
 byte 1 115
 byte 1 0
 align 1
-LABELV $178
+LABELV $179
 byte 1 103
 byte 1 95
 byte 1 110
@@ -17196,7 +18013,7 @@ byte 1 108
 byte 1 100
 byte 1 0
 align 1
-LABELV $177
+LABELV $178
 byte 1 78
 byte 1 101
 byte 1 119
@@ -17206,7 +18023,7 @@ byte 1 101
 byte 1 35
 byte 1 0
 align 1
-LABELV $176
+LABELV $177
 byte 1 103
 byte 1 95
 byte 1 110
@@ -17227,7 +18044,7 @@ byte 1 105
 byte 1 120
 byte 1 0
 align 1
-LABELV $175
+LABELV $176
 byte 1 103
 byte 1 95
 byte 1 110
@@ -17247,7 +18064,7 @@ byte 1 110
 byte 1 103
 byte 1 0
 align 1
-LABELV $174
+LABELV $175
 byte 1 103
 byte 1 95
 byte 1 109
@@ -17266,7 +18083,7 @@ byte 1 101
 byte 1 115
 byte 1 0
 align 1
-LABELV $173
+LABELV $174
 byte 1 103
 byte 1 95
 byte 1 109
@@ -17290,13 +18107,13 @@ byte 1 111
 byte 1 100
 byte 1 0
 align 1
-LABELV $172
+LABELV $173
 byte 1 53
 byte 1 48
 byte 1 48
 byte 1 0
 align 1
-LABELV $171
+LABELV $172
 byte 1 103
 byte 1 95
 byte 1 109
@@ -17317,7 +18134,7 @@ byte 1 111
 byte 1 100
 byte 1 0
 align 1
-LABELV $170
+LABELV $171
 byte 1 103
 byte 1 95
 byte 1 108
@@ -17332,7 +18149,7 @@ byte 1 116
 byte 1 121
 byte 1 0
 align 1
-LABELV $169
+LABELV $170
 byte 1 103
 byte 1 95
 byte 1 100
@@ -17351,12 +18168,12 @@ byte 1 101
 byte 1 115
 byte 1 0
 align 1
-LABELV $168
+LABELV $169
 byte 1 53
 byte 1 48
 byte 1 0
 align 1
-LABELV $167
+LABELV $168
 byte 1 103
 byte 1 95
 byte 1 109
@@ -17376,13 +18193,13 @@ byte 1 110
 byte 1 116
 byte 1 0
 align 1
-LABELV $166
+LABELV $167
 byte 1 49
 byte 1 56
 byte 1 48
 byte 1 0
 align 1
-LABELV $165
+LABELV $166
 byte 1 103
 byte 1 95
 byte 1 115
@@ -17407,12 +18224,12 @@ byte 1 97
 byte 1 121
 byte 1 0
 align 1
-LABELV $164
+LABELV $165
 byte 1 55
 byte 1 52
 byte 1 0
 align 1
-LABELV $163
+LABELV $164
 byte 1 103
 byte 1 95
 byte 1 115
@@ -17439,13 +18256,13 @@ byte 1 110
 byte 1 116
 byte 1 0
 align 1
-LABELV $162
+LABELV $163
 byte 1 50
 byte 1 52
 byte 1 48
 byte 1 0
 align 1
-LABELV $161
+LABELV $162
 byte 1 103
 byte 1 95
 byte 1 109
@@ -17464,13 +18281,13 @@ byte 1 109
 byte 1 101
 byte 1 0
 align 1
-LABELV $160
+LABELV $161
 byte 1 49
 byte 1 50
 byte 1 48
 byte 1 0
 align 1
-LABELV $159
+LABELV $160
 byte 1 103
 byte 1 95
 byte 1 118
@@ -17486,7 +18303,7 @@ byte 1 109
 byte 1 101
 byte 1 0
 align 1
-LABELV $158
+LABELV $159
 byte 1 103
 byte 1 95
 byte 1 118
@@ -17500,7 +18317,7 @@ byte 1 105
 byte 1 116
 byte 1 0
 align 1
-LABELV $157
+LABELV $158
 byte 1 103
 byte 1 95
 byte 1 114
@@ -17523,7 +18340,7 @@ byte 1 110
 byte 1 115
 byte 1 0
 align 1
-LABELV $156
+LABELV $157
 byte 1 103
 byte 1 95
 byte 1 97
@@ -17537,12 +18354,12 @@ byte 1 116
 byte 1 101
 byte 1 0
 align 1
-LABELV $155
+LABELV $156
 byte 1 55
 byte 1 48
 byte 1 0
 align 1
-LABELV $154
+LABELV $155
 byte 1 103
 byte 1 95
 byte 1 112
@@ -17557,12 +18374,12 @@ byte 1 111
 byte 1 112
 byte 1 0
 align 1
-LABELV $153
+LABELV $154
 byte 1 56
 byte 1 48
 byte 1 0
 align 1
-LABELV $152
+LABELV $153
 byte 1 103
 byte 1 95
 byte 1 112
@@ -17577,7 +18394,7 @@ byte 1 115
 byte 1 116
 byte 1 0
 align 1
-LABELV $151
+LABELV $152
 byte 1 99
 byte 1 111
 byte 1 109
@@ -17589,7 +18406,7 @@ byte 1 111
 byte 1 100
 byte 1 0
 align 1
-LABELV $150
+LABELV $151
 byte 1 103
 byte 1 95
 byte 1 109
@@ -17598,7 +18415,7 @@ byte 1 116
 byte 1 100
 byte 1 0
 align 1
-LABELV $149
+LABELV $150
 byte 1 103
 byte 1 95
 byte 1 100
@@ -17613,7 +18430,7 @@ byte 1 111
 byte 1 99
 byte 1 0
 align 1
-LABELV $148
+LABELV $149
 byte 1 103
 byte 1 95
 byte 1 100
@@ -17629,7 +18446,7 @@ byte 1 103
 byte 1 101
 byte 1 0
 align 1
-LABELV $147
+LABELV $148
 byte 1 103
 byte 1 95
 byte 1 100
@@ -17643,7 +18460,7 @@ byte 1 118
 byte 1 101
 byte 1 0
 align 1
-LABELV $146
+LABELV $147
 byte 1 103
 byte 1 95
 byte 1 105
@@ -17658,7 +18475,7 @@ byte 1 116
 byte 1 121
 byte 1 0
 align 1
-LABELV $145
+LABELV $146
 byte 1 103
 byte 1 95
 byte 1 119
@@ -17680,11 +18497,11 @@ byte 1 119
 byte 1 110
 byte 1 0
 align 1
-LABELV $144
+LABELV $145
 byte 1 53
 byte 1 0
 align 1
-LABELV $143
+LABELV $144
 byte 1 103
 byte 1 95
 byte 1 119
@@ -17702,11 +18519,11 @@ byte 1 119
 byte 1 110
 byte 1 0
 align 1
-LABELV $142
+LABELV $143
 byte 1 51
 byte 1 0
 align 1
-LABELV $141
+LABELV $142
 byte 1 103
 byte 1 95
 byte 1 113
@@ -17721,14 +18538,14 @@ byte 1 111
 byte 1 114
 byte 1 0
 align 1
-LABELV $140
+LABELV $141
 byte 1 49
 byte 1 48
 byte 1 48
 byte 1 48
 byte 1 0
 align 1
-LABELV $139
+LABELV $140
 byte 1 103
 byte 1 95
 byte 1 107
@@ -17742,13 +18559,13 @@ byte 1 99
 byte 1 107
 byte 1 0
 align 1
-LABELV $138
+LABELV $139
 byte 1 56
 byte 1 48
 byte 1 48
 byte 1 0
 align 1
-LABELV $137
+LABELV $138
 byte 1 103
 byte 1 95
 byte 1 103
@@ -17760,13 +18577,13 @@ byte 1 116
 byte 1 121
 byte 1 0
 align 1
-LABELV $136
+LABELV $137
 byte 1 51
 byte 1 50
 byte 1 48
 byte 1 0
 align 1
-LABELV $135
+LABELV $136
 byte 1 103
 byte 1 95
 byte 1 115
@@ -17776,7 +18593,7 @@ byte 1 101
 byte 1 100
 byte 1 0
 align 1
-LABELV $134
+LABELV $135
 byte 1 100
 byte 1 101
 byte 1 100
@@ -17788,7 +18605,7 @@ byte 1 101
 byte 1 100
 byte 1 0
 align 1
-LABELV $133
+LABELV $134
 byte 1 103
 byte 1 95
 byte 1 110
@@ -17801,7 +18618,7 @@ byte 1 115
 byte 1 115
 byte 1 0
 align 1
-LABELV $132
+LABELV $133
 byte 1 103
 byte 1 95
 byte 1 102
@@ -17815,7 +18632,7 @@ byte 1 97
 byte 1 110
 byte 1 0
 align 1
-LABELV $131
+LABELV $132
 byte 1 103
 byte 1 95
 byte 1 98
@@ -17826,7 +18643,7 @@ byte 1 80
 byte 1 115
 byte 1 0
 align 1
-LABELV $130
+LABELV $131
 byte 1 103
 byte 1 95
 byte 1 112
@@ -17839,7 +18656,7 @@ byte 1 114
 byte 1 100
 byte 1 0
 align 1
-LABELV $129
+LABELV $130
 byte 1 103
 byte 1 95
 byte 1 108
@@ -17855,7 +18672,7 @@ byte 1 110
 byte 1 99
 byte 1 0
 align 1
-LABELV $128
+LABELV $129
 byte 1 103
 byte 1 97
 byte 1 109
@@ -17867,7 +18684,7 @@ byte 1 111
 byte 1 103
 byte 1 0
 align 1
-LABELV $127
+LABELV $128
 byte 1 103
 byte 1 95
 byte 1 108
@@ -17879,7 +18696,7 @@ byte 1 108
 byte 1 101
 byte 1 0
 align 1
-LABELV $126
+LABELV $127
 byte 1 103
 byte 1 95
 byte 1 100
@@ -17892,7 +18709,7 @@ byte 1 117
 byte 1 112
 byte 1 0
 align 1
-LABELV $125
+LABELV $126
 byte 1 103
 byte 1 95
 byte 1 119
@@ -17907,12 +18724,12 @@ byte 1 100
 byte 1 101
 byte 1 0
 align 1
-LABELV $124
+LABELV $125
 byte 1 49
 byte 1 48
 byte 1 0
 align 1
-LABELV $123
+LABELV $124
 byte 1 103
 byte 1 95
 byte 1 119
@@ -17923,7 +18740,7 @@ byte 1 117
 byte 1 112
 byte 1 0
 align 1
-LABELV $122
+LABELV $123
 byte 1 103
 byte 1 95
 byte 1 116
@@ -17944,7 +18761,7 @@ byte 1 99
 byte 1 101
 byte 1 0
 align 1
-LABELV $121
+LABELV $122
 byte 1 103
 byte 1 95
 byte 1 116
@@ -17961,7 +18778,7 @@ byte 1 105
 byte 1 110
 byte 1 0
 align 1
-LABELV $120
+LABELV $121
 byte 1 103
 byte 1 95
 byte 1 100
@@ -17983,7 +18800,7 @@ byte 1 109
 byte 1 103
 byte 1 0
 align 1
-LABELV $119
+LABELV $120
 byte 1 103
 byte 1 95
 byte 1 100
@@ -17999,11 +18816,11 @@ byte 1 111
 byte 1 100
 byte 1 0
 align 1
-LABELV $118
+LABELV $119
 byte 1 49
 byte 1 0
 align 1
-LABELV $117
+LABELV $118
 byte 1 103
 byte 1 95
 byte 1 102
@@ -18035,7 +18852,7 @@ byte 1 107
 byte 1 115
 byte 1 0
 align 1
-LABELV $116
+LABELV $117
 byte 1 103
 byte 1 95
 byte 1 102
@@ -18061,7 +18878,7 @@ byte 1 114
 byte 1 101
 byte 1 0
 align 1
-LABELV $115
+LABELV $116
 byte 1 103
 byte 1 95
 byte 1 114
@@ -18077,7 +18894,7 @@ byte 1 111
 byte 1 110
 byte 1 0
 align 1
-LABELV $114
+LABELV $115
 byte 1 103
 byte 1 95
 byte 1 102
@@ -18100,7 +18917,7 @@ byte 1 110
 byte 1 115
 byte 1 0
 align 1
-LABELV $113
+LABELV $114
 byte 1 103
 byte 1 95
 byte 1 102
@@ -18123,7 +18940,7 @@ byte 1 110
 byte 1 115
 byte 1 0
 align 1
-LABELV $112
+LABELV $113
 byte 1 103
 byte 1 95
 byte 1 102
@@ -18140,7 +18957,7 @@ byte 1 114
 byte 1 101
 byte 1 0
 align 1
-LABELV $111
+LABELV $112
 byte 1 103
 byte 1 95
 byte 1 115
@@ -18163,7 +18980,7 @@ byte 1 116
 byte 1 115
 byte 1 0
 align 1
-LABELV $110
+LABELV $111
 byte 1 103
 byte 1 95
 byte 1 115
@@ -18179,7 +18996,7 @@ byte 1 116
 byte 1 104
 byte 1 0
 align 1
-LABELV $109
+LABELV $110
 byte 1 103
 byte 1 95
 byte 1 115
@@ -18199,12 +19016,12 @@ byte 1 100
 byte 1 101
 byte 1 0
 align 1
-LABELV $108
+LABELV $109
 byte 1 51
 byte 1 48
 byte 1 0
 align 1
-LABELV $107
+LABELV $108
 byte 1 103
 byte 1 95
 byte 1 115
@@ -18224,12 +19041,12 @@ byte 1 109
 byte 1 101
 byte 1 0
 align 1
-LABELV $106
+LABELV $107
 byte 1 52
 byte 1 53
 byte 1 0
 align 1
-LABELV $105
+LABELV $106
 byte 1 116
 byte 1 105
 byte 1 109
@@ -18241,7 +19058,7 @@ byte 1 105
 byte 1 116
 byte 1 0
 align 1
-LABELV $104
+LABELV $105
 byte 1 103
 byte 1 95
 byte 1 109
@@ -18260,11 +19077,11 @@ byte 1 116
 byte 1 115
 byte 1 0
 align 1
-LABELV $103
+LABELV $104
 byte 1 56
 byte 1 0
 align 1
-LABELV $102
+LABELV $103
 byte 1 115
 byte 1 118
 byte 1 95
@@ -18280,7 +19097,7 @@ byte 1 116
 byte 1 115
 byte 1 0
 align 1
-LABELV $101
+LABELV $102
 byte 1 76
 byte 1 111
 byte 1 108
@@ -18316,17 +19133,17 @@ byte 1 51
 byte 1 44
 byte 1 32
 byte 1 50
-byte 1 50
-byte 1 58
-byte 1 52
-byte 1 52
-byte 1 58
 byte 1 51
-byte 1 52
+byte 1 58
+byte 1 50
+byte 1 54
+byte 1 58
+byte 1 50
+byte 1 54
 byte 1 41
 byte 1 0
 align 1
-LABELV $100
+LABELV $101
 byte 1 113
 byte 1 118
 byte 1 109
@@ -18340,19 +19157,19 @@ byte 1 111
 byte 1 110
 byte 1 0
 align 1
-LABELV $99
+LABELV $100
 byte 1 102
 byte 1 102
 byte 1 0
 align 1
-LABELV $98
+LABELV $99
 byte 1 80
 byte 1 0
 align 1
-LABELV $97
+LABELV $98
 byte 1 0
 align 1
-LABELV $96
+LABELV $97
 byte 1 115
 byte 1 118
 byte 1 95
@@ -18365,7 +19182,7 @@ byte 1 109
 byte 1 101
 byte 1 0
 align 1
-LABELV $95
+LABELV $96
 byte 1 103
 byte 1 95
 byte 1 108
@@ -18386,7 +19203,7 @@ byte 1 114
 byte 1 116
 byte 1 0
 align 1
-LABELV $94
+LABELV $95
 byte 1 103
 byte 1 95
 byte 1 114
@@ -18400,7 +19217,7 @@ byte 1 101
 byte 1 100
 byte 1 0
 align 1
-LABELV $93
+LABELV $94
 byte 1 65
 byte 1 112
 byte 1 114
@@ -18414,7 +19231,7 @@ byte 1 49
 byte 1 51
 byte 1 0
 align 1
-LABELV $92
+LABELV $93
 byte 1 103
 byte 1 97
 byte 1 109
@@ -18425,14 +19242,14 @@ byte 1 116
 byte 1 101
 byte 1 0
 align 1
-LABELV $91
+LABELV $92
 byte 1 98
 byte 1 97
 byte 1 115
 byte 1 101
 byte 1 0
 align 1
-LABELV $90
+LABELV $91
 byte 1 103
 byte 1 97
 byte 1 109
@@ -18443,11 +19260,11 @@ byte 1 109
 byte 1 101
 byte 1 0
 align 1
-LABELV $89
+LABELV $90
 byte 1 48
 byte 1 0
 align 1
-LABELV $88
+LABELV $89
 byte 1 115
 byte 1 118
 byte 1 95

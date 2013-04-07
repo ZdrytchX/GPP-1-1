@@ -658,6 +658,7 @@ void G_ChangeTeam( gentity_t *ent, pTeam_t newTeam )
 {
   pTeam_t oldTeam = ent->client->pers.teamSelection;
   qboolean isFixingImbalance=qfalse;
+  char    buf[ MAX_INFO_STRING ];
  
   if( oldTeam == newTeam )
     return;
@@ -753,6 +754,9 @@ void G_ChangeTeam( gentity_t *ent, pTeam_t newTeam )
   //update ClientInfo
   ClientUserinfoChanged( ent->client->ps.clientNum );
   G_CheckDBProtection( );
+  // log team changes to demo
+  Info_SetValueForKey( buf, "team", va( "%d", ent->client->pers.teamSelection ) );
+  G_DemoCommand( DC_CLIENT_SET, va( "%d %s", (int)(ent - g_entities), buf ) );
 }
 
 /*
@@ -807,6 +811,12 @@ void Cmd_Team_f( gentity_t *ent )
   
   if( !Q_stricmp( s, "spectate" ) )
     team = PTE_NONE;
+  else if( level.demoState == DS_PLAYBACK ) //ZdrytchX: I don't know where to put this, because 'if( !Q_stricmpn( s, "spec", 4 ) )' doesnt exist, this is close enough
+  {
+    trap_SendServerCommand( ent-g_entities, "print \"You cannot join a team "
+      "while a demo is being played\n\"" );
+    return;
+  }
   else if( !force && ent->client->pers.teamSelection == PTE_NONE &&
            g_maxGameClients.integer && level.numPlayingClients >=
            g_maxGameClients.integer )
@@ -1062,6 +1072,7 @@ void G_Say( gentity_t *ent, gentity_t *target, int mode, const char *chatText )
       Com_sprintf( name, sizeof( name ), "%s%s%c%c"EC": ", prefix,
                    ent->client->pers.netname, Q_COLOR_ESCAPE, COLOR_WHITE );
       color = COLOR_GREEN;
+      G_DemoCommand( DC_SERVER_COMMAND, va( "chat \"%s^2%s\"", name, chatText ) );
       break;
 
     case SAY_TEAM:
@@ -1077,6 +1088,7 @@ void G_Say( gentity_t *ent, gentity_t *target, int mode, const char *chatText )
         color = COLOR_YELLOW;
       else
         color = COLOR_CYAN;
+      G_DemoCommand( DC_SERVER_COMMAND, va( "tchat \"%s^%c%s\"", name, color, chatText ) );
       /* Bot responding to say code
        * removed for hackyness
        */
@@ -1117,12 +1129,16 @@ void G_Say( gentity_t *ent, gentity_t *target, int mode, const char *chatText )
     case SAY_TELL:
       if( target && OnSameTeam( target, ent ) &&
           Team_GetLocationMsg( ent, location, sizeof( location ) ) )
+      {
         Com_sprintf( name, sizeof( name ), EC"[%s%c%c"EC"] (%s)"EC": ",
           ent->client->pers.netname, Q_COLOR_ESCAPE, COLOR_WHITE, location );
-      else
+      }
+      else //zdrytchx: This wasn't here in the code i got the demoplayback thing from?
         Com_sprintf( name, sizeof( name ), EC"[%s%c%c"EC"]"EC": ",
           ent->client->pers.netname, Q_COLOR_ESCAPE, COLOR_WHITE );
       color = COLOR_MAGENTA;
+
+      G_DemoCommand( DC_SERVER_COMMAND, va( "chat \"%s%s\"", name, chatText ) );
       break;
       
     case SAY_ACTION:
@@ -1141,6 +1157,7 @@ void G_Say( gentity_t *ent, gentity_t *target, int mode, const char *chatText )
         Com_sprintf( name, sizeof( name ), EC"^5%s^7%s%c%c"EC""EC" ", g_actionPrefix.string, 
           ent->client->pers.netname, Q_COLOR_ESCAPE, COLOR_WHITE );
       color = COLOR_WHITE;
+      G_DemoCommand( DC_SERVER_COMMAND, va( "tchat \"%s%s\"", name, chatText ) );
       break;
       
       case SAY_ADMINS:
@@ -4204,11 +4221,11 @@ qboolean G_FollowNewClient( gentity_t *ent, int dir )
       continue;
 
     // can only follow connected clients
-    if( level.clients[ clientnum ].pers.connected != CON_CONNECTED )
+    if( level.clients[ clientnum ].pers.connected != CON_CONNECTED && !level.clients[ clientnum ].pers.demoClient )
       continue;
 
     // can't follow another spectator
-     if( level.clients[ clientnum ].pers.teamSelection == PTE_NONE )
+     if( level.clients[ clientnum ].pers.teamSelection == PTE_NONE && !level.clients[ clientnum ].pers.demoClient )
        continue;
      
       // can only follow teammates when dead and on a team

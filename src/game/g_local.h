@@ -518,6 +518,7 @@ typedef struct
   char                guid[ 33 ];
   char                ip[ 16 ];
   qboolean            muted;
+  qboolean            demoClient;
   qboolean            denyBuild;
   int                 adminLevel;
   char                adminName[ MAX_NETNAME ];
@@ -680,6 +681,14 @@ typedef struct damageRegion_s
 
   qboolean  crouch;
 } damageRegion_t;
+// demo commands
+typedef enum
+{
+   DC_SERVER_COMMAND = -1,
+   DC_CLIENT_SET = 0,
+   DC_CLIENT_REMOVE,
+   DC_SET_STAGE
+} demoCommand_t;
 
 #define MAX_ARMOUR_TEXT    8192
 #define MAX_ARMOUR_REGIONS 16
@@ -878,6 +887,8 @@ typedef struct
   int               lastTeamUnbalancedTime;
   int               numTeamWarnings;  
   int               lastMsgTime;
+
+  demoState_t       demoState;
   
   statsCounters_level alienStatsCounters;
   statsCounters_level humanStatsCounters;
@@ -1223,6 +1234,7 @@ void QDECL G_Error( const char *fmt, ... );
 void CheckVote( void );
 void CheckTeamVote( int teamnum );
 void LogExit( const char *string );
+void G_DemoCommand( demoCommand_t cmd, const char *string );
 int  G_TimeTilSuddenDeath( void );
 void CheckMsgTimer( void );
 qboolean G_Flood_Limited( gentity_t *ent );
@@ -1640,6 +1652,7 @@ qboolean  trap_GetEntityToken( char *buffer, int bufferSize );
 
 void      trap_SnapVector( float *v );
 void      trap_SendGameStat( const char *data );
+void      trap_DemoCommand( demoCommand_t cmd, const char *string );
 
 gentity_t *spawnnode( gentity_t *self, long id );
 void nodethink(gentity_t *ent);

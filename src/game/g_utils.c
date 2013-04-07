@@ -168,6 +168,7 @@ void G_TeamCommand( pTeam_t team, char *cmd )
         trap_SendServerCommand( i, cmd );
     }
   }
+  G_DemoCommand( DC_SERVER_COMMAND, cmd );
 }
 
 
