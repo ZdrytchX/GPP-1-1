@@ -490,11 +490,29 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3AHAHAHA!/^2C'est Moi ^1> ^1Vous")
   // broadcast the death event to everyone
   if( !tk )
   {
+/*
     ent = G_TempEntity( self->r.currentOrigin, EV_OBITUARY );
     ent->s.eventParm = meansOfDeath;
     ent->s.otherEntityNum = self->s.number;
     ent->s.otherEntityNum2 = killer;
     ent->r.svFlags = SVF_BROADCAST; // send to everyone
+*/
+    if ( meansOfDeath == MOD_LEVEL2_CLAW )
+    {
+      trap_SendServerCommand( -1, va( "print \"%s^7 bit off %s^7's face\n\"", attacker->client->pers.netname, self->client->pers.netname ) );
+    }
+    else if ( meansOfDeath == MOD_TARGET_LASER )
+    {
+      trap_SendServerCommand( -1, va( "print \"%s^7's vicious energy slug blew %s^7 off his feet\n\"", attacker->client->pers.netname, self->client->pers.netname ) );
+    }
+    else
+    {
+      ent = G_TempEntity( self->r.currentOrigin, EV_OBITUARY );
+      ent->s.eventParm = meansOfDeath;
+      ent->s.otherEntityNum = self->s.number;
+      ent->s.otherEntityNum2 = killer;
+      ent->r.svFlags = SVF_BROADCAST; // send to everyone
+    }
   }
   else if( attacker && attacker->client )
   {
