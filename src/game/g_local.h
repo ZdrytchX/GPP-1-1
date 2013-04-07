@@ -1603,6 +1603,7 @@ extern  vmCvar_t  g_bot_dodge_crouch;
 extern  vmCvar_t  g_bot_ping;
 extern  vmCvar_t  g_teamStatus;
 extern  vmCvar_t  g_teamStatusTime;
+extern  vmCvar_t  g_allowBlackInNames;
 
 void      trap_Printf( const char *fmt );
 void      trap_Error( const char *fmt );
