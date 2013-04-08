@@ -3912,6 +3912,8 @@ void Cmd_TeamStatus_f( gentity_t *ent )
         continue;
       if( tmp->client->pers.teamSelection == PTE_NONE )
         continue;
+      if( tmp->client->sess.spectatorState == SPECTATOR_FOLLOW )
+        continue;
       if( tmp->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_BUILDER0 ||
           tmp->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_BUILDER0_UPG )
         builders++;
