@@ -256,11 +256,11 @@ vmCvar_t  g_strip_StructDmgPrcnt;
 vmCvar_t  g_strip_StructDmgPrcnt_def;
 vmCvar_t  g_connectedStripPrcnt;
 //ZdrytchX
-vmCvar_t  g_vampiremode;
+vmCvar_t  g_vampiremode;//TODO
 vmCvar_t  g_vampirebuildables;
 vmCvar_t  g_vampirebuildables_take;
-vmCvar_t  g_bunnyhop;//not yet m8
-vmCvar_t  g_weapswitchtime;
+vmCvar_t  g_bunnyhop;//TODO
+vmCvar_t  g_weapswitchtime;//TODO
 vmCvar_t  g_blaster_ammoregen;
 vmCvar_t  g_bot_granger;
 vmCvar_t  g_bot_dodge_jump;
@@ -272,6 +272,7 @@ vmCvar_t  g_demoState;
 vmCvar_t  g_allowBlackInNames;
 vmCvar_t  g_killingSpree;
 vmCvar_t  g_feedingSpree;
+vmCvar_t  g_minDeconLevel;
 
 static cvarTable_t   gameCvarTable[ ] =
 {
@@ -532,6 +533,7 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_allowBlackInNames, "g_allowBlackInNames",                 "1", CVAR_ARCHIVE,                          0, qfalse },
   { &g_killingSpree, "g_killingSpree",                           "5", CVAR_ARCHIVE,                          0, qfalse  },
   { &g_feedingSpree, "g_feedingSpree",                           "5", CVAR_ARCHIVE,                          0, qfalse  },
+  { &g_minDeconLevel, "g_minDeconLevel",                         "0", CVAR_ARCHIVE,                          0, qfalse },
 };
 
 static int gameCvarTableSize = sizeof( gameCvarTable ) / sizeof( gameCvarTable[ 0 ] );

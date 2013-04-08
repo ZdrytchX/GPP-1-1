@@ -2940,6 +2940,13 @@ void Cmd_Destroy_f( gentity_t *ent )
     return;
   }
 
+  if( G_admin_level( ent ) < g_minDeconLevel.integer )
+  {
+    trap_SendServerCommand( ent-g_entities,
+      "print \"You do not have deconstruction rights.\n\"" );
+    return;
+  }
+
   trap_Argv( 0, cmd, sizeof( cmd ) );
   if( Q_stricmp( cmd, "destroy" ) == 0 )
     deconstruct = qfalse;
@@ -3661,6 +3668,13 @@ void Cmd_Build_f( gentity_t *ent )
   {
     trap_SendServerCommand( ent-g_entities,
       "print \"Your building rights have been revoked\n\"" );
+    return;
+  }
+
+  if( G_admin_level( ent ) < g_minDeconLevel.integer )
+  {
+    trap_SendServerCommand( ent-g_entities,
+      "print \"You do not have deconstruction rights.\n\"" );
     return;
   }
 
