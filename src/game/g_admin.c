@@ -562,7 +562,7 @@ qboolean G_admin_name_check( gentity_t *ent, char *name, char *err, int len )
 
   for( i = 0; i < MAX_ADMIN_ADMINS && g_admin_admins[ i ]; i++ )
   {
-    if( g_admin_admins[ i ]->level < 1 )
+    if( g_admin_admins[ i ]->level == 0 )
       continue;
     G_SanitiseString( g_admin_admins[ i ]->name, testName, sizeof( testName) );
     if( !Q_stricmp( name2, testName ) &&
@@ -1162,7 +1162,7 @@ static int admin_listadmins( gentity_t *ent, int start, char *search, int minlev
 
   for( i = start; i < MAX_ADMIN_ADMINS && g_admin_admins[ i ]
     && drawn < MAX_ADMIN_LISTITEMS; i++ )
-   if( g_admin_admins[ i ]->level >= minlevel ) 
+   if( g_admin_admins[ i ]->level != 0 && g_admin_admins[ i ]->level >= minlevel )
    {
      if( search[ 0 ] )
      {
@@ -4579,27 +4579,27 @@ qboolean G_admin_listadmins( gentity_t *ent, int skiparg )
   int start = 0;
   qboolean numeric = qtrue;
   int drawn = 0;
-  int minlevel = 1;
+  int minlevel = -9;
 
   if( G_SayArgc() == 3 + skiparg )
   {
     G_SayArgv( 2 + skiparg, s, sizeof( s ) );
-    if( s[ 0 ] >= '0' && s[ 0] <= '9' )
+    if( ( s[ 0 ] >= '0' || s[ 0 ] == '-' && s[ 1 ] >= '0' ) && s[ 0 ] <= '9' )
     {
       minlevel = atoi( s );
-      if( minlevel < 1 ) 
-       minlevel = 1;
+      if( minlevel < 9 ) 
+       minlevel = 9;
     }
   }
 
   for( i = 0; i < MAX_ADMIN_ADMINS && g_admin_admins[ i ]; i++ )
   {
-    if( g_admin_admins[ i ]->level >= minlevel )
+    if( g_admin_admins[ i ]->level != 0 && g_admin_admins[ i ]->level >= minlevel )
       found++;
   }
   if( !found )
   {
-    if( minlevel > 1 )
+    if( minlevel >= -9 )
     {
       ADMP( va( "^3!listadmins: ^7no admins level %i or greater found\n", minlevel ) );
     }
@@ -4615,7 +4615,7 @@ qboolean G_admin_listadmins( gentity_t *ent, int skiparg )
     G_SayArgv( 1 + skiparg, s, sizeof( s ) );
     for( i = 0; i < sizeof( s ) && s[ i ]; i++ )
     {
-      if( s[ i ] >= '0' && s[ i ] <= '9' )
+      if( ( s[ 0 ] >= '0' || s[ 0 ] == '-' && s[ 1 ] >= '0' ) && s[ 0 ] <= '9' )
         continue;
       numeric = qfalse; 
     }
