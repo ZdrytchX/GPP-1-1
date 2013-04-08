@@ -434,8 +434,8 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
     if( attacker->client )
     {
       //make bot say its line
-      if(attacker->r.svFlags & SVF_BOT && !( self->r.svFlags & SVF_BOT) && rand() % 9 <= 3 && attacker->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM] && !self->client->pers.muted )
-G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3AHAHAHA!/^2C'est Moi ^1> ^1Vous");
+      if(attacker->r.svFlags & SVF_BOT && !( self->r.svFlags & SVF_BOT) && rand() % 9 <= 3 && attacker->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM] && !self->client->pers.muted && ( attacker->client->ps.stats[STAT_HEALTH] > attacker->client->ps.stats[STAT_MAX_HEALTH] * 0.3) )
+G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next?");
 
       killerName = attacker->client->pers.netname;
       tk = ( attacker != self && attacker->client->ps.stats[ STAT_PTEAM ] 
@@ -892,7 +892,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
     {
       self->client->respawnTime += 100 * (self->client->pers.statscounters.spreefeeds - maxfeed );
       trap_SendServerCommand( self->client->ps.clientNum,
-        va( "print \"You are on a feeding spree! respawn delayed %d seconds\n\"",
+        va( "print \"You are on a feeding spree! Respawn delayed %d seconds\n\"",
         (self->client->respawnTime - level.time) / 1000 ) );
     }
   }

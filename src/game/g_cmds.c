@@ -3925,9 +3925,11 @@ void Cmd_TeamStatus_f( gentity_t *ent )
       if( tmp->s.modelindex == BA_A_BOOSTER )
         boost++;
     }
-
-    G_Say( ent, NULL, SAY_TEAM, va( "^5OM: %s(%d) ^5Eggs: %s%i ^5Builders: %s%i ^5Boosters: %s%i^7",
+ //ZdrytchX: The %/ gives a "unknown format" error in the compiler
+    G_Say( ent, NULL, SAY_TEAM, va( "^5OM: %s[%d/%d(%d)] ^5Eggs: %s%i ^5Grangers: %s%i ^5Boosters: %s%i^7",
       ( omrc <= 0 ) ? "^1Down" : ( omrcbuild ) ? "^2Up" : "^3Building",
+      ( omrc > 0 ) ? omrc : 0,
+      OVERMIND_HEALTH,
       ( omrc > 0 ) ? omrc * 100 / OVERMIND_HEALTH : 0,
       ( level.numAlienSpawns <= 0 ) ? "^1" : "^2",
       level.numAlienSpawns,
@@ -3985,8 +3987,10 @@ void Cmd_TeamStatus_f( gentity_t *ent )
         medi++;
     }
 
-    G_Say( ent, NULL, SAY_TEAM, va( "^5RC: %s(%d) ^5Telenodes: %s%i ^5Builders: %s%i ^5Armouries: %s%i ^5Medistations: %s%i^7",
+    G_Say( ent, NULL, SAY_TEAM, va( "^5RC: %s[%d/%d(%d)] ^5Telenodes: %s%i ^5Builders: %s%i ^5Armouries: %s%i ^5Medistations: %s%i^7",
       ( omrc <= 0 ) ? "^1Down" : ( omrcbuild ) ? "^2Up" : "^3Building",
+      ( omrc > 0 ) ? omrc : 0,
+      REACTOR_HEALTH,
       ( omrc > 0 ) ? omrc * 100 / REACTOR_HEALTH : 0,
       ( level.numHumanSpawns <= 0 ) ? "^1" : "^2",
       level.numHumanSpawns,
@@ -4011,9 +4015,9 @@ void Cmd_MyStats_f( gentity_t *ent )
    if(!ent) return;
 
 
-   if( !level.intermissiontime && ent->client->pers.statscounters.timeLastViewed && (level.time - ent->client->pers.statscounters.timeLastViewed) <60000 ) 
+   if( !level.intermissiontime && ent->client->pers.statscounters.timeLastViewed && (level.time - ent->client->pers.statscounters.timeLastViewed) <10000 ) 
    {   
-     ADMP( "You may only check your stats once per minute and during intermission.\n");
+     ADMP( "You may only check your stats once every ten seconds and during intermission.\n");
      return;
    }
    
@@ -4059,7 +4063,7 @@ char *G_statsString( statsCounters_t *sc, pTeam_t *pt )
     if( sc->hitslocational )
       percentHeadshots = (int)(100 * (float) sc->headshots / ((float) (sc->hitslocational) ) );
     
-    s = va( "^3Kills:^7 %3i ^3StructKills:^7 %3i ^3Assists:^7 %3i^7 ^3Poisons:^7 %3i ^3Headshots:^7 %3i (%3i)\n^3Deaths:^7 %3i ^3Feeds:^7 %3i ^3Suicides:^7 %3i ^3TKs:^7 %3i ^3Avg Lifespan:^7 %4d:%02d\n^3Damage to:^7 ^3Enemies:^7 %5i ^3Structs:^7 %5i ^3Friendlies:^7 %3i \n^3Structs Built:^7 %3i ^3Time Near Base:^7 %3i ^3Time wallwalking:^7 %3i\n",
+    s = va( "^3Kills:^7 %3i ^3StructKills:^7 %3i ^3Assists:^7 %3i^7 ^3Poisons:^7 %3i ^3Headshots:^7 %3i (%3i)\n^3Deaths:^7 %3i ^3Feeds:^1 %3i ^3Suicides:^7 %3i ^3Team Kills:^1 %3i ^3Avg Lifespan:^7 %4d:%02d\n^3Damage to:^7 ^3Enemies:^7 %5i ^3Structs:^7 %5i ^3Friendlies:^1 %3i \n^3Structs Built:^7 %3i ^3Time Near Base:^7 %3i ^3Time wallwalking:^7 %3i\n",
      sc->kills,
      sc->structskilled,
      sc->assists,
@@ -4084,7 +4088,7 @@ char *G_statsString( statsCounters_t *sc, pTeam_t *pt )
   {
     if( sc->timealive )
      percentJetpackWallwalk = (int)(100 *  (float) sc->jetpackusewallwalkusetime / ((float) ( sc->timealive ) ) );
-    s = va( "^3Kills:^7 %3i ^3StructKills:^7 %3i ^3Assists:^7 %3i \n^3Deaths:^7 %3i ^3Feeds:^7 %3i ^3Suicides:^7 %3i ^3TKs:^7 %3i ^3Avg Lifespan:^7 %4d:%02d\n^3Damage to:^7 ^3Enemies:^7 %5i ^3Structs:^7 %5i ^3Friendlies:^7 %3i \n^3Structs Built:^7 %3i ^3Repairs:^7 %4i ^3Time Near Base:^7 %3i ^3Time Jetpacking:^7 %3i\n",
+    s = va( "^3Kills:^7 %3i ^3StructKills:^7 %3i ^3Assists:^7 %3i \n^3Deaths:^7 %3i ^3Feeds:^1 %3i ^3Suicides:^7 %3i ^3Team Kills:^1 %3i ^3Avg Lifespan:^7 %4d:%02d\n^3Damage to:^7 ^3Enemies:^7 %5i ^3Structs:^7 %5i ^3Friendlies:^1 %3i \n^3Structs Built:^7 %3i ^3Repairs:^7 %4i ^3Time Near Base:^7 %3i ^3Time Jetpacking:^7 %3i\n",
      sc->kills,
      sc->structskilled,
      sc->assists,
