@@ -1,12 +1,12 @@
   ____      ____     ___              __         __    
- /    \    | __ \   | __ \           /  |       /  |   
+ / ___\    | __ \   | __ \           /  |       /  |   
 | /   _    |  __/   |  __/   ____     | |        | |  
-| |__| |   | |      | |     |____|   _| |_      _| |_ 
- \____/    |_|      |_|             |_____| () |_____|
+| |__| |   | |      | |     |____|   _| |_   _  _| |_ 
+ \____/    |_|      |_|             |_____| (_)|_____|
          _      ____    ____   __    _      _
         / \    | __ \  |  __| |  \  | |    / \
        / ^ \   |    /  |  \   |   \ | |   / ^ \
-      / /-\ \  | |\ \  |  /_  | |\ \| |  / /-\ \
+      / /=\ \  | |\ \  |  /_  | |\ \| |  / /=\ \
      /_/   \_\ |_| \_\ |____| |_| \___| /_/   \_\
 *This qvm is "sort of" in active developement. If you have requests, feel free to do so here or email me at my youtube channel
 youtube.com/user/zdrytchx
@@ -57,7 +57,7 @@ Also, thanks /dev/humancontroller for debugging and Volt for helping me start mo
 -Bot Lcannon charges 2.5s rather than original 2
 -Bots now don't sit in the same spot when killing a structure
 -Maras aren't so bloody overpowered
--
+-Bots jump and crouch dodge (FUGEEEEH! They're really good!)
 
 GPP-1.1 Gameplay "Features":
 -Lil' Gwangie has his cutie tusks available in combat
@@ -105,15 +105,33 @@ GPP-1.1 Gameplay "Features":
 -Zap initialising range 300 -> 200
 -Zap "Sustaining" range 300 -> 400
 -Blaster Combos available to use, but blaster has recharge time if spammed
+-Blaster Combos actually do more damage per second if done properly with a shotgun or mass driver
 -Cvars for *some* vars
 -Other shit
+
+Irregular Features that are actually 'bugs' but plan on keeping:
+-Lcannon can now auto-fire primary shots with primary and tertiary buttons on (wastes ammo quickly, does less damage per bullet, but deals damage fast)
+
+Imported from Sixthly's Aussie Assault 1.1:
+
+-By default, level-1s cannot decon (g_minDeconLevel = 0)
+-Black names are allowed (g_allowBlackInNames)
+-/Teamstatus (g_teamStatus) i.e. RC:[465/930(50)] Telenodes: 2 Builders: 1 Armoury: 1 Medistation: 2
+-Aliens can evolve near overminds even with enemies nearby
+-A short time is given where the player can attack quickly, such as the rifle can do 3-shot bursts by tapping the mouse button, this applies to all weapons, including aliens
 
 Potential Side Effects/bugs from features:
 -Some clients on rare occasions can be "bot infected" (not literally, just a term where his client takes over a bot's and the bot tries to control him when he's lagging) although this bug has not been seen for over half a year
 >>>Potential Cause: Adding bots while clients connect [TODO: Refer to CoW QVM]
 -With alien's smooth regeneration system, the server MAY take more CPU (not confirmed)(A fix has been made to heal up to 4 hp per server frame)
+-Bots 'crouch dance' every 1.2 seconds or so intervals when taking a walk (not in combat) (Still trying to find the cause, I can't find anything related to when I initiated the bot crouch/jump combat dance)
+-*Adv Basi bots don't swipe for some reason, could be linked to the fact they now idle when grabbing
 
-TODO:
+TODO list:
 -Find out how to get cvars to access pmove and related files (bunnyhop, rampjump option, knockback cvars etc.)
 -define player positions for advance bot aiming -> add mdriver aiming ahead
 -Upgrade to "new" CoW bots system
+-*Fix basilisk bots' ai, this really bothers me for some reason
+-Fix the bot's 'rythmetic crouch dance' when walking (not in combat)
+-Fix Shotgun + Battpack 12-clip load (Lolards application somewhere...)
+-Allow bots to buy bsuit without raping the armoury, and have the model convert

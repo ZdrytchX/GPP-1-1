@@ -1282,6 +1282,7 @@ import trap_RealTime
 import trap_Milliseconds
 import trap_Error
 import trap_Printf
+import g_minDeconLevel
 import g_allowBlackInNames
 import g_teamStatusTime
 import g_teamStatus

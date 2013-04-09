@@ -4352,7 +4352,7 @@ upgradeAttributes_t bg_upgrades[ ] =
     UP_BATTLESUIT,          //int   upgradeNum;
     BSUIT_PRICE,            //int   price;
     ( 1 << S3 ),            //int  stages
-    0,                      //int  nakedStages
+    ( 1 << S3 ),            //int  nakedStages
     SLOT_HEAD|SLOT_TORSO|SLOT_LEGS|SLOT_BACKPACK, //int   slots;
     "bsuit",                //char  *upgradeName;
     "Battlesuit",           //char  *upgradeHumanName;

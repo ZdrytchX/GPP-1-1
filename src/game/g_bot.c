@@ -424,7 +424,7 @@ void G_BotSearchForGoal(gentity_t *self, usercmd_t *botCmdBuffer) {
                 self->botMind->timeFoundNode = level.time;
             }
         }
-        else if( level.time - self->botMind->timeFoundNode > 10000 ) {
+        else if( level.time - self->botMind->timeFoundNode > 6000 ) {
             self->botMind->state = FINDNEWNODE;
             self->botMind->timeFoundNode = level.time;
         }
@@ -451,7 +451,7 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
     else
         botSlowAim(self, tmpVec, self->botMind->botSkill.aimSlowness, &tmpVec);
     
-    if(getTargetType(target) != ET_BUILDABLE && targetIsEntity(target)) {
+    if(getTargetType(target) != ET_BUILDABLE && targetIsEntity(target) && (self->client->time1000 % 150) >= 50 ) {
         botShakeAim(self, &tmpVec);
     }
     
@@ -610,10 +610,14 @@ void G_BotHeal(gentity_t *self, usercmd_t *botCmdBuffer) {
 void G_BotBuy(gentity_t *self, usercmd_t *botCmdBuffer) {
     vec3_t targetPos;
     int i;
+
+//    char      buffer[ MAX_QPATH ]; //ZdrytchX: For bot bsuits [test]
+
     getTargetPos(self->botMind->goal, &targetPos);
-    if(DistanceSquared(self->s.pos.trBase, targetPos) > Square(100))
+    if(DistanceSquared(self->s.pos.trBase, targetPos) > Square(150))
         G_BotMoveDirectlyToGoal(self, botCmdBuffer);
     else {
+        int res;
         // sell current weapon
         for( i = WP_NONE + 1; i < WP_NUM_WEAPONS; i++ )
         {
@@ -630,26 +634,59 @@ void G_BotBuy(gentity_t *self, usercmd_t *botCmdBuffer) {
             if( i == self->client->ps.weapon )
                 G_ForceWeaponChange( self, WP_NONE );
         }
+//Zdrytchx: Testing
+        // sell upgrades
+        for( i =  UP_NONE + 1; i <   UP_NUM_UPGRADES; i++ )
+        {
+            if( BG_InventoryContainsUpgrade( i, self->client->ps.stats ) &&
+                 BG_FindPurchasableForUpgrade( i ) )
+            {
+                BG_RemoveUpgradeFromInventory( i, self->client->ps.stats );
+                
+                //add to funds
+                G_AddCreditToClient( self->client, (short)BG_FindPriceForUpgrade( i ), qfalse );
+            }
+        }
         //try to buy helmet/lightarmour //not bsuit because humans glitch //UP_BATTLESUIT - retry
-//        if( !G_BotBuyUpgrade( self, UP_BATTLESUIT) ){
+/*
         G_BotBuyUpgrade( self, UP_HELMET);
         G_BotBuyUpgrade( self, UP_LIGHTARMOUR);
+*/
+//Bsuits dont wear visual bsuits
+//        if( !G_BotBuyUpgrade( self, UP_BATTLESUIT) )//buy ordinary armour
+//	{
+//            G_BotBuyUpgrade( self, UP_HELMET);
+//            G_BotBuyUpgrade( self, UP_LIGHTARMOUR);
 //	}
+//This part causes them to buy-spam
+/*
+        if( BG_InventoryContainsUpgrade( UP_BATTLESUIT, self->client->ps.stats )  ) //set model
+        {
+    Com_sprintf( buffer, MAX_QPATH, "%s/%s",  BG_FindModelNameForClass( PCL_HUMAN_BSUIT ),
+                                              BG_FindSkinNameForClass( PCL_HUMAN_BSUIT ) );
+        }
+*/
+        G_BotBuyUpgrade( self, UP_MEDKIT); //allways have a medkit stored somewhere
         
         // buy most expensive first, then one cheaper, etc, dirty but working way
-//      if( !G_BotBuyWeapon( self, WP_LOCKBLOB_LAUNCHER ) )
         if( !G_BotBuyWeapon( self, WP_LUCIFER_CANNON ) )
-            if( !G_BotBuyWeapon( self, WP_PULSE_RIFLE ) )
-                if( !G_BotBuyWeapon( self, WP_FLAMER ) )
-                      if( !G_BotBuyWeapon( self, WP_CHAINGUN ) ) //Shifted back
-                 	  if( !G_BotBuyWeapon( self, WP_MASS_DRIVER ) )
+//            if( !G_BotBuyWeapon( self, WP_PULSE_RIFLE ) )
+            res = (random()>0.5) ? G_BotBuyWeapon( self, WP_PULSE_RIFLE ) : G_BotBuyWeapon( self, WP_FLAMER );
+               if(!res) {
+//                if( !G_BotBuyWeapon( self, WP_FLAMER ) )
+//                      if( !G_BotBuyWeapon( self, WP_CHAINGUN ) ) //Shifted back
+  //               	  if( !G_BotBuyWeapon( self, WP_MASS_DRIVER ) )
+                  res = (random()>0.5) ? G_BotBuyWeapon( self, WP_CHAINGUN  ) : G_BotBuyWeapon( self, WP_MASS_DRIVER );
+                     if(!res) {
                             if( !G_BotBuyWeapon( self, WP_LAS_GUN ) )
                                 if( !G_BotBuyWeapon( self, WP_SHOTGUN ) )
                                     if( !G_BotBuyWeapon( self, WP_PAIN_SAW ) )
                                         G_BotBuyWeapon( self, WP_MACHINEGUN );
+                              } //probability x:y ripped from evolution code
+                         }
                                     
         //buy ammo/batpack
-        if( BG_FindUsesEnergyForWeapon( self->client->ps.weapon )) {
+        if( BG_FindUsesEnergyForWeapon( self->client->ps.weapon ) && !BG_InventoryContainsUpgrade( UP_BATTLESUIT, self->client->ps.stats )) { //TODO: add check for bsuit
             G_BotBuyUpgrade( self, UP_BATTPACK );
         }else {
             G_BotBuyUpgrade( self, UP_AMMO );
@@ -769,7 +806,7 @@ void G_BotReactToEnemy(gentity_t *self, usercmd_t *botCmdBuffer) {
 	{
                 botFireWeapon(self, botCmdBuffer);
 		//dodge while going head-on from a far distance
-            if(DistanceSquared( muzzle, targetPos ) > 100)
+            if(DistanceSquared( muzzle, targetPos ) > 150)
 		{
 			G_BotDodge(self,botCmdBuffer);
 		}
@@ -835,10 +872,10 @@ qboolean botTargetInAttackRange(gentity_t *self, botTarget_t target) {
     targetMax = VectorLengthSquared(targetMaxs);
     myMax = VectorLengthSquared(myMaxs);
     
-//note: Grangers do not spawn. If you want them to spawn, put them on the bot spawn menu.
+//note: Grangers spawn only if g_bot_granger is on. Automatically uses adv granger at s2/3.
     switch(self->s.weapon) {
         case WP_ABUILD:
-            range = ABUILDER_CLAW_RANGE; //poor granger :( //Granger now has swipe
+            range = ABUILDER_CLAW_RANGE; //Granger now has swipe
             secondaryRange = 0;
             break;
         case WP_ABUILD2:
@@ -862,7 +899,7 @@ qboolean botTargetInAttackRange(gentity_t *self, botTarget_t target) {
             secondaryRange = 0;
             break;
         case WP_ALEVEL2_UPG:
-            range = LEVEL2_CLAW_RANGE*1.0; //Get it to miss occasionally by changing this to 1.5
+            range = LEVEL2_CLAW_RANGE*1.5; //Get it to miss occasionally by changing this to 1.5
             secondaryRange = LEVEL2_AREAZAP_RANGE*1.0;
             break;
         case WP_ALEVEL3:
@@ -906,8 +943,8 @@ qboolean botTargetInAttackRange(gentity_t *self, botTarget_t target) {
             secondaryRange = (100 * 8192)/CHAINGUN_SPREAD;
 	    break;
         case WP_LUCIFER_CANNON:
-            secondaryRange = 1000;
-            range = 2000; //not too far
+            range = 900;
+            secondaryRange = 2000;
             break;
         default:
             range = 4098 * 4; //large range for guns because guns have large ranges :)
@@ -953,7 +990,10 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
         switch(self->client->ps.stats[STAT_PCLASS]) {
             case PCL_ALIEN_BUILDER0:
                 if(distance < Square(ABUILDER_CLAW_RANGE))
+                {
                     botCmdBuffer->buttons |= BUTTON_ATTACK2; //Attack!
+                    botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
+                }
                 else
                 botCmdBuffer->buttons |= BUTTON_GESTURE; //poor  grangie; taunt like you mean it!
                 break;
@@ -962,41 +1002,74 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                     botCmdBuffer->buttons |= BUTTON_ATTACK2;
                 else
                     botCmdBuffer->buttons |= BUTTON_USE_HOLDABLE;
+
+                    botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
+                botCmdBuffer->buttons |= BUTTON_GESTURE; //poor  grangie; taunt like you mean it!
                 break;
             case PCL_ALIEN_LEVEL0:
-                if((distance < Square(100)) && (distance > Square(350)) && (self->client->time1000 % 500 == 0))
+                if((distance < Square(200)) && (distance > Square(450)) && (self->client->time1000 % 500 == 0))
                     botCmdBuffer->upmove = 20; //jump when getting close
-                    botCmdBuffer->buttons |= BUTTON_ATTACK; //aka do nothing
+                    //botCmdBuffer->buttons |= BUTTON_ATTACK; //aka do nothing
+                    botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
+                botCmdBuffer->buttons |= BUTTON_GESTURE;
                 break;
             case PCL_ALIEN_LEVEL1:
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
+                if(distance < Square(LEVEL1_GRAB_RANGE * 0.8))
+                   {
+		    botCmdBuffer->forwardmove = 0;
+//		    botCmdBuffer->rightmove = 0; //Can't tell if we're behind him yet, just keep strafing and swiping
+                   }
+                if(distance < Square(LEVEL1_GRAB_RANGE * 0.5))
+                   {
+		    botCmdBuffer->forwardmove = 0;
+		    botCmdBuffer->rightmove = 0; //To add a degree of variance and to imrove close-range grabs, just dont move
+                   }
                 break;
             case PCL_ALIEN_LEVEL1_UPG:
-                if(distance <= Square(LEVEL1_CLAW_RANGE))
-                    botCmdBuffer->buttons |= BUTTON_ATTACK * 2;
+                if(distance <= Square(LEVEL1_CLAW_RANGE * 2))
+                    botCmdBuffer->buttons |= BUTTON_ATTACK;
                 else
                     botCmdBuffer->buttons |= BUTTON_ATTACK2; //gas
+                if(distance < Square(LEVEL1_GRAB_RANGE * 0.8))
+                   {
+                    botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
+		    botCmdBuffer->forwardmove = 0;
+                   }
+                if(distance < Square(LEVEL1_GRAB_RANGE * 0.5))
+                   {
+		    botCmdBuffer->forwardmove = 0;
+		    botCmdBuffer->rightmove = 0;
+                    botCmdBuffer->buttons |= BUTTON_GESTURE;
+                   }
                 break;
             case PCL_ALIEN_LEVEL2:
                 if(self->client->time1000 % 500 == 0)
                     botCmdBuffer->upmove = 20; //jump when getting close
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
+                    botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
                 break;
             case PCL_ALIEN_LEVEL2_UPG:
-                if(self->client->time1000 % 300 == 0)
+                if(self->client->time1000 % 300 == 0) {
                     botCmdBuffer->upmove = 20; //jump
+                    botCmdBuffer->buttons |= BUTTON_GESTURE; }
                 if(distance <= Square(LEVEL2_CLAW_RANGE)*2.0) //Change this modifier to get it to miss more often
                     botCmdBuffer->buttons |= BUTTON_ATTACK;
                 else
                     botCmdBuffer->buttons |= BUTTON_ATTACK2; //zap
+                if(distance < Square(LEVEL2_CLAW_RANGE))
+                   {
+                    botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
+                   }
                 break;
             case PCL_ALIEN_LEVEL3:
                 if(distance > Square(LEVEL3_CLAW_RANGE + LEVEL3_CLAW_RANGE/2) && 
                     self->client->ps.stats[ STAT_MISC ] < LEVEL3_POUNCE_SPEED) {
                     botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 5.8 - self->client->ps.delta_angles[PITCH]; //look up a bit more //*10 too high
                     botCmdBuffer->buttons |= BUTTON_ATTACK2; //pounce
-                } else
+                } else {
                     botCmdBuffer->buttons |= BUTTON_ATTACK;
+                    botCmdBuffer->buttons |= BUTTON_GESTURE; }
                 break;
             case PCL_ALIEN_LEVEL3_UPG:
                 if(self->client->ps.ammo[WP_ALEVEL3_UPG] > 0 && 
@@ -1010,15 +1083,17 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                     self->client->ps.stats[ STAT_MISC ] < LEVEL3_POUNCE_UPG_SPEED) {
                         botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 6 - self->client->ps.delta_angles[PITCH]; //not as high because uses current velocity
                         botCmdBuffer->buttons |= BUTTON_ATTACK2; //pounce
-                    }else
+                    }else {
                         botCmdBuffer->buttons |= BUTTON_ATTACK;
+                        botCmdBuffer->buttons |= BUTTON_GESTURE; }
                 }
                 break;
             case PCL_ALIEN_LEVEL4:
                 if (distance > Square(LEVEL4_CLAW_RANGE))
                     botCmdBuffer->buttons |= BUTTON_ATTACK2; //charge
-                else
+                else {
                     botCmdBuffer->buttons |= BUTTON_ATTACK;
+                    botCmdBuffer->buttons |= BUTTON_GESTURE; }
                 break;
             default: break; //nothing
         }
@@ -1042,7 +1117,10 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
         } else
             {
             if (DistanceSquared( muzzle, targetPos) > Square(LEVEL4_CLAW_RANGE * 3) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 3.5) && self->client->time1000 % 300 == 0 && g_bot_dodge_jump.integer == 1)
+              {
                 botCmdBuffer->upmove = 20; //TODO: g_bot_react_jump
+                botCmdBuffer->buttons |= BUTTON_GESTURE;
+              }
 
             if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE * 2) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 2) && self->client->time1000 % 300 <= 300 && g_bot_dodge_crouch.integer == 1)
                 botCmdBuffer->upmove = -1;
@@ -1408,9 +1486,22 @@ int botFindClosestEnemy( gentity_t *self, qboolean includeTeam ) {
                 
                 //if the entity is a building and we can attack structures even we are a normal granger
                 if(target->s.eType == ET_BUILDABLE && g_bot_attackStruct.integer /*&& self->client->ps.stats[STAT_PCLASS] != PCL_ALIEN_BUILDER0*/) {
-                    
+                    if ( self->client->ps.stats[STAT_PCLASS] == PCL_ALIEN_LEVEL0 ) //Make sure the structure is attack-able
+                       {
+                       if( target->s.modelindex == BA_H_DCC    ||
+                         target->s.modelindex == BA_H_MGTURRET ||
+                         target->s.modelindex == BA_H_REACTOR  ||
+                         target->s.modelindex == BA_H_SPAWN    ||
+                         target->s.modelindex == BA_H_REPEATER ||
+                         target->s.modelindex == BA_H_TESLAGEN )
+                         {
+                        minDistance = newDistance;
+                        closestTarget = entityList[i];
+                         }
+                       }
+
                     //if the building is not on our team (unless we can attack teamates)
-                    if( target->biteam != self->client->ps.stats[STAT_PTEAM] || includeTeam ) {
+                    else if( target->biteam != self->client->ps.stats[STAT_PTEAM] || includeTeam ) {
                         
                         //store the new distance and the index of the entity
                         minDistance = newDistance;

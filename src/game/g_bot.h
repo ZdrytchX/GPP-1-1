@@ -93,7 +93,7 @@ int G_BotBuyWeapon(gentity_t *ent, int weapon);
 #define BOT_ENEMY_CHASETIME 15000 //5000
 
 //How long in milliseconds the bots will chase a friend if he goes out of their sight (humans) or radar (aliens)
-#define BOT_FRIEND_CHASETIME 15000 //5000
+//#define BOT_FRIEND_CHASETIME 15000 //5000
 
 //How often in milliseconds, we will search for a new (closer) enemy this needs to be kept <= 10000 for now
 #define BOT_ENEMYSEARCH_INTERVAL 3000 //500 //1500 -> 3000, they keep changing too often
