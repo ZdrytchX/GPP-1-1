@@ -36,6 +36,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define MAX_ADMIN_BANS 1024
 #define MAX_ADMIN_NAMELOGS 128
 #define MAX_ADMIN_NAMELOG_NAMES 5
+#define MAX_ADMIN_ADMINLOGS 128
+#define MAX_ADMIN_ADMINLOG_ARGS 50
 #define MAX_ADMIN_FLAGS 64
 #define MAX_ADMIN_COMMANDS 64
 #define MAX_ADMIN_CMD_LEN 20
@@ -164,6 +166,18 @@ typedef struct g_admin_namelog
 }
 g_admin_namelog_t;
 
+typedef struct g_admin_adminlog
+{
+  char      name[ MAX_NAME_LENGTH ];
+  char      command[ MAX_ADMIN_CMD_LEN ];
+  char      args[ MAX_ADMIN_ADMINLOG_ARGS ];
+  int       id;
+  int       time;
+  int       level;
+  qboolean  success;
+}
+g_admin_adminlog_t;
+
 // cicho-sza add-on:
 //LazyBigCat >>
 //qboolean G_admin_longstrip_check( char *userinfo );
@@ -266,6 +280,10 @@ qboolean G_admin_naked( gentity_t *ent, int skiparg );
 qboolean G_admin_cp( gentity_t *ent, int skiparg );
 qboolean G_admin_leave( gentity_t *ent, int skiparg );
 
+qboolean G_admin_adminlog( gentity_t *ent, int skiparg );
+void G_admin_adminlog_cleanup( void );
+void G_admin_adminlog_log( gentity_t *ent, char *command, int skiparg, qboolean success );
+
 void G_admin_print( gentity_t *ent, char *m );
 void G_admin_buffer_print( gentity_t *ent, char *m );
 void G_admin_buffer_begin( void );
@@ -274,6 +292,7 @@ void G_admin_buffer_end( gentity_t *ent );
 void G_admin_duration( int secs, char *duration, int dursize );
 void G_admin_cleanup( void );
 void G_admin_namelog_cleanup( void );
+
 
 #endif /* ifndef _G_ADMIN_H */
 

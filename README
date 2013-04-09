@@ -135,3 +135,5 @@ TODO list:
 -Fix the bot's 'rythmetic crouch dance' when walking (not in combat)
 -Fix Shotgun + Battpack 12-clip load (Lolards application somewhere...)
 -Allow bots to buy bsuit without raping the armoury, and have the model convert
+-Disallow !revert-ing hovels, they make grangers disappear and stuck in a non-existant hovel
+-Adminlogs, server owners can find out who over-uses admin powers (which I don't like)

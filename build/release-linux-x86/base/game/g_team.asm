@@ -1540,6 +1540,9 @@ import G_admin_buffer_end
 import G_admin_buffer_begin
 import G_admin_buffer_print
 import G_admin_print
+import G_admin_adminlog_log
+import G_admin_adminlog_cleanup
+import G_admin_adminlog
 import G_admin_leave
 import G_admin_cp
 import G_admin_naked

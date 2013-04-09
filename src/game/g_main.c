@@ -1205,6 +1205,7 @@ void G_ShutdownGame( int restart )
 
   G_admin_cleanup( );
   G_admin_namelog_cleanup( );
+  G_admin_adminlog_cleanup( );
 
   level.restarted = qfalse;
   level.surrenderTeam = PTE_NONE;

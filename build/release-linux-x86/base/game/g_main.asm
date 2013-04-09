@@ -3710,6 +3710,9 @@ pop
 ADDRGP4 G_admin_namelog_cleanup
 CALLV
 pop
+ADDRGP4 G_admin_adminlog_cleanup
+CALLV
+pop
 ADDRGP4 level+60
 CNSTI4 0
 ASGNI4
@@ -12748,6 +12751,9 @@ import G_admin_buffer_end
 import G_admin_buffer_begin
 import G_admin_buffer_print
 import G_admin_print
+import G_admin_adminlog_log
+import G_admin_adminlog_cleanup
+import G_admin_adminlog
 import G_admin_leave
 import G_admin_cp
 import G_admin_naked
@@ -19242,7 +19248,7 @@ byte 1 112
 byte 1 114
 byte 1 32
 byte 1 32
-byte 1 56
+byte 1 57
 byte 1 32
 byte 1 50
 byte 1 48
@@ -19251,13 +19257,13 @@ byte 1 51
 byte 1 44
 byte 1 32
 byte 1 48
-byte 1 56
+byte 1 54
 byte 1 58
-byte 1 51
-byte 1 49
-byte 1 58
-byte 1 52
+byte 1 48
 byte 1 55
+byte 1 58
+byte 1 53
+byte 1 53
 byte 1 41
 byte 1 0
 align 1
@@ -19341,7 +19347,7 @@ byte 1 112
 byte 1 114
 byte 1 32
 byte 1 32
-byte 1 56
+byte 1 57
 byte 1 32
 byte 1 50
 byte 1 48

@@ -50,6 +50,11 @@ g_admin_cmd_t g_admin_cmds[ ] =
       ""
     },
 
+    {"adminlog", G_admin_adminlog, "adminlog",
+     "list recent admin activity",
+      "(^5start id#|name|!command|-skip#^7) (^5search skip#^7)"
+    },
+
     {"allowbuild", G_admin_denybuild, "d",
       "restore a player's ability to build",
       "[^3name|slot#^7]"
@@ -387,6 +392,8 @@ g_admin_longstrip_t *g_admin_longstrips[ MAX_LONGSTRIPS ];
 g_admin_ban_t *g_admin_bans[ MAX_ADMIN_BANS ];
 g_admin_command_t *g_admin_commands[ MAX_ADMIN_COMMANDS ];
 g_admin_namelog_t *g_admin_namelog[ MAX_ADMIN_NAMELOGS ];
+static int admin_adminlog_index = 0;
+g_admin_adminlog_t *g_admin_adminlog[ MAX_ADMIN_ADMINLOGS ];
 
 // This function should only be used directly when the client is connecting and thus has no GUID.
 // Else, use G_admin_permission() 
@@ -1784,11 +1791,13 @@ qboolean G_admin_cmd_check( gentity_t *ent, qboolean say )
     {
       trap_SendConsoleCommand( EXEC_APPEND, g_admin_commands[ i ]->exec );
       admin_log( ent, cmd, skip );
+      G_admin_adminlog_log( ent, cmd, skip, qtrue );
     }
     else
     {
       ADMP( va( "^3!%s: ^7permission denied\n", g_admin_commands[ i ]->command ) );
       admin_log( ent, "attempted", skip - 1 );
+      G_admin_adminlog_log( ent, cmd, skip, qfalse );
     }
     return qtrue;
   }
@@ -1802,11 +1811,13 @@ qboolean G_admin_cmd_check( gentity_t *ent, qboolean say )
     {
       g_admin_cmds[ i ].handler( ent, skip );
       admin_log( ent, cmd, skip );
+      G_admin_adminlog_log( ent, cmd, skip, qtrue );
     }
     else
     {
       ADMP( va( "^3!%s: ^7permission denied\n", g_admin_cmds[ i ].keyword ) );
       admin_log( ent, "attempted", skip - 1 );
+      G_admin_adminlog_log( ent, cmd, skip, qfalse );
     }
     return qtrue;
   }
@@ -7446,3 +7457,284 @@ gentity_t *spawnnode( gentity_t *self, long id )
 
   return bolt;
 }
+
+//Adminlog customizations from AA
+void G_admin_adminlog_cleanup( void )
+{
+  int i;
+
+  for( i = 0; i < MAX_ADMIN_ADMINLOGS && g_admin_adminlog[ i ]; i++ )
+  {
+    G_Free( g_admin_adminlog[ i ] );
+    g_admin_adminlog[ i ] = NULL;
+  }
+
+  admin_adminlog_index = 0;
+}
+
+void G_admin_adminlog_log( gentity_t *ent, char *command, int skiparg, qboolean success )
+{
+  g_admin_adminlog_t *adminlog;
+  int previous;
+  int count = 1;
+  int i;
+
+  if( !command )
+    return;
+
+  if( !Q_stricmp( command, "adminlog" ) ||
+      !Q_stricmp( command, "admintest" ) ||
+      !Q_stricmp( command, "help" ) ||
+      !Q_stricmp( command, "info" ) ||
+      !Q_stricmp( command, "listadmins" ) ||
+      !Q_stricmp( command, "listplayers" ) ||
+      !Q_stricmp( command, "namelog" ) ||
+      !Q_stricmp( command, "showbans" ) ||
+      !Q_stricmp( command, "time" ) )
+    return;
+
+  previous = admin_adminlog_index - 1;
+  if( previous < 0 )
+    previous = MAX_ADMIN_ADMINLOGS - 1;
+
+  if( g_admin_adminlog[ previous ] )
+    count = g_admin_adminlog[ previous ]->id + 1;
+
+  if( g_admin_adminlog[ admin_adminlog_index ] )
+    adminlog = g_admin_adminlog[ admin_adminlog_index ];
+  else
+    adminlog = G_Alloc( sizeof( g_admin_adminlog_t ) );
+
+  memset( adminlog, 0, sizeof( adminlog ) );
+  adminlog->id = count;
+  adminlog->time = level.time - level.startTime;
+  adminlog->success = success;
+  Q_strncpyz( adminlog->command, command, sizeof( adminlog->command ) );
+  Q_strncpyz( adminlog->args, G_SayConcatArgs( 1 + skiparg ), sizeof( adminlog->args ) );
+
+  if( ent )
+  {
+    qboolean found = qfalse;
+    // real admin name
+    for( i = 0; i < MAX_ADMIN_ADMINS && g_admin_admins[ i ]; i++ )
+    {
+      if( !Q_stricmp( g_admin_admins[ i ]->guid, ent->client->pers.guid ) )
+      {
+        Q_strncpyz( adminlog->name, g_admin_admins[ i ]->name, sizeof( adminlog->name ) );
+        found = qtrue;
+        break;
+      }
+    }
+    if( !found )
+      Q_strncpyz( adminlog->name, ent->client->pers.netname, sizeof( adminlog->name ) );
+    adminlog->level = ent->client->pers.adminLevel;
+  }
+  else
+  {
+    Q_strncpyz( adminlog->name, "console", sizeof( adminlog->name ) );
+    adminlog->level = 10000;
+  }
+
+  g_admin_adminlog[ admin_adminlog_index ] = adminlog;
+  admin_adminlog_index++;
+  if( admin_adminlog_index >= MAX_ADMIN_ADMINLOGS )
+    admin_adminlog_index = 0;
+}
+
+
+qboolean G_admin_adminlog( gentity_t *ent, int skiparg )
+{
+  g_admin_adminlog_t *results[ 10 ];
+  int result_index = 0;
+  char *search_cmd = NULL;
+  char *search_name = NULL;
+  int index;
+  int skip = 0;
+  int skipped = 0;
+  int checked = 0;
+  char n1[ MAX_NAME_LENGTH ];
+  char fmt_name[ 16 ];
+  char argbuf[ 32 ];
+  int name_length = 12;
+  int max_id = 0;
+  int i;
+  qboolean match;
+
+  memset( results, 0, sizeof( results ) );
+
+  index = admin_adminlog_index;
+  for( i = 0; i < 10; i++ )
+  {
+    int prev;
+
+    prev = index - 1;
+    if( prev < 0 )
+      prev = MAX_ADMIN_ADMINLOGS - 1;
+    if( !g_admin_adminlog[ prev ] )
+      break;
+    if( g_admin_adminlog[ prev ]->id > max_id )
+      max_id = g_admin_adminlog[ prev ]->id;
+    index = prev;
+  }
+
+  if( G_SayArgc() > 1 + skiparg )
+  {
+    G_SayArgv( 1 + skiparg, argbuf, sizeof( argbuf ) );
+    if( ( *argbuf >= '0' && *argbuf <= '9' ) || *argbuf == '-' )
+    {
+      int id;
+
+      id = atoi( argbuf );
+      if( id < 0 )
+        id += ( max_id - 9 );
+      else if( id <= max_id - MAX_ADMIN_ADMINLOGS )
+        id = max_id - MAX_ADMIN_ADMINLOGS + 1;
+
+      if( id + 9 >= max_id )
+        id = max_id - 9;
+      if( id < 1 )
+        id = 1;
+      for( i = 0; i < MAX_ADMIN_ADMINLOGS; i++ )
+      {
+        if( g_admin_adminlog[ i ]->id == id )
+        {
+          index = i;
+          break;
+        }
+      }
+    }
+    else if ( *argbuf == '!' )
+    {
+      search_cmd = argbuf + 1;
+    }
+    else
+    {
+      search_name = argbuf;
+    }
+
+    if( G_SayArgc() > 2 + skiparg && ( search_cmd || search_name ) )
+    {
+      char skipbuf[ 4 ];
+      G_SayArgv( 2 + skiparg, skipbuf, sizeof( skipbuf ) );
+      skip = atoi( skipbuf );
+    }
+  }
+
+  if( search_cmd || search_name )
+  {
+    g_admin_adminlog_t *result_swap[ 10 ];
+
+    memset( result_swap, 0, sizeof( result_swap ) );
+
+    index = admin_adminlog_index - 1;
+    if( index < 0 )
+      index = MAX_ADMIN_ADMINLOGS - 1;
+
+    while( g_admin_adminlog[ index ] &&
+      checked < MAX_ADMIN_ADMINLOGS &&
+      result_index < 10 )
+    {
+      match = qfalse;
+      if( search_cmd )
+      {
+        if( !Q_stricmp( search_cmd, g_admin_adminlog[ index ]->command ) )
+          match = qtrue;
+      }
+      if( search_name )
+      {
+        G_SanitiseString( g_admin_adminlog[ index ]->name, n1, sizeof( n1 ) );
+        if( strstr( n1, search_name ) )
+          match = qtrue;
+      }
+
+      if( match && skip > 0 )
+      {
+        match = qfalse;
+        skip--;
+        skipped++;
+      }
+      if( match )
+      {
+        result_swap[ result_index ] = g_admin_adminlog[ index ];
+        result_index++;
+      }
+
+      checked++;
+      index--;
+      if( index < 0 )
+        index = MAX_ADMIN_ADMINLOGS - 1;
+    }
+    // search runs backwards, turn it around
+    for( i = 0; i < result_index; i++ )
+      results[ i ] = result_swap[ result_index - i - 1 ];
+  }
+  else
+  {
+    while( g_admin_adminlog[ index ] && result_index < 10 )
+    {
+      results[ result_index ] = g_admin_adminlog[ index ];
+      result_index++;
+      index++;
+      if( index >= MAX_ADMIN_ADMINLOGS )
+        index = 0;
+    }
+  }
+
+  for( i = 0; results[ i ] && i < 10; i++ )
+  {
+    int l;
+
+    G_DecolorString( results[ i ]->name, n1 );
+    l = strlen( n1 );
+    if( l > name_length )
+      name_length = l;
+  }
+  ADMBP_begin( );
+  for( i = 0; results[ i ] && i < 10; i++ )
+  {
+    char levelbuf[ 3 ];
+    int t;
+
+    t = results[ i ]->time / 1000;
+    G_DecolorString( results[ i ]->name, n1 );
+    Com_sprintf( fmt_name, sizeof( fmt_name ), "%%%ds", 
+      ( name_length + strlen( results[ i ]->name ) - strlen( n1 ) ) );
+    Com_sprintf( n1, sizeof( n1 ), fmt_name, results[ i ]->name );
+    Com_sprintf( levelbuf, sizeof( levelbuf ), "%2d", results[ i ]->level );
+    ADMBP( va( "%s%3d %3d:%02d %2s ^7%s^7 %s!%s ^7%s^7\n",
+      ( results[ i ]->success ) ? "^7" : "^1",
+      results[ i ]->id,
+      t / 60, t % 60,
+      ( results[ i ]->level ) < 10000 ? levelbuf : " -",
+      n1,
+      ( results[ i ]->success ) ? "^3" : "^1",
+      results[ i ]->command,
+      results[ i ]->args ) );
+  }
+  if( search_cmd || search_name )
+  {
+    ADMBP( va( "^3!adminlog:^7 Showing %d matches for '%s^7'.",
+      result_index,
+      argbuf ) );
+    if( checked < MAX_ADMIN_ADMINLOGS && g_admin_adminlog[ checked ] )
+      ADMBP( va( " run '!adminlog %s^7 %d' to see more",
+       argbuf,
+       skipped + result_index ) );
+    ADMBP( "\n" );
+  }
+  else if ( results[ 0 ] )
+  {
+    ADMBP( va( "^3!adminlog:^7 Showing %d - %d of %d.\n",
+      results[ 0 ]->id,
+      results[ result_index - 1 ]->id,
+      max_id ) );
+  }
+  else
+  {
+    ADMBP( "^3!adminlog:^7 log is empty.\n" );
+  }
+  ADMBP_end( );
+
+  return qtrue;
+}
+
