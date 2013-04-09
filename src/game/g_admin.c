@@ -537,9 +537,9 @@ qboolean G_admin_name_check( gentity_t *ent, char *name, char *err, int len )
     }
   }
    
-  if( Q_isdigit( name2[ 0 ] ) || name2[ 0 ] == '-' )
+  if( Q_isdigit( name2[ 0 ] ) )
   {
-    Q_strncpyz( err, "Names cannot begin with a number or with a dash. Please choose another.", len );
+    Q_strncpyz( err, "Names cannot begin with a number. Please choose another.", len );
     return qfalse;
   }
   
