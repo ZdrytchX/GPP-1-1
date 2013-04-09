@@ -3000,7 +3000,7 @@ void Cmd_Destroy_f( gentity_t *ent )
  
 
       // Prevent destruction of the last spawn
-      if( !g_markDeconstruct.integer && !g_cheats.integer )
+      if( g_markDeconstruct.integer != 1 && !g_cheats.integer )
       {
         if( ent->client->pers.teamSelection == PTE_ALIENS &&
             traceEnt->s.modelindex == BA_A_SPAWN &&
