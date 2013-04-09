@@ -3211,7 +3211,7 @@ static void PM_Weapon( void )
       pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 0.7 ) - 0.125 ) * ( 30 / (float)addTime ) );
       pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 0.5 ) - 0.25 ) * ( 30.0 / (float)addTime ) );
     }
-    else if (BG_InventoryContainsUpgrade( UP_LIGHTARMOUR, pm->ps->stats )/* && (BG_InventoryContainsUpgrade( UP_HELMET, pm->ps->stats ))*/)
+    else if (BG_InventoryContainsUpgrade( UP_LIGHTARMOUR, pm->ps->stats ))
     {
       pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 5 ) - 1.5 ) * ( 30.0 / (float)addTime ) );
       pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 3 ) - 1.5 ) * ( 30.0 / (float)addTime ) );
@@ -3274,66 +3274,6 @@ static void PM_Weapon( void )
     {
       pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 16 ) - 4 ) * ( 30.0 / (float)addTime ) ); //big recoil upwards
       pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 2 ) - 1 ) * ( 30.0 / (float)addTime ) );
-    }
-  }
-  //FIXME: predicted angles miss a problem??
-  if( pm->ps->weapon == WP_MASS_DRIVER )
-  {
-    if( pm->ps->pm_flags & PMF_DUCKED ||
-        BG_InventoryContainsUpgrade( UP_BATTLESUIT, pm->ps->stats ) )
-    {
-      pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 0.0 ) - 0.0 ) * ( 30 / (float)addTime ) );
-      pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 0.0 ) - 0.0 ) * ( 30.0 / (float)addTime ) );
-    }
-    else //only a little rise for zoomed players
-    {
-      pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 1 ) - 0.125 ) * ( 30.0 / (float)addTime ) );
-      pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 0.25 ) - 0.125 ) * ( 30.0 / (float)addTime ) );
-    }
-  }
-  //FIXME: predicted angles miss a problem??
-  if( pm->ps->weapon == WP_PULSE_RIFLE )
-  {
-    if( pm->ps->pm_flags & PMF_DUCKED ||
-        BG_InventoryContainsUpgrade( UP_BATTLESUIT, pm->ps->stats ) )
-    {
-      pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 0.0 ) - 0.0 ) * ( 30 / (float)addTime ) );
-      pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 0.0 ) - 0.0 ) * ( 30.0 / (float)addTime ) );
-    }
-    else //only a shake much; it fires massive bullets!
-    {
-      pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 2 ) - 0.9 ) * ( 30.0 / (float)addTime ) );
-      pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 2 ) - 1 ) * ( 30.0 / (float)addTime ) );
-    }
-  }
-  //FIXME: predicted angles miss a problem??
-  if( pm->ps->weapon == WP_LUCIFER_CANNON )
-  {
-    if( pm->ps->pm_flags & PMF_DUCKED ||
-        BG_InventoryContainsUpgrade( UP_BATTLESUIT, pm->ps->stats ) )
-    {
-      pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 0.5 ) - 0.125 ) * ( 30 / (float)addTime ) );
-      pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 0.5 ) - 0.25 ) * ( 30.0 / (float)addTime ) );
-    }
-    else //M-M-MASSSIVE! Of course portable cannons gotta have recoil!
-    {
-      pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 16 ) - 2 ) * ( 30.0 / (float)addTime ) );
-      pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 8 ) - 4 ) * ( 30.0 / (float)addTime ) );
-    }
-  }
-  //FIXME: predicted angles miss a problem??
-  if( pm->ps->weapon == WP_LAS_GUN )
-  {
-    if( pm->ps->pm_flags & PMF_DUCKED ||
-        BG_InventoryContainsUpgrade( UP_BATTLESUIT, pm->ps->stats ) )
-    {
-      pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 0.5 ) - 0.125 ) * ( 30 / (float)addTime ) );
-      pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 0.5 ) - 0.25 ) * ( 30.0 / (float)addTime ) );
-    }
-    else //Shoots massive energy packs, causing recoil etc. blah blah blah
-    {
-      pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 2 ) - 0.8 ) * ( 30.0 / (float)addTime ) );
-      pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 1 ) - 0.5 ) * ( 30.0 / (float)addTime ) );
     }
   }
   }
