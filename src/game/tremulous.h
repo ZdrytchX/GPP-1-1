@@ -61,7 +61,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL0_BITE_WIDTH           1.0f //6f
 #define LEVEL0_BITE_REPEAT          500
 #define LEVEL0_BITE_K_SCALE         1.0f
-//Disabled (range), although animation still runs
+//Disabled (range), although animation disabled via bg_misc.c
 //ignore this, disabled via bg_misc.c
 #define LEVEL0_SCRATCH_DMG          ADM(48) //ADM(6 + (VAMP_ON * -3))//dispite this, it is actually almost overpowered.
 #define LEVEL0_SCRATCH_REPEAT       0//150
@@ -82,7 +82,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL1_PCLOUD_RANGE         200.0f //300 //limit troll gassers
 #define LEVEL1_PCLOUD_REPEAT        2000
 #define LEVEL1_PCLOUD_TIME          10000 //GPP - 2 seconds distortion, 5 seconds slowlock i think
-                                          //TODO: Slowlock effect cannot be applied at the same time
+#define LEVEL1_PCLOUD_MOD           0.7f //Speedmod, not too OP
+                                          //TODO: Slowlock effect cannot be applied seperately for bsuits
 
 #define LEVEL2_CLAW_DMG             ADM(40)
 #define LEVEL2_CLAW_RANGE           80.0f //unv's
@@ -153,7 +154,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL4_CHARGE_CHARGE_RATIO  (LEVEL4_CHARGE_TIME/LEVEL4_CHARGE_CHARGE_TIME)//JUST LEAVE AS IS (confusing shit)
 
 #define LEVEL4_CHARGE_REPEAT        150 //1000 //GPP uses '100', the more lower, the more ping-bias
-#define LEVEL4_CHARGE_TIMEOUT       LEVEL4_CHARGE_REPEAT //After charge has run out, wait this before you can swipe
+#define LEVEL4_CHARGE_TIMEOUT       LEVEL4_CHARGE_REPEAT + FASTFIRE //After charge has run out, wait this before you can swipe
 #define LEVEL4_CHARGE_DMG           ADM(56 + (VAMP_ON * 35)) //100 (to help with armoured)
 					//0.2s naked
 					//~0.4s helm
@@ -440,6 +441,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define GRENADE_REPEAT              0
 #define GRENADE_K_SCALE             1.0f
 #define GRENADE_DAMAGE              HDM(310)
+#define GRENADE_DAMAGE_BUFF         1.5f //Buff up damage if the entity is inside/stepping on nade
 #define GRENADE_RANGE               192.0f
 #define GRENADE_SPEED               400.0f
 

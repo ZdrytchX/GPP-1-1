@@ -501,13 +501,6 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next?");
   // broadcast the death event to everyone
   if( !tk )
   {
-/*
-    ent = G_TempEntity( self->r.currentOrigin, EV_OBITUARY );
-    ent->s.eventParm = meansOfDeath;
-    ent->s.otherEntityNum = self->s.number;
-    ent->s.otherEntityNum2 = killer;
-    ent->r.svFlags = SVF_BROADCAST; // send to everyone
-*/
 //server-specific death messages
     if ( meansOfDeath == MOD_LEVEL2_CLAW )
     {
@@ -516,6 +509,14 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next?");
     else if ( meansOfDeath == MOD_TARGET_LASER )
     {
       trap_SendServerCommand( -1, va( "print \"%s^7's vicious energy slug blew %s^7 off his feet\n\"", attacker->client->pers.netname, self->client->pers.netname ) );
+    }
+    else if ( meansOfDeath == MOD_GRENADE_DIRECT && attacker != self )
+    {
+      trap_SendServerCommand( -1, va( "print \"%s^7 stepped on %s's ^2GREEN^8-^1AID^7\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
+    }
+    else if ( meansOfDeath == MOD_GRENADE_DIRECT && attacker == self )
+    {
+      trap_SendServerCommand( -1, va( "print \"%s^7 threw the pin instead of the grenade\n\"", self->client->pers.netname ) );
     }
     else
     {
@@ -530,11 +531,12 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next?");
   {
     // tjw: obviously this is a hack and belongs in the client, but
     //      this works as a temporary fix.
+    // ZdrytchX: TODO: KoRx' compensation
     trap_SendServerCommand( -1,
-      va( "print \"%s^7 was killed by ^1TEAMMATE^7 %s^7 (Did %d damage to %d max)\n\"",
+      va( "print \"%s^7 was raped by ^1TEAMMATE^7 %s^7 (Did %d damage to %d max)\n\"",
       self->client->pers.netname, attacker->client->pers.netname, self->client->tkcredits[ attacker->s.number ], self->client->ps.stats[ STAT_MAX_HEALTH ] ) );
     trap_SendServerCommand( attacker - g_entities,
-      va( "cp \"You killed ^1TEAMMATE^7 %s\"", self->client->pers.netname ) );
+      va( "cp \"You raped ^1TEAMMATE^7 %s\"", self->client->pers.netname ) );
     G_LogOnlyPrintf("%s^7 was killed by ^1TEAMMATE^7 %s^7 (Did %d damage to %d max)\n",
       self->client->pers.netname, attacker->client->pers.netname, self->client->tkcredits[ attacker->s.number ], self->client->ps.stats[ STAT_MAX_HEALTH ] );
   }

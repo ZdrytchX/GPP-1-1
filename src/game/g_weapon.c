@@ -1144,8 +1144,9 @@ void poisonCloud( gentity_t *ent )
 	{
         humanPlayer->client->ps.stats[ STAT_STATE ] |= SS_POISONCLOUDED;
 	}
+        else //Only accepts one arguement, adding SS_SLOWLOCKED invalidates the state
         humanPlayer->client->ps.stats[ STAT_STATE ] |= SS_POISONED;
-        humanPlayer->client->ps.stats[ STAT_STATE ] |= SS_SLOWLOCKED;
+//        humanPlayer->client->ps.stats[ STAT_STATE ] |= SS_SLOWLOCKED;
 
         humanPlayer->client->lastPoisonCloudedTime = level.time;
         humanPlayer->client->lastPoisonCloudedClient = ent;

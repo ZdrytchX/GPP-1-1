@@ -4816,7 +4816,7 @@ static void Cmd_Ignore_f( gentity_t *ent )
    value = atoi(s);
    if( value <= 0 ) {
      trap_SendServerCommand( ent-g_entities,
-       "print \"donate: very funny\n\"" );
+       "print \"donate: Earn some first idiot.\n\"" );
      return;
    }
    if( value > ent->client->pers.credit)

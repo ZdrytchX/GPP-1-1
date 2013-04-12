@@ -432,7 +432,6 @@ bolt->s.pos.trType = TR_GRAVITY;
   VectorCopy( start, bolt->s.pos.trBase );
   VectorScale( self->client->ps.velocity, MDRIVER_LAG, pvel ); //ripped from
   VectorMA( pvel, MDRIVER_SPEED, dir, bolt->s.pos.trDelta );  //flamer
-//  VectorScale( dir, MDRIVER_SPEED, bolt->s.pos.trDelta );
   SnapVector( bolt->s.pos.trDelta );      // save net bandwidth
 
   VectorCopy( start, bolt->r.currentOrigin );
@@ -513,10 +512,10 @@ gentity_t *fire_luciferCannon( gentity_t *self, vec3_t start, vec3_t dir, int da
 	}
   else if ( damage == LCANNON_SECONDARY_DAMAGE ) //then it must be a secondary fire
 	{
-    bolt->nextthink = level.time + 100000;
+    bolt->nextthink = level.time + 30000;
   bolt->r.mins[ 0 ] = bolt->r.mins[ 1 ] = bolt->r.mins[ 2 ] = -0.0f;
   bolt->r.maxs[ 0 ] = bolt->r.maxs[ 1 ] = bolt->r.maxs[ 2 ] = 0.0f;
-  VectorScale( dir, (LCANNON_SECONDARY_SPEED), bolt->s.pos.trDelta );
+  VectorScale( dir, LCANNON_SECONDARY_SPEED, bolt->s.pos.trDelta );
   bolt->splashRadius = LCANNON_SECONDARY_RADIUS;
 	}
   else if ( damage < LCANNON_TOTAL_CHARGE )
@@ -532,7 +531,7 @@ gentity_t *fire_luciferCannon( gentity_t *self, vec3_t start, vec3_t dir, int da
     bolt->nextthink = level.time + 100000;
   bolt->r.mins[ 0 ] = bolt->r.mins[ 1 ] = bolt->r.mins[ 2 ] = -2.0f;
   bolt->r.maxs[ 0 ] = bolt->r.maxs[ 1 ] = bolt->r.maxs[ 2 ] = 2.0f;
-  VectorScale( dir, 0, bolt->s.pos.trDelta ); //prove there's an error: make it stationary, clients may think it's a special ability
+  VectorScale( dir, LCANNON_SPEED, bolt->s.pos.trDelta ); //Just give it a default speed
 	}
 
   bolt->think = G_ExplodeMissile;
@@ -544,13 +543,13 @@ gentity_t *fire_luciferCannon( gentity_t *self, vec3_t start, vec3_t dir, int da
   bolt->parent = self;
   bolt->damage = localDamage;
   bolt->splashDamage = localDamage / 2;
-//  bolt->splashRadius = localDamage / 2;//radius;
+//  bolt->splashRadius = localDamage / 2;//Dynamic radius declared above, default radius;
   bolt->methodOfDeath = MOD_LCANNON;
   bolt->splashMethodOfDeath = MOD_LCANNON_SPLASH;
   bolt->clipmask = MASK_SHOT;
   bolt->target_ent = NULL;
 
-  bolt->s.pos.trType = TR_LINEAR;//TR_LINEAR
+  bolt->s.pos.trType = TR_LINEAR;
   bolt->s.pos.trTime = level.time - MISSILE_PRESTEP_TIME;   // move a bit on the very first frame
   VectorCopy( start, bolt->s.pos.trBase );
   SnapVector( bolt->s.pos.trDelta );      // save net bandwidth
@@ -582,10 +581,10 @@ gentity_t *launch_grenade( gentity_t *self, vec3_t start, vec3_t dir )
   bolt->s.generic1 = WPM_PRIMARY; //weaponMode
   bolt->r.ownerNum = self->s.number;
   bolt->parent = self;
-  bolt->damage = GRENADE_DAMAGE;
+  bolt->damage = GRENADE_DAMAGE * GRENADE_DAMAGE_BUFF;
   bolt->splashDamage = GRENADE_DAMAGE;
   bolt->splashRadius = GRENADE_RANGE;
-  bolt->methodOfDeath = MOD_GRENADE;
+  bolt->methodOfDeath = MOD_GRENADE_DIRECT; //test
   bolt->splashMethodOfDeath = MOD_GRENADE;
   bolt->clipmask = MASK_SHOT;
   bolt->target_ent = NULL;

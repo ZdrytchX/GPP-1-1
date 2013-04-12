@@ -402,6 +402,10 @@ static float PM_CmdScale( usercmd_t *cmd )
   if( pm->ps->stats[ STAT_STATE ] & SS_SLOWLOCKED )
     modifier *= ABUILDER_BLOB_SPEED_MOD;
 
+  //GPP-style
+  if( pm->ps->stats[ STAT_STATE ] & SS_POISONCLOUDED )
+    modifier *=  LEVEL1_PCLOUD_MOD;
+
   if( pm->ps->pm_type == PM_GRABBED )
     modifier = 0.0f;
 
@@ -3002,8 +3006,8 @@ static void PM_Weapon( void )
   }
 
  //ZdrytchX: Anti-Charge Combo
-   if( pm->ps->stats[ STAT_MISC ] > 0 && pm->ps->weapon == WP_ALEVEL4 )
-      addTime =  LEVEL4_CHARGE_TIMEOUT; //TODO: sv_fps.integer?
+   if( (pm->ps->stats[ STAT_MISC ] > 0 || /*pm->ps->pm_flags == PMF_CHARGE ||*/ pm->ps->stats[ STAT_STATE ] == SS_CHARGING ) && pm->ps->weapon == WP_ALEVEL4 )
+     pm->ps->weaponTime ==  LEVEL4_CHARGE_TIMEOUT; //TODO: sv_fps.integer?
 	  
   //TA: fire events for non auto weapons
   if( attack3 )
