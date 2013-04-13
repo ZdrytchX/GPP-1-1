@@ -117,7 +117,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL3_CLAW_K_SCALE         0.8f //effects pounce as well
 #define LEVEL3_CLAW_U_REPEAT        700 //600 800
 #define LEVEL3_CLAW_U_K_SCALE       0.8f
-#define LEVEL3_POUNCE_DMG           ADM(110 + (VAMP_ON * 20)) // -> 115 (bsuits take the same damage as laroured)
+#define LEVEL3_POUNCE_DMG           ADM(100 + (VAMP_ON * 20)) // -> 115 (bsuits take the same damage as laroured)
 					//Armour - 3 hit
 					//Helm - 2 hit
 					//Larm+Helm -or- bsuit - 4 hit

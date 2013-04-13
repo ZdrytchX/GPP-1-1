@@ -670,20 +670,20 @@ void G_BotBuy(gentity_t *self, usercmd_t *botCmdBuffer) {
         
         // buy most expensive first, then one cheaper, etc, dirty but working way
         if( !G_BotBuyWeapon( self, WP_LUCIFER_CANNON ) )
-//            if( !G_BotBuyWeapon( self, WP_PULSE_RIFLE ) )
-            res = (random()>0.5) ? G_BotBuyWeapon( self, WP_PULSE_RIFLE ) : G_BotBuyWeapon( self, WP_FLAMER );
-               if(!res) {
-//                if( !G_BotBuyWeapon( self, WP_FLAMER ) )
-//                      if( !G_BotBuyWeapon( self, WP_CHAINGUN ) ) //Shifted back
-  //               	  if( !G_BotBuyWeapon( self, WP_MASS_DRIVER ) )
-                  res = (random()>0.5) ? G_BotBuyWeapon( self, WP_CHAINGUN  ) : G_BotBuyWeapon( self, WP_MASS_DRIVER );
-                     if(!res) {
+            if( !G_BotBuyWeapon( self, WP_PULSE_RIFLE ) )
+//            res = (random()>0.5) ? G_BotBuyWeapon( self, WP_PULSE_RIFLE ) : G_BotBuyWeapon( self, WP_FLAMER );
+//               if(!res) { //DO NOT FORGET THE BRACES
+                if( !G_BotBuyWeapon( self, WP_FLAMER ) )
+                      if( !G_BotBuyWeapon( self, WP_CHAINGUN ) ) //Shifted back
+                 	  if( !G_BotBuyWeapon( self, WP_MASS_DRIVER ) )
+//                  res = (random()>0.5) ? G_BotBuyWeapon( self, WP_CHAINGUN  ) : G_BotBuyWeapon( self, WP_MASS_DRIVER );
+//                     if(!res) {//DO NOT FORGET THE BRACES
                             if( !G_BotBuyWeapon( self, WP_LAS_GUN ) )
                                 if( !G_BotBuyWeapon( self, WP_SHOTGUN ) )
                                     if( !G_BotBuyWeapon( self, WP_PAIN_SAW ) )
                                         G_BotBuyWeapon( self, WP_MACHINEGUN );
-                              } //probability x:y ripped from evolution code
-                         }
+//                              } //probability x:y ripped from evolution code
+//                         }
                                     
         //buy ammo/batpack
         if( BG_FindUsesEnergyForWeapon( self->client->ps.weapon ) && !BG_InventoryContainsUpgrade( UP_BATTLESUIT, self->client->ps.stats )) { //TODO: add check for bsuit
@@ -702,9 +702,6 @@ void G_BotEvolve ( gentity_t *self, usercmd_t *botCmdBuffer )
 {
     // very not-clean code, but hey, it works and I'm lazy 
     int res;
-//    if(!G_BotEvolveToClass(self, "human_bsuit", botCmdBuffer)) //AHA fuck it i'll re-enabled it. After all max evos increased to '15'.
-//^^fuck them suits - they just waste their evos. We need proper human players. I'm sorry.
-//Ehem. Remember to re-disable this after LAN-use because it is useless againts humans. Well almost.
     if(!G_BotEvolveToClass(self, "level4", botCmdBuffer))
         if(!G_BotEvolveToClass(self, "level3upg", botCmdBuffer)) {
             res = (random()>0.4) ? G_BotEvolveToClass(self, "level3", botCmdBuffer) : G_BotEvolveToClass(self, "level2upg", botCmdBuffer);
@@ -1231,7 +1228,7 @@ int botFindBuilding(gentity_t *self, int buildingType, int range) {
         for( i = 0; i < total_entities; ++i ) {
             target = &g_entities[entityList[ i ] ];
             
-            if( target->s.eType == ET_BUILDABLE && target->s.modelindex == buildingType && (target->biteam == PTE_ALIENS || target->powered)) {
+            if( target->s.eType == ET_BUILDABLE && target->s.modelindex == buildingType && (target->biteam == PTE_ALIENS || target->powered )/* && target>spawned*/ ) {
                 newDistance = DistanceSquared( self->s.pos.trBase, target->s.pos.trBase );
                 if( newDistance < minDistance|| minDistance == -1) {
                     minDistance = newDistance;
@@ -1244,7 +1241,7 @@ int botFindBuilding(gentity_t *self, int buildingType, int range) {
         for( i = 0; i < MAX_GENTITIES; ++i ) {
             target = &g_entities[i];
             
-            if( target->s.eType == ET_BUILDABLE && target->s.modelindex == buildingType && (target->biteam == PTE_ALIENS || target->powered)) {
+            if( target->s.eType == ET_BUILDABLE && target->s.modelindex == buildingType && (target->biteam == PTE_ALIENS || target->powered) /*&& target>spawned*/ ) {
                 newDistance = DistanceSquared(self->s.pos.trBase,target->s.pos.trBase);
                 if( newDistance < minDistance|| minDistance == -1) {
                     minDistance = newDistance;

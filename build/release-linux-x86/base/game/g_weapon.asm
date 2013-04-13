@@ -6919,7 +6919,7 @@ ADDRLP4 80
 CNSTI4 468
 ASGNI4
 ADDRLP4 68
-CNSTF4 1121714176
+CNSTF4 1120403456
 ADDRLP4 76
 INDIRP4
 INDIRP4
@@ -8277,6 +8277,8 @@ import trap_RealTime
 import trap_Milliseconds
 import trap_Error
 import trap_Printf
+import g_myStatstime
+import g_bot_alien_secondaryonly
 import g_minDeconLevel
 import g_allowBlackInNames
 import g_teamStatusTime

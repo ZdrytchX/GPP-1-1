@@ -125,14 +125,13 @@ Potential Side Effects/bugs from features:
 >>>Potential Cause: Adding bots while clients connect [TODO: Refer to CoW QVM]
 -With alien's smooth regeneration system, the server MAY take more CPU (not confirmed)(A fix has been made to heal up to 4 hp per server frame)
 -Bots 'crouch dance' every 1.2 seconds or so intervals when taking a walk (not in combat) (Still trying to find the cause, I can't find anything related to when I initiated the bot crouch/jump combat dance)
--*Adv Basi bots don't swipe for some reason, could be linked to the fact they now idle when grabbing
 
 TODO list:
 -Find out how to get cvars to access pmove and related files (bunnyhop, rampjump option, knockback cvars etc.)
 -define player positions for advance bot aiming -> add mdriver aiming ahead
 -Upgrade to "new" CoW bots system
--*Fix basilisk bots' ai, this really bothers me for some reason
 -Fix the bot's 'rythmetic crouch dance' when walking (not in combat)
+-Fix missing flag for buying/selling with bots -> is armoury spawned? (built)
 -Fix Shotgun + Battpack 12-clip load (Lolards application somewhere...)
 -Allow bots to buy bsuit without raping the armoury, and have the model convert
 -Disallow !revert-ing hovels, they make grangers disappear and stuck in a non-existant hovel

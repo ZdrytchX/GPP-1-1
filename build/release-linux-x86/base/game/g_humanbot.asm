@@ -845,7 +845,7 @@ ADDRLP4 20
 ADDRGP4 BG_FindHealthForBuildable
 CALLI4
 ASGNI4
-CNSTF4 1073741824
+CNSTF4 1068948334
 ADDRLP4 0
 INDIRP4
 CNSTI4 796
@@ -965,7 +965,7 @@ CALLF4
 ASGNF4
 ADDRLP4 16
 INDIRF4
-CNSTF4 1050253722
+CNSTF4 1058642330
 GEF4 $193
 ADDRLP4 8
 CNSTI4 1
@@ -1282,6 +1282,8 @@ import trap_RealTime
 import trap_Milliseconds
 import trap_Error
 import trap_Printf
+import g_myStatstime
+import g_bot_alien_secondaryonly
 import g_minDeconLevel
 import g_allowBlackInNames
 import g_teamStatusTime

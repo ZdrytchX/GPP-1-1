@@ -162,6 +162,7 @@ vmCvar_t  g_decolourLogfiles;
 vmCvar_t  g_minLevelToSpecMM1;
 vmCvar_t  g_publicSayadmins;
 vmCvar_t  g_myStats;
+vmCvar_t  g_myStatstime;
 vmCvar_t  g_antiSpawnBlock;
 vmCvar_t  g_banNotice;
 vmCvar_t  g_adminLeaveMsg;
@@ -273,6 +274,7 @@ vmCvar_t  g_allowBlackInNames;
 vmCvar_t  g_killingSpree;
 vmCvar_t  g_feedingSpree;
 vmCvar_t  g_minDeconLevel;
+vmCvar_t  g_bot_alien_secondaryonly;
 
 static cvarTable_t   gameCvarTable[ ] =
 {
@@ -534,6 +536,8 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_killingSpree, "g_killingSpree",                           "5", CVAR_ARCHIVE,                          0, qfalse  },
   { &g_feedingSpree, "g_feedingSpree",                           "5", CVAR_ARCHIVE,                          0, qfalse  },
   { &g_minDeconLevel, "g_minDeconLevel",                         "0", CVAR_ARCHIVE,                          0, qfalse },
+  { &g_bot_alien_secondaryonly, "g_bot_alien_secondaryonly",     "0", CVAR_ARCHIVE,                          0, qfalse },
+  { &g_myStatstime, "g_myStatstime",                             "5", CVAR_ARCHIVE,                          0, qfalse  },
 };
 
 static int gameCvarTableSize = sizeof( gameCvarTable ) / sizeof( gameCvarTable[ 0 ] );

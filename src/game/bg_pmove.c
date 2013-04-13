@@ -2745,6 +2745,15 @@ static void PM_Weapon( void )
   {
     return;
   }
+ //ZdrytchX: Anti-Charge Combo
+   if( (pm->ps->stats[ STAT_MISC ] > 0 /*|| pm->ps->stats[ STAT_STATE ] == SS_CHARGING */)
+    && pm->ps->weapon == WP_ALEVEL4 
+    && pm->cmd.buttons & BUTTON_ATTACK
+    && pm->ps->pm_flags & PMF_CHARGE )
+  {
+     pm->ps->weaponTime ==  LEVEL4_CHARGE_TIMEOUT; //TODO: sv_fps.integer?
+    return;
+  }
 
   if( pm->ps->weaponTime > 0 )
     pm->ps->weaponTime -= pml.msec;
@@ -3004,10 +3013,6 @@ static void PM_Weapon( void )
       pm->ps->weaponstate = WEAPON_READY; //don't play dodgy blaster fire animations when charging
     return;
   }
-
- //ZdrytchX: Anti-Charge Combo
-   if( (pm->ps->stats[ STAT_MISC ] > 0 || /*pm->ps->pm_flags == PMF_CHARGE ||*/ pm->ps->stats[ STAT_STATE ] == SS_CHARGING ) && pm->ps->weapon == WP_ALEVEL4 )
-     pm->ps->weaponTime ==  LEVEL4_CHARGE_TIMEOUT; //TODO: sv_fps.integer?
 	  
   //TA: fire events for non auto weapons
   if( attack3 )

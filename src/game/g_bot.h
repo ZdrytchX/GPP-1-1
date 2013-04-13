@@ -86,28 +86,31 @@ int G_BotBuyWeapon(gentity_t *ent, int weapon);
 //how far the bots can be from an armoury to walk to it to buy stuff, if they are too far, they will not go to the arm
 #define BOT_ARM_RANGE 1500.0f
 
-//when closer to the enemy than this range, the human bots will backup
-#define BOT_BACKUP_RANGE 400.0f //300 -> 400
-
 //How long in milliseconds the bots will chase an enemy if he goes out of their sight (humans) or radar (aliens)
 #define BOT_ENEMY_CHASETIME 15000 //5000
 
 //How long in milliseconds the bots will chase a friend if he goes out of their sight (humans) or radar (aliens)
 //#define BOT_FRIEND_CHASETIME 15000 //5000
 
-//How often in milliseconds, we will search for a new (closer) enemy this needs to be kept <= 10000 for now
-#define BOT_ENEMYSEARCH_INTERVAL 3000 //500 //1500 -> 3000, they keep changing too often
+//How often in milliseconds, we will search for a new (closer) enemy
+//Note: This also applies for reaction time. 3000 can equal 3 seconds reaction time at most.
+//However, higher numbers allows them to chase down players rather than focus on closest enemies all the time and changing targets.
+#define BOT_ENEMYSEARCH_INTERVAL 800 //500 //3000
 
 //at what hp do we use medkit?
 #define BOT_USEMEDKIT_HP 48 //50
 
 //when human bots reach this ammo percentage left or less(and no enemy), they will head back to the base to refuel ammo when in range of arm as defined by BOT_ARM_RANGE
-#define BOT_LOW_AMMO 0.30f //0.50f
+#define BOT_LOW_AMMO 0.60f - (VAMP_ON * 30.00f) //0.50f
 
 //when human bots reach this health or below (and no medkit/enemy) they will head back to the base to heal when in range of medi as defined by BOT_MEDI_RANGE
-#define BOT_LOW_HP 30 //100 - now 60 because of slow autoregen + vamp //removed vamp
+#define BOT_LOW_HP 60 - (VAMP_ON * 30) //100
 
-//TODO: implement the rest of these, currently they do nothing :)
+/*
+//FUMA: TODO: implement the rest of these, currently they do nothing :)
+
+//when closer to the enemy than this range, the human bots will backup
+#define BOT_BACKUP_RANGE 400.0f //300 -> 400
 
 //when the bots get closer than this distance to an enemy Egg/Node, they will head toward it (killing stuff in the way if need be) instead of roaming randomly
 //Line of sight to the egg/node does not matter
@@ -118,6 +121,6 @@ int G_BotBuyWeapon(gentity_t *ent, int weapon);
 
 //When the "The Overmind is under Attack!" message appears, the alien bots will head back to the base to defend it, if they are at least this close to it.
 #define A_ROUTETO_BASE_RANGE 5000.0f
-
+*/
 //ZdrytchX: New variables here by me.
-#define BUILDABE_REPAIR_HEALTH 0.5 //How much minimum health a buildable must have before it is to be healed
+#define BUILDABE_REPAIR_HEALTH 0.7 //How much minimum health a buildable must have before it is to be healed
