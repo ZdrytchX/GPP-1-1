@@ -4043,7 +4043,7 @@ void Cmd_MyStats_f( gentity_t *ent )
    if(!ent) return;
 
 
-   if( !level.intermissiontime && ent->client->pers.statscounters.timeLastViewed && (level.time - ent->client->pers.statscounters.timeLastViewed) < 1000 ) 
+   if( !level.intermissiontime && ent->client->pers.statscounters.timeLastViewed && (level.time - ent->client->pers.statscounters.timeLastViewed) < g_myStatstime.integer * 1000 ) 
    {   
      ADMP( va("You may only check your stats once every %i seconds and during intermission.\n", g_myStatstime.integer) );
      return;

@@ -597,7 +597,7 @@ void G_BotHeal(gentity_t *self, usercmd_t *botCmdBuffer) {
     
     vec3_t targetPos;
     getTargetPos(self->botMind->goal, &targetPos);
-    if(DistanceSquared(self->s.origin, targetPos) > Square(150)) //50
+    if(DistanceSquared(self->s.origin, targetPos) > Square(50)) //50
         G_BotMoveDirectlyToGoal(self, botCmdBuffer);
     
 }
@@ -686,11 +686,12 @@ void G_BotBuy(gentity_t *self, usercmd_t *botCmdBuffer) {
 //                         }
                                     
         //buy ammo/batpack
-        if( BG_FindUsesEnergyForWeapon( self->client->ps.weapon ) && !BG_InventoryContainsUpgrade( UP_BATTLESUIT, self->client->ps.stats )) { //TODO: add check for bsuit
+        if( BG_FindUsesEnergyForWeapon( self->client->ps.weapon )/* && !BG_InventoryContainsUpgrade( UP_BATTLESUIT, self->client->ps.stats )*/) { //TODO: add check for bsuit
             G_BotBuyUpgrade( self, UP_BATTPACK );
         }else {
             G_BotBuyUpgrade( self, UP_AMMO );
         }
+        self->botMind->currentModus = ROAM; //hack to prevent buy-spam
     }
 }
 /**
