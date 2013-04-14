@@ -56,7 +56,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define ABUILDER_BLOB_LIFETIME      ABUILDER_BLOB_REPEAT*3.5//Auto explodes after this time
 #define ABUILDER_BLOB_TIME          5000 //how long a guy gets slowed down
 
-#define LEVEL0_BITE_DMG             ADM(36)
+#define LEVEL0_BITE_DMG             ADM(36 + (VAMP_ON * 12))
 #define LEVEL0_BITE_RANGE           64.0f
 #define LEVEL0_BITE_WIDTH           1.0f //6f
 #define LEVEL0_BITE_REPEAT          500
@@ -68,7 +68,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL0_SCRATCH_RANGE        80 //disabled, was 80
 #define LEVEL0_SCRATCH_WIDTH        3
 
-#define LEVEL1_CLAW_DMG             ADM(32 + (VAMP_ON * 5))
+#define LEVEL1_CLAW_DMG             ADM(32 + (VAMP_ON * 16))
 #define LEVEL1_CLAW_RANGE           80.0f//Take unv's
 #define LEVEL1_CLAW_WIDTH           10.0f
 #define LEVEL1_CLAW_REPEAT          700
@@ -85,7 +85,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL1_PCLOUD_MOD           0.7f //Speedmod, not too OP
                                           //TODO: Slowlock effect cannot be applied seperately for bsuits
 
-#define LEVEL2_CLAW_DMG             ADM(40)
+#define LEVEL2_CLAW_DMG             ADM(40 + (VAMP_ON * 8))
 #define LEVEL2_CLAW_RANGE           80.0f //unv's
 #define LEVEL2_CLAW_WIDTH           12.0f
 #define LEVEL2_CLAW_U_WIDTH         14.0f
@@ -98,7 +98,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL2_CLAW_K_REVERSE       -1.0f//For claws only
 
 //Note: Full dmg depends on sv_fps if LEVEL2_AREAZAP_TIME > 1
-#define LEVEL2_AREAZAP_DMG          ADM(70 + (VAMP_ON * 20)) //4 zaps on teslas
+#define LEVEL2_AREAZAP_DMG          ADM(70 + (VAMP_ON * 30)) //4 zaps on teslas
 #define LEVEL2_AREAZAP_RANGE        200.0f //initiate zap distance
 #define LEVEL2_AREAZAP_RANGE_SUSTAIN 400 //Range to allow sustaining the zap
 #define LEVEL2_AREAZAP_WIDTH        8.0f //harder to zap around corners
@@ -110,14 +110,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL2_AREAZAP_K_SCALE      -3.0f //Chain-ees get pulled together with this
 
 //Goon modified heavily to get close to gpp values.
-#define LEVEL3_CLAW_DMG             ADM(80 + (VAMP_ON * 10))
+#define LEVEL3_CLAW_DMG             ADM(80 + (VAMP_ON * 12))
 #define LEVEL3_CLAW_RANGE           80.0f //Unv's
 #define LEVEL3_CLAW_WIDTH           12.0f
 #define LEVEL3_CLAW_REPEAT          800 //1.1 700 1.2 900
 #define LEVEL3_CLAW_K_SCALE         0.8f //effects pounce as well
 #define LEVEL3_CLAW_U_REPEAT        700 //600 800
 #define LEVEL3_CLAW_U_K_SCALE       0.8f
-#define LEVEL3_POUNCE_DMG           ADM(100 + (VAMP_ON * 20)) // -> 115 (bsuits take the same damage as laroured)
+#define LEVEL3_POUNCE_DMG           ADM(100 + (VAMP_ON * 30)) // -> 115 (bsuits take the same damage as laroured)
 					//Armour - 3 hit
 					//Helm - 2 hit
 					//Larm+Helm -or- bsuit - 4 hit
@@ -128,20 +128,20 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL3_POUNCE_SPEED_MOD     0.75f 
 #define LEVEL3_POUNCE_CHARGE_TIME   700 
 #define LEVEL3_POUNCE_TIME          200 //400-> 200 delay after touching ground before you can chomp again
-#define LEVEL3_BOUNCEBALL_DMG       ADM(115)
+#define LEVEL3_BOUNCEBALL_DMG       ADM(115 + (VAMP_ON * 15))
 
 #define LEVEL3_BOUNCEBALL_AMMO      3
 #define LEVEL3_BOUNCEBALL_REPEAT    1000
 #define LEVEL3_BOUNCEBALL_RECHARGE  18000 //barb regen time
 #define LEVEL3_BOUNCEBALL_SPEED     1000.0f
-#define LEVEL3_BOUNCEBALL_SPLASH_DMG  76 //Honestly, i don't like the overpowered snipe.
+#define LEVEL3_BOUNCEBALL_SPLASH_DMG ADM(76 + (VAMP_ON * 35)) //Honestly, i don't like the overpowered snipe.
 #define LEVEL3_BOUNCEBALL_SPLASH_RADIUS 92
 
-#define LEVEL4_CLAW_DMG             ADM(100)
+#define LEVEL4_CLAW_DMG             ADM(100 + (VAMP_ON * 10))
 #define LEVEL4_CLAW_RANGE           96.0f //128 //80 feels useless [unv]
 #define LEVEL4_CLAW_WIDTH           16.0f
 #define LEVEL4_CLAW_REPEAT          750 //750 //keep at 1.1 value, otherwise people will charge-spam only
-#define LEVEL4_CLAW_K_SCALE         0.8f //Effects Charge
+#define LEVEL4_CLAW_K_SCALE         0.8f //Effects Charge, do NOT put '0' however 0.1 is acceptable and not very noticable.
 
 #define LEVEL4_REGEN_MOD            1.5f //No longer is kept with tyrant, however applies to overminds
 #define LEVEL4_CHARGE_SPEED         2.5f //2.5 is easier to move with
@@ -155,11 +155,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define LEVEL4_CHARGE_REPEAT        150 //1000 //GPP uses '100', the more lower, the more ping-bias
 #define LEVEL4_CHARGE_TIMEOUT       LEVEL4_CHARGE_REPEAT + FASTFIRE //After charge has run out, wait this before you can swipe
-#define LEVEL4_CHARGE_DMG           ADM(56 + (VAMP_ON * 35)) //100 (to help with armoured)
+#define LEVEL4_CHARGE_DMG           ADM(76 + (VAMP_ON * 35)) //100 (to help with armoured) - DO NOT USE '0'
 					//0.2s naked
 					//~0.4s helm
 					//~0.6s larm
 					//~0.9s larm+helm [Bsuit not tested, but bsuit should be the same as this]
+#define LEVEl4_CHARGE_K_COUNTER     (1/LEVEL4_CLAW_K_SCALE)*(111.0f/LEVEL4_CHARGE_DMG) //counteracts the claw knockback and damage differences from the original '111' from gpp
 //Removed tyrant spit bomb
 
 #define LEVEL4_CHARGE_EXTRA         ADM(15) //Extra damage added to charge so it isnt completely useless when slow
@@ -187,32 +188,32 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define ABUILDER_SPEED              0.8f
 #define ABUILDER_VALUE              AVM(160) //limit battlegrangers' reward because of newbies
-#define ABUILDER_HEALTH             AHM(50)
+#define ABUILDER_HEALTH             AHM(50 + (VAMP_ON * 10))
 #define ABUILDER_REGEN              2
 #define ABUILDER_COST               0
 
 #define ABUILDER_UPG_SPEED          1.0f
 #define ABUILDER_UPG_VALUE          AVM(220) //limit battlegrangers' reward because of newbies
-#define ABUILDER_UPG_HEALTH         AHM(75)
+#define ABUILDER_UPG_HEALTH         AHM(75 + (VAMP_ON * 15))
 #define ABUILDER_UPG_REGEN          3
 #define ABUILDER_UPG_COST           0
 
 #define LEVEL0_SPEED                1.4f
 #define LEVEL0_VALUE                AVM(180)
-#define LEVEL0_HEALTH               AHM(25)
+#define LEVEL0_HEALTH               AHM(25 + (VAMP_ON * 5))
 #define LEVEL0_REGEN                1
 #define LEVEL0_COST                 0
 
 #define LEVEL1_SPEED                1.2f
 #define LEVEL1_VALUE                AVM(260)
-#define LEVEL1_HEALTH               AHM(60)
+#define LEVEL1_HEALTH               AHM(60 + (VAMP_ON * 15))
 #define LEVEL1_REGEN                2
 #define LEVEL1_COST                 1
 #define LEVEL1_REGEN_MOD            2.0f
 
 #define LEVEL1_UPG_SPEED            1.2f
 #define LEVEL1_UPG_VALUE            AVM(275)
-#define LEVEL1_UPG_HEALTH           AHM(80)
+#define LEVEL1_UPG_HEALTH           AHM(80 + (VAMP_ON * 20))
 #define LEVEL1_UPG_REGEN            3
 #define LEVEL1_UPG_COST             1
 #define LEVEL1_UPG_REGEN_MOD        3.0f
@@ -335,7 +336,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define TRAPPER_BP                  8
 #define TRAPPER_BT                  12000
-#define TRAPPER_HEALTH              ABHM(50)
+#define TRAPPER_HEALTH              ABHM(50 + (VAMP_ON * 10))
 #define TRAPPER_REGEN               3
 #define TRAPPER_SPLASHDAMAGE        50
 #define TRAPPER_SPLASHRADIUS        50
@@ -383,7 +384,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define ALIENSENSE_RANGE            1000.0f
 #define ALIEN_POISON_TIME           8000 //i'm keeping medikit immunity
-#define ALIEN_POISON_DMG            5
+#define ALIEN_POISON_DMG            5 + VAMP_ON
 #define ALIEN_POISON_DIVIDER        (1.0f/1.32f) //about 1.0/(time`th root of damage)[1.0f/1.32f]
 #define ALIEN_SPAWN_REPEAT_TIME     12000
 #define ALIEN_REGEN_DAMAGE_TIME     3000 //Reduce chances of healing mid-battle
@@ -408,7 +409,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BLASTER_K_SELF_SCALE        (100.0f/BLASTER_PUSH) //gets multiplied for self only (splash)
 #define BLASTER_SPREAD              0
 #define BLASTER_SPEED               1400
-#define BLASTER_DMG                 HDM(9)
+#define BLASTER_DMG                 HDM(9 + VAMP_ON)
 #define BLASTER_PUSH                80//Blasterjump effect, this is the actual damage before modding
 #define BLASTER_DMG_MOD             (8.00f/BLASTER_PUSH) //Modifier for above damage
 #define BLASTER_RADIUS              100
@@ -424,12 +425,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define RIFLE_RELOAD                2000
 #define RIFLE_PRICE                 0
 #define RIFLE_SPREAD                170
-#define RIFLE_DMG                   HDM(5) //'6' seems ok, although some australians say it is overepowered
+#define RIFLE_DMG                   HDM(5 + VAMP_ON) //'6' seems ok, although some australians say it is overepowered
 
 #define PAINSAW_PRICE               100
 #define PAINSAW_REPEAT              65 
 #define PAINSAW_K_SCALE             1.0f
-#define PAINSAW_DAMAGE              HDM(12) //~>185 dmg/s
+#define PAINSAW_DAMAGE              HDM(12 + VAMP_ON) //~>185 dmg/s
 #define PAINSAW_RANGE               60.0f //enough to touch below feet of a normal human without being OP [unlike gpp]
 //Following disabled via bg_misc.c and g_active.c, leave it for now
 #define PAINSAW_NODECAY             qtrue //Bleed ammo one per second if nodecay is qfalse
@@ -446,35 +447,35 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define GRENADE_SPEED               400.0f
 
 #define SHOTGUN_PRICE               150
-#define SHOTGUN_SHELLS              8
+#define SHOTGUN_SHELLS              8 + (VAMP_ON * -2)
 #define SHOTGUN_PELLETS             14 //5 * 11 is gpp, 4 * 14 is 1.1, 7 * 8 is tremfusion
-#define SHOTGUN_MAXCLIPS            3
-#define SHOTGUN_REPEAT              1000
+#define SHOTGUN_MAXCLIPS            3 + (VAMP_ON * 2)
+#define SHOTGUN_REPEAT              1000 + (VAMP_ON * -200)
 #define SHOTGUN_K_SCALE             2.0f
-#define SHOTGUN_RELOAD              2000 //( SHOTGUN_SHELLS * 400 + 800 )
-#define SHOTGUN_SPREAD              900
-#define SHOTGUN_DMG                 HDM(4)
+#define SHOTGUN_RELOAD              2000 + (VAMP_ON * 1000) //( SHOTGUN_SHELLS * 400 + 800 )
+#define SHOTGUN_SPREAD              900 + (VAMP_ON * 475)
+#define SHOTGUN_DMG                 HDM(4 + (VAMP_ON * 2))
 
 #define LASGUN_PRICE                250
 #define LASGUN_AMMO                 200
 #define LASGUN_REPEAT               200
-#define LASGUN_MAXCLIPS             0
+#define LASGUN_MAXCLIPS             0 + VAMP_ON
 #define LASGUN_K_SCALE              1.0f
 #define LASGUN_RELOAD               3000
 #define LASGUN_SPREAD               100 //btw, this actually works, don't tweak it any higher or it'll effect gameplay too much
-#define LASGUN_DAMAGE               HDM(9)
+#define LASGUN_DAMAGE               HDM(9 + VAMP_ON)
 
 #define MDRIVER_PRICE               350
 #define MDRIVER_CLIPSIZE            5
 #define MDRIVER_MAXCLIPS            4
-#define MDRIVER_DMG                 HDM(40)
-#define MDRIVER_REPEAT              1000
+#define MDRIVER_DMG                 HDM(40 + (VAMP_ON * 22))
+#define MDRIVER_REPEAT              1000 + (VAMP_ON * 250)
 #define MDRIVER_K_SCALE             1.0f
 #define MDRIVER_RELOAD              2000
 //bullet physics stuff
 #define MDRIVER_SPEED               19200 //Bullet speed 19200 = 600 m/s
-#define MDRIVER_RADIUS              0 //explosion radius
-#define MDRIVER_SPLASH              0 //Splash dmg
+#define MDRIVER_RADIUS              0 + (VAMP_ON * 75) //explosion radius
+#define MDRIVER_SPLASH              0 + (VAMP_ON * 40) //Splash dmg
 #define MDRIVER_LAG                 0.35f //Same effect as Flamer_LAG but not as effective
 #define MDRIVER_LIFETIME            8000 //It's a pretty fast bullet. Doesn't need a long lifetime
 
@@ -487,7 +488,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define CHAINGUN_K_SCALE            1.0f
 #define CHAINGUN_SPREAD             700
 #define CHAINGUN_SPREAD2            1200 //Anti-Dretch n00b edition
-#define CHAINGUN_DMG                HDM(6)
+#define CHAINGUN_DMG                HDM(6 + VAMP_ON)
 
 #define PRIFLE_PRICE                450
 #define PRIFLE_CLIPS                50 //love ya 1.1 <3
@@ -495,7 +496,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define PRIFLE_REPEAT               90
 #define PRIFLE_K_SCALE              1.0f
 #define PRIFLE_RELOAD               2000
-#define PRIFLE_DMG                  HDM(9)
+#define PRIFLE_DMG                  HDM(9 + VAMP_ON)
 #define PRIFLE_SPEED                1400 //1.1 uses 1000, gpp uses blaster speed
 
 //fixed flamer-wall bug from tremulous
@@ -504,7 +505,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define FLAMER_RELOAD               3000
 #define FLAMER_REPEAT               100
 #define FLAMER_K_SCALE              1.25f
-#define FLAMER_DMG                  HDM(10)
+#define FLAMER_DMG                  HDM(10 + (VAMP_ON * 2))
 #define FLAMER_DMG_MOD              0.6f//Same deal as blaster, this one allows wall climbing.
 #define FLAMER_RADIUS_MOD           1.00f/FLAMER_DMG_MOD
 #define FLAMER_RADIUS               50
@@ -513,15 +514,15 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define FLAMER_LAG                  0.65f
 
 #define LCANNON_PRICE               600
-#define LCANNON_AMMO                90
+#define LCANNON_AMMO                90 + (VAMP_ON * 30)
 #define LCANNON_REPEAT              1000 //GPP-like secondary
 #define LCANNON_K_SCALE             1.0f
 #define LCANNON_CHARGEREPEAT        500 //spam-able but does little damge
 #define LCANNON_RELOAD              3000
-#define LCANNON_DAMAGE              HDM(256)
+#define LCANNON_DAMAGE              HDM(256 + (VAMP_ON * 32))
 #define LCANNON_RADIUS              150 //does nothing now, dynamic explosion radius
 #define LCANNON_MIN_RADIUS          50 //minimum radius for lcannon
-#define LCANNON_SECONDARY_DAMAGE    HDM(38)
+#define LCANNON_SECONDARY_DAMAGE    HDM(38 + (VAMP_ON * 10))
 #define LCANNON_SECONDARY_RADIUS    75 //still applies to secondary
 #define LCANNON_SPEED               400 //see g_missile.c, this is minimum speed (roughly), max is about 3x this
 #define LCANNON_SECONDARY_SPEED     1800
@@ -565,7 +566,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define MEDKIT_PRICE                0
 
 #define BATTPACK_PRICE              100
-#define BATTPACK_MODIFIER           1.5f
+#define BATTPACK_MODIFIER           1.5f + (VAMP_ON * 0.1f)
 
 //Non-stationary Jet
 #define JETPACK_PRICE               120 
@@ -640,7 +641,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define MGTURRET_BP                 8
 #define MGTURRET_BT                 10000
-#define MGTURRET_HEALTH             HBHM(190)
+#define MGTURRET_HEALTH             HBHM(190 + (VAMP_ON * 20))
 #define MGTURRET_SPLASHDAMAGE       50
 #define MGTURRET_SPLASHRADIUS       100
 #define MGTURRET_ANGULARSPEED       6
@@ -652,7 +653,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define MGTURRET_K_SCALE            1.0f
 #define MGTURRET_RANGE              400.0f
 #define MGTURRET_SPREAD             600 //200
-#define MGTURRET_DMG                HDM(6) //total damage per shot, keep value even [not odd - it divides the bullet into two]
+#define MGTURRET_DMG                HDM(6 + (VAMP_ON * 2)) //total damage per shot, keep value even [not odd - it divides the bullet into two]
 
 #define MGTURRET_DCC_ANGULARSPEED       18 //DCCs are now valuable
 #define MGTURRET_DCC_ACCURACYTOLERANCE  MGTURRET_DCC_ANGULARSPEED / 1.5f
@@ -684,7 +685,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //Following has been changed so it maintains its damage/s approximate as well as knockback
 #define TESLAGEN_REPEAT             100 // 250
 #define TESLAGEN_K_SCALE            -5.0f //4f //higher for lower dmg, be cautious of repeat rates though //6->5 for it sends marauders flying everywhere //Reality electricity pulls 5 -> -5
-#define TESLAGEN_RANGE              250 //default 200
+#define TESLAGEN_RANGE              250 + (VAMP_ON * -25) //default 200
 #define TESLAGEN_DMG                HDM(4) //default 9
 
 //DCC no longer powers teslas nor heals - it speeds up turrets dramatically. A highly valued structure honestly, no jokes.
@@ -696,7 +697,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define ARMOURY_BP                  10
 #define ARMOURY_BT                  15000
-#define ARMOURY_HEALTH              HBHM(480) //380 //420 -> 480 for 5 snipes to kill
+#define ARMOURY_HEALTH              HBHM(480 + (VAMP_ON * 40)) //380 //420 -> 480 for 5 snipes to kill
 #define ARMOURY_SPLASHDAMAGE        50
 #define ARMOURY_SPLASHRADIUS        100
 
@@ -713,8 +714,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define REPEATER_BP                 0
 #define REPEATER_BT                 10000
 #define REPEATER_HEALTH             HBHM(250)
-#define REPEATER_SPLASHDAMAGE       50
-#define REPEATER_SPLASHRADIUS       100
+#define REPEATER_SPLASHDAMAGE       50 + (VAMP_ON * 100) //gimmic for fun
+#define REPEATER_SPLASHRADIUS       100 + (VAMP_ON * 200)
 #define REPEATER_INACTIVE_TIME      180000 
 
 /*

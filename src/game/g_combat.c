@@ -506,9 +506,13 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next?");
     {
       trap_SendServerCommand( -1, va( "print \"%s^7 bit off %s^7's face\n\"", attacker->client->pers.netname, self->client->pers.netname ) );
     }
-    else if ( meansOfDeath == MOD_TARGET_LASER )
+    else if ( meansOfDeath == MOD_TARGET_LASER && attacker != self )
     {
-      trap_SendServerCommand( -1, va( "print \"%s^7's vicious energy slug blew %s^7 off his feet\n\"", attacker->client->pers.netname, self->client->pers.netname ) );
+      trap_SendServerCommand( -1, va( "print \"%s^7's vicious energy slug made %s^7 fly a bit\n\"", attacker->client->pers.netname, self->client->pers.netname ) );
+    }
+    else if ( meansOfDeath == MOD_TARGET_LASER && attacker == self )
+    {
+      trap_SendServerCommand( -1, va( "print \"%s^7 underestimated his own blaster's power\n\"", attacker->client->pers.netname ) );
     }
     else if ( meansOfDeath == MOD_GRENADE_DIRECT && attacker != self )
     {
@@ -1555,6 +1559,9 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		knockback *= BLASTER_K_SCALE; }
   if ( mod == MOD_TARGET_LASER && attacker == targ ) { //Temporary useless MOD
 		knockback *= BLASTER_K_SELF_SCALE; } //Help jump
+  if ( mod == MOD_LEVEL4_CHARGE )
+knockback *= LEVEl4_CHARGE_K_COUNTER; //help shove people around
+
 
   // figure momentum add, even if the damage won't be taken
   if( knockback && targ->client )

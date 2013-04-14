@@ -648,17 +648,17 @@ void G_BotBuy(gentity_t *self, usercmd_t *botCmdBuffer) {
             }
         }
         //try to buy helmet/lightarmour //not bsuit because humans glitch //UP_BATTLESUIT - retry
-/*
+
         G_BotBuyUpgrade( self, UP_HELMET);
         G_BotBuyUpgrade( self, UP_LIGHTARMOUR);
-*/
+
 //Bsuits dont wear visual bsuits
 //        if( !G_BotBuyUpgrade( self, UP_BATTLESUIT) )//buy ordinary armour
 //	{
 //            G_BotBuyUpgrade( self, UP_HELMET);
 //            G_BotBuyUpgrade( self, UP_LIGHTARMOUR);
 //	}
-//This part causes them to buy-spam
+//This part causes them to buy-spam for an unknown reason
 /*
         if( BG_InventoryContainsUpgrade( UP_BATTLESUIT, self->client->ps.stats )  ) //set model
         {
@@ -670,23 +670,23 @@ void G_BotBuy(gentity_t *self, usercmd_t *botCmdBuffer) {
         
         // buy most expensive first, then one cheaper, etc, dirty but working way
         if( !G_BotBuyWeapon( self, WP_LUCIFER_CANNON ) )
-            if( !G_BotBuyWeapon( self, WP_PULSE_RIFLE ) )
-//            res = (random()>0.5) ? G_BotBuyWeapon( self, WP_PULSE_RIFLE ) : G_BotBuyWeapon( self, WP_FLAMER );
-//               if(!res) { //DO NOT FORGET THE BRACES
-                if( !G_BotBuyWeapon( self, WP_FLAMER ) )
-                      if( !G_BotBuyWeapon( self, WP_CHAINGUN ) ) //Shifted back
-                 	  if( !G_BotBuyWeapon( self, WP_MASS_DRIVER ) )
-//                  res = (random()>0.5) ? G_BotBuyWeapon( self, WP_CHAINGUN  ) : G_BotBuyWeapon( self, WP_MASS_DRIVER );
-//                     if(!res) {//DO NOT FORGET THE BRACES
+//            if( !G_BotBuyWeapon( self, WP_PULSE_RIFLE ) )
+            res = (random()>0.5) ? G_BotBuyWeapon( self, WP_PULSE_RIFLE ) : G_BotBuyWeapon( self, WP_FLAMER );
+               if(!res) { //DO NOT FORGET THE BRACES
+//                if( !G_BotBuyWeapon( self, WP_FLAMER ) )
+//                      if( !G_BotBuyWeapon( self, WP_CHAINGUN ) ) //Shifted back
+//                 	  if( !G_BotBuyWeapon( self, WP_MASS_DRIVER ) )
+                  res = (random()>0.5) ? G_BotBuyWeapon( self, WP_CHAINGUN  ) : G_BotBuyWeapon( self, WP_MASS_DRIVER );
+                     if(!res) {//DO NOT FORGET THE BRACES
                             if( !G_BotBuyWeapon( self, WP_LAS_GUN ) )
                                 if( !G_BotBuyWeapon( self, WP_SHOTGUN ) )
                                     if( !G_BotBuyWeapon( self, WP_PAIN_SAW ) )
                                         G_BotBuyWeapon( self, WP_MACHINEGUN );
-//                              } //probability x:y ripped from evolution code
-//                         }
+                              } //probability x:y ripped from evolution code
+                         }
                                     
         //buy ammo/batpack
-        if( BG_FindUsesEnergyForWeapon( self->client->ps.weapon )/* && !BG_InventoryContainsUpgrade( UP_BATTLESUIT, self->client->ps.stats )*/) { //TODO: add check for bsuit
+        if( BG_FindUsesEnergyForWeapon( self->client->ps.weapon ) && !BG_InventoryContainsUpgrade( UP_BATTLESUIT, self->client->ps.stats )) { //TODO: add check for bsuit
             G_BotBuyUpgrade( self, UP_BATTPACK );
         }else {
             G_BotBuyUpgrade( self, UP_AMMO );

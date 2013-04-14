@@ -572,7 +572,7 @@ void Cmd_Kill_f( gentity_t *ent )
 
   if( ent->client->ps.stats[ STAT_STATE ] & SS_HOVELING )
   {
-    trap_SendServerCommand( ent-g_entities, "print \"Leave the hovel first (use your destroy key)\n\"" );
+    trap_SendServerCommand( ent-g_entities, "print \"Leave the hovel first (use your deconstruct key if stuck)\n\"" );
     return;
   }
 
@@ -595,6 +595,18 @@ void Cmd_Kill_f( gentity_t *ent )
       ent->suicideTime = 0;
     }
   }
+//ZdrytchX: I know this does not belong here. test.
+//TODO: Hurtme CMD
+/*
+   if( !Q_stricmpn( ent, "say /hurtme", 11 ) ||
+      !Q_stricmpn( ent, "say_team /hurtme", 16 ) && g_cheats.integer )
+    {
+    player_die( ent, ent, ent, 10, MOD_SUICIDE );
+      trap_SendServerCommand( ent-g_entities, "print \"You hurt yourself.\n\"" );
+      ent->suicideTime = level.time + 20000;
+
+    }
+*/
 }
 
 /*
@@ -4015,7 +4027,7 @@ void Cmd_TeamStatus_f( gentity_t *ent )
         medi++;
     }
 
-    G_Say( ent, NULL, SAY_TEAM, va( "^5RC: %s[%d/%d(%d)] ^5Telenodes: %s%i ^5Builders: %s%i ^5Armouries: %s%i ^5Medistations: %s%i^7",
+    G_Say( ent, NULL, SAY_TEAM, va( "^5RC: %s[%d/%d(%d)] ^5Telenodes: %s%i ^5Builders: %s%i ^5Armouries: %s%i ^5Medistations: %s%i",
       ( omrc <= 0 ) ? "^1Down" : ( omrcbuild ) ? "^2Up" : "^3Building",
       ( omrc > 0 ) ? omrc : 0,
       REACTOR_HEALTH,
