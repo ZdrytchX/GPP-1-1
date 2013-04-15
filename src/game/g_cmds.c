@@ -4802,7 +4802,7 @@ static void Cmd_Ignore_f( gentity_t *ent )
   if( g_floodMinTime.integer )
    if ( G_Flood_Limited( ent ) )
    {
-    trap_SendServerCommand( ent-g_entities, "print \"Your chat is flood-limited; wait before chatting again\n\"" );
+    trap_SendServerCommand( ent-g_entities, "print \"Your chat is flood-limited; wait before donating again\n\"" );
     return;
    }
  

@@ -376,8 +376,8 @@ static float PM_CmdScale( usercmd_t *cmd )
       cmd->upmove = 10;
 
     //slow down once stamina depletes
-    if( pm->ps->stats[ STAT_STAMINA ] <= 0 )
-      modifier *= (float)( pm->ps->stats[ STAT_STAMINA ] + 1000 ) / 1000.0f;
+    if( pm->ps->stats[ STAT_STAMINA ] <= -500 )
+      modifier *= (float)( pm->ps->stats[ STAT_STAMINA ] + 1000 ) / 500.0f;
 
     if( pm->ps->stats[ STAT_STATE ] & SS_CREEPSLOWED )
     {

@@ -705,9 +705,9 @@ void G_BotEvolve ( gentity_t *self, usercmd_t *botCmdBuffer )
     int res;
     if(!G_BotEvolveToClass(self, "level4", botCmdBuffer))
         if(!G_BotEvolveToClass(self, "level3upg", botCmdBuffer)) {
-            res = (random()>0.4) ? G_BotEvolveToClass(self, "level3", botCmdBuffer) : G_BotEvolveToClass(self, "level2upg", botCmdBuffer);
+            res = (random()>0.4 && self->client->ps.stats[STAT_PCLASS] != PCL_ALIEN_LEVEL2_UPG) ? G_BotEvolveToClass(self, "level3", botCmdBuffer) : G_BotEvolveToClass(self, "level2upg", botCmdBuffer);
             if(!res) {
-                res = (random()>0.5) ? G_BotEvolveToClass(self, "level2", botCmdBuffer) : G_BotEvolveToClass(self, "level1upg", botCmdBuffer);
+                res = (random()>0.5 && self->client->ps.stats[STAT_PCLASS] != PCL_ALIEN_LEVEL1_UPG) ? G_BotEvolveToClass(self, "level2", botCmdBuffer) : G_BotEvolveToClass(self, "level1upg", botCmdBuffer);
                 if(!res)
                     if(!G_BotEvolveToClass(self, "level1", botCmdBuffer))
                        if (!G_BotEvolveToClass(self, "level0", botCmdBuffer))

@@ -566,7 +566,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define MEDKIT_PRICE                0
 
 #define BATTPACK_PRICE              100
-#define BATTPACK_MODIFIER           1.5f + (VAMP_ON * 0.1f)
+#define BATTPACK_MODIFIER           1.5f + (float)(VAMP_ON * 0.1f)
 
 //Non-stationary Jet
 #define JETPACK_PRICE               120 
@@ -580,7 +580,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BSUIT_PRICE                 400
 #define BSUIT_POISON_PROTECTION     4
 
-#define HUMAN_REGEN                 1 //int, recommended to stay '1' and modify HUMAN_REGEN_MOD instead
+#define HUMAN_REGEN                 1 + (VAMP_ON * 1) //int, recommended to stay '1' and modify HUMAN_REGEN_MOD instead
 #define HUMAN_REGEN_MOD             1.8f //Modifier for human regen per second at 2 health //Try to keep low
 
 #define MGCLIP_PRICE                0
@@ -781,11 +781,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define VAMP_TAKE                   6.25 //6.25 //Confusing, recommended to leave as is. Basically at MAX-vamp'd health, you lose 4 times as much as you would with 25% vamp'd health
 #define VAMP_INIT_HEALTH            1.00 //Spawn with this health
                                        //Human max extra health is 50, so it takes 8 hp/s at most...
-#define MAX_MAX_HEALTH              1.0f //Max health for players * this = Max vamped health, in this case its 1+(if vamp is on/off [1/0]*0.5) = 1.5x normal max health
+#define MAX_MAX_HEALTH              1.0f + (float)(VAMP_ON * 1.0f) //Max health for players * this = Max vamped health, in this case its 1+(if vamp is on/off [1/0]*0.5) = 1.5x normal max health
 //medkits extras
-#define MEDKIT_OVERHEAL             1.0f //yes > 1.0f | no = 1.0f | little = 1.2f | L4D-like = 0.8
+#define MEDKIT_OVERHEAL             0.9f + (float)(VAMP_ON * 0.1f) //yes > 1.0f | no = 1.0f | little = 1.2f | L4D-like = 0.8
                                          //note: this value * MAX_MAX_HEALTH * player's max health
-#define MEDKIT_EXTRA                0 //Extra raw health added to medkit.
+#define MEDKIT_EXTRA                10 + (VAMP_ON * 10) //Extra raw health added to medkit.
 
 //misc
 #define FASTFIRE                    200 //Allows a short period of fast fire - includes aliens
