@@ -89,7 +89,7 @@ GPP-1.1 Gameplay "Features":
 -Ramp Jumps :)
 -Other shit
 
-"Imported" Gameplay from Lolards/Misc:
+"Imported" and "Invented" Gameplay from Lolards/Misc:
 -Modified Turret aiming code - they aim slower when firing, and aim even slower when they're aiming directly at you
 -Humans regenerate slowly
 -Blaster/Flamer jumping/climbing is possible now (blaster splash isnt supposed to deal damage, but its damage is a mere 1, dunno what happened here, look at basi gas above)
@@ -107,6 +107,8 @@ GPP-1.1 Gameplay "Features":
 -Blaster Combos available to use, but blaster has recharge time if spammed
 -Blaster Combos actually do more damage per second if done properly with a shotgun or mass driver
 -Cvars for *some* vars
+-A short time is given where the player can attack quickly, such as the rifle can do 3-shot bursts by tapping the mouse button, this applies to all weapons, including aliens
+-Mass driver rails falls to gravity, and isn't hitscan
 -Other shit
 
 Irregular Features that are actually 'bugs' but plan on keeping:
@@ -118,7 +120,7 @@ Imported from Sixthly's Aussie Assault 1.1:
 -Black names are allowed (g_allowBlackInNames)
 -/Teamstatus (g_teamStatus) i.e. RC:[465/930(50)] Telenodes: 2 Builders: 1 Armoury: 1 Medistation: 2
 -Aliens can evolve near overminds even with enemies nearby
--A short time is given where the player can attack quickly, such as the rifle can do 3-shot bursts by tapping the mouse button, this applies to all weapons, including aliens
+
 
 Potential Side Effects/bugs from features:
 -Some clients on rare occasions can be "bot infected" (not literally, just a term where his client takes over a bot's and the bot tries to control him when he's lagging) although this bug has not been seen for over half a year
@@ -137,3 +139,4 @@ TODO list:
 -Disallow !revert-ing hovels, they make grangers disappear and stuck in a non-existant hovel
 -Adminlogs, server owners can find out who over-uses admin powers (which I don't like)
 -/hurtme command (similar to tf2's actually)
+-Add lag compensation for projectiles

@@ -584,7 +584,7 @@ gentity_t *launch_grenade( gentity_t *self, vec3_t start, vec3_t dir )
   bolt->damage = GRENADE_DAMAGE * GRENADE_DAMAGE_BUFF;
   bolt->splashDamage = GRENADE_DAMAGE;
   bolt->splashRadius = GRENADE_RANGE;
-  bolt->methodOfDeath = MOD_GRENADE_DIRECT; //test
+  bolt->methodOfDeath = MOD_GRENADE_DIRECT; //Custom MOD
   bolt->splashMethodOfDeath = MOD_GRENADE;
   bolt->clipmask = MASK_SHOT;
   bolt->target_ent = NULL;

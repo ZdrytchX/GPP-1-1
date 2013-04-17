@@ -160,7 +160,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 					//~0.4s helm
 					//~0.6s larm
 					//~0.9s larm+helm [Bsuit not tested, but bsuit should be the same as this]
-#define LEVEl4_CHARGE_K_COUNTER     (1/LEVEL4_CLAW_K_SCALE)*(111.0f/LEVEL4_CHARGE_DMG) //counteracts the claw knockback and damage differences from the original '111' from gpp
+#define LEVEl4_CHARGE_K_ORIGINAL    90.0f //gpp 111.0f
+#define LEVEl4_CHARGE_K_COUNTER     (1/LEVEL4_CLAW_K_SCALE)*(LEVEl4_CHARGE_K_ORIGINAL/LEVEL4_CHARGE_DMG) //counteracts the claw knockback and damage differences between this and LEVEl4_CHARGE_K_ORIGINAL
 //Removed tyrant spit bomb
 
 #define LEVEL4_CHARGE_EXTRA         ADM(15) //Extra damage added to charge so it isnt completely useless when slow
@@ -205,14 +206,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL0_REGEN                1
 #define LEVEL0_COST                 0
 
-#define LEVEL1_SPEED                1.2f
+#define LEVEL1_SPEED                1.25f
 #define LEVEL1_VALUE                AVM(260)
 #define LEVEL1_HEALTH               AHM(60 + (VAMP_ON * 15))
 #define LEVEL1_REGEN                2
 #define LEVEL1_COST                 1
 #define LEVEL1_REGEN_MOD            2.0f
 
-#define LEVEL1_UPG_SPEED            1.2f
+#define LEVEL1_UPG_SPEED            1.25f
 #define LEVEL1_UPG_VALUE            AVM(275)
 #define LEVEL1_UPG_HEALTH           AHM(80 + (VAMP_ON * 20))
 #define LEVEL1_UPG_REGEN            3
@@ -225,7 +226,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL2_REGEN                4
 #define LEVEL2_COST                 1
 
-#define LEVEL2_UPG_SPEED            1.3f
+#define LEVEL2_UPG_SPEED            1.2f
 #define LEVEL2_UPG_VALUE            AVM(430)
 #define LEVEL2_UPG_HEALTH           AHM(175)
 #define LEVEL2_UPG_REGEN            5
@@ -313,9 +314,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define ACIDTUBE_HEALTH             ABHM(125)
 #define ACIDTUBE_REGEN              4
 #define ACIDTUBE_SPLASHDAMAGE       8 //Don't get confused this with other splash damages, this is the attack damage
-#define ACIDTUBE_SPLASHRADIUS       400 //bring higher to near-unite turret range so they're not so shit
+#define ACIDTUBE_SPLASHRADIUS       300 //bring higher to near-unite turret range so they're not so shit
 #define ACIDTUBE_CREEPSIZE          120
-#define ACIDTUBE_RANGE              350.0f //200 //YADAHAHAHAHA I DIDNT HEAR ANYTHING
+#define ACIDTUBE_RANGE              300.0f //200 //YADAHAHAHAHA I DIDNT HEAR ANYTHING
 #define ACIDTUBE_REPEAT             2000 //Re-trigger delay
 #define ACIDTUBE_K_SCALE            0.0f //does nothing
 
@@ -327,7 +328,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define HIVE_SPLASHDAMAGE           30 //Splash damage for insectoid death
 #define HIVE_SPLASHRADIUS           100
 #define HIVE_CREEPSIZE              120
-#define HIVE_RANGE                  900.0f //300 Higher! Bring em higher!
+#define HIVE_RANGE                  1200.0f //300 Higher! Bring em higher!
 #define HIVE_REPEAT                 1500 //Insectoid Re-send time //2500 -> 1500 so not so useless close-range
 #define HIVE_K_SCALE                -1.0f //Reel 'em in boys!
 #define HIVE_DMG                    80
@@ -342,7 +343,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define TRAPPER_SPLASHDAMAGE        50
 #define TRAPPER_SPLASHRADIUS        50
 #define TRAPPER_CREEPSIZE           30
-#define TRAPPER_RANGE               300
+#define TRAPPER_RANGE               400
 #define TRAPPER_REPEAT              1000
 #define TRAPPER_K_SCALE             1.0f
 #define LOCKBLOB_SPEED              650.0f
