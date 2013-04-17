@@ -164,9 +164,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //Removed tyrant spit bomb
 
 #define LEVEL4_CHARGE_EXTRA         ADM(15) //Extra damage added to charge so it isnt completely useless when slow
-#define LEVEL4_TRAMPLE_DMG_B        (0.35f + (VAMP_ON * 0.85)) //Dmg multiplier to buildables
+#define LEVEL4_TRAMPLE_DMG_B        (0.45f) //Dmg multiplier to buildables
 
 #define LEVEL4_REGEN_RANGE          150.0f //Used for basi, booster and overmind healing, default 200
+                                           //rant has no aura now
 
 
 
@@ -552,7 +553,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define H_WEAP_SWITCH_DELAY         80 //Default start 200
 #define H_WEAP_SWITCH_DELAY_END     120 //end default 250
 //TODO: Replace with cvar, bg_pmove and trem.h doesn't know from g_main/g_local.h which poses a problem, same for bunnyhop
-#define H_WEAP_SWITCH_BENIFIT       500 //Time taken of firing time if you're switching weaps
+#define H_WEAP_SWITCH_BENIFIT       400 //Time taken of firing time if you're switching weaps
 #define BUNNYHOP_TRUE               1 //Off = 0 on = 1
 
 #define LIGHTARMOUR_PRICE           70
@@ -566,7 +567,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define MEDKIT_PRICE                0
 
 #define BATTPACK_PRICE              100
-#define BATTPACK_MODIFIER           1.5f + (float)(VAMP_ON * 0.1f)
+#define BATTPACK_MODIFIER           1.5f + (VAMP_ON * 0.1f)
 
 //Non-stationary Jet
 #define JETPACK_PRICE               120 
@@ -771,8 +772,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //Vampire mode settings
 //see g_combat.c for the equation.
 
-#define VAMP_ON                     0 //Used to balance some things above and enables/disables vampire mode
-                                      //Use '1' or '0' only
+#define VAMP_ON                     0.0f //Used to balance some things above and enables/disables vampire mode
+                                      //Use '1' or '0' only, set as a float for misc purpouses
 
 #define VAMP_EXTRA                  50 //extra "health" [before modding] added to self
 #define VAMP_TAKE_MULTIPLIER        (1.00f*(VAMP_ON)/600) //see g_combat.c why it needs to be a small number
@@ -781,9 +782,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define VAMP_TAKE                   6.25 //6.25 //Confusing, recommended to leave as is. Basically at MAX-vamp'd health, you lose 4 times as much as you would with 25% vamp'd health
 #define VAMP_INIT_HEALTH            1.00 //Spawn with this health
                                        //Human max extra health is 50, so it takes 8 hp/s at most...
-#define MAX_MAX_HEALTH              1.0f + (float)(VAMP_ON * 1.0f) //Max health for players * this = Max vamped health, in this case its 1+(if vamp is on/off [1/0]*0.5) = 1.5x normal max health
+#define MAX_MAX_HEALTH              1.0f + (VAMP_ON * 1.0f) //Max health for players * this = Max vamped health, in this case its 1+(if vamp is on/off [1/0]*0.5) = 1.5x normal max health
 //medkits extras
-#define MEDKIT_OVERHEAL             0.9f + (float)(VAMP_ON * 0.1f) //yes > 1.0f | no = 1.0f | little = 1.2f | L4D-like = 0.8
+#define MEDKIT_OVERHEAL             0.9f + (VAMP_ON * 0.1f) //yes > 1.0f | no = 1.0f | little = 1.2f | L4D-like = 0.8
                                          //note: this value * MAX_MAX_HEALTH * player's max health
 #define MEDKIT_EXTRA                10 + (VAMP_ON * 10) //Extra raw health added to medkit.
 

@@ -1355,7 +1355,7 @@ byte 4 0
 skip 4
 address g_teamStatusTime
 address $330
-address $125
+address $145
 byte 4 1
 byte 4 0
 byte 4 0
@@ -15702,7 +15702,7 @@ byte 1 0
 align 1
 LABELV $324
 byte 1 49
-byte 1 49
+byte 1 50
 byte 1 53
 byte 1 48
 byte 1 0
@@ -19314,7 +19314,7 @@ byte 1 112
 byte 1 114
 byte 1 32
 byte 1 49
-byte 1 53
+byte 1 54
 byte 1 32
 byte 1 50
 byte 1 48
@@ -19323,13 +19323,13 @@ byte 1 51
 byte 1 44
 byte 1 32
 byte 1 48
+byte 1 50
+byte 1 58
+byte 1 48
+byte 1 57
+byte 1 58
 byte 1 49
-byte 1 58
-byte 1 48
-byte 1 52
-byte 1 58
-byte 1 48
-byte 1 56
+byte 1 51
 byte 1 41
 byte 1 0
 align 1
@@ -19413,7 +19413,7 @@ byte 1 112
 byte 1 114
 byte 1 32
 byte 1 49
-byte 1 53
+byte 1 54
 byte 1 32
 byte 1 50
 byte 1 48
