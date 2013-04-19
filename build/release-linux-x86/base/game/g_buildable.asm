@@ -4422,9 +4422,9 @@ endproc AAcidTube_Damage 8 28
 lit
 align 4
 LABELV $450
-byte 4 1135542272
-byte 4 1135542272
-byte 4 1135542272
+byte 4 1133903872
+byte 4 1133903872
+byte 4 1133903872
 export AAcidTube_Think
 code
 proc AAcidTube_Think 4180 32
@@ -4732,9 +4732,9 @@ endproc AAcidTube_Think 4180 32
 lit
 align 4
 LABELV $477
-byte 4 1135542272
-byte 4 1135542272
-byte 4 1135542272
+byte 4 1133903872
+byte 4 1133903872
+byte 4 1133903872
 export AHive_Think
 code
 proc AHive_Think 4224 32
