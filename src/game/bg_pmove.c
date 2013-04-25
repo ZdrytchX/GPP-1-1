@@ -3191,7 +3191,7 @@ static void PM_Weapon( void )
   }
   else if( pm->ps->weapon == WP_ALEVEL3_UPG && attack3 )
   {
-    //special case for slowblob
+    //special case for bounceball
     ammo--;
     BG_PackAmmoArray( pm->ps->weapon, pm->ps->ammo, pm->ps->powerups, ammo, clips );
   }

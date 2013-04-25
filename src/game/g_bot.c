@@ -1505,8 +1505,8 @@ int botFindClosestEnemy( gentity_t *self, qboolean includeTeam ) {
                         minDistance = newDistance;
                         closestTarget = entityList[i];
                     }
-                    //if the entity is a player and not us
-                } else if( target->client && self != target) {
+                    //if the entity is a player and not us (and is not hovelling)
+                } else if( target->client && self != target /*&& target->ps->stats[ STAT_STATE ] & !SS_HOVELING*/) {
                     //if we are not on the same team (unless we can attack teamates)
                     if( target->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM] || includeTeam ) {
                         
