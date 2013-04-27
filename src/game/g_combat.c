@@ -435,7 +435,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
     {
       //make bot say its line
       if(attacker->r.svFlags & SVF_BOT && !( self->r.svFlags & SVF_BOT) && rand() % 9 <= 3 && attacker->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM] && !self->client->pers.muted && ( attacker->client->ps.stats[STAT_HEALTH] > attacker->client->ps.stats[STAT_MAX_HEALTH] * 0.3) )
-G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next? [SP]Icaro probably is...");
+G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next? ^7[SP]Icaro^2 probably is...");
 
       killerName = attacker->client->pers.netname;
       tk = ( attacker != self && attacker->client->ps.stats[ STAT_PTEAM ] 
