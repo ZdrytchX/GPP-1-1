@@ -776,18 +776,19 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 //Vampire mode settings
 //see g_combat.c for the equation.
+//TODO: Set as external cvars
 
 #define VAMP_ON                     0.0f //Used to balance some things above and enables/disables vampire mode
-                                      //Use '1' or '0' only, set as a float for misc purpouses
+                                      //Use '1.0f' or '0.0f' only, set as a float for misc purpouses
 
 #define VAMP_EXTRA                  50 //extra "health" [before modding] added to self
 #define VAMP_TAKE_MULTIPLIER        (1.00f*(VAMP_ON)/600) //see g_combat.c why it needs to be a small number
                                     //Do not use floating values when turned off! Use (1.00f*(VAMP_ON)/600) when on.
 #define VAMP_DIVIDE                 10   //
-#define VAMP_TAKE                   6.25 //6.25 //Confusing, recommended to leave as is. Basically at MAX-vamp'd health, you lose 4 times as much as you would with 25% vamp'd health
+#define VAMP_TAKE                   6.25 //6.25 //Confusing, recommended to leave as is. Basically at MAX-vamp'd health, you lose 4 times as much as you would with 25% vamp'd health. The higher the less health drained/s.
 #define VAMP_INIT_HEALTH            1.00 //Spawn with this health
                                        //Human max extra health is 50, so it takes 8 hp/s at most...
-#define MAX_MAX_HEALTH              1.0f + (VAMP_ON * 1.0f) //Max health for players * this = Max vamped health, in this case its 1+(if vamp is on/off [1/0]*0.5) = 1.5x normal max health
+#define MAX_MAX_HEALTH              1.5f//1.0f + (VAMP_ON * 1.0f) //Max health for players * this = Max vamped health, in this case its 1+(if vamp is on/off [1/0]*0.5) = 1.5x normal max health
 //medkits extras
 #define MEDKIT_OVERHEAL             0.9f + (VAMP_ON * 0.1f) //yes > 1.0f | no = 1.0f | little = 1.2f | L4D-like = 0.8
                                          //note: this value * MAX_MAX_HEALTH * player's max health
