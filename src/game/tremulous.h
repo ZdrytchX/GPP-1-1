@@ -569,6 +569,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define BATTPACK_PRICE              100
 #define BATTPACK_MODIFIER           1.5f + (VAMP_ON * 0.1f)
+#define BATTPACK_MODIFIER_NON_ENERGY 1.501f //round up
 
 //Non-stationary Jet
 #define JETPACK_PRICE               120 

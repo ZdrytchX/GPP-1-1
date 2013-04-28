@@ -109,7 +109,7 @@ void G_GiveClientMaxAmmo( gentity_t *ent, qboolean buyingEnergyAmmo )
           maxAmmo = (int)( (float)maxAmmo * BATTPACK_MODIFIER );
       }
       else if ( BG_InventoryContainsUpgrade( UP_BATTPACK, ent->client->ps.stats ) )
-	maxClips = (int)( (float)maxClips * BATTPACK_MODIFIER );
+	maxClips = (int)( (float)maxClips * BATTPACK_MODIFIER_NON_ENERGY );
 
       BG_PackAmmoArray( i, ent->client->ps.ammo, ent->client->ps.powerups,
                         maxAmmo, maxClips );
