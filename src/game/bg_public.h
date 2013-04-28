@@ -893,8 +893,9 @@ typedef enum
   MOD_ASPAWN,
   MOD_ATUBE,
   MOD_OVERMIND,
-//Zdrytchx: Grenade
-  MOD_GRENADE_DIRECT
+//Zdrytchx: Grenade, bounceball splash
+  MOD_GRENADE_DIRECT,
+  MOD_LEVEL3_BOUNCEBALL_SPLASH
 } meansOfDeath_t;
 
 

@@ -435,7 +435,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
     {
       //make bot say its line
       if(attacker->r.svFlags & SVF_BOT && !( self->r.svFlags & SVF_BOT) && rand() % 9 <= 3 && attacker->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM] && !self->client->pers.muted && ( attacker->client->ps.stats[STAT_HEALTH] > attacker->client->ps.stats[STAT_MAX_HEALTH] * 0.3) )
-G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next? ^7[SP]Icaro^2 probably is...");
+G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next?^7");
 
       killerName = attacker->client->pers.netname;
       tk = ( attacker != self && attacker->client->ps.stats[ STAT_PTEAM ] 
@@ -504,7 +504,7 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next? ^7[SP]Icaro^2 probabl
 //server-specific death messages
     if ( meansOfDeath == MOD_LEVEL2_CLAW )
     {
-      trap_SendServerCommand( -1, va( "print \"%s^7 bit off %s^7's face\n\"", attacker->client->pers.netname, self->client->pers.netname ) );
+      trap_SendServerCommand( -1, va( "print \"%s^7's face went missing as %s^7 flew by\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
     }
     else if ( meansOfDeath == MOD_TARGET_LASER && attacker != self )
     {
@@ -521,6 +521,22 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next? ^7[SP]Icaro^2 probabl
     else if ( meansOfDeath == MOD_GRENADE_DIRECT && attacker == self )
     {
       trap_SendServerCommand( -1, va( "print \"%s^7 threw the pin instead of the grenade\n\"", self->client->pers.netname ) );
+    }
+    else if ( meansOfDeath == MOD_LEVEL3_BOUNCEBALL_SPLASH && attacker != self )
+    {
+      trap_SendServerCommand( -1, va( "print \"%s^7 almost dodged %s's acid barb\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
+    }
+    else if ( meansOfDeath == MOD_LEVEL3_BOUNCEBALL_SPLASH && attacker == self )
+    {
+      trap_SendServerCommand( -1, va( "print \"%s^7 couldn't take it anymore\n\"", self->client->pers.netname ) );
+    }
+    else if ( meansOfDeath == MOD_SLOWBLOB && attacker != self ) //granger blobs didn't show the killer's name
+    {
+      trap_SendServerCommand( -1, va( "print \"%s^7 was ^2gooed^7 by %s's blob\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
+    }
+    else if ( meansOfDeath == MOD_SLOWBLOB && attacker == self )
+    {
+      trap_SendServerCommand( -1, va( "print \"%s^7 spat itself\n\"", self->client->pers.netname ) );
     }
     else
     {
