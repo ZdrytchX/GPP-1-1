@@ -506,7 +506,7 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next?^7");
     {
       trap_SendServerCommand( -1, va( "print \"%s^7's face went missing as %s^7 flew by\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
     }
-    else if ( meansOfDeath == MOD_TARGET_LASER && attacker != self )
+    else if ( meansOfDeath == MOD_TARGET_LASER && attacker != self ) //radiant doesn't use laser in its maps, so this unused MOD is used temp. for blaster's splash
     {
       trap_SendServerCommand( -1, va( "print \"%s^7's vicious energy slug made %s^7 fly a bit\n\"", attacker->client->pers.netname, self->client->pers.netname ) );
     }
@@ -518,7 +518,7 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next?^7");
     {
       trap_SendServerCommand( -1, va( "print \"%s^7 stepped on %s's ^2GREEN^8-^1AID^7\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
     }
-    else if ( meansOfDeath == MOD_GRENADE_DIRECT && attacker == self )
+    else if ( (meansOfDeath == MOD_GRENADE_DIRECT || meansOfDeath == MOD_GRENADE) && attacker == self )
     {
       trap_SendServerCommand( -1, va( "print \"%s^7 threw the pin instead of the grenade\n\"", self->client->pers.netname ) );
     }
@@ -537,6 +537,18 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next?^7");
     else if ( meansOfDeath == MOD_SLOWBLOB && attacker == self )
     {
       trap_SendServerCommand( -1, va( "print \"%s^7 spat itself\n\"", self->client->pers.netname ) );
+    }
+    else if ( meansOfDeath == MOD_LOCKBLOB ) //couldn't escape the hivemind's trapper
+    {
+      trap_SendServerCommand( -1, va( "print \"%s^7 couldn't escape the hivemind's trapper\n\"", self->client->pers.netname ) );
+    }
+    else if ( meansOfDeath == MOD_MDRIVER_SPLASH && attacker != self )
+    {
+      trap_SendServerCommand( -1, va( "print \"%s^7 was caught in %s's radioactive splash\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
+    }
+    else if ( meansOfDeath == MOD_MDRIVER_SPLASH && attacker == self )
+    {
+      trap_SendServerCommand( -1, va( "print \"%s^7 died from radiation poisoning\n\"", self->client->pers.netname ) );
     }
     else
     {
@@ -1566,17 +1578,18 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
   if( dflags & DAMAGE_NO_KNOCKBACK )
     knockback = 0;
 
-  if ( mod == MOD_LEVEL2_ZAP ) { //Sucks in the opponent
+  if ( mod == MOD_LEVEL2_ZAP )
 		knockback *=  LEVEL2_AREAZAP_K_SCALE;
-	}
-  if ( mod == MOD_LEVEL2_CLAW ) { //glitchy claw/zap hack fix
-		knockback *=  LEVEL2_CLAW_K_REVERSE; }
-  if ( mod == MOD_BLASTER ) { //Temporary useless MOD
-		knockback *= BLASTER_K_SCALE; }
-  if ( mod == MOD_TARGET_LASER && attacker == targ ) { //Temporary useless MOD
-		knockback *= BLASTER_K_SELF_SCALE; } //Help jump
+  if ( mod == MOD_LEVEL2_CLAW )
+		knockback *=  LEVEL2_CLAW_K_REVERSE;
+  if ( mod == MOD_BLASTER )
+		knockback *= BLASTER_K_SCALE;
+  if ( mod == MOD_TARGET_LASER && attacker == targ )
+		knockback *= BLASTER_K_SELF_SCALE;
+  if ( mod == MOD_MDRIVER_SPLASH )
+                knockback *= MDRIVER_SPLASH_K_SCALE;
   if ( mod == MOD_LEVEL4_CHARGE )
-knockback *= LEVEl4_CHARGE_K_COUNTER; //help shove people around
+                knockback *= LEVEl4_CHARGE_K_COUNTER; //help shove people around
 
 
   // figure momentum add, even if the damage won't be taken

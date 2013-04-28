@@ -67,6 +67,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL0_SCRATCH_REPEAT       0//150
 #define LEVEL0_SCRATCH_RANGE        80 //disabled, was 80
 #define LEVEL0_SCRATCH_WIDTH        3
+//I'm thinking of readding a secondary, but instead of a painsaw-like effect, rather something like a short range projectile with a large splash radius doing minimal damage but provides great knockback, to propell the dretch around to counter the blaster's knockback
 
 #define LEVEL1_CLAW_DMG             ADM(32 + (VAMP_ON * 16))
 #define LEVEL1_CLAW_RANGE           80.0f//Take unv's
@@ -407,15 +408,16 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define HDM(d)                      ((int)((float)d*HUMAN_WDMG_MODIFIER))
 
 #define BLASTER_REPEAT              750 //+50
-#define BLASTER_K_SCALE             1.2f //direct only - Gets overpowered on mid-air shots //6.0f - apparently splash knockback applies
+#define BLASTER_K_SCALE             3.0f //direct only - Gets overpowered on mid-air shots //6.0f //1.2f
 #define BLASTER_K_SELF_SCALE        (100.0f/BLASTER_PUSH) //gets multiplied for self only (splash)
 #define BLASTER_SPREAD              0
 #define BLASTER_SPEED               1400
 #define BLASTER_DMG                 HDM(9 + VAMP_ON)
-#define BLASTER_PUSH                80//Blasterjump effect, this is the actual damage before modding
+#define BLASTER_PUSH                80//Blasterjump effect, this is the actual damage before modding, knockback applies to others from this value
 #define BLASTER_DMG_MOD             (8.00f/BLASTER_PUSH) //Modifier for above damage
 #define BLASTER_RADIUS              100
 //Prevent Blaster Spamming
+//Recharge rate is set to the g_blasterregen variable
 #define BLASTER_CLIPSIZE            6
 #define BLASTER_MAXCLIPS            1 //hacky fix for the lakitu7-qvm modded client, any number will do as long as it isn't 0
 #define BLASTER_INF_AMMO            qtrue //qtrue
@@ -426,14 +428,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define RIFLE_K_SCALE               1.0f
 #define RIFLE_RELOAD                2000
 #define RIFLE_PRICE                 0
-#define RIFLE_SPREAD                170
-#define RIFLE_DMG                   HDM(5 + VAMP_ON) //'6' seems ok, although some australians say it is overepowered
+#define RIFLE_SPREAD                250//170 -> 250 (unv's value)
+#define RIFLE_DMG                   HDM(5 + VAMP_ON) //'6' seems ok on KoRx, although some australians says even the unv balance is overepowered
 
 #define PAINSAW_PRICE               100
-#define PAINSAW_REPEAT              65 
+#define PAINSAW_REPEAT              65  //1.1 was 75
 #define PAINSAW_K_SCALE             1.0f
-#define PAINSAW_DAMAGE              HDM(12 + VAMP_ON) //~>185 dmg/s
-#define PAINSAW_RANGE               60.0f //enough to touch below feet of a normal human without being OP [unlike gpp]
+#define PAINSAW_DAMAGE              HDM(12 + VAMP_ON) //~>185 dmg/s //1.1 was 15 (200dmg/s), gpp was 11 (145 dmg/s)
+#define PAINSAW_RANGE               60.0f //enough to touch below feet of a normal human
 //Following disabled via bg_misc.c and g_active.c, leave it for now
 #define PAINSAW_NODECAY             qtrue //Bleed ammo one per second if nodecay is qfalse
 #define PAINSAW_FUEL                0
@@ -464,19 +466,20 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LASGUN_MAXCLIPS             0 + VAMP_ON
 #define LASGUN_K_SCALE              1.0f
 #define LASGUN_RELOAD               3000
-#define LASGUN_SPREAD               100 //btw, this actually works, don't tweak it any higher or it'll effect gameplay too much
+#define LASGUN_SPREAD               70 //btw, this actually works, don't tweak it any higher or it'll effect gameplay too much
 #define LASGUN_DAMAGE               HDM(9 + VAMP_ON)
 
 #define MDRIVER_PRICE               350
 #define MDRIVER_CLIPSIZE            5
 #define MDRIVER_MAXCLIPS            4
 #define MDRIVER_DMG                 HDM(40 + (VAMP_ON * 22))
-#define MDRIVER_REPEAT              1000 + (VAMP_ON * 250)
+#define MDRIVER_REPEAT              1000 + (VAMP_ON * 375)
 #define MDRIVER_K_SCALE             1.0f
+#define MDRIVER_SPLASH_K_SCALE      3.0f
 #define MDRIVER_RELOAD              2000
 //bullet physics stuff
-#define MDRIVER_SPEED               19200 //Bullet speed 19200 = 600 m/s
-#define MDRIVER_RADIUS              0 + (VAMP_ON * 75) //explosion radius
+#define MDRIVER_SPEED               19200 //Bullet speed 19200 = 600 m/s = 2160 km/h
+#define MDRIVER_RADIUS              0 + (VAMP_ON * 60) //explosion radius
 #define MDRIVER_SPLASH              0 + (VAMP_ON * 40) //Splash dmg
 #define MDRIVER_LAG                 0.35f //Same effect as Flamer_LAG but not as effective
 #define MDRIVER_LIFETIME            8000 //It's a pretty fast bullet. Doesn't need a long lifetime

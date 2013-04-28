@@ -423,7 +423,7 @@ gentity_t *fire_mdriver( gentity_t *self, vec3_t start, vec3_t dir )
   bolt->splashDamage = MDRIVER_SPLASH;
   bolt->splashRadius = MDRIVER_RADIUS;
   bolt->methodOfDeath = MOD_MDRIVER;
-  bolt->splashMethodOfDeath = MOD_MDRIVER;
+  bolt->splashMethodOfDeath = MOD_MDRIVER_SPLASH;
   bolt->clipmask = MASK_SHOT;
   bolt->target_ent = NULL;
 
@@ -759,7 +759,7 @@ gentity_t *fire_lockblob( gentity_t *self, vec3_t start, vec3_t dir )
   bolt->damage = LOCKBLOB_DMG;
   bolt->splashDamage = LOCKBLOB_SPLASH;
   bolt->splashRadius = LOCKBLOB_RADIUS;
-  bolt->methodOfDeath = MOD_TRIGGER_HURT; //changed as it kills
+  bolt->methodOfDeath = MOD_LOCKBLOB; //changed as it kills
   bolt->clipmask = MASK_SHOT;
   bolt->target_ent = NULL;
 /*
@@ -797,7 +797,7 @@ gentity_t *fire_slowBlob( gentity_t *self, vec3_t start, vec3_t dir )
 
   bolt = G_Spawn( );
   bolt->classname = "slowblob";
-  bolt->nextthink = level.time + ABUILDER_BLOB_LIFETIME; //dont want minefields do you? Make sure they explode after a while!
+  bolt->nextthink = level.time + ABUILDER_BLOB_LIFETIME;
   bolt->think = G_ExplodeMissile;
   bolt->s.eType = ET_MISSILE;
   bolt->r.svFlags = SVF_USE_CURRENT_ORIGIN;
