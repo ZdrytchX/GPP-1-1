@@ -1535,6 +1535,8 @@ extern  vmCvar_t    cg_unlagged;
 
 //ZdrytchX
 extern  vmCvar_t    cg_thirdpersonheight;
+extern  vmCvar_t    cg_firstpersonanglefix_yaw;
+extern  vmCvar_t    cg_firstpersonanglefix_pitch;
 
 //
 // cg_main.c

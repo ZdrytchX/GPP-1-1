@@ -638,6 +638,26 @@ static void CG_OffsetFirstPersonView( void )
 
       angles[ PITCH ] -= deltaAngle;
     }
+    //ZdrytchX: Personal view bug fix hack [see youtube.com/zdrytchx: mdriver false bullet physics test, you'll see how annoying it is in sniping, turns out the correction value for myself is approx -1.19 degrees]
+    if( cg_firstpersonanglefix_yaw.value != 0)
+    {
+        if( cg_firstpersonanglefix_yaw.value > 20) //TODO: make sure we don't cheat here! (doesn't work)
+        trap_Cvar_Set( "cg_firstpersonanglefix_yaw.value", "20" );
+        else if( cg_firstpersonanglefix_yaw.value < -20)
+        trap_Cvar_Set( "cg_firstpersonanglefix_yaw.value", "-20" );
+        //Set angle fix! 
+        angles[ YAW ] += cg_firstpersonanglefix_yaw.value; //left is positive (backward people's tradition)
+    }
+    if( cg_firstpersonanglefix_pitch.value != 0)
+    {
+        if( cg_firstpersonanglefix_pitch.value > 20) //TODO: make sure we don't cheat here! (doesn't work)
+        trap_Cvar_Set( "cg_firstpersonanglefix_pitch.value", "20" );
+        else if( cg_firstpersonanglefix_pitch.value < -20)
+        trap_Cvar_Set( "cg_firstpersonanglefix_pitch.value", "-20" );
+        //Set angle fix! 
+        angles[ PITCH ] -= cg_firstpersonanglefix_pitch.value; //up is positive
+    }
+    //TODO: Oh geez, let's ask mr./d/hc again.
   }
 
 //===================================

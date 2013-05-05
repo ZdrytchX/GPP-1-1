@@ -242,6 +242,8 @@ vmCvar_t  cg_projectileNudge;
 vmCvar_t  cg_unlagged;
 //ZdrytchX
 vmCvar_t  cg_thirdpersonheight;
+vmCvar_t  cg_firstpersonanglefix_yaw;
+vmCvar_t  cg_firstpersonanglefix_pitch;
 
 
 typedef struct
@@ -389,7 +391,9 @@ static cvarTable_t cvarTable[ ] =
   { &cg_trueLightning, "cg_trueLightning", "0.0", CVAR_ARCHIVE},
 //  { &cg_pmove_fixed, "cg_pmove_fixed", "0", CVAR_USERINFO | CVAR_ARCHIVE }
 //ZdrytchX
-  { &cg_thirdpersonheight, "cg_thirdpersonheight", "12", CVAR_ARCHIVE}
+  { &cg_thirdpersonheight, "cg_thirdpersonheight", "12", CVAR_ARCHIVE},
+    { &cg_firstpersonanglefix_yaw, "cg_firstpersonanglefix_yaw", "0", CVAR_ARCHIVE},
+  { &cg_firstpersonanglefix_pitch, "cg_firstpersonanglefix_pitch", "0", CVAR_ARCHIVE}
 };
 
 static int   cvarTableSize = sizeof( cvarTable ) / sizeof( cvarTable[0] );
