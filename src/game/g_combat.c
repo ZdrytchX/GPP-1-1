@@ -502,54 +502,31 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next?^7");
   if( !tk )
   {
 //server-specific death messages
+//Apparently the custom MODs have trouble being broadcasted in the console and crashes the server
     if ( meansOfDeath == MOD_LEVEL2_CLAW )
-    {
-      trap_SendServerCommand( -1, va( "print \"%s^7's face went missing as %s^7 flew by\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
-    }
+      trap_SendServerCommand( -1, va( "print \"%s^7 noticed his body parts went missing as %s^7 got too close\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
     else if ( meansOfDeath == MOD_TARGET_LASER && attacker != self ) //radiant doesn't use laser in its maps, so this unused MOD is used temp. for blaster's splash
-    {
       trap_SendServerCommand( -1, va( "print \"%s^7's vicious energy slug made %s^7 fly a bit\n\"", attacker->client->pers.netname, self->client->pers.netname ) );
-    }
     else if ( meansOfDeath == MOD_TARGET_LASER && attacker == self )
-    {
       trap_SendServerCommand( -1, va( "print \"%s^7 underestimated his own blaster's power\n\"", attacker->client->pers.netname ) );
-    }
     else if ( meansOfDeath == MOD_GRENADE_DIRECT && attacker != self )
-    {
       trap_SendServerCommand( -1, va( "print \"%s^7 stepped on %s's ^2GREEN^8-^1AID^7\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
-    }
     else if ( (meansOfDeath == MOD_GRENADE_DIRECT || meansOfDeath == MOD_GRENADE) && attacker == self )
-    {
       trap_SendServerCommand( -1, va( "print \"%s^7 threw the pin instead of the grenade\n\"", self->client->pers.netname ) );
-    }
     else if ( meansOfDeath == MOD_LEVEL3_BOUNCEBALL_SPLASH && attacker != self )
-    {
       trap_SendServerCommand( -1, va( "print \"%s^7 almost dodged %s's acid barb\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
-    }
     else if ( meansOfDeath == MOD_LEVEL3_BOUNCEBALL_SPLASH && attacker == self )
-    {
       trap_SendServerCommand( -1, va( "print \"%s^7 couldn't take it anymore\n\"", self->client->pers.netname ) );
-    }
     else if ( meansOfDeath == MOD_SLOWBLOB && attacker != self ) //granger blobs didn't show the killer's name
-    {
       trap_SendServerCommand( -1, va( "print \"%s^7 was ^2gooed^7 by %s's blob\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
-    }
     else if ( meansOfDeath == MOD_SLOWBLOB && attacker == self )
-    {
       trap_SendServerCommand( -1, va( "print \"%s^7 spat itself\n\"", self->client->pers.netname ) );
-    }
     else if ( meansOfDeath == MOD_LOCKBLOB ) //couldn't escape the hivemind's trapper
-    {
       trap_SendServerCommand( -1, va( "print \"%s^7 couldn't escape the hivemind's trapper\n\"", self->client->pers.netname ) );
-    }
     else if ( meansOfDeath == MOD_MDRIVER_SPLASH && attacker != self )
-    {
-      trap_SendServerCommand( -1, va( "print \"%s^7 was caught in %s's radioactive splash\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
-    }
+      trap_SendServerCommand( -1, va( "print \"%s^7 was caught in the splash of %s's irridiation particle\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
     else if ( meansOfDeath == MOD_MDRIVER_SPLASH && attacker == self )
-    {
       trap_SendServerCommand( -1, va( "print \"%s^7 died from radiation poisoning\n\"", self->client->pers.netname ) );
-    }
     else
     {
       ent = G_TempEntity( self->r.currentOrigin, EV_OBITUARY );
@@ -594,7 +571,7 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next?^7");
   {
     attacker->client->lastkilled_client = self->s.number;
 
-   if (( g_devmapKillerHP.integer && g_cheats.integer ) || (g_ShowKillerHealth.integer > 0)) /* cicho-sza add on */
+   if ((( g_devmapKillerHP.integer && g_cheats.integer ) || (g_ShowKillerHealth.integer > 0)) &&  attacker != self ) /* cicho-sza add on */
    {
      trap_SendServerCommand( self-g_entities, va( "print \"Your killer, %s^7, had ^1%3i^7 HP.\n\"", killerName, attacker->health ) );
    }
@@ -725,7 +702,8 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
         level.humanStatsCounters.feeds++;
         if( g_feedingSpree.integer &&
             level.reactorPresent &&
-            !G_BuildableRange( self->client->ps.origin, 600, BA_H_REACTOR ) )
+            !G_BuildableRange( self->client->ps.origin, 600, BA_H_REACTOR ) &&
+            !G_BuildableRange( self->client->ps.origin, 200, BA_H_SPAWN ) )
         {
           self->client->pers.statscounters.spreefeeds += 60;
         }
@@ -740,7 +718,8 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
         level.alienStatsCounters.feeds++;
         if( g_feedingSpree.integer &&
             level.overmindPresent &&
-            !G_BuildableRange( self->client->ps.origin, 600, BA_A_OVERMIND ) )
+            !G_BuildableRange( self->client->ps.origin, 600, BA_A_OVERMIND ) &&
+            !G_BuildableRange( self->client->ps.origin, 200, BA_A_SPAWN ) )
         {
           self->client->pers.statscounters.spreefeeds += 60;
         }
@@ -769,12 +748,15 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
           continue;
 
         percentDamage = (float)self->credits[ i ] / totalDamage;
-        if( percentDamage > 0 && percentDamage < 1)
+        if( percentDamage > 0.1 && percentDamage < 1) //min 10% dmg
         {
           player->client->pers.statscounters.assists++;
           level.humanStatsCounters.assists++;
-       if( spreeRate && player == attacker )
-          percentDamage *= (float)spreeRate;
+          if( spreeRate && player == attacker )
+          {
+            percentDamage *= (float)spreeRate;
+            AddScore( attacker, spreeRate * percentDamage ); //Score Stacking
+          }
         }
 
         //add credit
@@ -808,7 +790,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
           break;
 
         percentDamage = (float)self->credits[ i ] / totalDamage;
-         if( percentDamage > 0 && percentDamage < 1)
+         if( percentDamage > 0.1 && percentDamage < 1) //must do 10% dmg to be considered an assist
          {
             player->client->pers.statscounters.assists++;
             level.alienStatsCounters.assists++;
@@ -820,7 +802,10 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
         {
           //add kills
           if( spreeRate && player == attacker )
+          {
             G_AddCreditToClient( player->client, frags * spreeRate, qtrue );
+            AddScore( attacker, spreeRate ); //Score Stacking
+          }
           else
             G_AddCreditToClient( player->client, frags, qtrue );
 
@@ -2125,7 +2110,12 @@ qboolean G_RadiusDamage( vec3_t origin, gentity_t *attacker, float damage,
       VectorSubtract( ent->r.currentOrigin, origin, dir );
       // push the center of mass higher than the origin so players
       // get knocked into the air more
-      dir[ 2 ] += 24;
+			// CPM: Add some extra knockback
+			if (ent == attacker) { // rjumps are same as in normal Q3A
+				dir[2] +=24;
+			} else {
+				dir[2] += 40; //24
+			}
       G_Damage( ent, NULL, attacker, dir, origin,
           (int)points, DAMAGE_RADIUS|DAMAGE_NO_LOCDAMAGE, mod );
     }

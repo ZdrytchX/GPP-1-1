@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include "../qcommon/q_shared.h"
 #include "bg_public.h"
 #include "bg_local.h"
+#include "bg_promode.h" //CPMA
 
 pmove_t     *pm;
 pml_t       pml;
@@ -750,6 +751,17 @@ if(BUNNYHOP_TRUE == 0) //If it is enabled, don't read this
 	pm->ps->velocity[ 2 ] = BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
   PM_AddEvent( EV_JUMP );//jump!
   }
+  
+	 // CPM: check for double-jump
+	 if(CPM_ON)
+//		if (cpm_pm_jump_z) {
+			if (pm->ps->stats[STAT_JUMPTIME] > 0) {
+				pm->ps->velocity[2] += cpm_pm_jump_z /** BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ])*/;
+			}
+			pm->ps->stats[STAT_JUMPTIME] = 400;
+//		}
+	// !CPM
+  
   if( pm->cmd.forwardmove >= 0 )
   {
     if( !( pm->ps->persistant[ PERS_STATE ] & PS_NONSEGMODEL ) )
@@ -1030,6 +1042,8 @@ static void PM_AirMove( void )
   float     wishspeed;
   float     scale;
   usercmd_t cmd;
+  float		accel; // CPM
+	float		wishspeed2; // CPM
 
   PM_Friction( );
 
@@ -1056,11 +1070,37 @@ static void PM_AirMove( void )
   VectorCopy( wishvel, wishdir );
   wishspeed = VectorNormalize( wishdir );
   wishspeed *= scale;
-
+  
+  	// CPM: Air Control
+//  if (CPM_ON)
+//  {
+	wishspeed2 = wishspeed;
+	if (DotProduct(pm->ps->velocity, wishdir) < 0)
+		accel = cpm_pm_airstopaccelerate;
+	else
+		accel = pm_airaccelerate;
+	if (pm->ps->movementDir == 2 || pm->ps->movementDir == 6)
+	{
+		if (wishspeed > cpm_pm_wishspeed)
+			wishspeed = cpm_pm_wishspeed;	
+		accel = cpm_pm_strafeaccelerate;
+	}
+//	}
+	// !CPM
+//  else
+//  {
   // not on ground, so little effect on velocity
-  PM_Accelerate( wishdir, wishspeed,
-    BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] ) );
-
+//  PM_Accelerate( wishdir, wishspeed,
+//    BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] ) );
+//  }
+//  if(CPM_ON)
+//  {
+	// CPM: Air control
+	PM_Accelerate (wishdir, wishspeed, accel * BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] ) );
+	if (cpm_pm_aircontrol)
+		CPM_PM_Aircontrol(pm, wishdir, wishspeed2);
+//	}
+	// !CPM
   // we may have a ground plane that is very steep, even
   // though we don't have a groundentity
   // slide along the steep plane
@@ -3625,6 +3665,11 @@ void PmoveSingle( pmove_t *pmove )
     PM_DeadMove( );
 
   PM_DropTimers( );
+  
+  if(CPM_ON)
+  // CPM: Double-jump timer
+		if (pm->ps->stats[STAT_JUMPTIME] > 0) pm->ps->stats[STAT_JUMPTIME] -= pml.msec;
+	// !CPM
 
   if( pm->ps->pm_type == PM_JETPACK )
     PM_JetPackMove( );
