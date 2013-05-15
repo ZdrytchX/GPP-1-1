@@ -755,7 +755,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
           if( spreeRate && player == attacker )
           {
             percentDamage *= (float)spreeRate;
-            AddScore( attacker, spreeRate * percentDamage ); //Score Stacking
+            AddScore( attacker, percentDamage ); //Score Stacking
           }
         }
 

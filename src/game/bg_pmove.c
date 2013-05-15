@@ -604,7 +604,7 @@ static qboolean PM_CheckWallJump( void )
   }
 */
   pm->ps->pm_flags |= PMF_TIME_WALLJUMP;
-  pm->ps->pm_time = 200;
+  pm->ps->pm_time = LEVEL2_WALLJUMP_REPEAT;
 
   pml.groundPlane = qfalse;   // jumping away
   pml.walking = qfalse;
@@ -638,7 +638,7 @@ static qboolean PM_CheckWallJump( void )
   if( VectorLength( pm->ps->velocity ) > LEVEL2_WALLJUMP_MAXSPEED && pm->ps->grapplePoint[ 2 ] == 1.0f ) //only if it's  wall (ground = o.k.) //TODO add a cvar
   {
     VectorNormalize( pm->ps->velocity );
-    VectorScale( pm->ps->velocity, LEVEL2_WALLJUMP_MAXSPEED, pm->ps->velocity );
+    VectorScale( pm->ps->velocity, (LEVEL2_WALLJUMP_MAXSPEED + ( (VectorLength( pm->ps->velocity ) - LEVEL2_WALLJUMP_MAXSPEED)/3 )), pm->ps->velocity );
 //TODO: Make the "hard" limit 'sqrt(speed^2 − LEVEL2_WALLJUMP_MAXSPEED^2)' but sqrt() doesn't accept
   }
 

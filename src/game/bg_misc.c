@@ -1797,7 +1797,7 @@ classAttributes_t bg_classList[ ] =
     80,                                             //int     steptime;
     LEVEL2_SPEED,                                   //float   speed;
     10.0f,                                          //float   acceleration;
-    3.0f,                                           //float   airAcceleration;
+    2.0f,                                           //float   airAcceleration;
     6.0f,                                           //float   friction;
     100.0f,                                         //float   stopSpeed;
     400.0f,                                         //float   jumpMagnitude;
@@ -1837,7 +1837,7 @@ classAttributes_t bg_classList[ ] =
     80,                                             //int     steptime;
     LEVEL2_UPG_SPEED,                               //float   speed;
     10.0f,                                          //float   acceleration;
-    3.0f,                                           //float   airAcceleration;
+    2.0f,                                           //float   airAcceleration;
     6.0f,                                           //float   friction;
     100.0f,                                         //float   stopSpeed;
     400.0f,                                         //float   jumpMagnitude;
@@ -1943,7 +1943,7 @@ classAttributes_t bg_classList[ ] =
     { -15, -15, -4 },                               //vec3_t  deadmins;
     { 15, 15, 4 },                                  //vec3_t  deadmaxs;
     0.0f,                                           //float   zOffset
-    45, 45,                                         //int     viewheight, crouchviewheight;
+    35, 35,                                         //int     viewheight, crouchviewheight;
     LEVEL4_HEALTH,                                  //int     health;
     0.0f,                                           //float   fallDamage;
     LEVEL4_REGEN,                                   //int     regenRate;
