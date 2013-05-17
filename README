@@ -140,3 +140,4 @@ TODO list:
 -Adminlogs, server owners can find out who over-uses admin powers (which I don't like)
 -/hurtme command (similar to tf2's actually)
 -Add lag compensation for projectiles
+-fix taunting while dead bug

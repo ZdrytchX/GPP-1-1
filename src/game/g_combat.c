@@ -755,7 +755,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
           if( spreeRate && player == attacker )
           {
             percentDamage *= (float)spreeRate;
-            AddScore( attacker, percentDamage ); //Score Stacking
+ //           AddScore( attacker, -percentDamage ); //Score Stacking
           }
         }
 
@@ -804,7 +804,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
           if( spreeRate && player == attacker )
           {
             G_AddCreditToClient( player->client, frags * spreeRate, qtrue );
-            AddScore( attacker, spreeRate ); //Score Stacking
+//            AddScore( attacker, 1 ); //Score Stacking
           }
           else
             G_AddCreditToClient( player->client, frags, qtrue );
@@ -848,8 +848,10 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
             player = g_entities + topClient;
 
             //add kills
-            if( spreeRate && player == attacker )
+            if( spreeRate && player == attacker ) {
               G_AddCreditToClient( player->client, spreeRate, qtrue );
+ //              AddScore( attacker, 1 ); //Score Stacking
+               }
             else
               G_AddCreditToClient( player->client, 1, qtrue );
 
@@ -909,7 +911,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
     maxfeed = (g_feedingSpree.integer - 1) * 60;
     if( self->client->pers.statscounters.spreefeeds > maxfeed )
     {
-      self->client->respawnTime += 100 * (self->client->pers.statscounters.spreefeeds - maxfeed );
+      self->client->respawnTime += 50 * (self->client->pers.statscounters.spreefeeds - maxfeed );
       trap_SendServerCommand( self->client->ps.clientNum,
         va( "print \"You are on a feeding spree! Respawn delayed %d seconds\n\"",
         (self->client->respawnTime - level.time) / 1000 ) );
