@@ -1075,7 +1075,7 @@ static void PM_AirMove( void )
 //  if (CPM_ON)
 //  {
 	wishspeed2 = wishspeed;
-	if (DotProduct(pm->ps->velocity, wishdir) < 0)
+	if (DotProduct(pm->ps->velocity, wishdir) < 0 && BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] ) < 2.5 )// Stop marauders from climbing walls easily
 		accel = cpm_pm_airstopaccelerate;
 	else
 		accel = pm_airaccelerate;
