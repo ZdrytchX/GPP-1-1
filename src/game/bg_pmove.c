@@ -751,15 +751,16 @@ if(BUNNYHOP_TRUE == 0) //If it is enabled, don't read this
 	pm->ps->velocity[ 2 ] = BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
   PM_AddEvent( EV_JUMP );//jump!
   }
-  
+/*  
 	 // CPM: check for double-jump
 	 if(CPM_ON)
 //		if (cpm_pm_jump_z) {
 			if (pm->ps->stats[STAT_JUMPTIME] > 0) {
-				pm->ps->velocity[2] += cpm_pm_jump_z /** BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ])*/;
+				pm->ps->velocity[2] += cpm_pm_jump_z //* BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ]);
 			}
 			pm->ps->stats[STAT_JUMPTIME] = 400;
 //		}
+*/
 	// !CPM
   
   if( pm->cmd.forwardmove >= 0 )
@@ -3668,7 +3669,7 @@ void PmoveSingle( pmove_t *pmove )
   
   if(CPM_ON)
   // CPM: Double-jump timer
-		if (pm->ps->stats[STAT_JUMPTIME] > 0) pm->ps->stats[STAT_JUMPTIME] -= pml.msec;
+//		if (pm->ps->stats[STAT_JUMPTIME] > 0) pm->ps->stats[STAT_JUMPTIME] -= pml.msec;
 	// !CPM
 
   if( pm->ps->pm_type == PM_JETPACK )
