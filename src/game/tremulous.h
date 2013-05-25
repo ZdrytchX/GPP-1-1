@@ -411,7 +411,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define HDM(d)                      ((int)((float)d*HUMAN_WDMG_MODIFIER))
 
 #define BLASTER_REPEAT              750 //+50
-#define BLASTER_K_SCALE             6.0f //direct only - Gets overpowered on mid-air shots, use lower value for dretches //6.0f //1.2f
+#define BLASTER_K_SCALE             1.2f //direct only - Gets overpowered on mid-air shots, use lower value for dretches //6.0f //1.2f
 #define BLASTER_K_SCALE_LEVEL0      0.7f
 #define BLASTER_K_SELF_SCALE        (100.0f/BLASTER_PUSH) //gets multiplied for self only (splash)
 #define BLASTER_SPREAD              0
