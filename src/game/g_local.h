@@ -609,7 +609,9 @@ struct gclient_s
 //zdrytchx
   int                 autoregen; //regeneration, variable variable
   int                 blaster_ammoregen;
-
+  int                 jumptime; //for cpm jumps
+  
+  
   char                *areabits;
 
   gentity_t           *hovel;

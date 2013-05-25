@@ -38,9 +38,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define ALIENREGEN_NOCREEP_MOD      0.7f //out of creep modifier
 
 #define ABUILDER_BUILD_REPEAT       500
-#define ABUILDER_CLAW_DMG           ADM(27 + (VAMP_ON * 10))//3 hit kill still
+#define ABUILDER_CLAW_DMG           ADM(27 + (VAMP_ON * 10))//3 hit headshot kill
 #define ABUILDER_CLAW_RANGE         78.0f //64f
-#define ABUILDER_CLAW_WIDTH         4.0f
+#define ABUILDER_CLAW_WIDTH         8.0f //4f
 #define ABUILDER_BASE_CLAW_REPEAT   1000
 #define ABUILDER_CLAW_REPEAT        900
 #define ABUILDER_CLAW_K_SCALE       0.0f
@@ -49,6 +49,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define ABUILDER_BLOB_DMG           ADM(4)
 #define ABUILDER_BLOB_SPLASH_DMG    ADM(4)
+#define ABUILDER_BLOB_K             ADM(90)
 #define ABUILDER_BLOB_RADIUS        75
 #define ABUILDER_BLOB_REPEAT        1000
 #define ABUILDER_BLOB_SPEED         800.0f
@@ -85,6 +86,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL1_PCLOUD_TIME          10000 //GPP - 2 seconds distortion, 5 seconds slowlock i think
 #define LEVEL1_PCLOUD_MOD           0.7f //Speedmod, not too OP
                                           //TODO: Slowlock effect cannot be applied seperately for bsuits
+                                          //DONE: Game-specific mod (outside cgames can't predict it)
+                                          //TODO: See how W server did theirs
 
 #define LEVEL2_CLAW_DMG             ADM(40 + (VAMP_ON * 8))
 #define LEVEL2_CLAW_RANGE           80.0f //unv's
@@ -98,17 +101,16 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL2_CLAW_U_K_SCALE       1.0f
 #define LEVEL2_CLAW_K_REVERSE       -1.0f//For claws only
 
-//Note: Full dmg depends on sv_fps if LEVEL2_AREAZAP_TIME > 1
 #define LEVEL2_AREAZAP_DMG          ADM(70 + (VAMP_ON * 30)) //4 zaps on teslas
 #define LEVEL2_AREAZAP_RANGE        200.0f //initiate zap distance
 #define LEVEL2_AREAZAP_RANGE_SUSTAIN 400 //Range to allow sustaining the zap
-#define LEVEL2_AREAZAP_WIDTH        8.0f //harder to zap around corners
+#define LEVEL2_AREAZAP_WIDTH        8.0f
 #define LEVEL2_AREAZAP_REPEAT       1500
 #define LEVEL2_AREAZAP_TIME         1000  //Divide by 0 fixed
 					//TODO: Allow graphics to continue running despite chain cut off early
 #define LEVEL2_AREAZAP_MAX_TARGETS  3
 #define LEVEL2_WALLJUMP_MAXSPEED    1290.0f //1290.0f->3870.0f //idk, don't really want a max
-#define LEVEL2_WALLJUMP_REPEAT      1 //200 - Prevents extreme acceleration
+#define LEVEL2_WALLJUMP_REPEAT      200 //200 - Prevents extreme acceleration, feels buggy with no walljump repeat timer but else stumbles and loses speed when stair climbing
 #define LEVEL2_AREAZAP_K_SCALE      -3.0f //Chain-ees get pulled together with this
 
 //Goon modified heavily to get close to gpp values.
@@ -409,7 +411,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define HDM(d)                      ((int)((float)d*HUMAN_WDMG_MODIFIER))
 
 #define BLASTER_REPEAT              750 //+50
-#define BLASTER_K_SCALE             3.0f //direct only - Gets overpowered on mid-air shots //6.0f //1.2f
+#define BLASTER_K_SCALE             6.0f //direct only - Gets overpowered on mid-air shots, use lower value for dretches //6.0f //1.2f
+#define BLASTER_K_SCALE_LEVEL0      0.7f
 #define BLASTER_K_SELF_SCALE        (100.0f/BLASTER_PUSH) //gets multiplied for self only (splash)
 #define BLASTER_SPREAD              0
 #define BLASTER_SPEED               1400
@@ -559,7 +562,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define H_WEAP_SWITCH_DELAY         80 //Default start 200
 #define H_WEAP_SWITCH_DELAY_END     120 //end default 250
 //TODO: Replace with cvar, bg_pmove and trem.h doesn't know from g_main/g_local.h which poses a problem, same for bunnyhop
-#define H_WEAP_SWITCH_BENIFIT       400 //Time taken of firing time if you're switching weaps
+#define H_WEAP_SWITCH_BENIFIT       400 //Time taken off firing time if you're switching weaps
 #define BUNNYHOP_TRUE               1 //Off = 0 on = 1
 
 #define LIGHTARMOUR_PRICE           70

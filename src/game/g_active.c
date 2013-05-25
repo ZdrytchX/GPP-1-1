@@ -575,10 +575,18 @@ void ClientTimerActions( gentity_t *ent, int msec )
   client->time10000 += msec;
   client->autoregen -= msec;
   client->blaster_ammoregen += msec;
+//  client->jumptime -= msec;
 
 
   if( ent->r.svFlags & SVF_BOT )
       G_BotThink( ent );
+  /*    
+      //Not sure what to put here yet, it's not exactly a timer that repeats itself
+ while (client->jumptime < 0)
+ {
+  jumptime == 0; 
+ }
+ */
   while ( client->time100 >= 100 )
   {
     client->time100 -= 100;

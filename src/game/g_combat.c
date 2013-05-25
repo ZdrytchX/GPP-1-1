@@ -518,13 +518,13 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next?^7");
     else if ( meansOfDeath == MOD_LEVEL3_BOUNCEBALL_SPLASH && attacker == self )
       trap_SendServerCommand( -1, va( "print \"%s^7 couldn't take it anymore\n\"", self->client->pers.netname ) );
     else if ( meansOfDeath == MOD_SLOWBLOB && attacker != self ) //granger blobs didn't show the killer's name
-      trap_SendServerCommand( -1, va( "print \"%s^7 was ^2gooed^7 by %s's blob\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
+      trap_SendServerCommand( -1, va( "print \"%s^7 was ^2gooed^7 by %s's granger spit\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
     else if ( meansOfDeath == MOD_SLOWBLOB && attacker == self )
-      trap_SendServerCommand( -1, va( "print \"%s^7 spat itself\n\"", self->client->pers.netname ) );
+      trap_SendServerCommand( -1, va( "print \"%s^7 spat itself to death\n\"", self->client->pers.netname ) );
     else if ( meansOfDeath == MOD_LOCKBLOB ) //couldn't escape the hivemind's trapper
       trap_SendServerCommand( -1, va( "print \"%s^7 couldn't escape the hivemind's trapper\n\"", self->client->pers.netname ) );
     else if ( meansOfDeath == MOD_MDRIVER_SPLASH && attacker != self )
-      trap_SendServerCommand( -1, va( "print \"%s^7 was caught in the splash of %s's irridiation particle\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
+      trap_SendServerCommand( -1, va( "print \"%s^7 was caught in the vicinity of %s's irridiated particle\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
     else if ( meansOfDeath == MOD_MDRIVER_SPLASH && attacker == self )
       trap_SendServerCommand( -1, va( "print \"%s^7 died from radiation poisoning\n\"", self->client->pers.netname ) );
     else
@@ -1549,6 +1549,9 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
     knockback = (int)( (float)knockback *
       BG_FindKnockbackScaleForWeapon( inflictor->s.weapon ) );
   }
+		
+  if ( mod == MOD_SLOWBLOB ) //Override knockback scale for weapon
+    knockback == ABUILDER_BLOB_K;
 
   if( targ->client )
   {
@@ -1565,16 +1568,30 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
   if( dflags & DAMAGE_NO_KNOCKBACK )
     knockback = 0;
 
+//reeling effect of zap
   if ( mod == MOD_LEVEL2_ZAP )
 		knockback *=  LEVEL2_AREAZAP_K_SCALE;
   if ( mod == MOD_LEVEL2_CLAW )
 		knockback *=  LEVEL2_CLAW_K_REVERSE;
+
+//special balancing measures
   if ( mod == MOD_BLASTER )
+  {
 		knockback *= BLASTER_K_SCALE;
-  if ( mod == MOD_TARGET_LASER && attacker == targ )
-		knockback *= BLASTER_K_SELF_SCALE;
-  if ( mod == MOD_MDRIVER_SPLASH )
-                knockback *= MDRIVER_SPLASH_K_SCALE;
+		if ( targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL0 )
+		  knockback *= BLASTER_K_SCALE_LEVEL0;
+	}
+	if ( mod == MOD_TARGET_LASER && attacker == targ ){
+  knockback *= BLASTER_K_SELF_SCALE;
+    if ( targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL0 )
+		  knockback *= BLASTER_K_SCALE_LEVEL0;
+  }
+  
+  if ( mod == MOD_MDRIVER_SPLASH ){
+    knockback *= MDRIVER_SPLASH_K_SCALE;
+    if ( targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL0 )
+		  knockback *= BLASTER_K_SCALE_LEVEL0;
+  }
   if ( mod == MOD_LEVEL4_CHARGE )
                 knockback *= LEVEl4_CHARGE_K_COUNTER; //help shove people around
 
@@ -2113,7 +2130,7 @@ qboolean G_RadiusDamage( vec3_t origin, gentity_t *attacker, float damage,
       // push the center of mass higher than the origin so players
       // get knocked into the air more
 			// CPM: Add some extra knockback
-			if (ent == attacker) { // rjumps are same as in normal Q3A
+			if (ent == attacker) { // explosive jumps are same as in normal Q3A
 				dir[2] +=24;
 			} else {
 				dir[2] += 40; //24

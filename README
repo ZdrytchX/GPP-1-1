@@ -92,6 +92,7 @@ GPP-1.1 Gameplay "Features":
 "Imported" and "Invented" Gameplay from Lolards/Misc:
 -Modified Turret aiming code - they aim slower when firing, and aim even slower when they're aiming directly at you
 -Humans regenerate slowly
+-Basi Gas effects un-helmeted people (not un-armoured people, where helmets can get gassed before)
 -Blaster/Flamer jumping/climbing is possible now (blaster splash isnt supposed to deal damage, but its damage is a mere 1, dunno what happened here, look at basi gas above)
 -Dynamic luci ball speed (applied before unvanquished did theirs actually)
 -Smoother flamer firing speed (10 damage per missile instead of 20, fires twice as fast, twice the ammo)
@@ -141,3 +142,4 @@ TODO list:
 -/hurtme command (similar to tf2's actually)
 -Add lag compensation for projectiles
 -fix taunting while dead bug
+-Find a non-hacky way of fixing marauder's occasional "walljump" on the ground without removing walljump repeat rate

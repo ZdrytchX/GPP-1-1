@@ -237,7 +237,7 @@ static void PM_Friction( void )
 
   //TA: make sure vertical velocity is NOT set to zero when wall climbing
   VectorCopy( vel, vec );
-  if( pml.walking && !( pm->ps->stats[ STAT_STATE ] & SS_WALLCLIMBING ) )
+  if( pml.walking && !( pm->ps->stats[ STAT_STATE ] & SS_WALLCLIMBING || vec[ 2 ] < 0 ) ) //zdrytchx: ONLY make it prevent falling, but allow lift off - cpm doublejump test
     vec[ 2 ] = 0; // ignore slope movement
 
   speed = VectorLength( vec );
@@ -603,8 +603,11 @@ static qboolean PM_CheckWallJump( void )
     return qfalse;
   }
 */
+  if (LEVEL2_WALLJUMP_REPEAT != 0) //0 bug check
+  {
   pm->ps->pm_flags |= PMF_TIME_WALLJUMP;
   pm->ps->pm_time = LEVEL2_WALLJUMP_REPEAT;
+  }
 
   pml.groundPlane = qfalse;   // jumping away
   pml.walking = qfalse;
@@ -631,7 +634,7 @@ static qboolean PM_CheckWallJump( void )
   VectorNormalize( dir );
 
   VectorMA( pm->ps->velocity, BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] ),
-            dir, pm->ps->velocity );
+            dir, pm->ps->velocity ); //jump!
 
   //for a long run of wall jumps the velocity can get pretty large, this caps it
   //Apparently works as an anti-strafe for marauders as well, although fixed in gpp
@@ -672,6 +675,7 @@ PM_CheckJump
 =============
 */
 static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, I want to be able to scale the human's jump based on stamina.
+
 {
   if( BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] ) == 0.0f )
     return qfalse;
@@ -751,17 +755,59 @@ if(BUNNYHOP_TRUE == 0) //If it is enabled, don't read this
 	pm->ps->velocity[ 2 ] = BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
   PM_AddEvent( EV_JUMP );//jump!
   }
+  
+//  float   vel;//, acc;
+//  float   b; //c, a
+    //ripped from fall damage mod effects section
+    // calculate the upward velocity
+//  dist = pm->ps->origin[ 2 ] - pml.previous_origin[ 2 ];
+//  vel = pml.previous_velocity[ 2 ];
+//  acc = -pm->ps->gravity;
+
+//  a = acc / 2;
+//  b = vel;
+//  c = -dist;
+
+
 /*  
 	 // CPM: check for double-jump
 	 if(CPM_ON)
 //		if (cpm_pm_jump_z) {
 			if (pm->ps->stats[STAT_JUMPTIME] > 0) {
-				pm->ps->velocity[2] += cpm_pm_jump_z //* BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ]);
+				pm->ps->velocity[2] += cpm_pm_jump_z; // BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ]);
 			}
 			pm->ps->stats[STAT_JUMPTIME] = 400;
 //		}
 */
 	// !CPM
+	/*
+		 // try #2
+	 if(CPM_ON)
+	 		if (cpm_pm_jump_z) {
+	 		if (pm->ps->jumptime > 0) {
+				pm->ps->velocity[2] += ( cpm_pm_jump_z * BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ]) );
+			}
+			pm->ps->jumptime = 0;
+			}
+  */
+  
+      //try#3 - only works on ramps apparently, but works!
+      /*
+  	 if(CPM_ON) {
+	 		if (pml.previous_velocity[ 2 ] > 0) {
+				pm->ps->velocity[2] += BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
+			}
+		 }
+		 */
+		 /*
+	      //try#4    - failed
+  	if(CPM_ON) {
+	 	  if ((pm->ps->origin[ 2 ] - pml.previous_origin[ 2 ]) > 0) {
+				pm->ps->velocity[2] += BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
+		  }
+		}
+		*/ 
+  
   
   if( pm->cmd.forwardmove >= 0 )
   {
@@ -1605,8 +1651,9 @@ static void PM_CrashLand( void )
 
   // ducking while falling doubles damage
   //zdrytchx: I loved this, but people think it is a bug
-//  if( pm->ps->pm_flags & PMF_DUCKED )
-//    delta *= 2;
+  //how bout let's say it prevents damage slightly?
+  if( pm->ps->pm_flags & PMF_DUCKED )
+    delta *= 0.6; //2
 
   // never take falling damage if completely underwater
   //zdrytchx: quarter damage
@@ -2802,8 +2849,9 @@ static void PM_Weapon( void )
   // check for weapon change
   // can't change if weapon is firing or charging, but can change
   // again if raising //pm->ps->weaponTime <= 0
-  if( pm->ps->weaponTime <= H_WEAP_SWITCH_BENIFIT ||/* pm->ps->weaponstate != WEAPON_FIRING ||*/ pm->ps->weaponstate != WEAPON_DROPPING )
+  if( pm->ps->weaponTime <= H_WEAP_SWITCH_BENIFIT || pm->ps->weaponstate != WEAPON_FIRING || pm->ps->weaponstate != WEAPON_DROPPING )
   {
+      pm->ps->weaponTime -= H_WEAP_SWITCH_BENIFIT;
     //TA: must press use to switch weapons
     if( pm->cmd.buttons & BUTTON_USE_HOLDABLE )
     {
@@ -3338,7 +3386,7 @@ PM_Animate
 */
 static void PM_Animate( void )
 {
-  if( pm->cmd.buttons & BUTTON_GESTURE )
+  if( pm->cmd.buttons & BUTTON_GESTURE && pm->ps->stats[ STAT_HEALTH ] > 0)
   {
     if( !( pm->ps->persistant[ PERS_STATE ] & PS_NONSEGMODEL ) )
     {
@@ -3667,9 +3715,11 @@ void PmoveSingle( pmove_t *pmove )
 
   PM_DropTimers( );
   
-  if(CPM_ON)
+//  if(CPM_ON){
   // CPM: Double-jump timer
 //		if (pm->ps->stats[STAT_JUMPTIME] > 0) pm->ps->stats[STAT_JUMPTIME] -= pml.msec;
+//    if (pm->ps->jumptime > 0) //uhh
+//    pm->ps->jumptime -= pml.msec;
 	// !CPM
 
   if( pm->ps->pm_type == PM_JETPACK )
