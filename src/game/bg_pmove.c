@@ -2849,9 +2849,9 @@ static void PM_Weapon( void )
   // check for weapon change
   // can't change if weapon is firing or charging, but can change
   // again if raising //pm->ps->weaponTime <= 0
-  if( pm->ps->weaponTime <= H_WEAP_SWITCH_BENIFIT || pm->ps->weaponstate != WEAPON_FIRING || pm->ps->weaponstate != WEAPON_DROPPING )
+  if( ( pm->ps->weaponTime <= H_WEAP_SWITCH_BENIFIT || pm->ps->weaponstate != WEAPON_FIRING ) && pm->ps->weaponstate != WEAPON_DROPPING && pm->ps->weaponstate != WEAPON_RAISING )
   {
-      pm->ps->weaponTime -= H_WEAP_SWITCH_BENIFIT;
+//      pm->ps->weaponTime -= H_WEAP_SWITCH_BENIFIT;
     //TA: must press use to switch weapons
     if( pm->cmd.buttons & BUTTON_USE_HOLDABLE )
     {
@@ -2861,6 +2861,7 @@ static void PM_Weapon( void )
         {
           //if trying to select a weapon, select it
           if( pm->ps->weapon != pm->cmd.weapon ) {
+                pm->ps->weaponTime -= H_WEAP_SWITCH_BENIFIT;
             PM_BeginWeaponChange( pm->cmd.weapon ); }
         }
         else if( pm->cmd.weapon > 32 )
@@ -2883,6 +2884,7 @@ static void PM_Weapon( void )
     //something external thinks a weapon change is necessary
     if( pm->ps->pm_flags & PMF_WEAPON_SWITCH )
     {
+          pm->ps->weaponTime -= H_WEAP_SWITCH_BENIFIT;
       pm->ps->pm_flags &= ~PMF_WEAPON_SWITCH;
       PM_BeginWeaponChange( pm->ps->persistant[ PERS_NEWWEAPON ] );
     }

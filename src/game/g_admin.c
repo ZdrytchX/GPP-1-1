@@ -139,7 +139,7 @@ g_admin_cmd_t g_admin_cmds[ ] =
     },
     
     {"dress", G_admin_naked, "Q",
-      "restore a player's ability to evolve or buy weapons",
+      "restore a player to a normal combat status (weapons/class, damage dealt)",
       "[^3name|slot#^7]"
     },
 
@@ -235,7 +235,7 @@ g_admin_cmd_t g_admin_cmds[ ] =
     },
     
     {"strip", G_admin_naked, "q",
-      "take away a player's ability to evolve or buy weapons",
+      "apply a handicap to a player (weapons/classes, damage dealt)",
       "[^3name|slot#^7]"
     },
 

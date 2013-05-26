@@ -3193,7 +3193,7 @@ weaponAttributes_t bg_weapons[ ] =
     WP_FLAMER,            //int       weaponNum;
     FLAMER_PRICE,         //int       price;
     ( 1 << S2 )|( 1 << S3 ), //int  stages
-    0,                       //int nakedStages
+    ( 1 << S3 ),          //int nakedStages
     SLOT_WEAPON,          //int       slots;
     "flamer",             //char      *weaponName;
     "Flame Thrower",      //char      *weaponHumanName;
@@ -3219,7 +3219,7 @@ weaponAttributes_t bg_weapons[ ] =
     WP_CHAINGUN,          //int       weaponNum;
     CHAINGUN_PRICE,       //int       price;
     ( 1 << S1 )|( 1 << S2 )|( 1 << S3 ), //int  stages
-    0,                                   //int nakedStages
+    ( 1 << S3 ),          //int nakedStages
     SLOT_WEAPON,          //int       slots;
     "chaingun",           //char      *weaponName;
     "Chaingun",           //char      *weaponHumanName;
@@ -3245,7 +3245,7 @@ weaponAttributes_t bg_weapons[ ] =
     WP_MASS_DRIVER,       //int       weaponNum;
     MDRIVER_PRICE,        //int       price;
     ( 1 << S1 )|( 1 << S2 )|( 1 << S3 ), //int  stages
-    0,                                   //int nakedStages
+    ( 1 << S1 )|( 1 << S2 )|( 1 << S3 ),  //int nakedStages //allow because 50% damage it's pretty useless
     SLOT_WEAPON,          //int       slots;
     "mdriver",            //char      *weaponName;
     "Mass Driver",        //char      *weaponHumanName;
@@ -3271,7 +3271,7 @@ weaponAttributes_t bg_weapons[ ] =
     WP_PULSE_RIFLE,       //int       weaponNum;
     PRIFLE_PRICE,         //int       price;
     ( 1 << S2 )|( 1 << S3 ), //int  stages
-    0,                       //int nakedStages
+    ( 1 << S3 ),          //int nakedStages
     SLOT_WEAPON,          //int       slots;
     "prifle",             //char      *weaponName;
     "Pulse Rifle",        //char      *weaponHumanName;
@@ -3323,7 +3323,7 @@ weaponAttributes_t bg_weapons[ ] =
     WP_LAS_GUN,           //int       weaponNum;
     LASGUN_PRICE,         //int       price;
     ( 1 << S1 )|( 1 << S2 )|( 1 << S3 ), //int  stages
-    0,                                   //int nakedStages
+    ( 1 << S2 )|( 1 << S3 ), //int nakedStages
     SLOT_WEAPON,          //int       slots;
     "lgun",               //char      *weaponName;
     "Las Gun",            //char      *weaponHumanName;
@@ -3349,7 +3349,7 @@ weaponAttributes_t bg_weapons[ ] =
     WP_PAIN_SAW,          //int       weaponNum;
     PAINSAW_PRICE,        //int       price;
     ( 1 << S1 )|( 1 << S2 )|( 1 << S3 ), //int  stages
-    0,                                   //int nakedStages
+    ( 1 << S2 )|( 1 << S3 ),           //int nakedStages
     SLOT_WEAPON,          //int       slots;
     "psaw",               //char      *weaponName;
     "Pain Saw",           //char      *weaponHumanName;
@@ -3375,7 +3375,7 @@ weaponAttributes_t bg_weapons[ ] =
     WP_GRENADE,           //int       weaponNum;
     GRENADE_PRICE,        //int       price;
     ( 1 << S2 )|( 1 << S3 ), //int  stages
-    0,                       //int nakedStages
+    ( 1 << S3 ),          //int nakedStages
     SLOT_NONE,            //int       slots;
     "grenade",            //char      *weaponName;
     "Grenade",            //char      *weaponHumanName;
@@ -3557,7 +3557,7 @@ weaponAttributes_t bg_weapons[ ] =
     WP_ALEVEL1_UPG,       //int       weaponNum;
     0,                    //int       price;
     ( 1 << S1 )|( 1 << S2 )|( 1 << S3 ), //int  stages
-    0,                                   //int  nakedStages
+    ( 1 << S3 ),          //int  nakedStages
     SLOT_WEAPON,          //int       slots;
     "level1upg",          //char      *weaponName;
     "Claws Upgrade",      //char      *weaponHumanName;
@@ -3583,7 +3583,7 @@ weaponAttributes_t bg_weapons[ ] =
     WP_ALEVEL2,           //int       weaponNum;
     0,                    //int       price;
     ( 1 << S1 )|( 1 << S2 )|( 1 << S3 ), //int  stages
-    ( 1 << S2 )|( 1 << S3 ),             //int  nakedStages
+    ( 1 << S1 )|( 1 << S2 )|( 1 << S3 ), //int  nakedStages
     SLOT_WEAPON,          //int       slots;
     "level2",             //char      *weaponName;
     "Bite",               //char      *weaponHumanName;
@@ -3609,7 +3609,7 @@ weaponAttributes_t bg_weapons[ ] =
     WP_ALEVEL2_UPG,       //int       weaponNum;
     0,                    //int       price;
     ( 1 << S1 )|( 1 << S2 )|( 1 << S3 ), //int  stages
-    0,                                   //int  nakedStages
+    ( 1 << S3 ),          //int  nakedStages
     SLOT_WEAPON,          //int       slots;
     "level2upg",          //char      *weaponName;
     "Zap",                //char      *weaponHumanName;
@@ -3661,7 +3661,7 @@ weaponAttributes_t bg_weapons[ ] =
     WP_ALEVEL3_UPG,       //int       weaponNum;
     0,                    //int       price;
     ( 1 << S1 )|( 1 << S2 )|( 1 << S3 ), //int  stages
-    0,                                   //int  nakedStages
+    ( 1 << S3 ),          //int  nakedStages
     SLOT_WEAPON,          //int       slots;
     "level3upg",          //char      *weaponName;
     "Pounce (upgrade)",   //char      *weaponHumanName;
@@ -4286,7 +4286,7 @@ upgradeAttributes_t bg_upgrades[ ] =
     UP_LIGHTARMOUR,         //int   upgradeNum;
     LIGHTARMOUR_PRICE,      //int   price;
     ( 1 << S1 )|( 1 << S2 )|( 1 << S3 ), //int  stages
-    ( 1 << S1 )|( 1 << S2 )|( 1 << S3 ), //int  nakedStages
+    ( 1 << S1 )|( 1 << S3 ), //int  nakedStages //disallow at s2, it's OP with helmet
     SLOT_TORSO|SLOT_LEGS, //int   slots;
     "larmour",              //char  *upgradeName;
     "Light Armour",         //char  *upgradeHumanName;
@@ -4326,7 +4326,7 @@ upgradeAttributes_t bg_upgrades[ ] =
     UP_BATTPACK,            //int   upgradeNum;
     BATTPACK_PRICE,         //int   price;
     ( 1 << S1 )|( 1 << S2 )|( 1 << S3 ), //int  stages
-    0,                                   //int  nakedStages
+    ( 1 << S2 )|( 1 << S3 ), //int  nakedStages
     SLOT_BACKPACK|SLOT_ARMS,          //int   slots;
     "battpack",             //char  *upgradeName;
     "Battery Pack",         //char  *upgradeHumanName;
@@ -4352,7 +4352,7 @@ upgradeAttributes_t bg_upgrades[ ] =
     UP_BATTLESUIT,          //int   upgradeNum;
     BSUIT_PRICE,            //int   price;
     ( 1 << S3 ),            //int  stages
-    ( 1 << S3 ),            //int  nakedStages
+    0,                      //int  nakedStages
     SLOT_HEAD|SLOT_TORSO|SLOT_LEGS|SLOT_BACKPACK, //int   slots;
     "bsuit",                //char  *upgradeName;
     "Battlesuit",           //char  *upgradeHumanName;
@@ -4365,7 +4365,7 @@ upgradeAttributes_t bg_upgrades[ ] =
     UP_GRENADE,             //int   upgradeNum;
     GRENADE_PRICE,          //int   price;
     ( 1 << S2 )|( 1 << S3 ),//int  stages
-    0,                      //int  nakedStages
+    ( 1 << S3 ),            //int  nakedStages
     SLOT_NONE,              //int   slots;
     "gren",                 //char  *upgradeName;
     "Grenade",              //char  *upgradeHumanName;

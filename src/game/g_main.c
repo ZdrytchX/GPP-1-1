@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include "g_local.h"
 
 #define QVM_NAME       "Lolards-CoW mod"
-#define QVM_VERSIONNUM      "1.7"
+#define QVM_VERSIONNUM      "1.8"
 
 level_locals_t  level;
 
