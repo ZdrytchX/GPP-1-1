@@ -131,7 +131,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL3_POUNCE_UPG_SPEED     800 
 #define LEVEL3_POUNCE_SPEED_MOD     0.75f 
 #define LEVEL3_POUNCE_CHARGE_TIME   700 
-#define LEVEL3_POUNCE_TIME          200 //400-> 200 delay after touching ground before you can chomp again
+#define LEVEL3_POUNCE_TIME          200 + FASTFIRE //400-> 200 delay after touching ground before you can chomp again
 #define LEVEL3_BOUNCEBALL_DMG       ADM(115 + (VAMP_ON * 15))
 
 #define LEVEL3_BOUNCEBALL_AMMO      3
@@ -411,13 +411,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define HDM(d)                      ((int)((float)d*HUMAN_WDMG_MODIFIER))
 
 #define BLASTER_REPEAT              750 //+50
-#define BLASTER_K_SCALE             1.2f //direct only - Gets overpowered on mid-air shots, use lower value for dretches //6.0f //1.2f
+#define BLASTER_K_SCALE             3.0f //direct only - Gets overpowered on mid-air shots, use lower value for dretches //6.0f //1.2f
 #define BLASTER_K_SCALE_LEVEL0      0.7f
 #define BLASTER_K_SELF_SCALE        (100.0f/BLASTER_PUSH) //gets multiplied for self only (splash)
 #define BLASTER_SPREAD              0
 #define BLASTER_SPEED               1400
 #define BLASTER_DMG                 HDM(9 + VAMP_ON)
-#define BLASTER_PUSH                90//Blasterjump effect, this is the actual damage before modding, knockback applies to others from this value
+#define BLASTER_PUSH                90//Blasterjump effect, this is the actual splash damage before modding, knockback applies to others from this value
 #define BLASTER_DMG_MOD             (8.00f/BLASTER_PUSH) //Modifier for above damage
                                                          //Damage to Self / Raw Damage
 #define BLASTER_RADIUS              100
@@ -564,6 +564,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //TODO: Replace with cvar, bg_pmove and trem.h doesn't know from g_main/g_local.h which poses a problem, same for bunnyhop
 #define H_WEAP_SWITCH_BENIFIT       400 //Time taken off firing time if you're switching weaps
 #define BUNNYHOP_TRUE               1 //Off = 0 on = 1
+
+//misc
+#define FASTFIRE                    200 //Allows a short period of fast fire - includes aliens
 
 #define LIGHTARMOUR_PRICE           70
 #define LIGHTARMOUR_POISON_PROTECTION 2
@@ -799,8 +802,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
                                          //note: this value * MAX_MAX_HEALTH * player's max health
 #define MEDKIT_EXTRA                0 + (VAMP_ON * 20) //Extra raw health added to medkit.
 
-//misc
-#define FASTFIRE                    200 //Allows a short period of fast fire - includes aliens
 
 // g_suddenDeathMode settings
 #define SDMODE_BP                   ( REPEATER_BP + ARMOURY_BP + DC_BP + MEDISTAT_BP )

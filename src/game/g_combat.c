@@ -1549,15 +1549,14 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
     knockback = (int)( (float)knockback *
       BG_FindKnockbackScaleForWeapon( inflictor->s.weapon ) );
   }
-		
-  if ( mod == MOD_SLOWBLOB ) //Override knockback scale for weapon
-    knockback == ABUILDER_BLOB_K;
 
   if( targ->client )
   {
     knockback = (int)( (float)knockback *
       BG_FindKnockbackScaleForClass( targ->client->ps.stats[ STAT_PCLASS ] ) );
   }
+  if ( mod == MOD_SLOWBLOB ) //Override knockback scale for weapon
+    knockback == ABUILDER_BLOB_K;
 
   if( knockback > 300 )
     knockback = 300;
