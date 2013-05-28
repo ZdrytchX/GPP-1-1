@@ -800,7 +800,7 @@ void Cmd_Team_f( gentity_t *ent )
       level.time - level.startTime < g_warmup.integer * 1000 )
   {
     trap_SendServerCommand( ent - g_entities, va( "print \"team: you can't join"
-      " a team during warm up (%d seconds remaining)\n\"",
+      " a team during warm up (%d second(s) remaining)\n\"",
       g_warmup.integer - ( level.time - level.startTime ) / 1000 ) );
     return;
   }
@@ -959,19 +959,19 @@ void Cmd_Team_f( gentity_t *ent )
      if ( oldteam == PTE_HUMANS )
        Com_sprintf( buf, sizeof( buf ), "%s^7 abandoned humans and joined the aliens.", ent->client->pers.netname );
      else
-       Com_sprintf( buf, sizeof( buf ), "%s^7 joined the aliens.", ent->client->pers.netname );
+       Com_sprintf( buf, sizeof( buf ), "%s^7 has gained respect from the Overmind.", ent->client->pers.netname );
    }
    else if( team == PTE_HUMANS ) {
      if ( oldteam == PTE_ALIENS )
        Com_sprintf( buf, sizeof( buf ), "%s^7 abandoned the aliens and joined the humans.", ent->client->pers.netname );
      else
-       Com_sprintf( buf, sizeof( buf ), "%s^7 joined the humans.", ent->client->pers.netname );
+       Com_sprintf( buf, sizeof( buf ), "%s^7 was recruited to the human team.", ent->client->pers.netname );
    }
    else if( team == PTE_NONE ) {
      if ( oldteam == PTE_HUMANS )
-       Com_sprintf( buf, sizeof( buf ), "%s^7 left the humans.", ent->client->pers.netname );
+       Com_sprintf( buf, sizeof( buf ), "%s^7 ragespec'd.", ent->client->pers.netname );
      else
-       Com_sprintf( buf, sizeof( buf ), "%s^7 left the aliens.", ent->client->pers.netname );
+       Com_sprintf( buf, sizeof( buf ), "%s^7 ragespec'd.", ent->client->pers.netname ); //left aliens
    }
    trap_SendServerCommand( -1, va( "print \"%s\n\"", buf ) );
    G_LogOnlyPrintf("ClientTeam: %s\n",buf);

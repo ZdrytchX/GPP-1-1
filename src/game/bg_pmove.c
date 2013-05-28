@@ -2869,6 +2869,7 @@ static void PM_Weapon( void )
           //if trying to toggle an upgrade, toggle it
           if( BG_InventoryContainsUpgrade( pm->cmd.weapon - 32, pm->ps->stats ) ) //sanity check
           {
+                pm->ps->weaponTime -= H_WEAP_SWITCH_BENIFIT;
             if( BG_UpgradeIsActive( pm->cmd.weapon - 32, pm->ps->stats ) )
               BG_DeactivateUpgrade( pm->cmd.weapon - 32, pm->ps->stats );
             else

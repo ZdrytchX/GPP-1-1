@@ -316,7 +316,7 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_teamForceBalance, "g_teamForceBalance", "1", CVAR_ARCHIVE  },
 
   { &g_warmup, "g_warmup", "10", CVAR_ARCHIVE, 0, qtrue  },
-  { &g_warmupMode, "g_warmupMode", "1", CVAR_ARCHIVE, 0, qtrue  },
+  { &g_warmupMode, "g_warmupMode", "0", CVAR_ARCHIVE, 0, qtrue  }, //0 = allow joining, don't spawn; 1 = don't allow anything
   { &g_doWarmup, "g_doWarmup", "1", CVAR_ARCHIVE, 0, qtrue  },
   { &g_logFile, "g_logFile", "games.log", CVAR_ARCHIVE, 0, qfalse  },
   { &g_logFileSync, "g_logFileSync", "0", CVAR_ARCHIVE, 0, qfalse  },
