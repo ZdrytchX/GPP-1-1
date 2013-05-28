@@ -536,7 +536,7 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next?^7");
       ent->r.svFlags = SVF_BROADCAST; // send to everyone
     }
   }
-  else if( attacker && attacker->client )
+  else if( attacker && attacker->client && g_bot_teamkill.integer != 1 )
   {
     // tjw: obviously this is a hack and belongs in the client, but
     //      this works as a temporary fix.
@@ -576,7 +576,7 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next?^7");
      trap_SendServerCommand( self-g_entities, va( "print \"Your killer, %s^7, had ^1%3i^7 HP.\n\"", killerName, attacker->health ) );
    }
 
-    if( attacker == self || OnSameTeam( self, attacker ) )
+    if( attacker == self || ( OnSameTeam( self, attacker ) && g_bot_teamkill.integer != 1 ) ) //to be replaced with g_teamkill
     {
       AddScore( attacker, -1 );
 
@@ -625,11 +625,18 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
       }
 
       // Normal teamkill penalty
-      else {
+      else if (g_bot_teamkill.integer != 1) {
         if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
           G_AddCreditToClient( attacker->client, -FREEKILL_ALIEN, qtrue );
         else if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS )
           G_AddCreditToClient( attacker->client, -FREEKILL_HUMAN, qtrue );
+      }
+      //Check for teamkill mode
+        else if (g_bot_teamkill.integer == 1) {
+        if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
+          G_AddCreditToClient( attacker->client, FREEKILL_ALIEN, qtrue );
+        else if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS )
+          G_AddCreditToClient( attacker->client, FREEKILL_HUMAN, qtrue );
       }
     }
     else
@@ -755,7 +762,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
           if( spreeRate && player == attacker )
           {
             percentDamage *= (float)spreeRate;
- //           AddScore( attacker, -percentDamage ); //Score Stacking
+            AddScore( attacker, percentDamage ); //Score Stacking
           }
         }
 
@@ -850,7 +857,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
             //add kills
             if( spreeRate && player == attacker ) {
               G_AddCreditToClient( player->client, spreeRate, qtrue );
- //              AddScore( attacker, 1 ); //Score Stacking
+               AddScore( attacker, spreeRate ); //Score Stacking
                }
             else
               G_AddCreditToClient( player->client, 1, qtrue );
