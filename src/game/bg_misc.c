@@ -1641,7 +1641,7 @@ classAttributes_t bg_classList[ ] =
     6.0f,                                           //float   friction;
     100.0f,                                         //float   stopSpeed;
     270.0f,                                         //float   jumpMagnitude;
-    0.3f,                                           //float   knockbackScale;
+    0.8f,                                           //float   knockbackScale;
     { PCL_ALIEN_LEVEL0, PCL_NONE, PCL_NONE },       //int     children[ 3 ];
     ABUILDER_UPG_COST,                              //int     cost;
     ABUILDER_UPG_VALUE                              //int     value;

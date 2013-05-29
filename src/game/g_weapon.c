@@ -993,7 +993,7 @@ qboolean CheckVenomAttack( gentity_t *ent )
     return qfalse;
 
   //allow level0 bites to work against these buildables only
-  if( traceEnt->s.eType == ET_BUILDABLE && traceEnt->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS )
+  if( traceEnt->s.eType == ET_BUILDABLE )
   {
     if( traceEnt->s.modelindex != BA_H_DCC &&
         traceEnt->s.modelindex != BA_H_MGTURRET &&

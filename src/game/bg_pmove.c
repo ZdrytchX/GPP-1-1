@@ -1128,10 +1128,20 @@ static void PM_AirMove( void )
 		accel = pm_airaccelerate;
 	if (pm->ps->movementDir == 2 || pm->ps->movementDir == 6)
 	{
-		if (wishspeed > cpm_pm_wishspeed)
+		if (wishspeed > cpm_pm_wishspeed && DotProduct(pm->ps->velocity, wishdir) < cpm_pm_wishspeed) //allow standard half-beat strafe jumping
+		{
 			wishspeed = cpm_pm_wishspeed;	
 		accel = cpm_pm_strafeaccelerate;
+		}
 	}
+	else if (pm->ps->movementDir == 0 || pm->ps->movementDir == 4) //bunnyhop time!
+  {
+		if (wishspeed < pm_bunnyhopspeedcap && wishspeed2 < DotProduct(pm->ps->velocity, wishdir) && DotProduct(pm->ps->velocity, wishdir) < pm_bunnyhopspeedcap)
+		{
+		wishspeed = pm_bunnyhopspeedcap;	
+		accel = pm_bunnyhopaccel - pm_bunnyhopaccel * (DotProduct(pm->ps->velocity, wishdir)/pm_bunnyhopspeedcap); //very simple, childish method :)
+		}
+  }
 //	}
 	// !CPM
 //  else
@@ -2849,7 +2859,7 @@ static void PM_Weapon( void )
   // check for weapon change
   // can't change if weapon is firing or charging, but can change
   // again if raising //pm->ps->weaponTime <= 0
-  if( ( pm->ps->weaponTime <= H_WEAP_SWITCH_BENIFIT + FASTFIRE || pm->ps->weaponstate != WEAPON_FIRING ) && pm->ps->weaponstate != WEAPON_DROPPING && pm->ps->weaponstate != WEAPON_RAISING )
+  if( ( pm->ps->weaponTime <= H_WEAP_SWITCH_BENIFIT || pm->ps->weaponstate != WEAPON_FIRING ) && pm->ps->weaponstate != WEAPON_DROPPING && pm->ps->weaponstate != WEAPON_RAISING )
   {
 //      pm->ps->weaponTime -= H_WEAP_SWITCH_BENIFIT;
     //TA: must press use to switch weapons

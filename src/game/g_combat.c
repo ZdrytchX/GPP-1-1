@@ -536,7 +536,7 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next?^7");
       ent->r.svFlags = SVF_BROADCAST; // send to everyone
     }
   }
-  else if( attacker && attacker->client && g_bot_teamkill.integer != 1 )
+  else if( attacker && attacker->client )
   {
     // tjw: obviously this is a hack and belongs in the client, but
     //      this works as a temporary fix.
@@ -576,8 +576,11 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next?^7");
      trap_SendServerCommand( self-g_entities, va( "print \"Your killer, %s^7, had ^1%3i^7 HP.\n\"", killerName, attacker->health ) );
    }
 
-    if( attacker == self || ( OnSameTeam( self, attacker ) && g_bot_teamkill.integer != 1 ) ) //to be replaced with g_teamkill
+    if( attacker == self || ( OnSameTeam( self, attacker ) ) ) //to be replaced with g_teamkill
     {
+      if( g_bot_teamkill.integer == 1)
+      AddScore( attacker, 1 );
+      else {
       AddScore( attacker, -1 );
 
       //make bot say his line
@@ -631,8 +634,9 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
         else if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS )
           G_AddCreditToClient( attacker->client, -FREEKILL_HUMAN, qtrue );
       }
+    } //This bracket is for 'if teamkill isn't on'
       //Check for teamkill mode
-        else if (g_bot_teamkill.integer == 1) {
+        if (g_bot_teamkill.integer == 1) {
         if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
           G_AddCreditToClient( attacker->client, FREEKILL_ALIEN, qtrue );
         else if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS )
@@ -1563,7 +1567,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
       BG_FindKnockbackScaleForClass( targ->client->ps.stats[ STAT_PCLASS ] ) );
   }
   if ( mod == MOD_SLOWBLOB ) //Override knockback scale for weapon
-    knockback == ABUILDER_BLOB_K;
+    knockback == ABUILDER_BLOB_K; //doesn't work?
 
   if( knockback > 300 )
     knockback = 300;
