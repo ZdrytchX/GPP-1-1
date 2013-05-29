@@ -576,11 +576,8 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next?^7");
      trap_SendServerCommand( self-g_entities, va( "print \"Your killer, %s^7, had ^1%3i^7 HP.\n\"", killerName, attacker->health ) );
    }
 
-    if( attacker == self || ( OnSameTeam( self, attacker ) ) ) //to be replaced with g_teamkill
+    if( attacker == self || (( OnSameTeam( self, attacker ) ) && g_bot_teamkill.integer == 0) ) //to be replaced with g_teamkill
     {
-      if( g_bot_teamkill.integer == 1)
-      AddScore( attacker, 1 );
-      else {
       AddScore( attacker, -1 );
 
       //make bot say his line
@@ -633,14 +630,6 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
           G_AddCreditToClient( attacker->client, -FREEKILL_ALIEN, qtrue );
         else if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS )
           G_AddCreditToClient( attacker->client, -FREEKILL_HUMAN, qtrue );
-      }
-    } //This bracket is for 'if teamkill isn't on'
-      //Check for teamkill mode
-        if (g_bot_teamkill.integer == 1) {
-        if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
-          G_AddCreditToClient( attacker->client, FREEKILL_ALIEN, qtrue );
-        else if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS )
-          G_AddCreditToClient( attacker->client, FREEKILL_HUMAN, qtrue );
       }
     }
     else
