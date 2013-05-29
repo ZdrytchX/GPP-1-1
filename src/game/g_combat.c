@@ -581,7 +581,7 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next?^7");
       AddScore( attacker, -1 );
 
       //make bot say his line
-      if(attacker->r.svFlags & SVF_BOT && !(self->r.svFlags & SVF_BOT) && !(self->client->pers.muted))
+      if( attacker == self && attacker->r.svFlags & SVF_BOT && !(self->r.svFlags & SVF_BOT) && !(self->client->pers.muted))
 G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
 
       // Retribution: transfer value of player from attacker to victim
@@ -625,7 +625,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
       }
 
       // Normal teamkill penalty
-      else if (g_bot_teamkill.integer != 1) {
+//      else if (g_bot_teamkill.integer == 0) {
         if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
           G_AddCreditToClient( attacker->client, -FREEKILL_ALIEN, qtrue );
         else if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS )
@@ -691,7 +691,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
     totalDamage += (float)self->credits[ i ];
 
   // if players did more than DAMAGE_FRACTION_FOR_KILL increment the stage counters
-  if( !OnSameTeam( self, attacker ) && totalDamage >= ( self->client->ps.stats[ STAT_MAX_HEALTH ] * DAMAGE_FRACTION_FOR_KILL ) )
+  if( (!OnSameTeam( self, attacker ) || g_bot_teamkill.integer != 0) && totalDamage >= ( self->client->ps.stats[ STAT_MAX_HEALTH ] * DAMAGE_FRACTION_FOR_KILL ) )
   {
     if( self->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS ) 
     {
