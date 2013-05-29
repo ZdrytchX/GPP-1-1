@@ -630,7 +630,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
           G_AddCreditToClient( attacker->client, -FREEKILL_ALIEN, qtrue );
         else if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS )
           G_AddCreditToClient( attacker->client, -FREEKILL_HUMAN, qtrue );
-      }
+//      }
     }
     else
     {
