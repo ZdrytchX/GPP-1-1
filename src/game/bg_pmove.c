@@ -1126,22 +1126,14 @@ static void PM_AirMove( void )
 		accel = cpm_pm_airstopaccelerate;
 	else
 		accel = pm_airaccelerate;
-	if (pm->ps->movementDir == 2 || pm->ps->movementDir == 6)
-	{
-		if (wishspeed > cpm_pm_wishspeed && DotProduct(pm->ps->velocity, wishdir) < cpm_pm_wishspeed) //allow standard half-beat strafe jumping
-		{
-			wishspeed = cpm_pm_wishspeed;	
-		accel = cpm_pm_strafeaccelerate;
-		}
-	}
-	else if (pm->ps->movementDir == 0 || pm->ps->movementDir == 4) //bunnyhop time!
-  {
-		if (wishspeed < pm_bunnyhopspeedcap && wishspeed2 < DotProduct(pm->ps->velocity, wishdir) && DotProduct(pm->ps->velocity, wishdir) < pm_bunnyhopspeedcap)
+//	else if (pm->ps->movementDir == 0 || pm->ps->movementDir == 4) //bunnyhop time!
+//  {
+		if (wishspeed < pm_bunnyhopspeedcap && wishspeed < DotProduct(pm->ps->velocity, wishdir) && DotProduct(pm->ps->velocity, wishdir) < pm_bunnyhopspeedcap)
 		{
 		wishspeed = pm_bunnyhopspeedcap;	
 		accel = pm_bunnyhopaccel - pm_bunnyhopaccel * (DotProduct(pm->ps->velocity, wishdir)/pm_bunnyhopspeedcap); //very simple, childish method :)
 		}
-  }
+//  }
 //	}
 	// !CPM
 //  else
@@ -1154,6 +1146,17 @@ static void PM_AirMove( void )
 //  {
 	// CPM: Air control
 	PM_Accelerate (wishdir, wishspeed, accel * BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] ) );
+	
+		if (pm->ps->movementDir == 2 || pm->ps->movementDir == 6)
+	{
+		if (wishspeed > cpm_pm_wishspeed && DotProduct(pm->ps->velocity, wishdir) < cpm_pm_wishspeed) //allow standard half-beat strafe jumping
+		{
+	  wishspeed = cpm_pm_wishspeed;	
+		accel = cpm_pm_strafeaccelerate;
+		PM_Accelerate (wishdir, wishspeed, accel * BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] ) ); //Re-exec'd - dodgy but should work
+		}
+	}
+	
 	if (cpm_pm_aircontrol)
 		CPM_PM_Aircontrol(pm, wishdir, wishspeed2);
 //	}
