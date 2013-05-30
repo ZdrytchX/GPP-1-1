@@ -741,7 +741,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
         if( !player->client )
           continue;
 
-        if( player->client->ps.stats[ STAT_PTEAM ] != PTE_HUMANS )
+        if( player->client->ps.stats[ STAT_PTEAM ] != PTE_HUMANS || (g_bot_teamkill.integer == 0) )
           continue;
 
         if( !self->credits[ i ] )
@@ -778,7 +778,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
         if( !player->client )
           continue;
 
-        if( player->client->ps.stats[ STAT_PTEAM ] != PTE_ALIENS )
+        if( player->client->ps.stats[ STAT_PTEAM ] != PTE_ALIENS || (g_bot_teamkill.integer == 1) )
           continue;
 
         //this client did no damage
@@ -804,7 +804,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
           if( spreeRate && player == attacker )
           {
             G_AddCreditToClient( player->client, frags * spreeRate, qtrue );
-//            AddScore( attacker, 1 ); //Score Stacking
+            AddScore( attacker, 1 ); //Score Stacking
           }
           else
             G_AddCreditToClient( player->client, frags, qtrue );
