@@ -87,6 +87,9 @@ GPP-1.1 Gameplay "Features":
 -GPP shotgun (11 pellets, each doing 5 damage, where 1.1 has 14 pellets, each 4 dmg) to help againts dretches
 -Bunny Hopping up stairs is now a tonne load easier
 -Ramp Jumps :)
+-Challenge Promode Physics
+-Bunnyhop gains a bit of speed with a limit of 1000 (works somewhat similar to xonotic's and warsow's)
+-g_bot_teamkill enables teamkill mode
 -Other shit
 
 "Imported" and "Invented" Gameplay from Lolards/Misc:
@@ -143,3 +146,12 @@ TODO list:
 -Add lag compensation for projectiles
 -fix taunting while dead bug
 -Find a non-hacky way of fixing marauder's occasional "walljump" on the ground without removing walljump repeat rate
+-Balance out the marauder's wallclimb without putting a hard limit on speeds
+-Fix teamkill mode's 'earning credits' for teamkills along with staging up
+-Replace g_bot_teamkill with g_mode_teamkill or something like that
+-Add pmove cvars (g_mode_cpm, g_mode_cpm_aircontrol, g_mode_bunnyhop, g_mode_autojump etc.)
+
+Ideas that I can't implement just yet:
+-Add a g_mode_race, refering to bob's oc mod
+  +Unlimited stamina, however sprint and mods (like back peddling) will be taken off
+-Make bots do circle jumps something like how CPM does theirs - With bunnyhop mode, we don't need them to strafe jump

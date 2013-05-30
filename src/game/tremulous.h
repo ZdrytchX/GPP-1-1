@@ -50,6 +50,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define ABUILDER_BLOB_DMG           ADM(4)
 #define ABUILDER_BLOB_SPLASH_DMG    ADM(4)
 #define ABUILDER_BLOB_K             ADM(90)
+#define ABUILDER_BLOB_SPLASH_K      ADM(100/ABUILDER_BLOB_DMG)
 #define ABUILDER_BLOB_RADIUS        75
 #define ABUILDER_BLOB_REPEAT        1000
 #define ABUILDER_BLOB_SPEED         800.0f
