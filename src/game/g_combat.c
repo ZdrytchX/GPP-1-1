@@ -741,7 +741,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
         if( !player->client )
           continue;
 
-        if( player->client->ps.stats[ STAT_PTEAM ] != PTE_HUMANS || (g_bot_teamkill.integer == 0) )
+        if( player->client->ps.stats[ STAT_PTEAM ] != PTE_HUMANS || (g_bot_teamkill.integer == 1) )
           continue;
 
         if( !self->credits[ i ] )
