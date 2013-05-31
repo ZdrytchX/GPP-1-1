@@ -20,7 +20,7 @@ float	cpm_pm_aircontrol = 150;
 float	cpm_pm_strafeaccelerate = 70;
 float	cpm_pm_wishspeed = 30;
 //testing
-float pm_bunnyhopspeedcap = 1000;
+float pm_bunnyhopspeedcap = 1200;
 float pm_bunnyhopaccel = 0.08;
 
 void CPM_UpdateSettings(int num)
@@ -50,7 +50,7 @@ void CPM_UpdateSettings(int num)
 		pm_accelerate = 10; //15
 		pm_friction = 6; //8
 		cpm_pm_jump_z = 100/*/230*/; // enable double-jump //100
-		pm_bunnyhopspeedcap = 1000*BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
+		pm_bunnyhopspeedcap = 1200*BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
 		if (BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] ) > 1.5)
 		pm_bunnyhopaccel = 0.08*1.5;
 		else
