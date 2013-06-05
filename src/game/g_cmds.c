@@ -1827,12 +1827,14 @@ void Cmd_CallVote_f( gentity_t *ent )
      }
    }
   //cpm //TODO: View Quake's Source about <1/0> callvotes
-  //TODO: Allow a value between 0 and 4
+  //TODO: Allow a value between 0 and 6
   //0 = ProMode
   //1 = Vanilla
   //2 = ProTrem (Default)
   //3 = TF2 (Experimental; not suited for actual gameplay)
   //4 = TFC (Experimental; not suited for actual gameplay)
+  //5 = Xonotic
+  //6 = WarSow
   else if ( !Q_stricmp( arg1, "g_mode_cpm" ) )
   {
   //*cough cough* this brings up <NULL> instead of the number
@@ -1866,7 +1868,7 @@ void Cmd_CallVote_f( gentity_t *ent )
     trap_SendServerCommand( ent-g_entities, "print \"Invalid vote string\n\"" );
     trap_SendServerCommand( ent-g_entities, "print \"Valid vote commands are: "
       "map <map>, map_restart, draw, nextmap <map>, kick <player> (-r <reason>), mute <player> (-r <reason>),\n"
-      "unmute <player> (-r <reason>), poll <subject> (-r <reason>), g_mode_cpm [0-4] and sudden_death\n" );
+      "unmute <player> (-r <reason>), poll <subject> (-r <reason>), g_mode_cpm [0-6] and sudden_death\n" );
     return;
   }
   

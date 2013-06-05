@@ -3,9 +3,9 @@
 | /   _    |  __/   |  __/   ____     | |        | |  
 | |__| |   | |      | |     |____|   _| |_   _  _| |_ 
  \____/    |_|      |_|             |_____| (_)|_____|
-         _      ____    ____   __    _      _
-        / \    | __ \  |  __| |  \  | |    / \
-       / ^ \   |    /  |  \   |   \ | |   / ^ \
+         _      ____    ____   __    _      _       Now Includes
+        / \    | __ \  |  __| |  \  | |    / \    Challenge ProMode Physics!
+       / ^ \   |    /  |  \   |   \ | |   / ^ \     (And Other Stuff =D)
       / /=\ \  | |\ \  |  /_  | |\ \| |  / /=\ \
      /_/   \_\ |_| \_\ |____| |_| \___| /_/   \_\
 *This qvm is "sort of" in active developement. If you have requests, feel free to do so here or email me at my youtube channel
@@ -90,6 +90,7 @@ GPP-1.1 Gameplay "Features":
 -Challenge Promode Physics
 -Bunnyhop gains a bit of speed with a limit of 1000 (works somewhat similar to xonotic's and warsow's)
 -g_bot_teamkill enables teamkill mode
+-Options (currently requires recompiling) to modify pmove system to mimick certain game modes
 -Other shit
 
 "Imported" and "Invented" Gameplay from Lolards/Misc:
@@ -133,10 +134,10 @@ Potential Side Effects/bugs from features:
 -Bots 'crouch dance' every 1.2 seconds or so intervals when taking a walk (not in combat) (Still trying to find the cause, I can't find anything related to when I initiated the bot crouch/jump combat dance)
 
 TODO list:
--Find out how to get cvars to access pmove and related files (bunnyhop, rampjump option, knockback cvars etc.)
+-[35%]Find out how to get cvars to access pmove and related files (bunnyhop, rampjump option, knockback cvars etc.)
 -define player positions for advance bot aiming -> add mdriver aiming ahead
--Upgrade to "new" CoW bots system
--Fix the bot's 'rythmetic crouch dance' when walking (not in combat)
+-[1%]Upgrade to "new" CoW bots system
+-[Unknown Status]Fix the bot's 'rythmetic crouch dance' when walking (not in combat)
 -Fix missing flag for buying/selling with bots -> is armoury spawned? (built)
 -Fix Shotgun + Battpack 12-clip load (Lolards application somewhere...)
 -Allow bots to buy bsuit without raping the armoury, and have the model convert
@@ -144,14 +145,16 @@ TODO list:
 -Adminlogs, server owners can find out who over-uses admin powers (which I don't like)
 -/hurtme command (similar to tf2's actually)
 -Add lag compensation for projectiles
--fix taunting while dead bug
+-[100% - Not Tested]fix taunting while dead bug
 -Find a non-hacky way of fixing marauder's occasional "walljump" on the ground without removing walljump repeat rate
 -Balance out the marauder's wallclimb without putting a hard limit on speeds
 -Fix teamkill mode's 'earning credits' for teamkills along with staging up
 -Replace g_bot_teamkill with g_mode_teamkill or something like that
--Add pmove cvars (g_mode_cpm, g_mode_cpm_aircontrol, g_mode_bunnyhop, g_mode_autojump etc.)
+-[20%]Add pmove cvars (g_mode_cpm, g_mode_cpm_aircontrol, g_mode_bunnyhop, g_mode_autojump etc.)
+-Replace g_mode_cpm with g_mode_physics
+-Fix TF2's "Anti Circle Strafe' fix (currently doesn't apply the speed change once, rather it makes you either fly or stop completely)
 
-Ideas that I can't implement just yet:
+Wishlist (I currently have no knowledge how to add these):
 -Add a g_mode_race, refering to bob's oc mod
   +Unlimited stamina, however sprint and mods (like back peddling) will be taken off
 -Make bots do circle jumps something like how CPM does theirs - With bunnyhop mode, we don't need them to strafe jump

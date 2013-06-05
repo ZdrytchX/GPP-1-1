@@ -41,12 +41,12 @@ float pm_duckScale = 0.25f;
 float pm_swimScale = 0.75f;
 float pm_wadeScale = 0.70f;
 
-float pm_accelerate = 10.0f;
-float pm_airaccelerate = 1.0f;
+//float pm_accelerate = 10.0f;
+//float pm_airaccelerate = 1.0f;
 float pm_wateraccelerate = 4.0f;
 float pm_flyaccelerate = JETPACK_ACCELERATE; //4.0f not too high, makes them hard to pounce at
 
-float pm_friction = 6.0f;
+//float pm_friction = 6.0f;
 float pm_waterfriction = 1.0f;
 float pm_flightfriction = JETPACK_FRICTION; //2.0f
 float pm_spectatorfriction = 5.0f; //annoying as hell //5.0f
@@ -297,7 +297,9 @@ static void PM_Friction( void )
   //TODO: Allow alien special movement abilities to bypass this limit
   //Add TFC Style Anti-Bunnyhop - Has to apply to Z surfaces as well due to wallwalk
   if
-  ( pm->waterlevel <= 1 &&
+  ( pm->waterlevel <= 1 )
+  {
+  if( ( pml.walking || pml.ladder ) && !( pml.groundTrace.surfaceFlags & SURF_SLICK ) &&
   //Sry, wallwalk's fucked now - it limits jumping. CBF doing. TODO
     (
     /*
@@ -313,18 +315,31 @@ static void PM_Friction( void )
     ) && pm_groundspeedcap != 0
   )
   {
-    if(pm_groundspeedcapfriction != 1)
+    if(pm_groundspeedcapfriction != 0)
     { //Sounds dodgy, but it's true.
       vel[ 1 ] = vel[ 1 ] * pm_groundspeedcapfriction;
       vel[ 0 ] = vel[ 0 ] * pm_groundspeedcapfriction;
     }
+    //newspeed has already been used, let's use it again
+    newspeed = pm_groundspeedcaplimit * BG_FindSpeedForClass( pm->ps->stats[ STAT_PCLASS ] );
+    //TODO
     if(pm_groundspeedcaplimit != 0)
     { //Sounds even more dodgier, but heck this is how they prevent circlejumps in TF2 AFAIK
       //(I proved it to myself by a bunch of techniques such as bunny hopping and wall strafing)
       //TODO: Apply againts g_speed
-      vel[ 1 ] = BG_FindSpeedForClass( pm->ps->stats[ STAT_PCLASS ] ) * pm_groundspeedcaplimit;
-      vel[ 0 ] = BG_FindSpeedForClass( pm->ps->stats[ STAT_PCLASS ] ) * pm_groundspeedcaplimit;
+      /*
+        vel[ 0 ] = newspeed / vel[ 0 ];
+        vel[ 1 ] = newspeed / vel[ 1 ];
+        */
+        //fuck it
+      speed = newspeed;
+      //the actualy fuck is this shit I'm doing. ALL I FUCKIN' WANT IS TO MAKE TOTAL SPEED = 320 * BG_FindSpeedForClass()!!!
+      /*
+      vel[ 0 ] = speed * sqrt(vel[ 0 ] - vel[ 1 ]);
+      vel[ 1 ] = speed * sqrt(vel[ 1 ] - vel[ 0 ]);
+      */
     }
+  }
   }
 }
 
@@ -1167,7 +1182,6 @@ static void PM_AirMove( void )
 	else
 		accel = pm_airaccelerate;	
 		
-		//this may fuck up
 	if( !pm_q3strafe && pm_q1strafe )
 	{
   	wishspeed = cpm_pm_wishspeed;	
