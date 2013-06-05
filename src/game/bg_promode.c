@@ -94,7 +94,7 @@ float cpm_pm_jump_z; //Does nothing right now
 //|qfalse    | qfalse  | qtrue   | qtrue         | qfalse          | qtrue       | qfalse       |
 //|0         | 0       | 0       | 320           | 512             | 0           | 0            |
 //|0         | 0       | 0       | 0             | 0.5             | 0           | 0            |
-//|0         | 0       | 0       | 1             | 0               | 0           | 0            |
+//|0         | 0       | 0       | 320           | 0               | 0           | 0            |
 //'----------'---------'---------'---------------'-----------------'-------------'--------------'
 // Physics Initiation
 float	cpm_pm_airstopaccelerate = 2.5; 
@@ -113,12 +113,12 @@ qboolean pm_q1strafe = qfalse;
 qboolean pm_q3strafe = qtrue;         
 //The speedcap and speedcaplimit are multiplied by BG_FindSpeedForClass()
 //Note that GSrc's units are slightly different.
-float pm_groundspeedcap = 0;          
+float pm_groundspeedcap = 320;          
 //A multiplier for ground speed when speedcap has been breached
 float pm_groundspeedcapfriction = 0;  
 //This one is not finished (Not Working)
 //when speedcap has been breached speed becomes this
-float pm_groundspeedcaplimit = 0;     
+float pm_groundspeedcaplimit = 320;     
 
 void CPM_UpdateSettings(int num)
 {
