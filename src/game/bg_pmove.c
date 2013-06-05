@@ -321,7 +321,7 @@ static void PM_Friction( void )
       vel[ 0 ] = vel[ 0 ] * pm_groundspeedcapfriction;
     }
     //newspeed has already been used, let's use it again
-    newspeed = pm_groundspeedcaplimit * BG_FindSpeedForClass( pm->ps->stats[ STAT_PCLASS ] ) * 320;
+    newspeed = pm_groundspeedcaplimit * BG_FindSpeedForClass( pm->ps->stats[ STAT_PCLASS ] );
     //TODO
     if(pm_groundspeedcaplimit != 0)
     { //Sounds even more dodgier, but heck this is how they prevent circlejumps in TF2 AFAIK
