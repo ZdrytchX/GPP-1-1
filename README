@@ -158,3 +158,20 @@ Wishlist (I currently have no knowledge how to add these):
 -Add a g_mode_race, refering to bob's oc mod
   +Unlimited stamina, however sprint and mods (like back peddling) will be taken off
 -Make bots do circle jumps something like how CPM does theirs - With bunnyhop mode, we don't need them to strafe jump
+
+notes:
+
+      /*
+VectorSubtract(a,b,c) - subtract b from a, result is c
+VectorAdd(a,b,c) - add a to b, result is c
+VectorCopy(a,b) - copy a to b
+VectorScale(v,s,o) - make v s units long, result in o
+VectorMA(v,s,b,o) - make b s units long, add to v, result in o
+VectorClear(a) - too easy
+VectorNegate(a,b) - flip a, result in b
+VectorSet(v,x,y,z) - another easy one
+Vector4Copy(a,b) - used for 4 dimensional vectors
+SnapVector(v) - round a vector to integer values
+VectorNormalize() - makes a vector 1 unit long
+VectorNormalize(v, vec2) - copies v to vec2, then makes it 1 unit long
+*/

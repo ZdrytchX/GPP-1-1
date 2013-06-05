@@ -269,6 +269,28 @@ static void PM_Friction( void )
         drop += control * BG_FindFrictionForClass( pm->ps->stats[ STAT_PCLASS ] ) * pml.frametime;
       }
     }
+      if( ( pml.walking || pml.ladder ) && !( pml.groundTrace.surfaceFlags & SURF_SLICK ) &&
+      //Sry, wallwalk's fucked now - it limits jumping. TODO
+           ( sqrt( pm->ps->velocity[ 0 ] * pm->ps->velocity[ 0 ]
+       + pm->ps->velocity[ 1 ] * pm->ps->velocity[ 1 ] ) > pm_groundspeedcap * BG_FindSpeedForClass( pm->ps->stats[ STAT_PCLASS ] )
+           ) && pm_groundspeedcap != 0
+        )
+  {
+    if(pm_groundspeedcapfriction != 0)
+    { //Sounds dodgy, but it's true.
+      vel[ 1 ] = vel[ 1 ] * pm_groundspeedcapfriction;
+      vel[ 0 ] = vel[ 0 ] * pm_groundspeedcapfriction;
+    }
+    //newspeed has already been used, let's use it again
+    newspeed = pm_groundspeedcaplimit * BG_FindSpeedForClass( pm->ps->stats[ STAT_PCLASS ] );
+    //TODO (doesn't work still)
+    /*
+    if(pm_groundspeedcaplimit != 0)
+    {
+      VectorNormalize( vel );
+      VectorScale( vel, newspeed, vel );
+    }
+    */
   }
 
   // apply water friction even if just wading
@@ -299,60 +321,7 @@ static void PM_Friction( void )
   if
   ( pm->waterlevel <= 1 )
   {
-  if( ( pml.walking || pml.ladder ) && !( pml.groundTrace.surfaceFlags & SURF_SLICK ) &&
-  //Sry, wallwalk's fucked now - it limits jumping. CBF doing. TODO
-    (
-    /*
-    if( BG_ClassHasAbility( pm->ps->stats[ STAT_PCLASS ], SCA_WALLCLIMBER ) && ( pml.groundPlane ) )
-  &&
-    //TA: FIXME: yes yes i know this is wrong
-    sqrt( pm->ps->velocity[ 0 ] * pm->ps->velocity[ 0 ]
-     + pm->ps->velocity[ 1 ] * pm->ps->velocity[ 1 ]
-     + pm->ps->velocity[ 2 ] * pm->ps->velocity[ 2 ] )  > pm_groundspeedcap
-  
-  else */sqrt( pm->ps->velocity[ 0 ] * pm->ps->velocity[ 0 ]
-    + pm->ps->velocity[ 1 ] * pm->ps->velocity[ 1 ] ) > pm_groundspeedcap * BG_FindSpeedForClass( pm->ps->stats[ STAT_PCLASS ] )
-    ) && pm_groundspeedcap != 0
-  )
-  {
-    if(pm_groundspeedcapfriction != 0)
-    { //Sounds dodgy, but it's true.
-      vel[ 1 ] = vel[ 1 ] * pm_groundspeedcapfriction;
-      vel[ 0 ] = vel[ 0 ] * pm_groundspeedcapfriction;
-    }
-    //newspeed has already been used, let's use it again
-    newspeed = pm_groundspeedcaplimit * BG_FindSpeedForClass( pm->ps->stats[ STAT_PCLASS ] );
-    //TODO
-    if(pm_groundspeedcaplimit != 0)
-    { //Sounds even more dodgier, but heck this is how they prevent circlejumps in TF2 AFAIK
-      //(I proved it to myself by a bunch of techniques such as bunny hopping and wall strafing)
-      //TODO: Apply againts g_speed
-      /*
-        vel[ 0 ] = newspeed / vel[ 0 ];
-        vel[ 1 ] = newspeed / vel[ 1 ];
-        */
-        //fuck it
-      //speed = newspeed;
-      /*
-      vel[ 0 ] = speed * sqrt(vel[ 0 ] - vel[ 1 ]);
-      vel[ 1 ] = speed * sqrt(vel[ 1 ] - vel[ 0 ]);
-      */
-      //vectors: vel
-      VectorScale( vel, newspeed, vel );
-      /*
-VectorSubtract(a,b,c) - subtract b from a, result is c
-VectorAdd(a,b,c) - add a to b, result is c
-VectorCopy(a,b) - copy a to b
-VectorScale(v,s,o) - make v s units long, result in o
-VectorMA(v,s,b,o) - make b s units long, add to v, result in o
-VectorClear(a) - too easy
-VectorNegate(a,b) - flip a, result in b
-VectorSet(v,x,y,z) - another easy one
-Vector4Copy(a,b) - used for 4 dimensional vectors
-SnapVector(v) - round a vector to integer values
-*/
-      //VectorNormalize2( ent->client->ps.velocity, speed )
-    }
+
   }
   }
 }
