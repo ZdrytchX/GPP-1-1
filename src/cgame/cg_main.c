@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include "cg_local.h"
 
 #include "../ui/ui_shared.h"
+#include "../game/bg_promode.h" // CPM
 // display context for new ui stuff
 displayContextDef_t cgDC;
 
@@ -184,7 +185,6 @@ vmCvar_t  cg_hudFiles;
 vmCvar_t  cg_scorePlum;
 vmCvar_t  cg_smoothClients;
 vmCvar_t  pmove_fixed;
-//vmCvar_t  cg_pmove_fixed;
 vmCvar_t  pmove_msec;
 vmCvar_t  cg_pmove_msec;
 vmCvar_t  cg_cameraMode;
@@ -244,6 +244,7 @@ vmCvar_t  cg_unlagged;
 vmCvar_t  cg_thirdpersonheight;
 vmCvar_t  cg_firstpersonanglefix_yaw;
 vmCvar_t  cg_firstpersonanglefix_pitch;
+//vmCvar_t  g_mode_cpm;
 
 
 typedef struct
@@ -393,7 +394,8 @@ static cvarTable_t cvarTable[ ] =
 //ZdrytchX
   { &cg_thirdpersonheight, "cg_thirdpersonheight", "12", CVAR_ARCHIVE},
     { &cg_firstpersonanglefix_yaw, "cg_firstpersonanglefix_yaw", "0", CVAR_ARCHIVE},
-  { &cg_firstpersonanglefix_pitch, "cg_firstpersonanglefix_pitch", "0", CVAR_ARCHIVE}
+  { &cg_firstpersonanglefix_pitch, "cg_firstpersonanglefix_pitch", "0", CVAR_ARCHIVE}//,
+//  { &g_mode_cpm, "g_mode_cpm", "0", CVAR_SYSTEMINFO }, //Special CPM cvar
 };
 
 static int   cvarTableSize = sizeof( cvarTable ) / sizeof( cvarTable[0] );
@@ -1788,6 +1790,13 @@ void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum )
   cgs.levelStartTime = atoi( s );
 
   CG_ParseServerinfo( );
+  
+  // CPM: Setup according to the pro mode settings
+  /* kept this here because I'm still not sure what they're asking about, probably distinguishing between ctf and ffa etc.
+	s = CG_ConfigString( CS_PRO_MODE );
+	CPM_UpdateSettings( (atoi(s)) ? ((cgs.gametype == GT_TEAM) ? 2 : 1) : 0 );
+	// !CPM
+	*/
 
   // load the new map
   trap_CM_LoadMap( cgs.mapname );

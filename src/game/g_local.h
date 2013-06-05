@@ -1558,7 +1558,6 @@ extern vmCvar_t g_bot_roam;
 extern vmCvar_t g_bot_infinite_funds;
 extern vmCvar_t g_bot_survival;
 extern vmCvar_t g_bot_wave_interval;
-extern vmCvar_t g_bot_teamkill;
 
 //</bot stuff>
 
@@ -1613,6 +1612,10 @@ extern  vmCvar_t  g_allowBlackInNames;
 extern  vmCvar_t  g_minDeconLevel;
 extern  vmCvar_t  g_bot_alien_secondaryonly; //applies to those who has secondary
 extern  vmCvar_t  g_myStatstime;
+
+//Various Modes
+extern  vmCvar_t g_mode_cpm;
+extern  vmCvar_t g_bot_teamkill;
 
 void      trap_Printf( const char *fmt );
 void      trap_Error( const char *fmt );

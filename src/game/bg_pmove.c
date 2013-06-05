@@ -18,6 +18,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Tremulous; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+This file contains code that was retreived and modified from
+http://games.linuxdude.com/tamaps/archive/cpm1_dev_docs.zip
 ===========================================================================
 */
 
@@ -289,6 +292,40 @@ static void PM_Friction( void )
   vel[ 0 ] = vel[ 0 ] * newspeed;
   vel[ 1 ] = vel[ 1 ] * newspeed;
   vel[ 2 ] = vel[ 2 ] * newspeed;
+  
+  //TODO: Clean up Code
+  //TODO: Allow alien special movement abilities to bypass this limit
+  //Add TFC Style Anti-Bunnyhop - Has to apply to Z surfaces as well due to wallwalk
+  if
+  ( pm->waterlevel <= 1 &&
+  //Sry, wallwalk's fucked now - it limits jumping. CBF doing. TODO
+    (
+    /*
+    if( BG_ClassHasAbility( pm->ps->stats[ STAT_PCLASS ], SCA_WALLCLIMBER ) && ( pml.groundPlane ) )
+  &&
+    //TA: FIXME: yes yes i know this is wrong
+    sqrt( pm->ps->velocity[ 0 ] * pm->ps->velocity[ 0 ]
+     + pm->ps->velocity[ 1 ] * pm->ps->velocity[ 1 ]
+     + pm->ps->velocity[ 2 ] * pm->ps->velocity[ 2 ] )  > pm_groundspeedcap
+  
+  else */sqrt( pm->ps->velocity[ 0 ] * pm->ps->velocity[ 0 ]
+    + pm->ps->velocity[ 1 ] * pm->ps->velocity[ 1 ] ) > pm_groundspeedcap * BG_FindSpeedForClass( pm->ps->stats[ STAT_PCLASS ] )
+    ) && pm_groundspeedcap != 0
+  )
+  {
+    if(pm_groundspeedcapfriction != 1)
+    { //Sounds dodgy, but it's true.
+      vel[ 1 ] = vel[ 1 ] * pm_groundspeedcapfriction;
+      vel[ 0 ] = vel[ 0 ] * pm_groundspeedcapfriction;
+    }
+    if(pm_groundspeedcaplimit != 0)
+    { //Sounds even more dodgier, but heck this is how they prevent circlejumps in TF2 AFAIK
+      //(I proved it to myself by a bunch of techniques such as bunny hopping and wall strafing)
+      //TODO: Apply againts g_speed
+      vel[ 1 ] = BG_FindSpeedForClass( pm->ps->stats[ STAT_PCLASS ] ) * pm_groundspeedcaplimit;
+      vel[ 0 ] = BG_FindSpeedForClass( pm->ps->stats[ STAT_PCLASS ] ) * pm_groundspeedcaplimit;
+    }
+  }
 }
 
 
@@ -1118,21 +1155,34 @@ static void PM_AirMove( void )
   wishspeed = VectorNormalize( wishdir );
   wishspeed *= scale;
   
+  wishspeed2 = wishspeed;
+	pm_bunnyhopspeedcap *= scale;
+	pm_bunnyhopaccel    *= scale;
+  
   	// CPM: Air Control
 //  if (CPM_ON)
 //  {
-	wishspeed2 = wishspeed;
 	if (DotProduct(pm->ps->velocity, wishdir) < 0 && BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] ) < 2.5 )// Stop marauders from climbing walls easily
 		accel = cpm_pm_airstopaccelerate;
 	else
-		accel = pm_airaccelerate;
-//	else if (pm->ps->movementDir == 0 || pm->ps->movementDir == 4) //bunnyhop time!
-//  {
-		if (wishspeed < pm_bunnyhopspeedcap && wishspeed < DotProduct(pm->ps->velocity, wishdir) && DotProduct(pm->ps->velocity, wishdir) < pm_bunnyhopspeedcap)
-		{
+		accel = pm_airaccelerate;	
+		
+		//this may fuck up
+	if( !pm_q3strafe && pm_q1strafe )
+	{
+  	wishspeed = cpm_pm_wishspeed;	
+  	accel *= cpm_pm_strafeaccelerate;
+	}
+	
+		//Bunnyhop Acceleration
+	if (wishspeed < pm_bunnyhopspeedcap
+     && wishspeed < DotProduct(pm->ps->velocity, wishdir)
+     && DotProduct(pm->ps->velocity, wishdir) < pm_bunnyhopspeedcap)
+	{
 		wishspeed = pm_bunnyhopspeedcap;	
 		accel = pm_bunnyhopaccel - pm_bunnyhopaccel * (DotProduct(pm->ps->velocity, wishdir)/pm_bunnyhopspeedcap); //very simple, childish method :)
-		}
+	}
+
 //  }
 //	}
 	// !CPM
@@ -1147,13 +1197,15 @@ static void PM_AirMove( void )
 	// CPM: Air control
 	PM_Accelerate (wishdir, wishspeed, accel * BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] ) );
 	
-		if (pm->ps->movementDir == 2 || pm->ps->movementDir == 6)
+	  //Allow All-Around Sharp Strafes if pm_q1strafe is true
+		if ((pm->ps->movementDir == 2 || pm->ps->movementDir == 6) || pm_q1strafe == qtrue )
 	{
-		if (wishspeed > cpm_pm_wishspeed && DotProduct(pm->ps->velocity, wishdir) < cpm_pm_wishspeed) //allow standard half-beat strafe jumping
+	  //allow standard half-beat strafe jumping if pm_q3strafe is true
+		if (wishspeed > cpm_pm_wishspeed && !(DotProduct(pm->ps->velocity, wishdir) > cpm_pm_wishspeed) )
 		{
-	  wishspeed = cpm_pm_wishspeed;	
-		accel = cpm_pm_strafeaccelerate;
-		PM_Accelerate (wishdir, wishspeed, accel * BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] ) ); //Re-exec'd - dodgy but should work
+	  wishspeed = cpm_pm_wishspeed * BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );	
+		accel = cpm_pm_strafeaccelerate * BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
+		PM_Accelerate (wishdir, wishspeed, accel); //Re-exec'd - dodgy but should work
 		}
 	}
 	

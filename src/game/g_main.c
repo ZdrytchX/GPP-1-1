@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 #include "g_local.h"
+#include "bg_promode.h"
 
-#define QVM_NAME       "Lolards-CoW mod"
+#define QVM_NAME       "GPP-1.1 Arena"
 #define QVM_VERSIONNUM      "1.8"
 
 level_locals_t  level;
@@ -275,6 +276,7 @@ vmCvar_t  g_killingSpree;
 vmCvar_t  g_feedingSpree;
 vmCvar_t  g_minDeconLevel;
 vmCvar_t  g_bot_alien_secondaryonly;
+vmCvar_t  g_mode_cpm;
 
 static cvarTable_t   gameCvarTable[ ] =
 {
@@ -476,7 +478,6 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_bot_infinite_funds, "g_bot_infinite_funds", "0", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
   { &g_bot_survival, "g_bot_survival", "0", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
   { &g_bot_wave_interval, "g_bot_wave_interval", "120", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
-  { &g_bot_teamkill, "g_bot_teamkill", "0", CVAR_ARCHIVE, 0, qfalse },
   
   // </bot stuff>
   
@@ -538,6 +539,10 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_minDeconLevel, "g_minDeconLevel",                         "0", CVAR_ARCHIVE,                          0, qfalse },
   { &g_bot_alien_secondaryonly, "g_bot_alien_secondaryonly",     "0", CVAR_ARCHIVE,                          0, qfalse },//TODO
   { &g_myStatstime, "g_myStatstime",                             "5", CVAR_ARCHIVE,                          0, qfalse  },
+  
+  //Special Modes
+  { &g_mode_cpm,     "g_mode_cpm",     "1", CVAR_ARCHIVE | CVAR_SERVERINFO, 0, qfalse },
+  { &g_bot_teamkill, "g_bot_teamkill", "0", CVAR_ARCHIVE, 0, qfalse }//,
 };
 
 static int gameCvarTableSize = sizeof( gameCvarTable ) / sizeof( gameCvarTable[ 0 ] );
@@ -823,6 +828,31 @@ void G_RegisterCvars( void )
 
     if( cv->vmCvar )
       cv->modificationCount = cv->vmCvar->modificationCount;
+      
+				// CPM: Detect if g_pro_mode has been changed
+				if (!strcmp(cv->cvarName,"g_mode_cpm"))
+				{
+				/* kept this here because I'm still not sure what they're asking about, probably distinguishing between ctf and ffa etc.
+					// Update all settings
+					CPM_UpdateSettings((g_pro_mode.integer) ?
+						((g_gametype.integer == GT_TEAM) ? 2 : 1) : 0);
+				*/
+
+					// Set the config string (so clients will be updated)
+					trap_SetConfigstring(CS_PRO_MODE, va("%d", g_mode_cpm.integer));
+
+					// Update all pro mode-dependent server-side cvars					
+					if (g_mode_cpm.integer)
+					{
+						trap_Cvar_Set("g_blaster_ammoregen", "1250" ); // protrem default
+						// we'll add more stuff here later
+					}
+					else
+					{
+						trap_Cvar_Set("g_blaster_ammoregen", "1400" ); // vtrem default
+					}
+				}
+				// !CPM
 
     if( cv->teamShader )
       remapped = qtrue;
@@ -1010,6 +1040,16 @@ void G_InitGame( int levelTime, int randomSeed, int restart )
   G_ProcessIPBans( );
 
   G_InitMemory( );
+  
+  // CPM: Initialize
+	// Update all settings
+	/* kept this here because I'm still not sure what they're asking about, probably distinguishing between ctf and ffa etc.
+	CPM_UpdateSettings((g_pro_mode.integer) ?
+		((g_gametype.integer == GT_TEAM) ? 2 : 1) : 0);
+	*/
+  // Set the config string
+	trap_SetConfigstring(CS_PRO_MODE, va("%d", g_mode_cpm.integer)); //dafaq did 'd' come from?
+	// !CPM
 
   // set some level globals
   memset( &level, 0, sizeof( level ) );

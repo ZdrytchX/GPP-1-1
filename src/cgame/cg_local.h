@@ -1537,6 +1537,7 @@ extern  vmCvar_t    cg_unlagged;
 extern  vmCvar_t    cg_thirdpersonheight;
 extern  vmCvar_t    cg_firstpersonanglefix_yaw;
 extern  vmCvar_t    cg_firstpersonanglefix_pitch;
+//extern  vmCvar_t    g_mode_cpm;
 
 //
 // cg_main.c

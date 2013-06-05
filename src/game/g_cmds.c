@@ -1826,11 +1826,47 @@ void Cmd_CallVote_f( gentity_t *ent )
 
      }
    }
+  //cpm //TODO: View Quake's Source about <1/0> callvotes
+  //TODO: Allow a value between 0 and 4
+  //0 = ProMode
+  //1 = Vanilla
+  //2 = ProTrem (Default)
+  //3 = TF2 (Experimental; not suited for actual gameplay)
+  //4 = TFC (Experimental; not suited for actual gameplay)
+  else if ( !Q_stricmp( arg1, "g_mode_cpm" ) )
+  {
+  //*cough cough* this brings up <NULL> instead of the number
+  int gamemode;
+  gamemode = g_mode_cpm.integer;
+  if (gamemode = 0)
+  gamemode = 1; //Lil' Switcharoos.
+  else
+  gamemode = 0;
+    if( g_mapvoteMaxTime.integer 
+      && (( level.time - level.startTime ) >= g_mapvoteMaxTime.integer * 1000 )
+      && !G_admin_permission( ent, ADMF_NO_VOTE_LIMIT ) 
+      && (level.numPlayingClients > 0 && level.numConnectedClients>1) )
+    {
+       trap_SendServerCommand( ent-g_entities, va(
+         "print \"g_mode_cpm: You cannot call for a game mode change after %d seconds\n\"",
+         g_mapvoteMaxTime.integer ) );
+       return;
+    }
+    else
+    {
+      trap_SendServerCommand( ent - g_entities, va( "print \"g_mode_cpm: Sorry, this voting feature is currently being made.\n\"") );
+      Com_sprintf( level.voteString, sizeof( level.voteString ), "set g_mode_cpm %s", gamemode ); //returns <null> because expects char not int
+      Com_sprintf( level.voteDisplayString, sizeof( level.voteDisplayString ),
+        "Toggle Change Game Mode to:" );
+      level.votePassThreshold = g_mapVotesPercent.integer;
+    }
+  }
   else
   {
     trap_SendServerCommand( ent-g_entities, "print \"Invalid vote string\n\"" );
     trap_SendServerCommand( ent-g_entities, "print \"Valid vote commands are: "
-      "map, map_restart, draw, nextmap, kick, mute, unmute, poll, and sudden_death\n" );
+      "map <map>, map_restart, draw, nextmap <map>, kick <player> (-r <reason>), mute <player> (-r <reason>),\n"
+      "unmute <player> (-r <reason>), poll <subject> (-r <reason>), g_mode_cpm [0-4] and sudden_death\n" );
     return;
   }
   
