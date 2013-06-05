@@ -15,12 +15,18 @@ http://youtube.com/zdrytchx
 This source *should* be up at http://github.com/zdrytchx/GPP-1-1 and feel free to commit or place issues.
 =========================================================================================================
 */
+
+#include "../qcommon/q_shared.h"
+#include "bg_public.h"
+#include "bg_local.h"
+#include "bg_promode.h"
+
 /*
 =========================================================================================================
 ProMode Background Info:
 
 Challenge ProMode Arena is a Quake 3 Arena mod that involves weapon balance and physics modifications
-such as doublejump and air control. CPMA was greatly loved by Quake fans and its physics has been
+such as doublejump and air control. CPMA was greatly loved by Quake 3:A fans and its physics has been
 implemented into games such as WarSow and Xonotic. ZdrytchX (ViruS in-game) has implemented the physics
 from the above URL to add ProMode physics to this mod, GPP-1.1 Arena.
 
@@ -61,11 +67,6 @@ WarSow* [???]  - Not Sure, but it's from a Q2 mod. Gameplay is pretty much CPM w
 =========================================================================================================
 */
 
-#include "../qcommon/q_shared.h"
-#include "bg_public.h"
-#include "bg_local.h"
-#include "bg_promode.h"
-
 //doublejump
 float cpm_pm_jump_z; //Does nothing right now
 
@@ -82,15 +83,15 @@ float cpm_pm_jump_z; //Does nothing right now
 //|                                                  sv_stopspeed 100 is what? (xonotic configs)|
 //|30        | 400     | 30      | 30            | 30 //Don't know | 24          | 30           |
 //|----------+---------+---------+---------------+-----------------+-------------+--------------|
-//|1         | 1       | 1       | 1             | 1               | 2           | 1            |
 //|0         | 0       | 1200    | 0             | 0               | 800         | 925          |
 //|0.00      | 0       | 0.08    | 0             | 0               | 0.1593      | 0.1593       |
 //|----------+---------+---------+---------------+-----------------+-------------+--------------|
+//|1         | 1       | 1       | 1             | 1               | 2           | 1            |
 //|15        | 10      | 10      | 8 //Approx    | 10 //Don't Know | 15          | 15           |
 //|8         | 8       | 6       | 5 //Approx    | 6 // Don't Know | 8           | 8            |
 //|----------+---------+---------+---------------+-----------------+-------------+--------------|
 //|qfalse    | qfalse  | qfalse  | qtrue         | qtrue           | qfalse      | qfalse       |
-//|qfalse    | qfalse  | qtrue   | qtrue         | qfalse          | qfalse      | qfalse       |
+//|qfalse    | qfalse  | qtrue   | qtrue         | qfalse          | qtrue       | qfalse       |
 //|0         | 0       | 0       | 320           | 512             | 0           | 0            |
 //|0         | 0       | 0       | 0             | 0.5             | 0           | 0            |
 //|0         | 0       | 0       | 1             | 0               | 0           | 0            |
@@ -98,20 +99,18 @@ float cpm_pm_jump_z; //Does nothing right now
 // Physics Initiation
 float	cpm_pm_airstopaccelerate = 2.5; 
 float	cpm_pm_aircontrol = 150;        
-float	cpm_pm_strafeaccelerate = 30;   
+float	cpm_pm_strafeaccelerate = 70;   
 float	cpm_pm_wishspeed = 30;          
 //Add-Ons =)
 float pm_bunnyhopspeedcap = 1200; //(TODO: No Penalty for turning)  
 float pm_bunnyhopaccel = 0.08;        
 //Moved from bg_pmove.c here
-
 float pm_airaccelerate = 1.0f;
 float	pm_accelerate = 10;             
 float	pm_friction = 6;                
-
+//Air Strafe settings
 qboolean pm_q1strafe = qfalse;        
 qboolean pm_q3strafe = qtrue;         
-
 //The speedcap and speedcaplimit are multiplied by BG_FindSpeedForClass()
 //Note that GSrc's units are slightly different.
 float pm_groundspeedcap = 0;          
@@ -119,7 +118,7 @@ float pm_groundspeedcap = 0;
 float pm_groundspeedcapfriction = 0;  
 //This one is not finished (Not Working)
 //when speedcap has been breached speed becomes this
-float pm_groundspeedcaplimit = 1;     
+float pm_groundspeedcaplimit = 0;     
 
 void CPM_UpdateSettings(int num)
 {

@@ -1181,7 +1181,7 @@ static void PM_AirMove( void )
 		accel = cpm_pm_airstopaccelerate;
 	else
 		accel = pm_airaccelerate;	
-		
+	//allow standard half-beat strafe jumping if pm_q3strafe is true
 	if( !pm_q3strafe && pm_q1strafe )
 	{
   	wishspeed = cpm_pm_wishspeed;	

@@ -90,7 +90,7 @@ GPP-1.1 Gameplay "Features":
 -Challenge Promode Physics
 -Bunnyhop gains a bit of speed with a limit of 1000 (works somewhat similar to xonotic's and warsow's)
 -g_bot_teamkill enables teamkill mode
--Options (currently requires recompiling) to modify pmove system to mimick certain game modes
+-[80%]Options (currently requires recompiling) to modify pmove system to mimick certain game modes
 -Other shit
 
 "Imported" and "Invented" Gameplay from Lolards/Misc:
