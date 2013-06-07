@@ -632,6 +632,16 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
           G_AddCreditToClient( attacker->client, -FREEKILL_HUMAN, qtrue );
 //      }
     }
+    
+    //temporary reward
+    else if( attacker == self || (( OnSameTeam( self, attacker ) ) && g_bot_teamkill.integer) ) //to be replaced with g_teamkill
+    {
+        if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
+          G_AddCreditToClient( attacker->client, -FREEKILL_ALIEN, qtrue );
+        else if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS )
+          G_AddCreditToClient( attacker->client, -FREEKILL_HUMAN, qtrue );
+        AddScore( attacker, 1 );
+    }
     else
     {
       AddScore( attacker, 1 );
@@ -1575,13 +1585,18 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		knockback *=  LEVEL2_CLAW_K_REVERSE;
 
 //special balancing measures
-  if ( mod == MOD_BLASTER )
+
+  if( ( mod == MOD_TARGET_LASER || MOD_BLASTER ) && g_bot_teamkill.integer ) {
+		knockback *= BLASTER_K_TK;
+  }
+
+  else if ( mod == MOD_BLASTER )
   {
 		knockback *= BLASTER_K_SCALE;
 		if ( targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL0 )
 		  knockback *= BLASTER_K_SCALE_LEVEL0;
 	}
-	if ( mod == MOD_TARGET_LASER && attacker == targ ){
+	else if ( mod == MOD_TARGET_LASER && attacker == targ ){
   knockback *= BLASTER_K_SELF_SCALE;
     if ( targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL0 )
 		  knockback *= BLASTER_K_SCALE_LEVEL0;
@@ -1624,9 +1639,19 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
       targ->client->ps.pm_flags |= PMF_TIME_KNOCKBACK;
     }
   }
-  if ( mod == MOD_TARGET_LASER ) { //Temporary useless MOD
+  
+  if ( mod == MOD_TARGET_LASER ) { //Temporary useless MOD - use for nullifying the knockback
 		damage *= BLASTER_DMG_MOD;
 	}
+	
+	if ( g_bot_teamkill.integer ) { //teamkill modifiers
+  	damage *= HUMAN_TK_DMG_MOD;
+  	if ( mod == MOD_TARGET_LASER || MOD_BLASTER )
+    	damage *= BLASTER_DMG_TK;
+  	if ( mod == MOD_MDRIVER || MOD_MDRIVER_SPLASH )
+  	  damage *= MDRIVER_DMG_TK;
+	}
+	
   if ( mod == MOD_FLAMER_SPLASH ) {
 		damage *= FLAMER_DMG_MOD;
 	}

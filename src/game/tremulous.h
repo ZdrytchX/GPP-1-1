@@ -411,6 +411,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define HUMAN_WDMG_MODIFIER         1.0f
 #define HDM(d)                      ((int)((float)d*HUMAN_WDMG_MODIFIER))
 
+#define HUMAN_TK_DMG_MOD            2.0f //With Teamkill Mode, apply this modifier
+
 #define BLASTER_REPEAT              750 //+50
 #define BLASTER_K_SCALE             3.0f //direct only - Gets overpowered on mid-air shots, use lower value for dretches //6.0f //1.2f
 #define BLASTER_K_SCALE_LEVEL0      0.8f
@@ -421,6 +423,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BLASTER_PUSH                90//Blasterjump effect, this is the actual splash damage before modding, knockback applies to others from this value
 #define BLASTER_DMG_MOD             (8.00f/BLASTER_PUSH) //Modifier for above damage
                                                          //Damage to Self / Raw Damage
+#define BLASTER_DMG_TK              ((float)12.5/HUMAN_TK_DMG_MOD) //Damage Modifier from Blaster with teamkill mode - ~50dmg
+#define BLASTER_K_TK                ((float)100.0/BLASTER_PUSH)//Overall Knockback Modiier with Teamkill mode
 #define BLASTER_RADIUS              100
 //Prevent Blaster Spamming
 //Recharge rate is set to the g_blasterregen variable
@@ -479,6 +483,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define MDRIVER_CLIPSIZE            5
 #define MDRIVER_MAXCLIPS            4
 #define MDRIVER_DMG                 HDM(40 + (VAMP_ON * 22))
+#define MDRIVER_DMG_TK              1.4f//modifier for teamkill mode ~112dmg
 #define MDRIVER_REPEAT              1000 + (VAMP_ON * 375)
 #define MDRIVER_K_SCALE             1.0f
 #define MDRIVER_SPLASH_K_SCALE      3.0f
@@ -801,7 +806,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //medkits extras
 #define MEDKIT_OVERHEAL             0.9f + (VAMP_ON * 0.1f) //yes > 1.0f | no = 1.0f | little = 1.2f | L4D-like = 0.8
                                          //note: this value * MAX_MAX_HEALTH * player's max health
-#define MEDKIT_EXTRA                0 + (VAMP_ON * 20) //Extra raw health added to medkit.
+#define MEDKIT_EXTRA                10 + (VAMP_ON * 20) //Extra raw health added to medkit.
 
 
 // g_suddenDeathMode settings

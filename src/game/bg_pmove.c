@@ -271,26 +271,27 @@ static void PM_Friction( void )
     }
       if( ( pml.walking || pml.ladder ) && !( pml.groundTrace.surfaceFlags & SURF_SLICK ) &&
       //Sry, wallwalk's fucked now - it limits jumping. TODO
-           ( sqrt( pm->ps->velocity[ 0 ] * pm->ps->velocity[ 0 ]
-       + pm->ps->velocity[ 1 ] * pm->ps->velocity[ 1 ] ) > pm_groundspeedcap * BG_FindSpeedForClass( pm->ps->stats[ STAT_PCLASS ] )
+           (
+           sqrt( pm->ps->velocity[ 0 ] * pm->ps->velocity[ 0 ] + pm->ps->velocity[ 1 ] * pm->ps->velocity[ 1 ] ) 
+           > 
+           pm_groundspeedcap * BG_FindSpeedForClass( pm->ps->stats[ STAT_PCLASS ] )
            ) && pm_groundspeedcap != 0
         )
-  {
-    if(pm_groundspeedcapfriction != 0)
-    { //Sounds dodgy, but it's true.
-      vel[ 1 ] = vel[ 1 ] * pm_groundspeedcapfriction;
-      vel[ 0 ] = vel[ 0 ] * pm_groundspeedcapfriction;
-    }
-    //newspeed has already been used, let's use it again
-    newspeed = pm_groundspeedcaplimit * BG_FindSpeedForClass( pm->ps->stats[ STAT_PCLASS ] );
-    //TODO (doesn't work still)
-    /*
-    if(pm_groundspeedcaplimit != 0)
-    {
-      VectorNormalize( vel );
-      VectorScale( vel, newspeed, vel );
-    }
-    */
+     {
+        if(pm_groundspeedcapfriction != 0)
+        { //Sounds dodgy, but it's true.
+          vel[ 1 ] = vel[ 1 ] * pm_groundspeedcapfriction;
+          vel[ 0 ] = vel[ 0 ] * pm_groundspeedcapfriction;
+        }
+        //TODO (doesn't work still)
+        if(pm_groundspeedcaplimit != 0)
+        {
+        newspeed = pm_groundspeedcaplimit * BG_FindSpeedForClass( pm->ps->stats[ STAT_PCLASS ] );
+        newspeed = newspeed/newspeed;
+        //  VectorNormalize( vel );
+          VectorScale( vel, newspeed, vel );
+        }
+    
   }
 
   // apply water friction even if just wading
@@ -1160,7 +1161,7 @@ static void PM_AirMove( void )
   	// CPM: Air Control
 //  if (CPM_ON)
 //  {
-	if (DotProduct(pm->ps->velocity, wishdir) < 0 && BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] ) < 2.5 )// Stop marauders from climbing walls easily
+	if (DotProduct(pm->ps->velocity, wishdir) < 0 && BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] ) < cpm_pm_airstopaccelerate )// Stop marauders from climbing walls easily
 		accel = cpm_pm_airstopaccelerate;
 	else
 		accel = pm_airaccelerate;	
