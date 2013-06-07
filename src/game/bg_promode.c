@@ -30,11 +30,11 @@ such as doublejump and air control. CPMA was greatly loved by Quake 3:A fans and
 implemented into games such as WarSow and Xonotic. ZdrytchX (ViruS in-game) has implemented the physics
 from the above URL to add ProMode physics to this mod, GPP-1.1 Arena.
 
-      CPM Physics Controls:
-    Forward/Back gives "air control", which basically turns your character for you without losing speed.
-    Strafe Left/Right gives the ability to stop in mid air quickly, and allows you to turn tight corners
+                         CPM Physics Controls:
+  Forward/Back gives "air control", which basically turns your character for you without losing speed.
+  Strafe Left/Right gives the ability to stop in mid air quickly, and allows you to turn tight corners
       (However unlike air control you have to turn smoothly, and not too quick else you lose speed fast)
-    Diagonal Strafe + Forward/Back is basically normal controls, they're kept this way so you can strafe
+  Diagonal Strafe + Forward/Back is basically normal controls, they're kept this way so you can strafe
       jump without losing speed.
 
 *************************Pre-Made Physics Modes:*************************
@@ -64,7 +64,7 @@ WarSow* [???]  - Not Sure, but it's from a Q2 mod. Gameplay is pretty much CPM w
   
 Newbie's Physics - Just another one of my personal settings, comes with all-directional super strong air
   control, in other words you can pretty much make a fake WarSow dash in air with this since there's no
-  air control penalty if you do it right. Comes with a mild bunnyhop up to 3000 ups because you can't
+  air control penalty if you do it right. Comes with a strong bunnyhop up to 3000 ups because you can't
   strafe jump.
 
 *TODO: Air Control Penalty (Makes the player slow down if they turn too fast
@@ -84,7 +84,7 @@ float cpm_pm_jump_z; //Does nothing right now
 //| 2.5     | 1       | 2.5     |1            | 1               | 3           | 2.5          | 9999   |
 //| 150     | 0       | 150     |0            | 0               | 250(125 * 2)| 300 //150 * 2| 9999   |
 //| 70      | 1       | 70      |150          | 1000            | 100         | 70           | 9999   |
-//|                           Query: What is sv_stopspeed 100? (xonotic configs)                      |
+//|                                                 Query: What is sv_stopspeed 100? (xonotic configs)|
 //| 30      | 400     | 30      |30           | 30 //Don't know | 24          | 30           | 10     |
 //|---------+---------+---------+-------------+-----------------+-------------+--------------+--------|
 //| 0       | 0       | 1200    |0            | 0               | 800         | 925          | 3000   |
