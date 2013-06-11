@@ -23,6 +23,20 @@ This file contains code that was retreived and modified from
 http://games.linuxdude.com/tamaps/archive/cpm1_dev_docs.zip
 ===========================================================================
 */
+/*Code 3 Arena Vector functions:
+VectorSubtract(a,b,c) - subtract b from a, result is c
+VectorAdd(a,b,c) - add a to b, result is c
+VectorCopy(a,b) - copy a to b
+VectorScale(v,s,o) - make v s units long, result in o
+VectorMA(v,s,b,o) - make b s units long, add to v, result in o
+VectorClear(a) - too easy
+VectorNegate(a,b) - flip a, result in b
+VectorSet(v,x,y,z) - another easy one
+Vector4Copy(a,b) - used for 4 dimensional vectors
+SnapVector(v) - round a vector to integer values
+VectorNormalize() - makes a vector 1 unit long
+VectorNormalize(v, vec2) - copies v to vec2, then makes it 1 unit long
+*/
 
 // bg_pmove.c -- both games player movement code
 // takes a playerstate and a usercmd as input and returns a modifed playerstate
@@ -773,9 +787,9 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
   //TODO: Clean up code
   if( pm->ps->stats[ STAT_PTEAM ] == PTE_HUMANS )
 {
-    pm_jumpmag = 1;
+  pm_jumpmag = 1;
 //  if( pm->ps->stats[ STAT_STAMINA ] < STAMINA_MIN_TO_JUMP && pm->ps->stats[ STAT_STAMINA ] > STAMINA_JUMP_CUTOFF)
-    pm_jumpmag = (float)(pm->ps->stats[ STAT_STAMINA ] + 1000)/(1000 + STAMINA_MIN_TO_JUMP);
+//    pm_jumpmag = (float)(pm->ps->stats[ STAT_STAMINA ] + 1000)/(1000 + STAMINA_MIN_TO_JUMP);
 //a weird glitchy bug - when stamina > 0, jumpmag becomes extremely low (not 0) for some reason
   if( pm_jumpmag < 0.20 )
     pm_jumpmag = 0.20;
