@@ -775,7 +775,7 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
 {
   if( pm->ps->stats[ STAT_STAMINA ] < STAMINA_MIN_TO_JUMP && pm->ps->stats[ STAT_STAMINA ] > STAMINA_JUMP_CUTOFF)
     pm_jumpmag = (float)(pm->ps->stats[ STAT_STAMINA ] + 1000)/(1000 + STAMINA_MIN_TO_JUMP);
-  if( pm_jumpmag == 0.00 ) //a weird glitchy bug - when stamina > 0, jumpmag becomes 0.0 for some reason
+  if( pm_jumpmag == 0.50 ) //a weird glitchy bug - when stamina > 0, jumpmag becomes 0.0 for some reason
     pm_jumpmag = 1.00;    //TODO: Find a new way to fix this
   if( pm_jumpmag < 0.20 )
     pm_jumpmag = 0.20;
