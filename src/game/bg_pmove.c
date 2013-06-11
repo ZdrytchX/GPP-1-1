@@ -773,7 +773,8 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
   //TODO: Clean up code
   if( pm->ps->stats[ STAT_PTEAM ] == PTE_HUMANS )
 {
-  if( pm->ps->stats[ STAT_STAMINA ] < STAMINA_MIN_TO_JUMP && pm->ps->stats[ STAT_STAMINA ] > STAMINA_JUMP_CUTOFF)
+    pm_jumpmag = 1;
+//  if( pm->ps->stats[ STAT_STAMINA ] < STAMINA_MIN_TO_JUMP && pm->ps->stats[ STAT_STAMINA ] > STAMINA_JUMP_CUTOFF)
     pm_jumpmag = (float)(pm->ps->stats[ STAT_STAMINA ] + 1000)/(1000 + STAMINA_MIN_TO_JUMP);
 //a weird glitchy bug - when stamina > 0, jumpmag becomes extremely low (not 0) for some reason
   if( pm_jumpmag < 0.20 )
