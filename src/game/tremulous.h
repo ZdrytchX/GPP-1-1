@@ -755,7 +755,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define STAMINA_BSUIT_STOP_RESTORE  30
 #define STAMINA_BSUIT_WALK_RESTORE  20
 #define STAMINA_JUMP                150 //1.1: 500 Lolards: 300
-#define STAMINA_MIN_TO_JUMP         -800
+#define STAMINA_MIN_TO_JUMP         0 //Start jumping lower when below this
+#define STAMINA_JUMP_CUTOFF         -800 //Absolute Cuttoff point for not being able to jump
 
 #define HUMAN_SPAWN_REPEAT_TIME     10000
 

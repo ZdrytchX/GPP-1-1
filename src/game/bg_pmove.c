@@ -409,7 +409,7 @@ static float PM_CmdScale( usercmd_t *cmd )
     }
 
     //must have +ve stamina to jump
-    if( pm->ps->stats[ STAT_STAMINA ] < -800 )// able to jump still
+    if( pm->ps->stats[ STAT_STAMINA ] < STAMINA_JUMP_CUTOFF )// able to jump still
       cmd->upmove = 10;
 
     //slow down once stamina depletes
@@ -711,10 +711,11 @@ PM_CheckJump
 =============
 */
 static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, I want to be able to scale the human's jump based on stamina.
-
 {
   if( BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] ) == 0.0f )
+  {
     return qfalse;
+  }
 
   if( BG_ClassHasAbility( pm->ps->stats[ STAT_PCLASS ], SCA_WALLJUMPER ) )
     return PM_CheckWallJump( );
@@ -731,7 +732,7 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
     return qfalse;
 //TODO: Scale jump mag
   if( ( pm->ps->stats[ STAT_PTEAM ] == PTE_HUMANS ) &&
-      ( pm->ps->stats[ STAT_STAMINA ] < STAMINA_MIN_TO_JUMP ) )
+      ( pm->ps->stats[ STAT_STAMINA ] < STAMINA_JUMP_CUTOFF ) )
     return qfalse;
 
   if( pm->ps->pm_flags & PMF_RESPAWNED )
@@ -747,28 +748,64 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
     pm->cmd.upmove = 0;
     return qfalse;
   }
-//Bunny hop
-if(BUNNYHOP_TRUE == 0) //If it is enabled, don't read this
-{
-  // must wait for jump to be released
-  if( pm->ps->pm_flags & PMF_JUMP_HELD )
+  //Bunny hop
+  if(BUNNYHOP_TRUE == 0) //If it is enabled, don't read this
   {
-    // clear upmove so cmdscale doesn't lower running speed
-    pm->cmd.upmove = 0;
-    return qfalse;
+    // must wait for jump to be released
+    if( pm->ps->pm_flags & PMF_JUMP_HELD )
+    {
+      // clear upmove so cmdscale doesn't lower running speed
+      pm->cmd.upmove = 0;
+      return qfalse;
+    }
   }
-}
   pml.groundPlane = qfalse;   // jumping away
   pml.walking = qfalse;
   pm->ps->pm_flags |= PMF_JUMP_HELD;
 
-  //TA: take some stamina off
-  if( pm->ps->stats[ STAT_PTEAM ] == PTE_HUMANS )
-    pm->ps->stats[ STAT_STAMINA ] -= STAMINA_JUMP; //300
-
   pm->ps->groundEntityNum = ENTITYNUM_NONE;
+  
+  
+  
+  //Set Stamina-dependant Jumping Magnitudes
 
-  //TA: jump away from wall
+  //TODO: Set via bg_promode.c
+  //TODO: Clean up code
+  if( pm->ps->stats[ STAT_PTEAM ] == PTE_HUMANS )
+{
+  if( pm->ps->stats[ STAT_STAMINA ] < STAMINA_MIN_TO_JUMP && pm->ps->stats[ STAT_STAMINA ] > STAMINA_JUMP_CUTOFF)
+    pm_jumpmag = (float)(pm->ps->stats[ STAT_STAMINA ] + 1000)/(1000 + STAMINA_MIN_TO_JUMP);
+  if( pm_jumpmag == 0.00 ) //a weird glitchy bug - when stamina > 0, jumpmag becomes 0.0 for some reason
+    pm_jumpmag = 1.00;    //TODO: Find a new way to fix this
+  if( pm_jumpmag < 0.20 )
+    pm_jumpmag = 0.20;
+  //Stamina taken off is also dependant on this
+  if( pm->ps->stats[ STAT_PTEAM ] == PTE_HUMANS )
+    pm->ps->stats[ STAT_STAMINA ] -= STAMINA_JUMP * pm_jumpmag; //300
+
+  if( pm->ps->stats[ STAT_STATE ] & SS_WALLCLIMBING )
+  {
+    vec3_t normal = { 0, 0, -1 };
+
+    if( !( pm->ps->stats[ STAT_STATE ] & SS_WALLCLIMBINGCEILING ) )
+      VectorCopy( pm->ps->grapplePoint, normal );
+
+    VectorMA( pm->ps->velocity, BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] ) * pm_jumpmag,
+              normal, pm->ps->velocity );
+  }
+
+  else //ramp jump
+  { //TODO: Add int var - 0 = vantrem 1 = {MG} 2 = bob's oc style
+	if(pm->ps->velocity[ 2 ] > 0)
+	pm->ps->velocity[ 2 ] += BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] ) * pm_jumpmag;
+	else
+	pm->ps->velocity[ 2 ] = BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] ) * pm_jumpmag;
+  PM_AddEvent( EV_JUMP );//jump!
+  }
+}
+  
+  else //make people jump normally
+{
   if( pm->ps->stats[ STAT_STATE ] & SS_WALLCLIMBING )
   {
     vec3_t normal = { 0, 0, -1 };
@@ -779,18 +816,19 @@ if(BUNNYHOP_TRUE == 0) //If it is enabled, don't read this
     VectorMA( pm->ps->velocity, BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] ),
               normal, pm->ps->velocity );
   }
-/*
-  else
-    pm->ps->velocity[ 2 ] = BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
-*/
+
   else //ramp jump
-  { //TODO: Add a g_jump var - 0 = vq3 1 = Ramps 2 = bob's oc style
+  { //TODO: Add int var - 0 = vantrem 1 = {MG} 2 = bob's oc style
 	if(pm->ps->velocity[ 2 ] > 0)
 	pm->ps->velocity[ 2 ] += BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
 	else
 	pm->ps->velocity[ 2 ] = BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
   PM_AddEvent( EV_JUMP );//jump!
   }
+  //TA: take some stamina off
+  if( pm->ps->stats[ STAT_PTEAM ] == PTE_HUMANS )
+    pm->ps->stats[ STAT_STAMINA ] -= STAMINA_JUMP; //300
+}
   
 //  float   vel;//, acc;
 //  float   b; //c, a
@@ -1178,7 +1216,10 @@ static void PM_AirMove( void )
      && DotProduct(pm->ps->velocity, wishdir) < pm_bunnyhopspeedcap)
 	{
 		wishspeed = pm_bunnyhopspeedcap;	
-		accel = pm_bunnyhopaccel - pm_bunnyhopaccel * (DotProduct(pm->ps->velocity, wishdir)/pm_bunnyhopspeedcap); //very simple, childish method :)
+		accel = pm_bunnyhopaccel - pm_bunnyhopaccel *
+		((DotProduct(pm->ps->velocity, wishdir) - 320)
+		/(pm_bunnyhopspeedcap - 320));  //Accelerate at pm_bhopaccel at 320 ups,
+		                                //0 at pm_bhopspeedcap, linear relationship
 	}
 
 //  }

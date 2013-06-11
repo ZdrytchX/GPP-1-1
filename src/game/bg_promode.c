@@ -73,13 +73,15 @@ Newbie's Physics - Just another one of my personal settings, comes with all-dire
 
 //doublejump
 float cpm_pm_jump_z; //Does nothing right now
+float pm_jumpheight; //Height at which one can jump if stamina < allowable
+float pm_jumpmag = 1.00;
 
 //TODO: Set to a variable, 0 = CPM and 6 = WarSow
 //Game Mode Physics Defaults
 // ___________________________________________________________________________________________________
 //|---------.---------.---------.-------------.-----------------.-------------.--------------[-][0][X]|
 //|Challenge| Vanilla | ProTrem |Source - Team|  Team Fortress  | XONOTIC-ish | WarSow 0.42  |Newbie's|
-//| ProMode |  Trem   |(GPP-1.1)|Fortress 2   |Classic (GoldSrc)|             |(Bhop Classic)|Physics |
+//| ProMode |  Trem   |(GPP-1.1)|Fortress 2   |Classic (GoldSrc)|   0.6       |(Bhop Classic)|Physics |
 //|---------+---------+---------+-------------+-----------------+-------------+--------------+--------|
 //| 2.5     | 1       | 2.5     |1            | 1               | 3           | 2.5          | 9999   |
 //| 150     | 0       | 150     |0            | 0               | 250(125 * 2)| 300 //150 * 2| 9999   |
@@ -109,7 +111,7 @@ float	cpm_pm_strafeaccelerate = 70;
 float	cpm_pm_wishspeed = 30;
 //Add-Ons =)
 float pm_bunnyhopspeedcap = 1200; //(TODO: No Penalty for turning)  
-float pm_bunnyhopaccel = 0.08;        
+float pm_bunnyhopaccel = 0.08;    //accel = bhopaccel - bhopaccel * ([speed-320]/bhopspeedcap-320 qq)
 //Moved from bg_pmove.c here
 float pm_airaccelerate = 1.0f;
 float	pm_accelerate = 10;         //Ground Acceleration        
