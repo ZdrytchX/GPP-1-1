@@ -780,7 +780,7 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
   pm->ps->groundEntityNum = ENTITYNUM_NONE;
   
   
-  
+/*
   //Set Stamina-dependant Jumping Magnitudes
 
   //TODO: Set via bg_promode.c
@@ -817,9 +817,10 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
   PM_AddEvent( EV_JUMP );//jump!
   }
 }
-  
+
   else //make people jump normally
-{
+*/
+//{
   if( pm->ps->stats[ STAT_STATE ] & SS_WALLCLIMBING )
   {
     vec3_t normal = { 0, 0, -1 };
@@ -842,7 +843,7 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
   //TA: take some stamina off
   if( pm->ps->stats[ STAT_PTEAM ] == PTE_HUMANS )
     pm->ps->stats[ STAT_STAMINA ] -= STAMINA_JUMP; //300
-}
+//}
   
 //  float   vel;//, acc;
 //  float   b; //c, a
