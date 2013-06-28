@@ -73,7 +73,7 @@ Newbie's Physics - Just another one of my personal settings, comes with all-dire
 
 //doublejump
 float cpm_pm_jump_z; //Does nothing right now
-float pm_jumpheight; //Height at which one can jump if stamina < allowable
+float pm_jumpheight; //Height at which one can jump if stamina < allowable && > absolute min
 float pm_jumpmag = 1.00;
 
 //TODO: Set to a variable, 0 = CPM and 6 = WarSow
@@ -83,9 +83,9 @@ float pm_jumpmag = 1.00;
 //|Challenge| Vanilla | ProTrem |Source - Team|  Team Fortress  | XONOTIC-ish | WarSow 0.42  |Newbie's|
 //| ProMode |  Trem   |(GPP-1.1)|Fortress 2   |Classic (GoldSrc)|   0.6       |(Bhop Classic)|Physics |
 //|---------+---------+---------+-------------+-----------------+-------------+--------------+--------|
-//| 2.5     | 1       | 2.5     |1            | 1               | 3           | 2.5          | 9999   |
+//| 2.5     | 1       | 2.5     |1            | 1               | 3           | 2.5          | 9      |
 //| 150     | 0       | 150     |0            | 0               | 250(125 * 2)| 300 //150 * 2| 9999   |
-//| 70      | 1       | 70      |150          | 1000            | 100         | 70           | 9999   |
+//| 70      | 1       | 70      |150          | 1000            | 100         | 70           | 9      |
 //|                                                 Query: What is sv_stopspeed 100? (xonotic configs)|
 //| 30      | 400     | 30      |30           | 30 //Don't know | 24          | 30           | 10     |
 //|---------+---------+---------+-------------+-----------------+-------------+--------------+--------|
@@ -106,12 +106,12 @@ float pm_jumpmag = 1.00;
 //'---------'---------'---------'-------------'-----------------'-------------'--------------'--------'
 // Physics Initiation
 float	cpm_pm_airstopaccelerate = 2.5;
-float	cpm_pm_aircontrol = 150; 
+float	cpm_pm_aircontrol = 165; 
 float	cpm_pm_strafeaccelerate = 70;
 float	cpm_pm_wishspeed = 30;
 //Add-Ons =)
 float pm_bunnyhopspeedcap = 1200; //(TODO: No Penalty for turning)  
-float pm_bunnyhopaccel = 0.08;    //accel = bhopaccel - bhopaccel * ([speed-320]/bhopspeedcap-320 qq)
+float pm_bunnyhopaccel = 0.38;    //accel = bhopaccel - bhopaccel * ([speed-320]/bhopspeedcap-320 qq)
 //Moved from bg_pmove.c here
 float pm_airaccelerate = 1.0f;
 float	pm_accelerate = 10;         //Ground Acceleration        

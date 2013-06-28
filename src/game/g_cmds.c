@@ -1858,10 +1858,14 @@ void Cmd_CallVote_f( gentity_t *ent )
     else
     {
       trap_SendServerCommand( ent - g_entities, va( "print \"g_mode_cpm: Sorry, this voting feature is currently being made.\n\"") );
-      Com_sprintf( level.voteString, sizeof( level.voteString ), "set g_mode_cpm %d", gamemode ); //returns <null> because expects char not int
+      Com_sprintf( level.voteString, sizeof( level.voteString ), "set g_mode_cpm \"%d\"", gamemode ); //returns <null> because expects char not int
       Com_sprintf( level.voteDisplayString, sizeof( level.voteDisplayString ),
         "Toggle Change Game Mode to:" );
       level.votePassThreshold = g_mapVotesPercent.integer;
+/*ioq3:
+		Com_sprintf( level.voteString, sizeof( level.voteString ), "%s \"%s\"", arg1, arg2 );
+		Com_sprintf( level.voteDisplayString, sizeof( level.voteDisplayString ), "%s", level.voteString );
+*/
     }
   }
   else

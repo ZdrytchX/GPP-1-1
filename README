@@ -153,6 +153,8 @@ TODO list:
 -[20%]Add pmove cvars (g_mode_cpm, g_mode_cpm_aircontrol, g_mode_bunnyhop, g_mode_autojump etc.)
 -Replace g_mode_cpm with g_mode_physics
 -Fix TF2's "Anti Circle Strafe' fix (currently doesn't apply the speed change once, rather it makes you either fly or stop completely)
+-Fix g_mode_cpm callvote
+-Find the cause for bhop accel disabled
 
 Wishlist (I currently have no knowledge how to add these):
 -Add a g_mode_race, refering to bob's oc mod

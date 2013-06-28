@@ -1226,6 +1226,7 @@ static void PM_AirMove( void )
 	}
 	
 		//Bunnyhop Acceleration
+		//TODO: something wrong? (doesn't work anymore)
 	if (wishspeed < pm_bunnyhopspeedcap
      && wishspeed < DotProduct(pm->ps->velocity, wishdir)
      && DotProduct(pm->ps->velocity, wishdir) < pm_bunnyhopspeedcap)
