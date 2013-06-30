@@ -18,6 +18,8 @@ extern float	cpm_pm_airstopaccelerate;
 extern float	cpm_pm_aircontrol;
 extern float	cpm_pm_strafeaccelerate;
 extern float	cpm_pm_wishspeed;
+extern float  cpm_pm_aircontrolmod;
+extern qboolean  cpm_pm_aircontrolmoding;
 
 extern float	pm_accelerate; // located in bg_pmove.c
 extern float	pm_friction; // located in bg_pmove.c

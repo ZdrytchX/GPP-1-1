@@ -84,7 +84,9 @@ float pm_jumpmag = 1.00;
 //| ProMode |  Trem   |(GPP-1.1)|Fortress 2   |Classic (GoldSrc)|   0.6       |(Bhop Classic)|Physics |
 //|---------+---------+---------+-------------+-----------------+-------------+--------------+--------|
 //| 2.5     | 1       | 2.5     |1            | 1               | 3           | 2.5          | 9      |
-//| 150     | 0       | 150     |0            | 0               | 250(125 * 2)| 300 //150 * 2| 9999   |
+//| 150     | 0       | 165     |0            | 0               | 250(125 * 2)| 300 //150 * 2| 9999   |
+//| 1       | 1       | 0.9     |1            | 1               | 1           | 1            | 1      |
+//| qfalse  | qfalse  | qtrue   |qfalse       | qfalse          | qtrue       | qtrue        | qfalse |
 //| 70      | 1       | 70      |150          | 1000            | 100         | 70           | 9      |
 //|                                                 Query: What is sv_stopspeed 100? (xonotic configs)|
 //| 30      | 400     | 30      |30           | 30 //Don't know | 24          | 30           | 10     |
@@ -107,6 +109,8 @@ float pm_jumpmag = 1.00;
 // Physics Initiation
 float	cpm_pm_airstopaccelerate = 2.5;
 float	cpm_pm_aircontrol = 165; 
+float cpm_pm_aircontrolmod = 0.9;
+qboolean  cpm_pm_aircontrolmoding = qtrue;
 float	cpm_pm_strafeaccelerate = 70;
 float	cpm_pm_wishspeed = 30;
 //Add-Ons =)
@@ -129,7 +133,7 @@ float pm_groundspeedcapfriction = 0;
 //when speedcap has been breached speed becomes this
 float pm_groundspeedcaplimit = 0;     
 
-void CPM_UpdateSettings(int num)
+void CPM_UpdateSettings(int num) //does nothing now
 {
 	// num = 0: normal quake 3
 	// num = 1: pro mode
@@ -143,6 +147,7 @@ void CPM_UpdateSettings(int num)
 		cpm_pm_wishspeed = 30;
 		//Adjust for Tremulous Balance
 		cpm_pm_airstopaccelerate = 2.5; //2.5 - marauders climb walls
+		cpm_pm_aircontrolmod = 1.0;
 		pm_accelerate = 15; //15
 		pm_friction = 8; //8
 		cpm_pm_jump_z = 100/*/230*/; // enable double-jump //100
@@ -158,6 +163,7 @@ void CPM_UpdateSettings(int num)
 	  cpm_pm_aircontrol = 0;
 	  cpm_pm_strafeaccelerate = 1;
 	  cpm_pm_wishspeed = 400; //400? Since when? Shouldn't it be 320?
+	  cpm_pm_aircontrolmod = 1.0;
 	  pm_accelerate = 10;
 	  pm_friction = 6;
 	  cpm_pm_jump_z = 0; // turn off double-jump in vq3
@@ -180,12 +186,22 @@ void CPM_PM_Aircontrol (pmove_t *pm, vec3_t wishdir, float wishspeed )
 
 	dot = DotProduct(pm->ps->velocity,wishdir);
 	k = 32;
-
-	if (BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] ) > 1.5)
-	k *= cpm_pm_aircontrol*dot*dot*pml.frametime*1.5; //marauders turn way too fast
-	else
-	k *= cpm_pm_aircontrol*dot*dot*pml.frametime*BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
 	
+  //marauders turn way too fast //2 -> 3 dots for better handling (91 degrees turns little, 89 degrees used to turn a lot but not turns little
+	if (BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] ) > 1.5 && cpm_pm_aircontrolmoding)
+	k *= cpm_pm_aircontrol*dot*dot*dot*pml.frametime*1.5;
+	//Give default air control to classes human or smaller
+	else if (BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] ) == 1.0 && cpm_pm_aircontrolmoding)
+	k *= cpm_pm_aircontrol*cpm_pm_aircontrolmod*dot*dot
+	*pml.frametime*BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
+	//else make turning speed dependable on angle
+	else if (cpm_pm_aircontrolmoding)
+	k *= cpm_pm_aircontrol*cpm_pm_aircontrolmod*cpm_pm_aircontrolmod*dot
+	*pml.frametime*BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
+	
+	//default cpm
+  else
+	k *= cpm_pm_aircontrol*dot*dot*pml.frametime*BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
 	
 	if (dot > 0) {	// we can't change direction while slowing down
 		for (i=0; i < 2; i++)

@@ -1228,13 +1228,13 @@ static void PM_AirMove( void )
 		//Bunnyhop Acceleration
 		//TODO: something wrong? (doesn't work anymore)
 	if (wishspeed < pm_bunnyhopspeedcap
-     && wishspeed < DotProduct(pm->ps->velocity, wishdir)
+     //&& wishspeed < DotProduct(pm->ps->velocity, wishdir)
      && DotProduct(pm->ps->velocity, wishdir) < pm_bunnyhopspeedcap)
 	{
 		wishspeed = pm_bunnyhopspeedcap;	
-		accel = pm_bunnyhopaccel - pm_bunnyhopaccel *
+		accel = pm_bunnyhopaccel - (pm_bunnyhopaccel *
 		((DotProduct(pm->ps->velocity, wishdir) - 320)
-		/(pm_bunnyhopspeedcap - 320));  //Accelerate at pm_bhopaccel at 320 ups,
+		/(pm_bunnyhopspeedcap - 320)));  //Accelerate at pm_bhopaccel at 320 ups,
 		                                //0 at pm_bhopspeedcap, linear relationship
 	}
 
