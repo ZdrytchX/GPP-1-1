@@ -1368,8 +1368,8 @@ static void PM_ClimbMove( void )
   else
     accelerate = BG_FindAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
 
-//  PM_Accelerate( wishdir, wishspeed, accelerate );/////////
-    PM_AirMove( );
+  PM_Accelerate( wishdir, wishspeed, accelerate );
+//  PM_AirMove( );
 
   if( ( pml.groundTrace.surfaceFlags & SURF_SLICK ) || pm->ps->pm_flags & PMF_TIME_KNOCKBACK )
     pm->ps->velocity[ 2 ] -= pm->ps->gravity * pml.frametime;
