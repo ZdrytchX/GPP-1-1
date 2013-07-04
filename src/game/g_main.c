@@ -277,6 +277,7 @@ vmCvar_t  g_feedingSpree;
 vmCvar_t  g_minDeconLevel;
 vmCvar_t  g_bot_alien_secondaryonly;
 vmCvar_t  g_mode_cpm;
+vmCvar_t  g_noclip_speed;
 
 static cvarTable_t   gameCvarTable[ ] =
 {
@@ -539,6 +540,7 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_minDeconLevel, "g_minDeconLevel",                         "0", CVAR_ARCHIVE,                          0, qfalse },
   { &g_bot_alien_secondaryonly, "g_bot_alien_secondaryonly",     "0", CVAR_ARCHIVE,                          0, qfalse },//TODO
   { &g_myStatstime, "g_myStatstime",                             "5", CVAR_ARCHIVE,                          0, qfalse  },
+  { &g_noclip_speed, "g_noclip_speed",                           "2", CVAR_ARCHIVE,                          0, qfalse  },
   
   //Special Modes
   { &g_mode_cpm,     "g_mode_cpm",     "1", CVAR_ARCHIVE | CVAR_SERVERINFO, 0, qfalse },

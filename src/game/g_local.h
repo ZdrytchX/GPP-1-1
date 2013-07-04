@@ -1612,6 +1612,7 @@ extern  vmCvar_t  g_allowBlackInNames;
 extern  vmCvar_t  g_minDeconLevel;
 extern  vmCvar_t  g_bot_alien_secondaryonly; //applies to those who has secondary
 extern  vmCvar_t  g_myStatstime;
+extern  vmCvar_t  g_noclip_speed;
 
 //Various Modes
 extern  vmCvar_t g_mode_cpm;

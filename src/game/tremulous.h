@@ -146,7 +146,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL4_CLAW_RANGE           96.0f //128 //80 feels useless [unv]
 #define LEVEL4_CLAW_WIDTH           16.0f
 #define LEVEL4_CLAW_REPEAT          750 //750 //keep at 1.1 value, otherwise people will charge-spam only
-#define LEVEL4_CLAW_K_SCALE         0.8f //Effects Charge, do NOT put '0' however 0.1 is acceptable and not very noticable.
+#define LEVEL4_CLAW_K_SCALE         0.2f //Effects Charge, do NOT put '0' however 0.1 is acceptable and not very noticable.
 
 #define LEVEL4_REGEN_MOD            1.5f //No longer is kept with tyrant, however applies to overminds
 #define LEVEL4_CHARGE_SPEED         2.5f //2.5 is easier to move with
@@ -165,7 +165,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 					//~0.4s helm
 					//~0.6s larm
 					//~0.9s larm+helm [Bsuit not tested, but bsuit should be the same as this]
-#define LEVEl4_CHARGE_K_ORIGINAL    90.0f //gpp 111.0f
+#define LEVEl4_CHARGE_K_ORIGINAL    85.0f //gpp 111.0f
 #define LEVEl4_CHARGE_K_COUNTER     (1/LEVEL4_CLAW_K_SCALE)*(LEVEl4_CHARGE_K_ORIGINAL/LEVEL4_CHARGE_DMG) //counteracts the claw knockback and damage differences between this and LEVEl4_CHARGE_K_ORIGINAL
 //Removed tyrant spit bomb
 
@@ -415,7 +415,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define BLASTER_REPEAT              750 //+50
 #define BLASTER_K_SCALE             3.0f //direct only - Gets overpowered on mid-air shots, use lower value for dretches //6.0f //1.2f
-#define BLASTER_K_SCALE_LEVEL0      0.8f
+#define BLASTER_K_SCALE_LEVEL0      0.6f //enough to make a dretch hover at g_speed = 800 ("hovering" damage/s = 160, if 1.0 is hovering then 1.0 = 800 / (dmg * 5))
 #define BLASTER_K_SELF_SCALE        (100.0f/BLASTER_PUSH) //gets multiplied for self only (splash)
 #define BLASTER_SPREAD              0
 #define BLASTER_SPEED               1400
@@ -474,7 +474,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LASGUN_AMMO                 200
 #define LASGUN_REPEAT               200
 #define LASGUN_MAXCLIPS             0 + VAMP_ON
-#define LASGUN_K_SCALE              1.0f
+#define LASGUN_K_SCALE              2.5f
 #define LASGUN_RELOAD               3000
 #define LASGUN_SPREAD               70 //btw, this actually works, don't tweak it any higher or it'll effect gameplay too much
 #define LASGUN_DAMAGE               HDM(9 + VAMP_ON)
@@ -522,12 +522,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define FLAMER_REPEAT               100
 #define FLAMER_K_SCALE              1.25f
 #define FLAMER_DMG                  HDM(10 + (VAMP_ON * 2))
-#define FLAMER_DMG_MOD              0.6f//Same deal as blaster, this one allows wall climbing.
-#define FLAMER_RADIUS_MOD           1.00f/FLAMER_DMG_MOD
+#define FLAMER_RADIUS_MOD           1.65f //radius lifting knockback, don't put 0
+#define FLAMER_DMG_MOD              1.00f/FLAMER_RADIUS_MOD //don't touch
 #define FLAMER_RADIUS               50
 #define FLAMER_LIFETIME             800.0f //Apparently gpp uses 700
-#define FLAMER_SPEED                400.0f
-#define FLAMER_LAG                  0.65f
+#define FLAMER_SPEED                400.0f //1.1 300 (Useless when chasing) gpp 500 (OP) - My custom particle system is sync'd to 400
+#define FLAMER_LAG                  0.65f //user's velocity * this value gets added as velocity to flame ball
 
 #define LCANNON_PRICE               600
 #define LCANNON_AMMO                90 + (VAMP_ON * 30)
@@ -543,12 +543,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LCANNON_SPEED               400 //see g_missile.c, this is minimum speed (roughly), max is about 3x this
 #define LCANNON_SECONDARY_SPEED     1800
 
-#define LCANNON_CHARGE_TIME         2500 //In between gpp and 1.1, gpp too long, 1.1 favours spammers, gpp is retardly almost useless in combat againts rants
+#define LCANNON_CHARGE_TIME         2500 //In between gpp and 1.1, gpp too long, 1.1 favours spammers, gpp is retardly almost useless in combat againts skilled rants
 #define LCANNON_TOTAL_CHARGE        256
 #define LCANNON_MIN_CHARGE          27 //mincharge dmg value [50]
-#define LCANNON_MAXCLIPS	    0
+#define LCANNON_MAXCLIPS	          0
 
 //Following are rised from '10' to '11' to counter for its extra 10 ammo from its 1.1 edition
+//Lolards had "70" and TAKE to 30 which meant values under 70 would not charge completely, and each full shot uses max 30 ammo
+//For default gameplay, leave these two identicle, TAKE is a float for calculations in damage and ammo gets rounded off
 #define LCANNON_BATTERY_DECAY       11 //The value by which the luci starts struggling to power a full shot
 #define LCANNON_TAKE                11.0f //Maximum ammo that can be eaten by one bullet
 
@@ -581,21 +583,21 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define HELMET_RANGE                1000.0f
 #define HELMET_POISON_PROTECTION    1 
 
-//medkit price
 #define MEDKIT_PRICE                0
 
 #define BATTPACK_PRICE              100
 #define BATTPACK_MODIFIER           1.5f + (VAMP_ON * 0.1f)
-#define BATTPACK_MODIFIER_NON_ENERGY 1.501f //round up
+//battpack can give non-energy weaps extra ammo packs
+#define BATTPACK_MODIFIER_NON_ENERGY 1.51f //round up ammo packs
 
 //Non-stationary Jet
 #define JETPACK_PRICE               120 
 #define JETPACK_FLOAT_SPEED         128.0f
 #define JETPACK_SINK_SPEED          192.0f
-#define JETPACK_DISABLE_TIME        1400 //Increased caus' goon knockback pushes you up if hit from underside anyway...
-#define JETPACK_DISABLE_CHANCE      0.3f //? - doesn't work
-#define JETPACK_ACCELERATE          2.00f
-#define JETPACK_FRICTION            1.8f
+#define JETPACK_DISABLE_TIME        1450 //Increased caus' goon knockback pushes you up if hit from underside anyway...
+#define JETPACK_DISABLE_CHANCE      0.3f //? - never did work, was here before though
+#define JETPACK_ACCELERATE          2.0f //default 4
+#define JETPACK_FRICTION            1.8f //default 6 apparently
 
 #define BSUIT_PRICE                 400
 #define BSUIT_POISON_PROTECTION     4

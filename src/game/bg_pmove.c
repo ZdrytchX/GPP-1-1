@@ -62,7 +62,7 @@ float pm_flyaccelerate = JETPACK_ACCELERATE; //4.0f not too high, makes them har
 
 //float pm_friction = 6.0f;
 float pm_waterfriction = 1.0f;
-float pm_flightfriction = JETPACK_FRICTION; //2.0f
+float pm_flightfriction = JETPACK_FRICTION; //6.0f
 float pm_spectatorfriction = 5.0f; //annoying as hell //5.0f
 
 int   c_pmove = 0;
@@ -688,7 +688,7 @@ static qboolean PM_CheckWallJump( void )
 
   //for a long run of wall jumps the velocity can get pretty large, this caps it
   //Apparently works as an anti-strafe for marauders as well, although fixed in gpp
-  if( VectorLength( pm->ps->velocity ) > LEVEL2_WALLJUMP_MAXSPEED && pm->ps->grapplePoint[ 2 ] == 1.0f ) //only if it's  wall (ground = o.k.) //TODO add a cvar
+  if( VectorLength( pm->ps->velocity ) > LEVEL2_WALLJUMP_MAXSPEED && pm->ps->grapplePoint[ 2 ] >= 0.5f ) //only if it's  wall (ground = o.k.) //TODO add a cvar
   {
     VectorNormalize( pm->ps->velocity );
     VectorScale( pm->ps->velocity, (LEVEL2_WALLJUMP_MAXSPEED + ( (VectorLength( pm->ps->velocity ) - LEVEL2_WALLJUMP_MAXSPEED)/3 )), pm->ps->velocity );
@@ -1228,7 +1228,7 @@ static void PM_AirMove( void )
 		//Bunnyhop Acceleration
 		//TODO: something wrong? (doesn't work anymore)
 	if (wishspeed < pm_bunnyhopspeedcap
-     //&& wishspeed < DotProduct(pm->ps->velocity, wishdir)
+     && wishspeed < DotProduct(pm->ps->velocity, wishdir)
      && DotProduct(pm->ps->velocity, wishdir) < pm_bunnyhopspeedcap)
 	{
 		wishspeed = pm_bunnyhopspeedcap;	
@@ -1368,7 +1368,8 @@ static void PM_ClimbMove( void )
   else
     accelerate = BG_FindAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
 
-  PM_Accelerate( wishdir, wishspeed, accelerate );
+//  PM_Accelerate( wishdir, wishspeed, accelerate );/////////
+    PM_AirMove( );
 
   if( ( pml.groundTrace.surfaceFlags & SURF_SLICK ) || pm->ps->pm_flags & PMF_TIME_KNOCKBACK )
     pm->ps->velocity[ 2 ] -= pm->ps->gravity * pml.frametime;
@@ -1682,7 +1683,7 @@ static void PM_NoclipMove( void )
 
   VectorCopy( wishvel, wishdir );
   wishspeed = VectorNormalize( wishdir );
-  wishspeed *= scale;
+  wishspeed *= scale * 1; //TODO: make noclip faster //*g_noclip_speed.float
 
   PM_Accelerate( wishdir, wishspeed, pm_accelerate );
 
@@ -1751,8 +1752,8 @@ static void PM_CrashLand( void )
   else
     pm->ps->torsoTimer = TIMER_LAND;
 
-  // calculate the exact velocity on landing
-  dist = pm->ps->origin[ 2 ] - pml.previous_origin[ 2 ];
+  // calculate the exact verticle velocity on landing
+  dist = pm->ps->origin[ 2 ] - pml.previous_origin[ 2 ]; //I still don't get why we need this, in fact wth does it do? With this here, if you get on a jumppad and fall, technically this becomes 0 and delta ends up always being vel * vel
   vel = pml.previous_velocity[ 2 ];
   acc = -pm->ps->gravity;
 
@@ -1995,7 +1996,7 @@ static void PM_GroundClimbTrace( void )
         break;
 
       case 1:
-        //trace straight down anto "ground" surface
+        //trace straight down onto "ground" surface
         VectorMA( pm->ps->origin, -0.25f, surfNormal, point );
         pm->trace( &trace, pm->ps->origin, pm->mins, pm->maxs, point, pm->ps->clientNum, pm->tracemask );
         break;
