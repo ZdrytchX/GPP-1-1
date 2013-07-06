@@ -760,7 +760,7 @@ void G_BotReactToEnemy(gentity_t *self, usercmd_t *botCmdBuffer) {
             self->botMind->followingRoute = qfalse;
             //dodge
             G_BotDodge(self,botCmdBuffer);
-            if(DistanceSquared(self->s.pos.trBase, level.nodes[self->botMind->targetNodeID].coord) < Square(800) && self->botMind->botSkill.level < 6)
+            if(DistanceSquared(self->s.pos.trBase, level.nodes[self->botMind->targetNodeID].coord) < Square(200) && self->botMind->botSkill.level < 6)
                 botCmdBuffer->upmove = 20;
              else
              botCmdBuffer->upmove = -1;
@@ -1011,6 +1011,8 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
             case PCL_ALIEN_LEVEL0:
                 if((distance < Square(200)) && (distance > Square(450)) && (self->client->time1000 % 500 == 0))
                     botCmdBuffer->upmove = 20; //jump when getting close
+                    else
+                    botCmdBuffer->upmove = -1;
                     //botCmdBuffer->buttons |= BUTTON_ATTACK; //aka do nothing
                     botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
                 botCmdBuffer->buttons |= BUTTON_GESTURE;
@@ -1046,8 +1048,9 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                    }
                 break;
             case PCL_ALIEN_LEVEL2:
-                if(self->client->time1000 % 500 == 0)
+                if((distance < Square(300)) && (distance > Square(400)) && self->client->time1000 % 500 == 0)
                     botCmdBuffer->upmove = 20; //jump when getting close
+                else botCmdBuffer->upmove = -1;
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
                     botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
                 break;
@@ -1055,6 +1058,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                 if(self->client->time1000 % 300 == 0) {
                     botCmdBuffer->upmove = 20; //jump
                     botCmdBuffer->buttons |= BUTTON_GESTURE; }
+                    else botCmdBuffer->upmove = 0;
                 if(distance <= Square(LEVEL2_CLAW_RANGE)*2.0) //Change this modifier to get it to miss more often
                     botCmdBuffer->buttons |= BUTTON_ATTACK;
                 else

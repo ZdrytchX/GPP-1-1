@@ -1495,8 +1495,6 @@ static void PM_WalkMove( void )
     PM_Accelerate( wishdir, wishspeed, accelerate );
     }
 
-  PM_Accelerate( wishdir, wishspeed, accelerate );
-
   //Com_Printf("velocity = %1.1f %1.1f %1.1f\n", pm->ps->velocity[0], pm->ps->velocity[1], pm->ps->velocity[2]);
   //Com_Printf("velocity1 = %1.1f\n", VectorLength(pm->ps->velocity));
 
