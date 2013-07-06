@@ -487,13 +487,13 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
         botCmdBuffer->forwardmove = 30;
     }
     
+    // enable wallwalk for classes that can wallwalk
+//    if( BG_ClassHasAbility( self->client->ps.stats[STAT_PCLASS], SCA_WALLCLIMBER ) )
+//        botCmdBuffer->upmove = -1;
+    
     //need to periodically reset upmove to 0 for jump to work
     if( self->client->time10000 % 1000)
         botCmdBuffer->upmove = 0;
-    
-    // enable wallwalk for classes that can wallwalk
-    if( BG_ClassHasAbility( self->client->ps.stats[STAT_PCLASS], SCA_WALLCLIMBER ) )
-        botCmdBuffer->upmove = -1;
     
     //stay away from enemy as human
         getTargetPos(target, &tmpVec);
@@ -760,6 +760,10 @@ void G_BotReactToEnemy(gentity_t *self, usercmd_t *botCmdBuffer) {
             self->botMind->followingRoute = qfalse;
             //dodge
             G_BotDodge(self,botCmdBuffer);
+            if(DistanceSquared(self->s.pos.trBase, level.nodes[self->botMind->targetNodeID].coord) < Square(800) && self->botMind->botSkill.level < 6)
+                botCmdBuffer->upmove = 20;
+             else
+             botCmdBuffer->upmove = -1;
             break;
         case PCL_ALIEN_LEVEL2:
         case PCL_ALIEN_LEVEL2_UPG:
