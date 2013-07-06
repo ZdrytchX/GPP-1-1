@@ -1364,12 +1364,14 @@ static void PM_ClimbMove( void )
   // when a player gets hit, they temporarily lose
   // full control, which allows them to be moved a bit
   if( ( pml.groundTrace.surfaceFlags & SURF_SLICK ) || pm->ps->pm_flags & PMF_TIME_KNOCKBACK )
-    accelerate = BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
-  else
+      {
+//    accelerate = BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
+      PM_AirMove( );
+      }
+  else {
     accelerate = BG_FindAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
-
-  PM_Accelerate( wishdir, wishspeed, accelerate );
-//  PM_AirMove( );
+    PM_Accelerate( wishdir, wishspeed, accelerate );
+    }
 
   if( ( pml.groundTrace.surfaceFlags & SURF_SLICK ) || pm->ps->pm_flags & PMF_TIME_KNOCKBACK )
     pm->ps->velocity[ 2 ] -= pm->ps->gravity * pml.frametime;
@@ -1484,9 +1486,14 @@ static void PM_WalkMove( void )
   // when a player gets hit, they temporarily lose
   // full control, which allows them to be moved a bit
   if( ( pml.groundTrace.surfaceFlags & SURF_SLICK ) || pm->ps->pm_flags & PMF_TIME_KNOCKBACK )
-    accelerate = BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
-  else
+      {
+//    accelerate = BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
+      PM_AirMove( );
+      }
+  else {
     accelerate = BG_FindAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
+    PM_Accelerate( wishdir, wishspeed, accelerate );
+    }
 
   PM_Accelerate( wishdir, wishspeed, accelerate );
 
