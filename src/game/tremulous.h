@@ -417,6 +417,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BLASTER_K_SCALE             3.0f //direct only - Gets overpowered on mid-air shots, use lower value for dretches //6.0f //1.2f
 #define BLASTER_K_SCALE_LEVEL0      0.6f //enough to make a dretch hover at g_speed = 800 ("hovering" damage/s = 160, if 1.0 is hovering then 1.0 = 800 / (dmg * 5))
 #define BLASTER_K_SELF_SCALE        (100.0f/BLASTER_PUSH) //gets multiplied for self only (splash)
+#define BLASTER_K_LEVEL1_RESISTANCE 0.3f //resistance against basilisks so they can still grab without problems
+#define BLASTER_K_LEVEL1_RESISTANCE_SPLASH 0.2f //modifier for splash knockback - 0 = no knockback
+#define BLASTER_K_LOCKED_RESISTANCE 0.3f //resistance on self so you can't fly away easily
+
 #define BLASTER_SPREAD              0
 #define BLASTER_SPEED               1400
 #define BLASTER_DMG                 HDM(9 + VAMP_ON)

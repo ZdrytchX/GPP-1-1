@@ -1591,15 +1591,35 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
   }
 
   else if ( mod == MOD_BLASTER )
-  {
+  { //level0's knockback modifier so they dont fly everywhere so easily
 		knockback *= BLASTER_K_SCALE;
 		if ( targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL0 )
 		  knockback *= BLASTER_K_SCALE_LEVEL0;
+
+  //give the basilisk some chance
+  if ( (targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL1
+    || targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL1_UPG )
+		&& attacker->client->ps.stats[ STAT_STATE ] & SS_GRABBED )
+		  knockback *= BLASTER_K_LEVEL1_RESISTANCE;
 	}
-	else if ( mod == MOD_TARGET_LASER && attacker == targ ){
+	else if ( mod == MOD_TARGET_LASER ){
+	if (attacker == targ)
   knockback *= BLASTER_K_SELF_SCALE;
-    if ( targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL0 )
-		  knockback *= BLASTER_K_SCALE_LEVEL0;
+  
+	//level0's knockback modifier so they dont fly everywhere so easily
+  if ( targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL0 )
+		knockback *= BLASTER_K_SCALE_LEVEL0;
+
+  //give the basilisk some chance
+  if ( (targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL1
+    || targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL1_UPG )
+		&& attacker->client->ps.stats[ STAT_STATE ] & SS_GRABBED )
+		  knockback *= BLASTER_K_LEVEL1_RESISTANCE_SPLASH;
+  //don't allow easy escape
+  if ( targ == attacker
+		&& (attacker->client->ps.stats[ STAT_STATE ] & SS_GRABBED
+		|| attacker->client->ps.stats[ STAT_STATE ] & SS_BLOBLOCKED) )
+		  knockback *= BLASTER_K_LOCKED_RESISTANCE;
   }
   
   if ( mod == MOD_MDRIVER_SPLASH ){
@@ -1607,6 +1627,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
     if ( targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL0 )
 		  knockback *= BLASTER_K_SCALE_LEVEL0;
   }
+
   if ( mod == MOD_LEVEL4_CHARGE )
                 knockback *= LEVEl4_CHARGE_K_COUNTER; //help shove people around
 
