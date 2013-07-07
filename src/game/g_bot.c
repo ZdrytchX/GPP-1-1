@@ -459,9 +459,8 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
     botAimAtLocation(self, tmpVec, botCmdBuffer);
     
     //humans should not move if they are targetting, and can hit, a building
-    if(botTargetInAttackRange(self, target) && getTargetType(target) == ET_BUILDABLE && self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS && getTargetTeam(target) == PTE_ALIENS && self->s.weapon != WP_PAIN_SAW )
+    if(botTargetInAttackRange(self, target) && getTargetType(target) == ET_BUILDABLE && self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS && getTargetTeam(target) == PTE_ALIENS && self->s.weapon != WP_PAIN_SAW ) //flamer's restrictions are somewhere else
         return;
-    else botCmdBuffer->upmove = -1;
     
     if (self->client->ps.stats[ STAT_STAMINA ] < -300)
     botCmdBuffer->forwardmove = 64;//walk
@@ -487,13 +486,13 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
         botCmdBuffer->forwardmove = 30;
     }
     
-    // enable wallwalk for classes that can wallwalk
-//    if( BG_ClassHasAbility( self->client->ps.stats[STAT_PCLASS], SCA_WALLCLIMBER ) )
-//        botCmdBuffer->upmove = -1;
-    
     //need to periodically reset upmove to 0 for jump to work
     if( self->client->time10000 % 1000)
         botCmdBuffer->upmove = 0;
+        
+            // enable wallwalk for classes that can wallwalk
+//    if( BG_ClassHasAbility( self->client->ps.stats[STAT_PCLASS], SCA_WALLCLIMBER ) )
+//        botCmdBuffer->upmove = -1;
     
     //stay away from enemy as human
         getTargetPos(target, &tmpVec);
