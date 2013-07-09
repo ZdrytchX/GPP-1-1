@@ -759,7 +759,8 @@ void G_BotReactToEnemy(gentity_t *self, usercmd_t *botCmdBuffer) {
             self->botMind->followingRoute = qfalse;
             //dodge
             G_BotDodge(self,botCmdBuffer);
-            if(DistanceSquared(self->s.pos.trBase, level.nodes[self->botMind->targetNodeID].coord) < Square(200) && self->botMind->botSkill.level < 6)
+            if((DistanceSquared(self->s.pos.trBase, level.nodes[self->botMind->targetNodeID].coord) < Square(200) && self->botMind->botSkill.level > 4 && (self->client->time1000 % 1100 == 0) && g_bot_dodge_jump.integer == 1)
+                || self->botMind->botSkill.level < 2 && g_bot_dodge_jump.integer == 1)
                 botCmdBuffer->upmove = 20;
              else
              botCmdBuffer->upmove = -1;
@@ -1008,7 +1009,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                 botCmdBuffer->buttons |= BUTTON_GESTURE; //poor  grangie; taunt like you mean it!
                 break;
             case PCL_ALIEN_LEVEL0:
-                if((distance < Square(200)) && (distance > Square(450)) && (self->client->time1000 % 500 == 0))
+                if((distance < Square(390)) && (distance > Square(400)) && (self->client->time1000 % 900 == 0) && g_bot_dodge_jump.integer == 1 && self->botMind->botSkill.level > 3)
                     botCmdBuffer->upmove = 20; //jump when getting close
                     else
                     botCmdBuffer->upmove = -1;
@@ -1047,14 +1048,14 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                    }
                 break;
             case PCL_ALIEN_LEVEL2:
-                if((distance < Square(300)) && (distance > Square(400)) && self->client->time1000 % 500 == 0)
+                if((distance < Square(300)) && (distance > Square(400)) && self->client->time1000 % 300 == 0)
                     botCmdBuffer->upmove = 20; //jump when getting close
                 else botCmdBuffer->upmove = -1;
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
                     botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
                 break;
             case PCL_ALIEN_LEVEL2_UPG:
-                if(self->client->time1000 % 300 == 0) {
+                if(self->client->time1000 % 500 == 0) {
                     botCmdBuffer->upmove = 20; //jump
                     botCmdBuffer->buttons |= BUTTON_GESTURE; }
                     else botCmdBuffer->upmove = 0;
@@ -1078,15 +1079,15 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                 break;
             case PCL_ALIEN_LEVEL3_UPG:
                 if(self->client->ps.ammo[WP_ALEVEL3_UPG] > 0 && 
-                    distance > Square(LEVEL3_CLAW_RANGE + LEVEL3_CLAW_RANGE/2) ) { //idiot, dont try to pounce up close. You'll waste time.
-                    botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 5.5 - self->client->ps.delta_angles[PITCH]; //look up a bit more
+                    distance > Square(LEVEL3_CLAW_RANGE + LEVEL3_CLAW_RANGE/2) ) {
+                    botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 5.2 - self->client->ps.delta_angles[PITCH]; //look up a bit more
                     botCmdBuffer->buttons |= BUTTON_USE_HOLDABLE; //barb
 		    botCmdBuffer->forwardmove = 0; //stop moving forward
 		    //botCmdBuffer->rightmove = 0;
                 } else {       
                     if(distance > Square(LEVEL3_CLAW_RANGE + LEVEL3_CLAW_RANGE/2) && 
                     self->client->ps.stats[ STAT_MISC ] < LEVEL3_POUNCE_UPG_SPEED) {
-                        botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 6 - self->client->ps.delta_angles[PITCH]; //not as high because uses current velocity
+                        botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 5.8 - self->client->ps.delta_angles[PITCH]; //not as high because uses current velocity
                         botCmdBuffer->buttons |= BUTTON_ATTACK2; //pounce
                     }else {
                         botCmdBuffer->buttons |= BUTTON_ATTACK;
@@ -1450,6 +1451,8 @@ void botShakeAim( gentity_t *self, vec3_t *rVec ){
     //int shakeMag = 8192 / self->botMind->botSkill.aimShake
     VectorSubtract(*rVec,self->s.origin, diffVec);
     length = (float) VectorLength(diffVec)/1000;
+    if (self->client->ps.stats[ STAT_STATE ] & SS_POISONCLOUDED)
+    length *= 2; //disturb its aim TODO: Add a constant rather than multiply
     VectorNormalize(diffVec);
     speedAngle=RAD2DEG(acos(DotProduct(forward,diffVec)))/100;
     r = crandom() * self->botMind->botSkill.aimShake * length * speedAngle;
@@ -1814,8 +1817,8 @@ void setSkill(gentity_t *self, int skill) {
     self->botMind->botSkill.level = skill;
     //different aim for different teams
     if(self->botMind->botTeam == PTE_HUMANS) {
-        self->botMind->botSkill.aimSlowness = (float)(skill * skill) / 75;
-        self->botMind->botSkill.aimShake = (int) ((float)(20 - (skill * skill)/5)/1.5);
+        self->botMind->botSkill.aimSlowness = (float)(skill * skill) / 100;
+        self->botMind->botSkill.aimShake = (int) ((float)(20 - (skill * skill)/5));
     } else {
         self->botMind->botSkill.aimSlowness = (float)( skill * 1) / 10;
         self->botMind->botSkill.aimShake = (int) (30 - skill * 3);
