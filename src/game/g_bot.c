@@ -68,7 +68,11 @@ void G_BotAdd( char *name, int team, int skill ) {
     bot->botMind->enemyLastSeen = 0;
     bot->botMind->command = BOT_AUTO;
     bot->botMind->botTeam = team;
-    bot->botMind->spawnItem = WP_HBUILD; //WP_MACHINEGUN;
+    //don't always spawn ckit
+    if ((bot->client->time10000 % 1000) > 500) {
+    bot->botMind->spawnItem = WP_MACHINEGUN; }
+    else {
+    bot->botMind->spawnItem = WP_HBUILD; }
     bot->botMind->state = FINDNEWNODE;
     bot->botMind->timeFoundEnemy = 0;
     bot->botMind->followingRoute = qfalse;
@@ -448,19 +452,37 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
     
     if(!targetIsEntity(target))
         botSlowAim(self, tmpVec, 0.5f, &tmpVec);
+    else if ( getTargetType(target) == ET_BUILDABLE )
+    {
+        botSlowAim(self, tmpVec, 0.3f, &tmpVec);
+    }
     else
         botSlowAim(self, tmpVec, self->botMind->botSkill.aimSlowness, &tmpVec);
-    
-    if(getTargetType(target) != ET_BUILDABLE && targetIsEntity(target) && (self->client->time1000 % 150) >= 50 ) {
+    //make them shake depending on the weapon
+    if(getTargetType(target) != ET_BUILDABLE && targetIsEntity(target)) {
+    if ( (self->client->time1000 % 150) >= 80
+    && self->s.weapon != WP_PAIN_SAW
+    && self->s.weapon != WP_GRENADE
+    && self->s.weapon != WP_CHAINGUN
+    && self->s.weapon != WP_LUCIFER_CANNON
+    && self->s.weapon != WP_SHOTGUN
+    && self->s.weapon != WP_BLASTER
+    && self->s.weapon != WP_MASS_DRIVER )
+        botShakeAim(self, &tmpVec);
+        
+    else if ( (self->client->time1000 % 500) >= 250 )
         botShakeAim(self, &tmpVec);
     }
-    
-        
+
     botAimAtLocation(self, tmpVec, botCmdBuffer);
     
     //humans should not move if they are targetting, and can hit, a building
-    if(botTargetInAttackRange(self, target) && getTargetType(target) == ET_BUILDABLE && self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS && getTargetTeam(target) == PTE_ALIENS && self->s.weapon != WP_PAIN_SAW ) //flamer's restrictions are somewhere else
+    if(botTargetInAttackRange(self, target) && getTargetType(target) == ET_BUILDABLE && self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS && getTargetTeam(target) == PTE_ALIENS ) //flamer's restrictions are somewhere else
+    {
+        //BG_ActivateUpgrade(UP_GRENADE,self->client->ps.stats);
+        if ( self->s.weapon != WP_PAIN_SAW )
         return;
+    }
     
     if (self->client->ps.stats[ STAT_STAMINA ] < -300)
     botCmdBuffer->forwardmove = 64;//walk
@@ -471,6 +493,9 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
     //dodge if going toward enemy
     if(self->client->ps.stats[STAT_PTEAM] != getTargetTeam(target) && getTargetTeam(target) != PTE_NONE) {
         G_BotDodge(self, botCmdBuffer);
+        //sprint if surplus stamina
+        if (self->client->ps.stats[ STAT_STAMINA ] > 0 && self->botMind->botSkill.level > 4)
+        self->client->ps.stats[ STAT_STATE ] &= SS_SPEEDBOOST;
     }
     
     //this is here so we dont run out of stamina..
@@ -690,6 +715,9 @@ void G_BotBuy(gentity_t *self, usercmd_t *botCmdBuffer) {
         }else {
             G_BotBuyUpgrade( self, UP_AMMO );
         }
+        //buy gren
+        if (g_bot_gren.integer = 1 && level.time % 3000 < 2500 ) //fingers crossed
+            G_BotBuyUpgrade( self, UP_GRENADE );
         self->botMind->currentModus = ROAM; //hack to prevent buy-spam
     }
 }
@@ -759,8 +787,8 @@ void G_BotReactToEnemy(gentity_t *self, usercmd_t *botCmdBuffer) {
             self->botMind->followingRoute = qfalse;
             //dodge
             G_BotDodge(self,botCmdBuffer);
-            if((DistanceSquared(self->s.pos.trBase, level.nodes[self->botMind->targetNodeID].coord) < Square(200) && self->botMind->botSkill.level > 4 && (self->client->time1000 % 1100 == 0) && g_bot_dodge_jump.integer == 1)
-                || self->botMind->botSkill.level < 2 && g_bot_dodge_jump.integer == 1)
+            if( ( (DistanceSquared(self->s.pos.trBase, level.nodes[self->botMind->targetNodeID].coord) < Square(200) && self->botMind->botSkill.level > 4 && (self->client->time1000 % 1100 == 0) && g_bot_dodge_jump.integer == 1)
+                || self->botMind->botSkill.level < 2 ) && g_bot_dodge_jump.integer == 1)
                 botCmdBuffer->upmove = 20;
              else
              botCmdBuffer->upmove = -1;
@@ -917,7 +945,7 @@ qboolean botTargetInAttackRange(gentity_t *self, botTarget_t target) {
             secondaryRange = 0; //Using 0 since tyrant charge is already defined above
             break;
         case WP_HBUILD:
-            range = 100; //heal range
+            range = 500; //heal range //default 100
             secondaryRange = 0;
             break;
         case WP_PAIN_SAW:
@@ -1136,6 +1164,11 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
 
             botCmdBuffer->buttons |= BUTTON_ATTACK; //just fire the damn gun!
             }
+    //activate grenade
+      if(DistanceSquared( muzzle, targetPos) < Square( 300 ) /*&& getTargetType(target) == ET_BUILDABLE*/ && level.time % 3000 < 1500)
+      {
+          BG_ActivateUpgrade(UP_GRENADE,self->client->ps.stats);
+      }
     }
 }
 /**
@@ -1307,10 +1340,11 @@ void G_BotSpectatorThink( gentity_t *self ) {
         } else if( teamnum == PTE_ALIENS) {
             self->client->pers.classSelection = PCL_ALIEN_LEVEL0;
             self->client->ps.stats[STAT_PCLASS] = PCL_ALIEN_LEVEL0;
-          if (g_bot_granger.integer == 1)//kharn0v's heaven!
+            //don't always spawn granger
+          if (g_bot_granger.integer == 1 && g_alienStage.integer == 0 && (self->client->time10000 % 1000) > 500)//kharn0v's heaven!
             self->client->pers.classSelection = PCL_ALIEN_BUILDER0;
             self->client->ps.stats[STAT_PCLASS] = PCL_ALIEN_BUILDER0;
-          if (g_bot_granger.integer == 1 && g_alienStage.integer > 0) //Go adv!
+          if (g_bot_granger.integer == 1 && g_alienStage.integer > 0 && (self->client->time10000 % 1000) > 500) //Go adv!
             self->client->pers.classSelection = PCL_ALIEN_BUILDER0_UPG;
             self->client->ps.stats[STAT_PCLASS] = PCL_ALIEN_BUILDER0_UPG;
 
@@ -1817,7 +1851,7 @@ void setSkill(gentity_t *self, int skill) {
     self->botMind->botSkill.level = skill;
     //different aim for different teams
     if(self->botMind->botTeam == PTE_HUMANS) {
-        self->botMind->botSkill.aimSlowness = (float)(skill * skill) / 100;
+        self->botMind->botSkill.aimSlowness = (float)(0.1 + (skill * skill) / 111);
         self->botMind->botSkill.aimShake = (int) ((float)(20 - (skill * skill)/5));
     } else {
         self->botMind->botSkill.aimSlowness = (float)( skill * 1) / 10;
