@@ -1607,7 +1607,7 @@ extern  vmCvar_t  g_bot_dodge_jump;
 extern  vmCvar_t  g_bot_dodge_crouch;
 extern  vmCvar_t  g_bot_ping;
 extern  vmCvar_t  g_bot_gren;
-extern  vmCvar_t  g_bot_gren_buildablesonly;
+extern  vmCvar_t  g_bot_gren_buildablesonlypercent;
 extern  vmCvar_t  g_teamStatus;
 extern  vmCvar_t  g_teamStatusTime;
 extern  vmCvar_t  g_allowBlackInNames;

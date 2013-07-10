@@ -1188,13 +1188,13 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
       {
 //if g_bot_gren_buildablesonly > 1 apply timer, with the probability between 1-10 defined by the cvar itself
           if ((getTargetType(self->botMind->goal) != ET_BUILDABLE)
-          && (level.time % 10000 < (100 * g_bot_gren_buildablesonly.integer)
-          && g_bot_gren_buildablesonly.integer != 1)
+          && (level.time % 20000 < (200 * g_bot_gren_buildablesonlypercent.integer)
+          && g_bot_gren_buildablesonlypercent.integer != 1)
           )
           {
             BG_ActivateUpgrade(UP_GRENADE,self->client->ps.stats);
             if( !(self->client->pers.muted))
-            G_Say(self,NULL, SAY_TEAM, "^2GREEN^8-^1AID ^DEPLOYED^3!!!");
+            G_Say(self,NULL, SAY_TEAM, "^2GREEN^8-^1AID ^5DEPLOYED^3!!!");
           }
       }
     }
