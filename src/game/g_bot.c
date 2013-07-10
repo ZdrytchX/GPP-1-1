@@ -1008,7 +1008,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
     vec3_t muzzle, targetPos;
     vec3_t myMaxs,targetMaxs;
 //    vec3_t muzzle, rctor;//here goes nothing...
-    int distance, myMax,targetMax, rcdist;
+    int distance, myMax,targetMax/*, rcdist*/;
     BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], NULL, myMaxs, NULL, NULL, NULL);
 //nonsensical stuff - Reactor Distance for base nades (TODO)
 /*
@@ -1185,16 +1185,16 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
     //activate grenade
       if(DistanceSquared( muzzle, targetPos) < Square( 200 ) && level.time % 2000 < 1200) //TODO: Prevent Base Nades
       {
-          if (getTargetType(self->botMind->goal) != ET_BUILDABLE && g_bot_gren_buildablesonly.integer > 0)
+//if g_bot_gren_buildablesonly > 1 apply timer, with the probability between 1-10 defined by the cvar itself
+          if ((getTargetType(self->botMind->goal) != ET_BUILDABLE)
+          && (level.time % 1000 < (100 * g_bot_gren_buildablesonly.integer)
+          && g_bot_gren_buildablesonly.integer != 1 )
+          )
           {
-            if ( g_bot_gren_buildablesonly.integer == 1)
-              return;
-            else if ( level.time % 10000 < (100 * g_bot_gren_buildablesonly.integer) ) //another timer? :D
-              continue; //i.e. if g_bot_gren_buildablesonly > 1 apply timer, with the % probability defined by the cvar itself
+            BG_ActivateUpgrade(UP_GRENADE,self->client->ps.stats);
+            if( !(self->client->pers.muted))
+            G_Say(self,NULL, SAY_TEAM, "^2GREEN^8-^1AID ^DEPLOYED^3!!!");
           }
-          if( !(self->client->pers.muted))
-          G_Say(attacker,NULL, SAY_TEAM, "^2GREEN^8-^1AID ^DEPLOYED^3!!!");
-          BG_ActivateUpgrade(UP_GRENADE,self->client->ps.stats);
       }
     }
 }
