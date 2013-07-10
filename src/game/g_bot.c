@@ -1183,13 +1183,13 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
             botCmdBuffer->buttons |= BUTTON_ATTACK; //just fire the damn gun!
             }
     //activate grenade
-      if(DistanceSquared( muzzle, targetPos) < Square( 200 ) && level.time % 2000 < 1200) //TODO: Prevent Base Nades
+      if(DistanceSquared( muzzle, targetPos) < Square( 200 ) && level.time % 2000 < 1200
+          && BG_InventoryContainsUpgrade(UP_GRENADE,self->client->ps.stats) ) //TODO: Prevent Base Nades
       {
 //if g_bot_gren_buildablesonly > 1 apply timer, with the probability between 1-10 defined by the cvar itself
           if ((getTargetType(self->botMind->goal) != ET_BUILDABLE)
           && (level.time % 10000 < (100 * g_bot_gren_buildablesonly.integer)
-          && g_bot_gren_buildablesonly.integer != 1
-          && BG_InventoryContainsUpgrade(UP_MEDKIT,self->client->ps.stats) )
+          && g_bot_gren_buildablesonly.integer != 1)
           )
           {
             BG_ActivateUpgrade(UP_GRENADE,self->client->ps.stats);
