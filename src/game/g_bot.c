@@ -1187,7 +1187,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
       {
 //if g_bot_gren_buildablesonly > 1 apply timer, with the probability between 1-10 defined by the cvar itself
           if ((getTargetType(self->botMind->goal) != ET_BUILDABLE)
-          && (level.time % 1000 < (100 * g_bot_gren_buildablesonly.integer)
+          && (level.time % 10000 < (100 * g_bot_gren_buildablesonly.integer)
           && g_bot_gren_buildablesonly.integer != 1 )
           )
           {
