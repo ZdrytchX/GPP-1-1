@@ -339,15 +339,23 @@ void G_BotModusManager( gentity_t *self ) {
             setGoalEntity(self, &g_entities[damagedBuildingIndex]);
         }
         self->botMind->state = FINDNEWNODE;
-    } else if(medistatIndex != ENTITYNUM_NONE && self->health < BOT_LOW_HP && !BG_InventoryContainsUpgrade(UP_MEDKIT, self->client->ps.stats) 
-    && self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS && self->botMind->command != BOT_REPAIR) {
+    } else if(medistatIndex != ENTITYNUM_NONE && self->health < BOT_LOW_HP 
+    && self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS && self->botMind->command != BOT_REPAIR
+    && !BG_InventoryContainsUpgrade(UP_MEDKIT, self->client->ps.stats ) ) {
         self->botMind->currentModus = HEAL;
+
         if(medistatIndex != getTargetEntityNumber(self->botMind->goal)) {
             setGoalEntity(self, &g_entities[medistatIndex]);
         }
         self->botMind->state = FINDNEWNODE;
-    } else if(armouryIndex != ENTITYNUM_NONE && botNeedsItem(self) && g_bot_buy.integer > 0 && self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS 
-    && self->botMind->command != BOT_REPAIR) {
+
+    } else if(armouryIndex != ENTITYNUM_NONE && ( ( botNeedsItem(self)
+    && g_bot_buy.integer > 0
+    && self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS 
+    && self->botMind->command != BOT_REPAIR )
+    || (!BG_InventoryContainsUpgrade(UP_MEDKIT, self->client->ps.stats)
+    && self->health < BOT_LOW_HP) ) ) //if he needs a medkit, get him to buy one
+    {
         self->botMind->currentModus = BUY;
         if(armouryIndex != getTargetEntityNumber(self->botMind->goal)) {
             setGoalEntity(self, &g_entities[armouryIndex]);

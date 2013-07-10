@@ -104,7 +104,10 @@ int G_BotBuyWeapon(gentity_t *ent, int weapon);
 #define BOT_LOW_AMMO 0.60f - (VAMP_ON * 30.00f) //0.50f
 
 //when human bots reach this health or below (and no medkit/enemy) they will head back to the base to heal when in range of medi as defined by BOT_MEDI_RANGE
-#define BOT_LOW_HP 60 - (VAMP_ON * 30) //100
+//turns out this variable includes healing on the medistat itself
+#define BOT_LOW_HP 95 //100
+//ZdrytchX: This is used to buy medkit from the armoury
+#define BOT_LOW_LOW_HP 65
 
 /*
 //FUMA: TODO: implement the rest of these, currently they do nothing :)
