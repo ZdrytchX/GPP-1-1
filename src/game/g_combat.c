@@ -1677,6 +1677,10 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		damage *= FLAMER_DMG_MOD;
 	}
 
+  if ( mod == MOD_LEVEL3_BOUNCEBALL_SPLASH ) {
+		damage *= LEVEL3_BOUNCEBALL_SPLASH_MOD;
+	}
+
   // check for completely getting out of the damage
   if( !( dflags & DAMAGE_NO_PROTECTION ) )
   {
