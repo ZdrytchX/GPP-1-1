@@ -1007,8 +1007,18 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
     vec3_t forward,right,up;
     vec3_t muzzle, targetPos;
     vec3_t myMaxs,targetMaxs;
-    int distance, myMax,targetMax;
+//    vec3_t muzzle, rctor;//here goes nothing...
+    int distance, myMax,targetMax, rcdist;
     BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], NULL, myMaxs, NULL, NULL, NULL);
+//nonsensical stuff - Reactor Distance for base nades (TODO)
+/*
+    if(targetIsEntity(self->botMind->goal) && getTargetType(self->botMind->goal) == ET_BUILDABLE
+    //&& s.modelindex == BA_H_REACTOR //Need to define to aim at the reactor first, but could mean shooting reactor
+    )
+        BG_FindBBoxForBuildable(self->botMind->goal.ent->s.modelindex, NULL, targetMaxs);
+    rcdist = VectorLengthSquared(rcdist);
+*/
+//endd nonsensical stuff
     
     if(targetIsEntity(self->botMind->goal) && self->botMind->goal.ent->client)
         BG_FindBBoxForClass(self->botMind->goal.ent->client->ps.stats[STAT_PCLASS], NULL,targetMaxs, NULL, NULL, NULL);
@@ -1173,8 +1183,17 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
             botCmdBuffer->buttons |= BUTTON_ATTACK; //just fire the damn gun!
             }
     //activate grenade
-      if(DistanceSquared( muzzle, targetPos) < Square( 300 ) /*&& getTargetType(target) == ET_BUILDABLE*/ && level.time % 3000 < 1500)
+      if(DistanceSquared( muzzle, targetPos) < Square( 200 ) && level.time % 2000 < 1200) //TODO: Prevent Base Nades
       {
+          if (getTargetType(self->botMind->goal) != ET_BUILDABLE && g_bot_gren_buildablesonly.integer > 0)
+          {
+            if ( g_bot_gren_buildablesonly.integer == 1)
+              return;
+            else if ( level.time % 10000 < (100 * g_bot_gren_buildablesonly.integer) ) //another timer? :D
+              continue; //i.e. if g_bot_gren_buildablesonly > 1 apply timer, with the % probability defined by the cvar itself
+          }
+          if( !(self->client->pers.muted))
+          G_Say(attacker,NULL, SAY_TEAM, "^2GREEN^8-^1AID ^DEPLOYED^3!!!");
           BG_ActivateUpgrade(UP_GRENADE,self->client->ps.stats);
       }
     }
