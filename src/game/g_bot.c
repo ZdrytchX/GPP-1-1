@@ -742,7 +742,7 @@ void G_BotBuy(gentity_t *self, usercmd_t *botCmdBuffer) {
         //buy gren
         if (g_bot_gren.integer = 1 && (level.time % (30000) < (300 * g_bot_gren_buypercent.integer)) ) //fingers crossed
         {
-            G_BotBuyUpgrade( self, UP_GRENADE );
+            if ( G_BotBuyUpgrade( self, UP_GRENADE ) ) //don't say you bought a grenade unless you really did
             if( !(self->client->pers.muted))
             G_Say(self,NULL, SAY_TEAM, "^3Bought ^2Gren^1ade");    
         }
@@ -1378,7 +1378,7 @@ void G_BotSpectatorThink( gentity_t *self ) {
             }
         //use /teamstatus to inform team of base status
         //TODO: Make it so only one bot uses teamstatus at a time
-        if( !(self->client->pers.muted) && (self->client->time1000 % (20000 + rand() % 10000) == 0))
+        if( !(self->client->pers.muted) && (self->client->time1000 % (10000 + rand() % 20000) == 0))
         Cmd_TeamStatus_f();
         }
         return;
