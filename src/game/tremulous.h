@@ -159,7 +159,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL4_MIN_CHARGE_TIME      750
 #define LEVEL4_CHARGE_CHARGE_RATIO  (LEVEL4_CHARGE_TIME/LEVEL4_CHARGE_CHARGE_TIME)//JUST LEAVE AS IS (confusing shit)
 
-#define LEVEL4_CHARGE_REPEAT        150 //1000 //GPP uses '100', the more lower, the more ping-bias
+#define LEVEL4_CHARGE_REPEAT        150 //1000 - repeat rate of hits
+                //GPP uses '100', the more lower, the more ping-bias
 #define LEVEL4_CHARGE_TIMEOUT       LEVEL4_CHARGE_REPEAT + FASTFIRE //After charge has run out, wait this before you can swipe
 #define LEVEL4_CHARGE_DMG           ADM(76 + (VAMP_ON * 35)) //100 (to help with armoured) - DO NOT USE '0'
 					//0.2s naked
@@ -171,7 +172,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //Removed tyrant spit bomb
 
 #define LEVEL4_CHARGE_EXTRA         ADM(15) //Extra damage added to charge so it isnt completely useless when slow
-#define LEVEL4_TRAMPLE_DMG_B        (0.45f) //Dmg multiplier to buildables
 
 #define LEVEL4_REGEN_RANGE          150.0f //Used for basi, booster and overmind healing, default 200
                                            //rant has no aura now

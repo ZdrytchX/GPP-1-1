@@ -249,14 +249,17 @@ qboolean botNeedsItem(gentity_t *self) {
         //70 is the highest minimum amount of credits needed to buy something new
         if((short) self->client->ps.persistant[PERS_CREDIT] > BG_FindPriceForUpgrade(UP_LIGHTARMOUR) && 
         !BG_InventoryContainsUpgrade(UP_LIGHTARMOUR, self->client->ps.stats) && !BG_InventoryContainsUpgrade(UP_BATTLESUIT, self->client->ps.stats))
+        if (g_bot_bsuit.integer && !BG_InventoryContainsUpgrade(UP_BATTLESUIT, self->client->ps.stats))
             return qtrue;
     }
     //see if we can afford a helmet and we dont have any on currently
     if(g_humanStage.integer == S2 || g_humanStage.integer == S3) {
         if((short) self->client->ps.persistant[PERS_CREDIT] > BG_FindPriceForUpgrade(UP_HELMET) &&
-        !BG_InventoryContainsUpgrade(UP_HELMET, self->client->ps.stats) && !BG_InventoryContainsUpgrade(UP_BATTLESUIT, self->client->ps.stats))
+        !BG_InventoryContainsUpgrade(UP_HELMET, self->client->ps.stats))
+        if (g_bot_bsuit.integer && !BG_InventoryContainsUpgrade(UP_BATTLESUIT, self->client->ps.stats))
             return qtrue;
     }
+    if(g_bot_bsuit.integer)
     if(g_humanStage.integer == S3) {
         if((short) self->client->ps.persistant[PERS_CREDIT] > BG_FindPriceForUpgrade(UP_BATTLESUIT) &&
         !BG_InventoryContainsUpgrade(UP_BATTLESUIT, self->client->ps.stats))

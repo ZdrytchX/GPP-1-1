@@ -704,7 +704,7 @@ void ClientTimerActions( gentity_t *ent, int msec )
             client->ps.stats[ STAT_MISC ] = client->ps.stats[ STAT_MISC ] / 1; //No. [stat_misc]/2
 
           //can't charge backwards
-          if( ucmd->forwardmove < 0 ) //if you stop pressing forward, it will stop
+          if( ucmd->forwardmove <= 0 ) //if you stop pressing forward, it will stop
             client->ps.stats[ STAT_MISC ] = 0;
         }
         else

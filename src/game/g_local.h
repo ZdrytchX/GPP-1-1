@@ -1609,6 +1609,7 @@ extern  vmCvar_t  g_bot_ping;
 extern  vmCvar_t  g_bot_gren;
 extern  vmCvar_t  g_bot_gren_buypercent;
 extern  vmCvar_t  g_bot_gren_buildablesonlypercent;
+extern  vmCvar_t  g_bot_bsuit;
 extern  vmCvar_t  g_teamStatus;
 extern  vmCvar_t  g_teamStatusTime;
 extern  vmCvar_t  g_allowBlackInNames;
@@ -1616,6 +1617,8 @@ extern  vmCvar_t  g_minDeconLevel;
 extern  vmCvar_t  g_bot_alien_secondaryonly; //applies to those who has secondary
 extern  vmCvar_t  g_myStatstime;
 extern  vmCvar_t  g_noclip_speed;
+
+extern  vmCvar_t  g_level4_trample_buildable_percent;
 
 //Various Modes
 extern  vmCvar_t g_mode_cpm;
