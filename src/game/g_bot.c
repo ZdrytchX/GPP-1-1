@@ -1187,14 +1187,19 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
           && BG_InventoryContainsUpgrade(UP_GRENADE,self->client->ps.stats) ) //TODO: Prevent Base Nades
       {
 //if g_bot_gren_buildablesonly > 1 apply timer, with the probability between 1-10 defined by the cvar itself
-          if ((getTargetType(self->botMind->goal) != ET_BUILDABLE)
-          && (level.time % 20000 < (200 * g_bot_gren_buildablesonlypercent.integer)
-          && g_bot_gren_buildablesonlypercent.integer != 1)
-          )
+          if (
+          (
+            (getTargetType(self->botMind->goal) != ET_BUILDABLE)
+          && level.time % 20000 < (200 * g_bot_gren_buildablesonlypercent.integer)
+          || (self->client->ps.stats[ STAT_HEALTH ] < BOT_LOW_HP_NADE //health must be below this before we can do a scaredy drop
+          && !BG_InventoryContainsUpgrade(UP_MEDKIT,self->client->ps.stats)
+          && level.time % (self->client->ps.stats[ STAT_HEALTH ] * 200) < (500)) //chance of dropping a grenade based on health,
+          ) && g_bot_gren_buildablesonlypercent.integer != 1 //absolute chance of dropping if health < 3
+            )
           {
             BG_ActivateUpgrade(UP_GRENADE,self->client->ps.stats);
             if( !(self->client->pers.muted))
-            G_Say(self,NULL, SAY_TEAM, "^2GREEN^8-^1AID ^5DEPLOYED^3!!!");
+            G_Say(self,NULL, SAY_TEAM, "^2GREEN^8-^1AID ^3DEPLOYED!!!");
           }
       }
     }

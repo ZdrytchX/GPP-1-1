@@ -378,6 +378,7 @@ char *modNames[ ] =
   "MOD_LEVEL3_CLAW",
   "MOD_LEVEL3_POUNCE",
   "MOD_LEVEL3_BOUNCEBALL",
+  "MOD_LEVEL3_BOUNCEBALL_SPLASH", //custom
   "MOD_LEVEL2_CLAW",
   "MOD_LEVEL2_ZAP",
   "MOD_LEVEL4_CLAW",
@@ -1664,20 +1665,21 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
   if ( mod == MOD_TARGET_LASER ) { //Temporary useless MOD - use for nullifying the knockback
 		damage *= BLASTER_DMG_MOD;
 	}
-	
+	/*
 	if ( g_bot_teamkill.integer ) { //teamkill modifiers
   	damage *= HUMAN_TK_DMG_MOD;
   	if ( mod == MOD_TARGET_LASER || MOD_BLASTER )
+	//for some reason it multiplies for rifle and other guns as well
     	damage *= BLASTER_DMG_TK;
   	if ( mod == MOD_MDRIVER || MOD_MDRIVER_SPLASH )
   	  damage *= MDRIVER_DMG_TK;
 	}
-	
+	*/
   if ( mod == MOD_FLAMER_SPLASH ) {
 		damage *= FLAMER_DMG_MOD;
 	}
 
-  if ( mod == MOD_LEVEL3_BOUNCEBALL_SPLASH ) {
+  if ( mod == MOD_LEVEL3_BOUNCEBALL_SPLASH && targ->s.eType == ET_BUILDABLE || targ == attacker ) {
 		damage *= LEVEL3_BOUNCEBALL_SPLASH_MOD;
 	}
 

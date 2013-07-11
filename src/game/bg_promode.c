@@ -115,7 +115,7 @@ float	cpm_pm_strafeaccelerate = 70;
 float	cpm_pm_wishspeed = 30;
 //Add-Ons =)
 float pm_bunnyhopspeedcap = 1200; //(TODO: No Penalty for turning)  
-float pm_bunnyhopaccel = 0.38;    //accel = bhopaccel - bhopaccel * ([speed-320]/bhopspeedcap-320 qq)
+float pm_bunnyhopaccel = 0.08;    //accel = bhopaccel - bhopaccel * ([speed-320]/bhopspeedcap-320)
 //Moved from bg_pmove.c here
 float pm_airaccelerate = 1.0f;
 float	pm_accelerate = 10;         //Ground Acceleration        

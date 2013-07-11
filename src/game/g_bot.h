@@ -108,6 +108,8 @@ int G_BotBuyWeapon(gentity_t *ent, int weapon);
 #define BOT_LOW_HP 95 //100
 //ZdrytchX: This is used to buy medkit from the armoury
 #define BOT_LOW_LOW_HP 65
+//used to drop a nade once health reaches this low
+#define BOT_LOW_HP_NADE 35
 
 /*
 //FUMA: TODO: implement the rest of these, currently they do nothing :)

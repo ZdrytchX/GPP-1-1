@@ -1224,19 +1224,23 @@ static void PM_AirMove( void )
   	wishspeed = cpm_pm_wishspeed;	
   	accel *= cpm_pm_strafeaccelerate;
 	}
+
 	
 		//Bunnyhop Acceleration
 		//TODO: something wrong? (doesn't work anymore)
-	if (wishspeed < pm_bunnyhopspeedcap
-     && wishspeed < DotProduct(pm->ps->velocity, wishdir)
-     && DotProduct(pm->ps->velocity, wishdir) < pm_bunnyhopspeedcap)
+	if (wishspeed < pm_bunnyhopspeedcap //is bhop enabled?
+     && wishspeed <= DotProduct(pm->ps->velocity, wishdir) //are we travelling faster than wishspeed?
+     && DotProduct(pm->ps->velocity, wishdir) < pm_bunnyhopspeedcap) //Is our velocity below speed cap?
 	{
 		wishspeed = pm_bunnyhopspeedcap;	
-		accel = pm_bunnyhopaccel - (pm_bunnyhopaccel *
+		accel *= pm_bunnyhopaccel - (pm_bunnyhopaccel *
 		((DotProduct(pm->ps->velocity, wishdir) - 320)
 		/(pm_bunnyhopspeedcap - 320)));  //Accelerate at pm_bhopaccel at 320 ups,
 		                                //0 at pm_bhopspeedcap, linear relationship
 	}
+	
+	PM_Accelerate(wishdir, wishspeed, accel );
+
 
 //  }
 //	}
@@ -1250,8 +1254,6 @@ static void PM_AirMove( void )
 //  if(CPM_ON)
 //  {
 	// CPM: Air control
-	PM_Accelerate (wishdir, wishspeed, accel * BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] ) );
-	
 	  //Allow All-Around Sharp Strafes if pm_q1strafe is true
 		if ((pm->ps->movementDir == 2 || pm->ps->movementDir == 6) || pm_q1strafe == qtrue )
 	{
@@ -1365,8 +1367,8 @@ static void PM_ClimbMove( void )
   // full control, which allows them to be moved a bit
   if( ( pml.groundTrace.surfaceFlags & SURF_SLICK ) || pm->ps->pm_flags & PMF_TIME_KNOCKBACK )
       {
-//    accelerate = BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
-      PM_AirMove( );
+    accelerate = BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
+//      PM_AirMove( );
       }
   else {
     accelerate = BG_FindAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
