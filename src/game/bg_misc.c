@@ -1922,7 +1922,7 @@ classAttributes_t bg_classList[ ] =
     200.0f,                                         //float   stopSpeed;
     270.0f,                                         //float   jumpMagnitude;
     0.4f,                                           //float   knockbackScale;
-    { PCL_ALIEN_LEVEL4, PCL_HUMAN_BSUIT, PCL_NONE },       //int     children[ 3 ];
+    { PCL_ALIEN_LEVEL4, PCL_NONE, PCL_NONE },       //int     children[ 3 ];
     LEVEL3_UPG_COST,                                //int     cost;
     LEVEL3_UPG_VALUE                                //int     value;
   },
@@ -2014,7 +2014,7 @@ classAttributes_t bg_classList[ ] =
     1.0f,                                           //float   modelScale;
     "default",                                      //char    *skinname;
     1.0f,                                           //float   shadowScale;
-    "alien_general_hud",                                    //char    *hudname;
+    "human_hud",                                    //char    *hudname;
     /*( 1 << S2 )|*/( 1 << S3 ),                                    //int  stages
     /*( 1 << S2 )|*/( 1 << S3 ),                                              //int  nakedStages
     { -15, -15, -40 },                              //vec3_t  mins;

@@ -259,9 +259,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //Basi-Suit
 //disabled because this isn't Lolards, just ignore and move along...
 #define SPY_SPEED                   1.0f
-#define SPY_HEALTH                  300
+#define SPY_HEALTH                  150
 #define SPY_VALUE                   720
-#define SPY_COST                    9
+#define SPY_COST                    0 //9
 #define SPY_REGEN                   (9 + + (VAMP_ON * -6))
 
 /*

@@ -2800,17 +2800,18 @@ void Cmd_Class_f( gentity_t *ent )
       {
         other = &g_entities[ entityList[ i ] ];
 
-        if( ( other->client && other->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS ) ||
-            ( other->s.eType == ET_BUILDABLE && other->biteam == BIT_HUMANS ) )
-        {
-          humanNear = qtrue;
-          return;
-        }
         //If its the OM, then ignore all humans.
         if(other->s.eType == ET_BUILDABLE && other->s.modelindex == BA_A_OVERMIND)
         {
           humanNear = qfalse;
           break;
+        }
+
+        if( ( other->client && other->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS ) ||
+            ( other->s.eType == ET_BUILDABLE && other->biteam == BIT_HUMANS ) )
+        {
+          humanNear = qtrue;
+          return;
         }
       }
 
@@ -2877,8 +2878,8 @@ void Cmd_Class_f( gentity_t *ent )
 
           if( ent->client->pers.evolveHealthFraction < 0.0f )
             ent->client->pers.evolveHealthFraction = 0.0f;
-          else if( ent->client->pers.evolveHealthFraction > 1.5f ) //vampire remember!
-            ent->client->pers.evolveHealthFraction = 1.5f;
+          else if( ent->client->pers.evolveHealthFraction > MAX_MAX_HEALTH + 0.1f ) //vampire remember!
+            ent->client->pers.evolveHealthFraction = MAX_MAX_HEALTH + 0.1f;
 
           //remove credit
           G_AddCreditToClient( ent->client, -(short)numLevels, qtrue );
@@ -3516,7 +3517,14 @@ void Cmd_Buy_f( gentity_t *ent )
         va( "print \"You can't buy this item while crouching\n\"" ) );
       return;
     }
-
+/*
+    //zdrytchx: is bsuit allowed?
+    if (upgrade == UP_BATTLESUIT && !G_RoomForClassChange(self, self->client->ps.stats[ STAT_PCLASS ], PCL_HUMAN_BSUIT))
+    {
+      trap_SendServerCommand( ent-g_entities, va( "print \"You can't fit the battlesuit on here.\n\"" ) );
+      return;
+    }
+*/
     if( upgrade == UP_AMMO )
       G_GiveClientMaxAmmo( ent, buyingEnergyAmmo );
     else
@@ -3524,7 +3532,13 @@ void Cmd_Buy_f( gentity_t *ent )
       //add to inventory
       BG_AddUpgradeToInventory( upgrade, ent->client->ps.stats );
     }
-
+/*
+    //zdrytchx: add bsuit class
+    if (upgrade == UP_BATTLESUIT)
+    {
+      self->client->ps.stats[ STAT_PCLASS ] = PCL_HUMAN_BSUIT;
+    }
+*/
     if( upgrade == UP_BATTPACK )
       G_GiveClientMaxAmmo( ent, qtrue );
 
@@ -3658,7 +3672,13 @@ void Cmd_Sell_f( gentity_t *ent )
           BG_FindPurchasableForUpgrade( i ) )
       {
         BG_RemoveUpgradeFromInventory( i, ent->client->ps.stats );
-
+/*
+        //zdrytchx: switch back to human_base
+        if (i == UP_BATTLESUIT)
+        {
+          self->client->ps.stats[ STAT_PCLASS ] = PCL_HUMAN;
+        }
+*/
         if( i == UP_BATTPACK )
         {
           int j;

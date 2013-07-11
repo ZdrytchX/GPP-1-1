@@ -268,21 +268,30 @@ void G_BotThink( gentity_t *self) {
     if(g_bot_evolve.integer > 0 && self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS && self->client->ps.persistant[PERS_CREDIT] > 0)
         G_BotEvolve(self,&botCmdBuffer);
 
+    //use /teamstatus to inform team of base status
+    //TODO: Make it so only more bots doesn't mean more teamstatus messages
+    if( !(self->client->pers.muted) && (self->client->time10000 % (20000 + rand() % 100000) == 0) && g_teamStatus.integer)
+    Cmd_TeamStatus_f( self );
+
     //donate team funds if surplus periodically
-    if (g_allowShare.integer && self->client->time10000 % (10000 + rand() % 5000) == 0
+    if (g_allowShare.integer && self->client->time1000 % (10000 + rand() % 10000) == 0
         && !g_bot_infinite_funds.integer) //don't donate at the same time
     {
       if (self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS && self->client->ps.persistant[PERS_CREDIT] > 5)
       {
       //G_Say(self,NULL, SAY_TEAM, "/donate 3");
-      G_Say(self,NULL, SAY_TEAM, "I just donated some evos to our hivemind; don't waste them."); 
-      Cmd_Donate_f( self );//doesn't work with integer values
+      if( !(self->client->pers.muted))
+      G_Say(self,NULL, SAY_TEAM, "I just donated some evos to our hivemind; don't waste them.");
+      trap_SendServerCommand( botGetAimEntityNumber(self), va( "donate %i\n", self->client->ps.persistant[PERS_CREDIT] - 5 ) );
+      //Cmd_Donate_f( self );//expects gentity_t * type
       }
       else if (self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS && self->client->ps.persistant[PERS_CREDIT] > 1200)
       {
       //G_Say(self,NULL, SAY_TEAM, "/donate 500");
-      G_Say(self,NULL, SAY_TEAM, "I just donated some credit points for our squad. Cherish them wisely."); 
-      Cmd_Donate_f( self );
+      if( !(self->client->pers.muted))
+      G_Say(self,NULL, SAY_TEAM, "I just donated some credit points for our squad. Cherish them wisely.");
+      trap_SendServerCommand( botGetAimEntityNumber(self), va( "donate %i\n", self->client->ps.persistant[PERS_CREDIT] - 1200 ) );
+      //Cmd_Donate_f( self );
       }
     }
     //infinite funds cvar
@@ -476,10 +485,10 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
     botGetAimLocation(target, &tmpVec);
     
     if(!targetIsEntity(target))
-        botSlowAim(self, tmpVec, 0.5f, &tmpVec);
+        botSlowAim(self, tmpVec, 0.4f, &tmpVec);
     else if ( getTargetType(target) == ET_BUILDABLE )
     {
-        botSlowAim(self, tmpVec, 0.3f, &tmpVec);
+        botSlowAim(self, tmpVec, 0.5f, &tmpVec);
     }
     else
         botSlowAim(self, tmpVec, self->botMind->botSkill.aimSlowness, &tmpVec);
@@ -495,7 +504,7 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
     && self->s.weapon != WP_MASS_DRIVER )
         botShakeAim(self, &tmpVec);
         
-    else if ( self->client->time1000 % (800 * rand() ) == 0 ) //jerk the view
+    else if ( self->client->time1000 % (800 * rand() ) <= 80 ) //jerk the view
         botShakeAim(self, &tmpVec);
     }
 
@@ -696,17 +705,17 @@ void G_BotBuy(gentity_t *self, usercmd_t *botCmdBuffer) {
             }
         }
         //try to buy helmet/lightarmour //not bsuit because humans glitch //UP_BATTLESUIT - retry
-
+/*
         G_BotBuyUpgrade( self, UP_HELMET);
         G_BotBuyUpgrade( self, UP_LIGHTARMOUR);
-
+*/
 //Bsuits dont wear visual bsuits
-//        if( !G_BotBuyUpgrade( self, UP_BATTLESUIT) )//buy ordinary armour
-//	{
-//            G_BotBuyUpgrade( self, UP_HELMET);
-//            G_BotBuyUpgrade( self, UP_LIGHTARMOUR);
-//	}
-//This part causes them to buy-spam for an unknown reason
+        if( !G_BotBuyUpgrade( self, UP_BATTLESUIT) )//buy ordinary armour
+	{
+            G_BotBuyUpgrade( self, UP_HELMET);
+            G_BotBuyUpgrade( self, UP_LIGHTARMOUR);
+	}
+//obviously doesn't work
 /*
         if( BG_InventoryContainsUpgrade( UP_BATTLESUIT, self->client->ps.stats )  ) //set model
         {
@@ -714,7 +723,11 @@ void G_BotBuy(gentity_t *self, usercmd_t *botCmdBuffer) {
                                               BG_FindSkinNameForClass( PCL_HUMAN_BSUIT ) );
         }
 */
-        G_BotBuyUpgrade( self, UP_MEDKIT); //allways have a medkit stored somewhere
+        //silly little test for space
+//        if(G_RoomForClassChange(self, self->client->ps.stats[ STAT_PCLASS ], PCL_HUMAN_BSUIT))
+//        self->client->ps.stats[ STAT_PCLASS ] = PCL_HUMAN_BSUIT; //doesn't change model
+
+        G_BotBuyUpgrade( self, UP_MEDKIT); //always have a medkit stored somewhere
         
         // buy most expensive first, then one cheaper, etc, dirty but working way
         if( !G_BotBuyWeapon( self, WP_LUCIFER_CANNON ) )
@@ -744,7 +757,7 @@ void G_BotBuy(gentity_t *self, usercmd_t *botCmdBuffer) {
         {
             if ( G_BotBuyUpgrade( self, UP_GRENADE ) ) //don't say you bought a grenade unless you really did
             if( !(self->client->pers.muted))
-            G_Say(self,NULL, SAY_TEAM, "^3Bought ^2Gren^1ade");    
+            G_Say(self,NULL, SAY_TEAM, "Bought Grenade");    
         }
         self->botMind->currentModus = ROAM; //hack to prevent buy-spam
     }
@@ -1376,10 +1389,6 @@ void G_BotSpectatorThink( gentity_t *self ) {
                 G_RemoveFromSpawnQueue( sq, self->s.number );
                 G_PushSpawnQueue( sq, self->s.number );
             }
-        //use /teamstatus to inform team of base status
-        //TODO: Make it so only one bot uses teamstatus at a time
-        if( !(self->client->pers.muted) && (self->client->time1000 % (10000 + rand() % 20000) == 0))
-        Cmd_TeamStatus_f();
         }
         return;
     }
