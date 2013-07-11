@@ -105,7 +105,7 @@ int G_BotBuyWeapon(gentity_t *ent, int weapon);
 
 //when human bots reach this health or below (and no medkit/enemy) they will head back to the base to heal when in range of medi as defined by BOT_MEDI_RANGE
 //turns out this variable includes healing on the medistat itself
-#define BOT_LOW_HP 95 //100
+#define BOT_LOW_HP 97 //100
 //ZdrytchX: This is used to buy medkit from the armoury
 #define BOT_LOW_LOW_HP 65
 //used to drop a nade once health reaches this low

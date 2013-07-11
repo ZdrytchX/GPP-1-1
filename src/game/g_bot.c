@@ -267,7 +267,24 @@ void G_BotThink( gentity_t *self) {
     //try to evolve every so often (aliens only)
     if(g_bot_evolve.integer > 0 && self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS && self->client->ps.persistant[PERS_CREDIT] > 0)
         G_BotEvolve(self,&botCmdBuffer);
-    
+
+    //donate team funds if surplus periodically
+    if (g_allowShare.integer && self->client->time10000 % (10000 + rand() % 5000) == 0
+        && !g_bot_infinite_funds.integer) //don't donate at the same time
+      {
+      if (self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS && self->client->ps.persistant[PERS_CREDIT] > 5)
+      {
+      G_Say(self,NULL, SAY_TEAM, "/donate 3");
+      G_Say(self,NULL, SAY_TEAM, "/me donated 3 evos our the team"); 
+      //Cmd_Donate_f( self, 3 );//doesn't work with defined values
+      }
+      else if (self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS && self->client->ps.persistant[PERS_CREDIT] > 1200)
+      {
+      G_Say(self,NULL, SAY_TEAM, "/donate 500");
+      G_Say(self,NULL, SAY_TEAM, "/me donated 500 credits our the team"); 
+      //Cmd_Donate_f( self, 500 );
+      }
+    }
     //infinite funds cvar
     if(g_bot_infinite_funds.integer == 1)
         G_AddCreditToClient(self->client, HUMAN_MAX_CREDITS, qtrue);
@@ -487,7 +504,6 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
     //humans should not move if they are targetting, and can hit, a building
     if(botTargetInAttackRange(self, target) && getTargetType(target) == ET_BUILDABLE && self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS && getTargetTeam(target) == PTE_ALIENS ) //flamer's restrictions are somewhere else
     {
-        //BG_ActivateUpgrade(UP_GRENADE,self->client->ps.stats);
         if ( self->s.weapon != WP_PAIN_SAW )
         return;
     }
@@ -503,7 +519,7 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
         G_BotDodge(self, botCmdBuffer);
         //sprint if surplus stamina
         if (self->client->ps.stats[ STAT_STAMINA ] > 0 && self->botMind->botSkill.level > 4)
-        self->client->ps.stats[ STAT_STATE ] &= SS_SPEEDBOOST;
+        self->client->ps.stats[ STAT_STATE ] |= SS_SPEEDBOOST; //causes them to be un-grabbed
     }
     
     //this is here so we dont run out of stamina..
@@ -724,8 +740,12 @@ void G_BotBuy(gentity_t *self, usercmd_t *botCmdBuffer) {
             G_BotBuyUpgrade( self, UP_AMMO );
         }
         //buy gren
-        if (g_bot_gren.integer = 1 && level.time % 3000 < 2500 ) //fingers crossed
+        if (g_bot_gren.integer = 1 && (level.time % (30000) < (300 * g_bot_gren_buypercent.integer)) ) //fingers crossed
+        {
             G_BotBuyUpgrade( self, UP_GRENADE );
+            if( !(self->client->pers.muted))
+            G_Say(self,NULL, SAY_TEAM, "^3Bought ^2Gren^1ade");    
+        }
         self->botMind->currentModus = ROAM; //hack to prevent buy-spam
     }
 }
@@ -1042,7 +1062,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                     botCmdBuffer->buttons |= BUTTON_ATTACK2; //Attack!
                     botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
                 }
-                else
+                else if (self->client->time1000 % 3000 == 0)
                 botCmdBuffer->buttons |= BUTTON_GESTURE; //poor  grangie; taunt like you mean it!
                 break;
             case PCL_ALIEN_BUILDER0_UPG:
@@ -1052,6 +1072,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                     botCmdBuffer->buttons |= BUTTON_USE_HOLDABLE;
 
                     botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
+                if (self->client->time1000 % 3000 == 0)
                 botCmdBuffer->buttons |= BUTTON_GESTURE; //poor  grangie; taunt like you mean it!
                 break;
             case PCL_ALIEN_LEVEL0:
@@ -1061,6 +1082,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                     botCmdBuffer->upmove = -1;
                     //botCmdBuffer->buttons |= BUTTON_ATTACK; //aka do nothing
                     botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
+                if (self->client->time1000 % 5000 == 0)
                 botCmdBuffer->buttons |= BUTTON_GESTURE;
                 break;
             case PCL_ALIEN_LEVEL1:
@@ -1090,6 +1112,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                    {
 		    botCmdBuffer->forwardmove = 0;
 		    botCmdBuffer->rightmove = 0;
+		            if (self->client->time1000 % 5000 == 0)
                     botCmdBuffer->buttons |= BUTTON_GESTURE;
                    }
                 break;
@@ -1103,6 +1126,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
             case PCL_ALIEN_LEVEL2_UPG:
                 if(self->client->time1000 % 500 == 0) {
                     botCmdBuffer->upmove = 20; //jump
+                    if (self->client->time1000 % 3000 == 0)
                     botCmdBuffer->buttons |= BUTTON_GESTURE; }
                     else botCmdBuffer->upmove = 0;
                 if(distance <= Square(LEVEL2_CLAW_RANGE)*2.0) //Change this modifier to get it to miss more often
@@ -1117,16 +1141,17 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
             case PCL_ALIEN_LEVEL3:
                 if(distance > Square(LEVEL3_CLAW_RANGE + LEVEL3_CLAW_RANGE/2) && 
                     self->client->ps.stats[ STAT_MISC ] < LEVEL3_POUNCE_SPEED) {
-                    botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 5.8 - self->client->ps.delta_angles[PITCH]; //look up a bit more //*10 too high
+                    botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 5.6 - self->client->ps.delta_angles[PITCH]; //look up a bit more //*10 too high
                     botCmdBuffer->buttons |= BUTTON_ATTACK2; //pounce
                 } else {
                     botCmdBuffer->buttons |= BUTTON_ATTACK;
+                    if (self->client->time1000 % 3000 == 0)
                     botCmdBuffer->buttons |= BUTTON_GESTURE; }
                 break;
             case PCL_ALIEN_LEVEL3_UPG:
                 if(self->client->ps.ammo[WP_ALEVEL3_UPG] > 0 && 
                     distance > Square(LEVEL3_CLAW_RANGE + LEVEL3_CLAW_RANGE/2) ) {
-                    botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 5.2 - self->client->ps.delta_angles[PITCH]; //look up a bit more
+                    botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 5.6 - self->client->ps.delta_angles[PITCH]; //look up a bit more
                     botCmdBuffer->buttons |= BUTTON_USE_HOLDABLE; //barb
 		    botCmdBuffer->forwardmove = 0; //stop moving forward
 		    //botCmdBuffer->rightmove = 0;
@@ -1137,6 +1162,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                         botCmdBuffer->buttons |= BUTTON_ATTACK2; //pounce
                     }else {
                         botCmdBuffer->buttons |= BUTTON_ATTACK;
+                        if (self->client->time1000 % 3000 == 0)
                         botCmdBuffer->buttons |= BUTTON_GESTURE; }
                 }
                 break;
@@ -1145,6 +1171,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                     botCmdBuffer->buttons |= BUTTON_ATTACK2; //charge
                 else {
                     botCmdBuffer->buttons |= BUTTON_ATTACK;
+                    if (self->client->time1000 % 3000 == 0)
                     botCmdBuffer->buttons |= BUTTON_GESTURE; }
                 break;
             default: break; //nothing
@@ -1171,6 +1198,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
             if (DistanceSquared( muzzle, targetPos) > Square(LEVEL4_CLAW_RANGE * 3) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 3.5) && self->client->time1000 % 300 == 0 && g_bot_dodge_jump.integer == 1)
               {
                 botCmdBuffer->upmove = 20; //TODO: g_bot_react_jump
+                if (self->client->time1000 % 3000 == 0)
                 botCmdBuffer->buttons |= BUTTON_GESTURE;
               }
 
@@ -1348,6 +1376,10 @@ void G_BotSpectatorThink( gentity_t *self ) {
                 G_RemoveFromSpawnQueue( sq, self->s.number );
                 G_PushSpawnQueue( sq, self->s.number );
             }
+        //use /teamstatus to inform team of base status
+        //TODO: Make it so only one bot uses teamstatus at a time
+        if( !(self->client->pers.muted) && (self->client->time1000 % (20000 + rand() % 10000) == 0))
+        Cmd_TeamStatus_f();
         }
         return;
     }

@@ -269,6 +269,7 @@ vmCvar_t  g_bot_dodge_jump;
 vmCvar_t  g_bot_dodge_crouch;
 vmCvar_t  g_bot_ping;
 vmCvar_t  g_bot_gren;
+vmCvar_t  g_bot_gren_buypercent;
 vmCvar_t  g_bot_gren_buildablesonlypercent;
 vmCvar_t  g_teamStatus;
 vmCvar_t  g_teamStatusTime;
@@ -534,6 +535,7 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_bot_dodge_crouch,   "g_bot_dodge_crouch",                  "1", /*CVAR_SERVERINFO |*/  CVAR_ARCHIVE,  1, qfalse },
   { &g_bot_ping,   "g_bot_ping",                                 "50",                        CVAR_ARCHIVE,  0, qfalse },
   { &g_bot_gren,   "g_bot_gren",                                 "1",                         CVAR_ARCHIVE,  0, qfalse },
+  { &g_bot_gren_buypercent, "g_bot_gren_buypercent",             "20",                        CVAR_ARCHIVE,  0, qfalse },
   { &g_bot_gren_buildablesonlypercent, "g_bot_gren_buildablesonlypercent", "20",              CVAR_ARCHIVE, 0, qfalse },
   { &g_teamStatus, "g_teamStatus",                               "1", CVAR_ARCHIVE,                          0, qfalse },
   { &g_teamStatusTime, "g_teamStatusTime",                       "5", CVAR_ARCHIVE,                         0, qfalse },
