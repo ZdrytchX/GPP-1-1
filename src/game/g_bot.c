@@ -271,7 +271,7 @@ void G_BotThink( gentity_t *self) {
     //donate team funds if surplus periodically
     if (g_allowShare.integer && self->client->time10000 % (10000 + rand() % 5000) == 0
         && !g_bot_infinite_funds.integer) //don't donate at the same time
-      {
+    {
       if (self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS && self->client->ps.persistant[PERS_CREDIT] > 5)
       {
       //G_Say(self,NULL, SAY_TEAM, "/donate 3");
@@ -282,7 +282,7 @@ void G_BotThink( gentity_t *self) {
       {
       //G_Say(self,NULL, SAY_TEAM, "/donate 500");
       G_Say(self,NULL, SAY_TEAM, "I just donated some credit points for our squad. Cherish them wisely."); 
-     /Cmd_Donate_f( self );
+      Cmd_Donate_f( self );
       }
     }
     //infinite funds cvar
@@ -495,7 +495,7 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
     && self->s.weapon != WP_MASS_DRIVER )
         botShakeAim(self, &tmpVec);
         
-    else if ( (self->client->time1000 % (800 * rand()) == 0 ) //jerk the view
+    else if ( self->client->time1000 % (800 * rand() ) == 0 ) //jerk the view
         botShakeAim(self, &tmpVec);
     }
 
