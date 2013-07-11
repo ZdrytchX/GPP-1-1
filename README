@@ -50,14 +50,21 @@ Great thanks to Fuma for helping me with setting up a github account and helping
 See his source code @ https://github.com/cmf028/CoW-Tremulous
 FYI his version number needs to increment to 3.0. Don't get the wrong idea that i've upgraded to the new one.
 
-Also, thanks /dev/humancontroller for debugging and Volt for helping me start modding in the early days with his tutorial pack.
+Also, thanks /dev/humancontroller for debugging, Volt for helping me start modding in the early days with his tutorial pack, and Fuma for helping me occasionally when I'm in trouble.
 
 ==Bot configuration edits by me==
 -Goon pounces TO human, not ABOVE human.
 -Bot Lcannon charges 2.5s rather than original 2
--Bots now don't sit in the same spot when killing a structure
--Maras aren't so bloody overpowered
--Bots jump and crouch dodge (FUGEEEEH! They're really good!)
+-Bots now don't sit in the same spot when killing a structure when using a painsaw
+-Human Bots jump and crouch dodge (FUGEEEEH! They're really good!)
+-Alien dretches don't wallwalk permanently anymore, and jump depending on their skill level (1-2 bunnyhop 3-4 nothing 5+ both, including wallwalk)
+-Bots now are more interactive (uses /teamstatus, /donate, tells you if he drops or buys a grenade)
+-Bots' fake ping is now adjustable by g_bot_ping
+-Bots now buy and drop nades if they have enough funds to do so, with their probability defined by cvars
+-Teamkill Mode makes bots teamkill as well (g_bot_teamkill) (to be changed for g_mode_tk)
+-Bots sprint if they have enough stamina in combat, and walk to regen stamina
+-PoisonCloud (basilisk gas) disorientates human bot's aim a little, depending on their skill level
+-bots classified as AUTO (default) spawn both rifle and ckit, and for aliens, dretches and grangers (if g_bot_granger is on)
 
 GPP-1.1 Gameplay "Features":
 -Lil' Gwangie has his cutie tusks available in combat
@@ -81,16 +88,18 @@ GPP-1.1 Gameplay "Features":
 -Marazap chain count 3 -> 5 (may be overpowered)
 -Zap sustains even after victim's death unless a new victim is found or out of range
 -Zap sustains after one's death (Try getting a kill while you're dead!)
--Dretche bites 48 -> 36
+-Dretche bites 48 -> 36 (bites faster though to keep damage rate)
 -Goon barb explosians (75% damage only because it's overpowered)
 -Increased barb reload timer to 20
 -GPP shotgun (11 pellets, each doing 5 damage, where 1.1 has 14 pellets, each 4 dmg) to help againts dretches
--Bunny Hopping up stairs is now a tonne load easier
--Ramp Jumps :)
--Challenge Promode Physics
+-Auto-Bunnyhop
+-Ramp Jumps
+-Challenge ProMode Physics (and some customisation options via bg_promode.c)
 -Bunnyhop gains a bit of speed with a limit of 1000 (works somewhat similar to xonotic's and warsow's)
 -g_bot_teamkill enables teamkill mode
 -[80%]Options (currently requires recompiling) to modify pmove system to mimick certain game modes
+-Air Control varies in 3 types for aliens
+-Custom MessageOfDeaths for some causes
 -Other shit
 
 "Imported" and "Invented" Gameplay from Lolards/Misc:
@@ -102,7 +111,7 @@ GPP-1.1 Gameplay "Features":
 -Smoother flamer firing speed (10 damage per missile instead of 20, fires twice as fast, twice the ammo)
 -Chaingun has a more inaccurate secondary which splits the bullets into three, but fires a tad slower
 -Chaingun has an extra clip with a painfully long reload
--Lasgun isn't 100% accurate, although spread is little (anti camping reasons, it's the best survival weapon afterall)
+-Lasgun isn't 100% accurate, although spread is very little (anti camping reasons, it's the best survival weapon afterall)
 -Non-crappy JETPACK
 -Extreme High falls now can insta-kill all armoured humans
 -Mara zap has a "sustain" range seperate from the "initialising" range
@@ -114,6 +123,7 @@ GPP-1.1 Gameplay "Features":
 -Cvars for *some* vars
 -A short time is given where the player can attack quickly, such as the rifle can do 3-shot bursts by tapping the mouse button, this applies to all weapons, including aliens
 -Mass driver rails falls to gravity, and isn't hitscan
+-Blaster knockback has been nerfed if an event of basilisk grabbing has taken place for balance reasons
 -Other shit
 
 Irregular Features that are actually 'bugs' but plan on keeping:
@@ -131,12 +141,11 @@ Potential Side Effects/bugs from features:
 -Some clients on rare occasions can be "bot infected" (not literally, just a term where his client takes over a bot's and the bot tries to control him when he's lagging) although this bug has not been seen for over half a year
 >>>Potential Cause: Adding bots while clients connect [TODO: Refer to CoW QVM]
 -With alien's smooth regeneration system, the server MAY take more CPU (not confirmed)(A fix has been made to heal up to 4 hp per server frame)
--Bots 'crouch dance' every 1.2 seconds or so intervals when taking a walk (not in combat) (Still trying to find the cause, I can't find anything related to when I initiated the bot crouch/jump combat dance)
 
 TODO list:
 -[35%]Find out how to get cvars to access pmove and related files (bunnyhop, rampjump option, knockback cvars etc.)
 -define player positions for advance bot aiming -> add mdriver aiming ahead
--[1%]Upgrade to "new" CoW bots system
+-[1%]Upgrade to "new" CoW bots navigation system, and add "aiming ahead" capabilities
 -[Unknown Status]Fix the bot's 'rythmetic crouch dance' when walking (not in combat)
 -Fix missing flag for buying/selling with bots -> is armoury spawned? (built)
 -Fix Shotgun + Battpack 12-clip load (Lolards application somewhere...)
@@ -144,17 +153,19 @@ TODO list:
 -Disallow !revert-ing hovels, they make grangers disappear and stuck in a non-existant hovel
 -Adminlogs, server owners can find out who over-uses admin powers (which I don't like)
 -/hurtme command (similar to tf2's actually)
--Add lag compensation for projectiles
--[100% - Not Tested]fix taunting while dead bug
+-Add lag compensation for projectiles (needed for mass driver especially, only GPP and TremFusion/KoRx has this code)
+-fix taunting while dead bug (easy fix, say if health < 1 don't taunt)
 -Find a non-hacky way of fixing marauder's occasional "walljump" on the ground without removing walljump repeat rate
 -Balance out the marauder's wallclimb without putting a hard limit on speeds
 -Fix teamkill mode's 'earning credits' for teamkills along with staging up
 -Replace g_bot_teamkill with g_mode_teamkill or something like that
--[20%]Add pmove cvars (g_mode_cpm, g_mode_cpm_aircontrol, g_mode_bunnyhop, g_mode_autojump etc.)
+-Add pmove cvars (g_mode_cpm, g_mode_cpm_aircontrol, g_mode_bunnyhop, g_mode_autojump etc.)
 -Replace g_mode_cpm with g_mode_physics
 -Fix TF2's "Anti Circle Strafe' fix (currently doesn't apply the speed change once, rather it makes you either fly or stop completely)
 -Fix g_mode_cpm callvote
--Find the cause for bhop accel disabled
+-Fix Bunnyhop Acceleration (unknown cause at the moment, it used to work)
+-Solid slick somewhat doubles your speed momentarily, caused by CPM physics
+-Use stamina level to determine cmdscale/jump magnitude withuot bugging out
 
 Wishlist (I currently have no knowledge how to add these):
 -Add a g_mode_race, refering to bob's oc mod
