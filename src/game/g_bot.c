@@ -274,15 +274,15 @@ void G_BotThink( gentity_t *self) {
       {
       if (self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS && self->client->ps.persistant[PERS_CREDIT] > 5)
       {
-      G_Say(self,NULL, SAY_TEAM, "/donate 3");
-      G_Say(self,NULL, SAY_TEAM, "/me donated 3 evos our the team"); 
-      //Cmd_Donate_f( self, 3 );//doesn't work with defined values
+      //G_Say(self,NULL, SAY_TEAM, "/donate 3");
+      G_Say(self,NULL, SAY_TEAM, "I just donated some evos to our hivemind; don't waste them."); 
+      Cmd_Donate_f( self );//doesn't work with integer values
       }
       else if (self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS && self->client->ps.persistant[PERS_CREDIT] > 1200)
       {
-      G_Say(self,NULL, SAY_TEAM, "/donate 500");
-      G_Say(self,NULL, SAY_TEAM, "/me donated 500 credits our the team"); 
-      //Cmd_Donate_f( self, 500 );
+      //G_Say(self,NULL, SAY_TEAM, "/donate 500");
+      G_Say(self,NULL, SAY_TEAM, "I just donated some credit points for our squad. Cherish them wisely."); 
+     /Cmd_Donate_f( self );
       }
     }
     //infinite funds cvar
@@ -495,7 +495,7 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
     && self->s.weapon != WP_MASS_DRIVER )
         botShakeAim(self, &tmpVec);
         
-    else if ( (self->client->time1000 % 500) >= 250 )
+    else if ( (self->client->time1000 % (800 * rand()) == 0 ) //jerk the view
         botShakeAim(self, &tmpVec);
     }
 
