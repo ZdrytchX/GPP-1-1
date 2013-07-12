@@ -790,16 +790,16 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
         if(buildingIndex == ENTITYNUM_NONE) {
             buildingIndex = botFindBuilding(self, BA_A_SPAWN, -1);
         }
-        teamRush = (level.time % 300000 < 50000) ? qtrue : qfalse;        
+        teamRush = (level.time % 300000 < 150000) ? qtrue : qfalse; //changing these effect the bot's ability to attack other players?      
         if (level.time % 300000 < 50000 && self->client->time10000 % (rand() % 150000) == 0 //150 seconds because if there's only one or two teammates it's pointless
         && !(self->client->pers.muted))
         G_Say(self,NULL, SAY_TEAM, "Rush their colonies!");
-    } else {
+    } else if (self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS){
         buildingIndex = botFindBuilding(self, BA_H_REACTOR, -1);
         if(buildingIndex == ENTITYNUM_NONE) {
             buildingIndex = botFindBuilding(self, BA_H_SPAWN, -1);
         }
-        teamRush = (level.time % 300000 > 250000) ? qtrue : qfalse;
+        teamRush = (level.time % 300000 > 150000) ? qtrue : qfalse;
         if (level.time % 300000 > 250000 && self->client->time10000 % (rand() % 150000) == 0
         && !(self->client->pers.muted))
         G_Say(self,NULL, SAY_TEAM, "CHAAAARGE!!!");
@@ -812,15 +812,21 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
             if (self->client->time1000 % (5000 + rand() % 15000) == 0
                 && !(self->client->pers.muted))
             {
-            //Tell your teammates what you're attacking. Remember the structure isn't known to be dead, so no MessagesOfDeath here.
+            //Tell your teammates what you're attacking. Remember the structure isn't known to be dead.
+            if (self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS)
+              {
               if(buildingIndex = botFindBuilding(self, BA_A_SPAWN, -1))
               G_Say(self,NULL, SAY_TEAM, "Not to be stating the obvious, but there's an eggpod here guys, and I'm going in for it.");
               if(buildingIndex = botFindBuilding(self, BA_A_OVERMIND, -1))
               G_Say(self,NULL, SAY_TEAM, "I'm shooting the overmind here guys, mind if you helped? I'll share the funds with you peeps when we're done.");
+              }
+            if (self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS)
+              {
               if(buildingIndex = botFindBuilding(self, BA_H_SPAWN, -1))
               G_Say(self,NULL, SAY_TEAM, "T'node's open wide! I'm going for it.");
               if(buildingIndex = botFindBuilding(self, BA_H_REACTOR, -1))
               G_Say(self,NULL, SAY_TEAM, "Heh guys, I tell you what: The RC's pretty much standin' there naked to us - why not take a few shots at it?");
+              }
             }
         }
         else
