@@ -207,13 +207,13 @@ vmCvar_t g_bot_luci;
 
 // bot evolution cvars
 vmCvar_t g_bot_evolve;
-vmCvar_t g_bot_basi;
-vmCvar_t g_bot_advbasi;
-vmCvar_t g_bot_mara;
-vmCvar_t g_bot_advmara;
-vmCvar_t g_bot_goon;
-vmCvar_t g_bot_advgoon;
-vmCvar_t g_bot_tyrant;
+vmCvar_t g_bot_level1;
+vmCvar_t g_bot_level1upg;
+vmCvar_t g_bot_level2;
+vmCvar_t g_bot_level2upg;
+vmCvar_t g_bot_level3;
+vmCvar_t g_bot_level3upg;
+vmCvar_t g_bot_level4;
 
 // misc bot cvars
 vmCvar_t g_bot_attackStruct;
@@ -471,13 +471,13 @@ static cvarTable_t   gameCvarTable[ ] =
   
   // bot evolution cvars
   { &g_bot_evolve, "g_bot_evolve", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
-  { &g_bot_basi, "g_bot_basi", "0", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
-  { &g_bot_advbasi, "g_bot_advbasi", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
-  { &g_bot_mara, "g_bot_mara", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
-  { &g_bot_advmara, "g_bot_advmara", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
-  { &g_bot_goon, "g_bot_goon", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
-  { &g_bot_advgoon, "g_bot_advgoon", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
-  { &g_bot_tyrant, "g_bot_tyrant", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
+  { &g_bot_level1, "g_bot_level1", "0", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
+  { &g_bot_level1upg, "g_bot_level1upg", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
+  { &g_bot_level2, "g_bot_level2", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
+  { &g_bot_level2upg, "g_bot_level2upg", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
+  { &g_bot_level3, "g_bot_level3", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
+  { &g_bot_level3upg, "g_bot_level3upg", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
+  { &g_bot_level4, "g_bot_level4", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
   
   // misc bot cvars
   { &g_bot_attackStruct, "g_bot_attackStruct", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
@@ -1937,35 +1937,35 @@ void G_CalculateWaves( void ) {
                         trap_Cvar_Set("g_bot_dretch","1");
                         
                         break;
-                case 2: trap_Cvar_Set("g_bot_basi","1");
+                case 2: trap_Cvar_Set("g_bot_level1","1");
                         trap_Cvar_Set("g_bot_rifle","1");
                         trap_SendConsoleCommand( EXEC_APPEND, va("!cp %s\n", "Wave ^32"));
                         break;
                 case 3:
-                        trap_Cvar_Set("g_bot_advbasi","1");
+                        trap_Cvar_Set("g_bot_level1upg","1");
                         trap_Cvar_Set("g_bot_las","1");
                         trap_SendConsoleCommand( EXEC_APPEND, va("!cp %s\n", "Wave ^33"));
                         break;
                 case 4:
-                        trap_Cvar_Set("g_bot_mara","1");
+                        trap_Cvar_Set("g_bot_level2","1");
                         trap_Cvar_Set("g_bot_mass","1");
                         trap_SendConsoleCommand( EXEC_APPEND, va("!cp %s\n", "Wave ^34"));
                         break;
                 case 5:
-                        trap_Cvar_Set("g_bot_advmara","1");
+                        trap_Cvar_Set("g_bot_level2upg","1");
                         trap_Cvar_Set("g_bot_chain","1");
                         trap_SendConsoleCommand( EXEC_APPEND, va("!cp %s\n", "Wave ^35"));
                         break;
                 case 6:
-                        trap_Cvar_Set("g_bot_goon","1");
+                        trap_Cvar_Set("g_bot_level3","1");
                         trap_Cvar_Set("g_bot_pulse","1");
                         trap_SendConsoleCommand( EXEC_APPEND, va("!cp %s\n", "Wave ^36"));
                         break;
-                case 7: trap_Cvar_Set("g_bot_advgoon","1");
+                case 7: trap_Cvar_Set("g_bot_level3upg","1");
                         trap_Cvar_Set("g_bot_flamer","1");
                         trap_SendConsoleCommand( EXEC_APPEND, va("!cp %s\n", "Wave ^37"));
                         break;
-                case 8: trap_Cvar_Set("g_bot_tyrant","1");
+                case 8: trap_Cvar_Set("g_bot_level4","1");
                         trap_Cvar_Set("g_bot_luci","1");
                         trap_SendConsoleCommand( EXEC_APPEND, va("!cp %s\n", "Wave ^38"));
                         break;

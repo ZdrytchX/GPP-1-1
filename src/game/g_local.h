@@ -1544,13 +1544,13 @@ extern vmCvar_t g_bot_luci;
 
 // bot evolution cvars
 extern vmCvar_t g_bot_evolve;
-extern vmCvar_t g_bot_basi;
-extern vmCvar_t g_bot_advbasi;
-extern vmCvar_t g_bot_mara;
-extern vmCvar_t g_bot_advmara;
-extern vmCvar_t g_bot_goon;
-extern vmCvar_t g_bot_advgoon;
-extern vmCvar_t g_bot_tyrant;
+extern vmCvar_t g_bot_level1;
+extern vmCvar_t g_bot_level1upg;
+extern vmCvar_t g_bot_level2;
+extern vmCvar_t g_bot_level2upg;
+extern vmCvar_t g_bot_level3;
+extern vmCvar_t g_bot_level3upg;
+extern vmCvar_t g_bot_level4;
 
 //misc bot cvars
 extern vmCvar_t g_bot_attackStruct;

@@ -190,6 +190,7 @@ int botFindDamagedFriendlyStructure( gentity_t *self )
             return entityList[i];
         }
     }
+    //TODO: Continue healing until 100% health
     return ENTITYNUM_NONE;
 }
 qboolean botStructureIsDamaged(int team)
@@ -215,6 +216,7 @@ qboolean botStructureIsDamaged(int team)
             return qtrue;
         }
     }
+    //TODO: Continue healing until 100% health
     return qfalse;
 }
 

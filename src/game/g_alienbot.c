@@ -52,32 +52,32 @@ int G_BotEvolveToClass( gentity_t *ent, char *classname, usercmd_t *botCmdBuffer
     
     switch(newClass){
         case PCL_ALIEN_LEVEL1:
-            if(g_bot_basi.integer == 0)
+            if(g_bot_level1.integer == 0)
                 return 0;
             break;
         case PCL_ALIEN_LEVEL1_UPG:
         case PCL_HUMAN_BSUIT:
-            if(g_bot_advbasi.integer == 0)
+            if(g_bot_level1upg.integer == 0)
                 return 0;
             break;
         case PCL_ALIEN_LEVEL2:
-            if(g_bot_mara.integer == 0)
+            if(g_bot_level2.integer == 0)
                 return 0;
             break;
         case PCL_ALIEN_LEVEL2_UPG:
-            if(g_bot_advmara.integer == 0)
+            if(g_bot_level2upg.integer == 0)
                 return 0;
             break;
         case PCL_ALIEN_LEVEL3:
-            if(g_bot_goon.integer == 0)
+            if(g_bot_level3.integer == 0)
                 return 0;
             break;
         case PCL_ALIEN_LEVEL3_UPG:
-            if(g_bot_goon.integer == 0)
+            if(g_bot_level3upg.integer == 0)
                 return 0;
             break;
         case PCL_ALIEN_LEVEL4:
-            if(g_bot_tyrant.integer == 0)
+            if(g_bot_level4.integer == 0)
                 return 0;
             break;
         default:

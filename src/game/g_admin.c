@@ -3164,13 +3164,13 @@ qboolean G_admin_botcfg(gentity_t *ent, int skiparg) {
         trap_FS_Write( va("g_bot_luci %d\n",g_bot_luci.integer ? 1:0), 13, f );
         
         trap_FS_Write( va("g_bot_evolve %d\n",g_bot_evolve.integer ? 1:0), 15, f );
-        trap_FS_Write( va("g_bot_basi %d\n",g_bot_basi.integer ? 1:0), 13, f );
-        trap_FS_Write( va("g_bot_advbasi %d\n",g_bot_advbasi.integer ? 1:0), 16, f );
-        trap_FS_Write( va("g_bot_mara %d\n",g_bot_mara.integer ? 1:0), 13, f );
-        trap_FS_Write( va("g_bot_advmara %d\n",g_bot_advmara.integer ? 1:0), 16, f );
-        trap_FS_Write( va("g_bot_goon %d\n",g_bot_goon.integer ? 1:0), 13, f );
-        trap_FS_Write( va("g_bot_advgoon %d\n",g_bot_advgoon.integer ? 1:0), 16, f );
-        trap_FS_Write( va("g_bot_tyrant %d\n",g_bot_tyrant.integer ? 1:0), 15, f );
+        trap_FS_Write( va("g_bot_level1 %d\n",g_bot_level1.integer ? 1:0), 13, f );
+        trap_FS_Write( va("g_bot_level1upg %d\n",g_bot_level1upg.integer ? 1:0), 16, f );
+        trap_FS_Write( va("g_bot_level2 %d\n",g_bot_level2.integer ? 1:0), 13, f );
+        trap_FS_Write( va("g_bot_level2upg %d\n",g_bot_level2upg.integer ? 1:0), 16, f );
+        trap_FS_Write( va("g_bot_level3 %d\n",g_bot_level3.integer ? 1:0), 13, f );
+        trap_FS_Write( va("g_bot_level3upg %d\n",g_bot_level3upg.integer ? 1:0), 16, f );
+        trap_FS_Write( va("g_bot_level4 %d\n",g_bot_level4.integer ? 1:0), 15, f );
         
         trap_FS_Write( va("g_bot_attackStruct %d\n",g_bot_attackStruct.integer ? 1:0), 21, f );
         trap_FS_Write( va("g_bot_roam %d\n",g_bot_roam.integer ? 1:0), 13, f );

@@ -1445,10 +1445,10 @@ void G_BotSpectatorThink( gentity_t *self ) {
             self->client->pers.classSelection = PCL_ALIEN_LEVEL0;
             self->client->ps.stats[STAT_PCLASS] = PCL_ALIEN_LEVEL0;
             //don't always spawn granger
-          if (g_bot_granger.integer == 1 && g_alienStage.integer == 0 && (self->client->time10000 % 1000) > 500)//kharn0v's heaven!
+          if (g_bot_granger.integer == 1 && g_alienStage.integer == 0 && (self->client->time10000 % 1000) > rand() % 500)//kharn0v's heaven!
             self->client->pers.classSelection = PCL_ALIEN_BUILDER0;
             self->client->ps.stats[STAT_PCLASS] = PCL_ALIEN_BUILDER0;
-          if (g_bot_granger.integer == 1 && g_alienStage.integer > 0 && (self->client->time10000 % 1000) > 500) //Go adv!
+          if (g_bot_granger.integer == 1 && g_alienStage.integer > 0 && (self->client->time10000 % 1000) > rand() % 500) //Go adv!
             self->client->pers.classSelection = PCL_ALIEN_BUILDER0_UPG;
             self->client->ps.stats[STAT_PCLASS] = PCL_ALIEN_BUILDER0_UPG;
 
@@ -1672,11 +1672,13 @@ int botFindClosestEnemy( gentity_t *self, qboolean includeTeam ) {
                         minDistance = newDistance;
                         closestTarget = entityList[i];
                     }
-                    if( target->client->ps.stats[STAT_PTEAM] == self->client->ps.stats[STAT_PTEAM] && g_bot_teamkill.integer == 1 ) {
+                    if( target->client->ps.stats[STAT_PTEAM] == self->client->ps.stats[STAT_PTEAM]
+                    && g_bot_teamkill.integer == 1 )
+                    {
                         //store the new distance and the index of the enemy
                         minDistance = newDistance;
                         closestTarget = entityList[i];
-		    }
+		                }
                 }
             }
         }
