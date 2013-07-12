@@ -3156,12 +3156,12 @@ qboolean G_admin_botcfg(gentity_t *ent, int skiparg) {
         trap_FS_Write( va("g_bot_psaw %d\n",g_bot_psaw.integer ? 1:0), 13, f );
         trap_FS_Write( va("g_bot_rifle %d\n",g_bot_rifle.integer ? 1:0), 14, f );
         trap_FS_Write( va("g_bot_shotgun %d\n",g_bot_shotgun.integer ? 1:0), 16, f );
-        trap_FS_Write( va("g_bot_las %d\n",g_bot_las.integer ? 1:0), 12, f );
-        trap_FS_Write( va("g_bot_mass %d\n",g_bot_mass.integer ? 1:0), 13, f );
-        trap_FS_Write( va("g_bot_chain %d\n",g_bot_chain.integer ? 1:0), 14, f );
-        trap_FS_Write( va("g_bot_pulse %d\n",g_bot_pulse.integer ? 1:0), 14, f );
+        trap_FS_Write( va("g_bot_lgun %d\n",g_bot_lgun.integer ? 1:0), 12, f );
+        trap_FS_Write( va("g_bot_mdriver %d\n",g_bot_mdriver.integer ? 1:0), 13, f );
+        trap_FS_Write( va("g_bot_chaingun %d\n",g_bot_chaingun.integer ? 1:0), 14, f );
+        trap_FS_Write( va("g_bot_prifle %d\n",g_bot_prifle.integer ? 1:0), 14, f );
         trap_FS_Write( va("g_bot_flamer %d\n",g_bot_flamer.integer ? 1:0), 15, f );
-        trap_FS_Write( va("g_bot_luci %d\n",g_bot_luci.integer ? 1:0), 13, f );
+        trap_FS_Write( va("g_bot_lcannon %d\n",g_bot_lcannon.integer ? 1:0), 13, f );
         
         trap_FS_Write( va("g_bot_evolve %d\n",g_bot_evolve.integer ? 1:0), 15, f );
         trap_FS_Write( va("g_bot_level1 %d\n",g_bot_level1.integer ? 1:0), 13, f );
@@ -3269,19 +3269,19 @@ qboolean G_admin_botset(gentity_t* ent, int skiparg) {
             if(!Q_stricmp(realValue, "1"))
                 trap_Cvar_Set("g_bot_buy", "1");
         } else if(!Q_stricmp(attribute,"las")) {
-            trap_Cvar_Set("g_bot_las",realValue);
+            trap_Cvar_Set("g_bot_lgun",realValue);
             if(!Q_stricmp(realValue, "1"))
                 trap_Cvar_Set("g_bot_buy", "1");
         } else if(!Q_stricmp(attribute,"massd")) {
-            trap_Cvar_Set("g_bot_mass",realValue);
+            trap_Cvar_Set("g_bot_mdriver",realValue);
             if(!Q_stricmp(realValue, "1"))
                 trap_Cvar_Set("g_bot_buy", "1");
         } else if(!Q_stricmp(attribute,"chain")) {
-            trap_Cvar_Set("g_bot_chain",realValue);
+            trap_Cvar_Set("g_bot_chaingun",realValue);
             if(!Q_stricmp(realValue, "1"))
                 trap_Cvar_Set("g_bot_buy", "1");
         } else if(!Q_stricmp(attribute, "pulse")) {
-            trap_Cvar_Set("g_bot_pulse",realValue);
+            trap_Cvar_Set("g_bot_prifle",realValue);
             if(!Q_stricmp(realValue, "1"))
                 trap_Cvar_Set("g_bot_buy", "1");
         } else if(!Q_stricmp(attribute,"flamer")) {
@@ -3289,19 +3289,19 @@ qboolean G_admin_botset(gentity_t* ent, int skiparg) {
             if(!Q_stricmp(realValue, "1"))
                 trap_Cvar_Set("g_bot_buy", "1");
         } else if(!Q_stricmp(attribute,"luci")) {
-            trap_Cvar_Set("g_bot_luci",realValue);
+            trap_Cvar_Set("g_bot_lcannon",realValue);
             if(!Q_stricmp(realValue, "1"))
                 trap_Cvar_Set("g_bot_buy", "1");
         } else if(!Q_stricmp(attribute, "all")) {
             trap_Cvar_Set("g_bot_rifle",realValue);
             trap_Cvar_Set("g_bot_psaw", realValue);
             trap_Cvar_Set("g_bot_shotgun",realValue);
-            trap_Cvar_Set("g_bot_las",realValue);
-            trap_Cvar_Set("g_bot_mass",realValue);
-            trap_Cvar_Set("g_bot_chain",realValue);
-            trap_Cvar_Set("g_bot_pulse",realValue);
+            trap_Cvar_Set("g_bot_lgun",realValue);
+            trap_Cvar_Set("g_bot_mdriver",realValue);
+            trap_Cvar_Set("g_bot_chaingun",realValue);
+            trap_Cvar_Set("g_bot_prifle",realValue);
             trap_Cvar_Set("g_bot_flamer",realValue);
-            trap_Cvar_Set("g_bot_luci",realValue);
+            trap_Cvar_Set("g_bot_lcannon",realValue);
             trap_Cvar_Set("g_bot_buy", realValue);
         } else {
             ADMP( "^3!botset: ^7usage: !botset [class] [attribute] [enable/disable]\n" );

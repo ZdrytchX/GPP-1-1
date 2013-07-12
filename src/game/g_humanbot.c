@@ -102,19 +102,19 @@ int G_BotBuyWeapon ( gentity_t *ent, int weapon )
             break;
         case WP_LAS_GUN:
         case WP_LOCKBLOB_LAUNCHER:
-            if(g_bot_las.integer == 0)
+            if(g_bot_lgun.integer == 0)
                 return 0;
             break;
         case WP_MASS_DRIVER:
-            if(g_bot_mass.integer == 0)
+            if(g_bot_mdriver.integer == 0)
                 return 0;
             break;
         case WP_CHAINGUN:
-            if(g_bot_chain.integer == 0)
+            if(g_bot_chaingun.integer == 0)
                 return 0;
             break;
         case WP_PULSE_RIFLE:
-            if(g_bot_pulse.integer == 0)
+            if(g_bot_prifle.integer == 0)
                 return 0;
             break;
         case WP_FLAMER:
@@ -122,7 +122,7 @@ int G_BotBuyWeapon ( gentity_t *ent, int weapon )
                 return 0;
             break;
         case WP_LUCIFER_CANNON:
-            if(g_bot_luci.integer == 0)
+            if(g_bot_lcannon.integer == 0)
                 return 0;
             break;
         default: break;

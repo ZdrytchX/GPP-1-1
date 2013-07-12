@@ -198,12 +198,12 @@ vmCvar_t g_bot_buy;
 vmCvar_t g_bot_rifle;
 vmCvar_t g_bot_psaw;
 vmCvar_t g_bot_shotgun;
-vmCvar_t g_bot_las;
-vmCvar_t g_bot_mass;
-vmCvar_t g_bot_chain;
-vmCvar_t g_bot_pulse;
+vmCvar_t g_bot_lgun;
+vmCvar_t g_bot_mdriver;
+vmCvar_t g_bot_chaingun;
+vmCvar_t g_bot_prifle;
 vmCvar_t g_bot_flamer;
-vmCvar_t g_bot_luci;
+vmCvar_t g_bot_lcannon;
 
 // bot evolution cvars
 vmCvar_t g_bot_evolve;
@@ -462,12 +462,12 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_bot_rifle, "g_bot_rifle", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
   { &g_bot_psaw, "g_bot_psaw", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
   { &g_bot_shotgun, "g_bot_shotgun", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
-  { &g_bot_las, "g_bot_las", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
-  { &g_bot_mass, "g_bot_mass", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
-  { &g_bot_chain, "g_bot_chain", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
-  { &g_bot_pulse, "g_bot_pulse", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
+  { &g_bot_lgun, "g_bot_lgun", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
+  { &g_bot_mdriver, "g_bot_mdriver", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
+  { &g_bot_chaingun, "g_bot_chaingun", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
+  { &g_bot_prifle, "g_bot_prifle", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
   { &g_bot_flamer, "g_bot_flamer", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
-  { &g_bot_luci, "g_bot_luci", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
+  { &g_bot_lcannon, "g_bot_lcannon", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
   
   // bot evolution cvars
   { &g_bot_evolve, "g_bot_evolve", "1", CVAR_ARCHIVE | CVAR_NORESTART, 0, qfalse },
@@ -1943,22 +1943,22 @@ void G_CalculateWaves( void ) {
                         break;
                 case 3:
                         trap_Cvar_Set("g_bot_level1upg","1");
-                        trap_Cvar_Set("g_bot_las","1");
+                        trap_Cvar_Set("g_bot_lgun","1");
                         trap_SendConsoleCommand( EXEC_APPEND, va("!cp %s\n", "Wave ^33"));
                         break;
                 case 4:
                         trap_Cvar_Set("g_bot_level2","1");
-                        trap_Cvar_Set("g_bot_mass","1");
+                        trap_Cvar_Set("g_bot_mdriver","1");
                         trap_SendConsoleCommand( EXEC_APPEND, va("!cp %s\n", "Wave ^34"));
                         break;
                 case 5:
                         trap_Cvar_Set("g_bot_level2upg","1");
-                        trap_Cvar_Set("g_bot_chain","1");
+                        trap_Cvar_Set("g_bot_chaingun","1");
                         trap_SendConsoleCommand( EXEC_APPEND, va("!cp %s\n", "Wave ^35"));
                         break;
                 case 6:
                         trap_Cvar_Set("g_bot_level3","1");
-                        trap_Cvar_Set("g_bot_pulse","1");
+                        trap_Cvar_Set("g_bot_prifle","1");
                         trap_SendConsoleCommand( EXEC_APPEND, va("!cp %s\n", "Wave ^36"));
                         break;
                 case 7: trap_Cvar_Set("g_bot_level3upg","1");
@@ -1966,7 +1966,7 @@ void G_CalculateWaves( void ) {
                         trap_SendConsoleCommand( EXEC_APPEND, va("!cp %s\n", "Wave ^37"));
                         break;
                 case 8: trap_Cvar_Set("g_bot_level4","1");
-                        trap_Cvar_Set("g_bot_luci","1");
+                        trap_Cvar_Set("g_bot_lcannon","1");
                         trap_SendConsoleCommand( EXEC_APPEND, va("!cp %s\n", "Wave ^38"));
                         break;
             }

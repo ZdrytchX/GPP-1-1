@@ -1535,12 +1535,12 @@ extern vmCvar_t g_bot_buy;
 extern vmCvar_t g_bot_rifle;
 extern vmCvar_t g_bot_psaw;
 extern vmCvar_t g_bot_shotgun;
-extern vmCvar_t g_bot_las;
-extern vmCvar_t g_bot_mass;
-extern vmCvar_t g_bot_chain;
-extern vmCvar_t g_bot_pulse;
+extern vmCvar_t g_bot_lgun;
+extern vmCvar_t g_bot_mdriver;
+extern vmCvar_t g_bot_chaingun;
+extern vmCvar_t g_bot_prifle;
 extern vmCvar_t g_bot_flamer;
-extern vmCvar_t g_bot_luci;
+extern vmCvar_t g_bot_lcannon;
 
 // bot evolution cvars
 extern vmCvar_t g_bot_evolve;
