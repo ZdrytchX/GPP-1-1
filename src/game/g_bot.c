@@ -1262,7 +1262,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
         if(self->client->ps.weapon == WP_FLAMER)
         {
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
-            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % (rand() * 300) <= 300 && g_bot_dodge_jump.integer == 1)
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % (rand() * 3000) <= 300 && g_bot_dodge_jump.integer == 1)
                 botCmdBuffer->upmove = 20; //only jump when too close
 
         } else if( self->client->ps.weapon == WP_LUCIFER_CANNON ) {
@@ -1276,17 +1276,17 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
 
         } else //all other guns
             {
-            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL4_CLAW_RANGE * 3) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 3.5) && self->client->time1000 % (rand() * 500) == 0 && g_bot_dodge_jump.integer == 1)
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL4_CLAW_RANGE * 3) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 3.5) && self->client->time1000 % 1500 <= 500 && g_bot_dodge_jump.integer == 1)
               {
                 botCmdBuffer->upmove = 20; //TODO: g_bot_react_jump
                 if (self->client->time1000 % 3000 == 0)
                 botCmdBuffer->buttons |= BUTTON_GESTURE;
               }
 
-            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE * 2) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 2) && self->client->time1000 % (rand() * 600) <= 300 && g_bot_dodge_crouch.integer == 1)
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE * 2) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 2) && self->client->time1000 % 600 <= 300 && g_bot_dodge_crouch.integer == 1)
                 botCmdBuffer->upmove = -1;
 
-            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % (rand() * 3500) == 0 && g_bot_dodge_jump.integer == 1)
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % 3500 <= 1000 && g_bot_dodge_jump.integer == 1)
                 botCmdBuffer->upmove = 20;
 
             botCmdBuffer->buttons |= BUTTON_ATTACK; //just fire the damn gun!
