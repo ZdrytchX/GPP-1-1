@@ -244,6 +244,8 @@ qboolean botPathIsBlocked(gentity_t *self) {
         else
             blockerTeam = PTE_NONE;
     }
+    else //shut the compiler up
+            blockerTeam = PTE_NONE;
     if( trace.fraction == 1.0f || trace.entityNum == ENTITYNUM_WORLD || blockerTeam != self->client->ps.stats[STAT_PTEAM] )//hitting nothing? (world doesnt count)
             return qfalse;
     else
@@ -743,8 +745,7 @@ void G_BotBuy(gentity_t *self, usercmd_t *botCmdBuffer) {
                                     if( !G_BotBuyWeapon( self, WP_PAIN_SAW ) )
                                         G_BotBuyWeapon( self, WP_MACHINEGUN );
                               } //probability x:y ripped from evolution code
-                         }
-                                    
+                         }      
         //buy ammo/batpack
         if( BG_FindUsesEnergyForWeapon( self->client->ps.weapon ) && !BG_InventoryContainsUpgrade( UP_BATTLESUIT, self->client->ps.stats )) { //TODO: add check for bsuit
             G_BotBuyUpgrade( self, UP_BATTPACK );
@@ -804,6 +805,9 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
         && !(self->client->pers.muted))
         G_Say(self,NULL, SAY_TEAM, "CHAAAARGE!!!");
     }
+    else //shut the compiler up
+    buildingIndex = ENTITYNUM_NONE;
+
     if(buildingIndex != ENTITYNUM_NONE && teamRush ) {
         if(buildingIndex != getTargetEntityNumber(self->botMind->goal))
         {
@@ -1260,10 +1264,10 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
 //if g_bot_gren_buildablesonly > 1 apply timer, with the probability between 1-10 defined by the cvar itself
           if (
           (
-            (getTargetType(self->botMind->goal) != ET_BUILDABLE)
-          && (level.time % (20000 + rand() * 20000) < (200 * g_bot_gren_buildablesonlypercent.integer))
+            ((getTargetType(self->botMind->goal) != ET_BUILDABLE)
+          && (level.time % (20000 + rand() * 20000) < (200 * g_bot_gren_buildablesonlypercent.integer)))
           || (self->client->ps.stats[ STAT_HEALTH ] < BOT_LOW_HP_NADE //health must be below this before we can do a scaredy drop
-          && !BG_InventoryContainsUpgrade(UP_MEDKIT,self->client->ps.stats)
+          && (!BG_InventoryContainsUpgrade(UP_MEDKIT,self->client->ps.stats))
           && (level.time % (self->client->ps.stats[ STAT_HEALTH ] * 200 * rand()) < (500))) //chance of dropping a grenade based on health,
           ) && (g_bot_gren_buildablesonlypercent.integer != 1) //absolute chance of dropping if health < 3
             )
