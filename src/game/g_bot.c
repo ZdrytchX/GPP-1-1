@@ -281,18 +281,16 @@ void G_BotThink( gentity_t *self) {
     {
       if (self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS && self->client->ps.persistant[PERS_CREDIT] > 5)
       {
-      //G_Say(self,NULL, SAY_TEAM, "/donate 3");
       if( !(self->client->pers.muted))
-      G_Say(self,NULL, SAY_TEAM, "I just donated some evos to our hivemind; don't waste them.");
-      trap_SendServerCommand( botGetAimEntityNumber(self), va( "donate %i\n", self->client->ps.persistant[PERS_CREDIT] - 5 ) );
+      G_Say(self,NULL, SAY_TEAM, "I just donated some evos to our hivemind; cherish them wisely.");
+      trap_SendServerCommand( botGetAimEntityNumber(self), va( "donate %i\n", (self->client->ps.persistant[PERS_CREDIT] - 5) ) );
       //Cmd_Donate_f( self );//expects gentity_t * type
       }
       else if (self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS && self->client->ps.persistant[PERS_CREDIT] > 1200)
       {
-      //G_Say(self,NULL, SAY_TEAM, "/donate 500");
       if( !(self->client->pers.muted))
-      G_Say(self,NULL, SAY_TEAM, "I just donated some credit points for our squad. Cherish them wisely.");
-      trap_SendServerCommand( botGetAimEntityNumber(self), va( "donate %i\n", self->client->ps.persistant[PERS_CREDIT] - 1200 ) );
+      G_Say(self,NULL, SAY_TEAM, "I just donated some credit points for our squad. Now ^1stop^5 feedng your asses to 'em.");
+      trap_SendServerCommand( botGetAimEntityNumber(self), va( "donate %i\n", (self->client->ps.persistant[PERS_CREDIT] - 1200) ) );
       //Cmd_Donate_f( self );
       }
     }
@@ -529,7 +527,7 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
         G_BotDodge(self, botCmdBuffer);
         //sprint if surplus stamina
         if (self->client->ps.stats[ STAT_STAMINA ] > 0 && self->botMind->botSkill.level > 4)
-        self->client->ps.stats[ STAT_STATE ] |= SS_SPEEDBOOST; //causes them to be un-grabbed
+        self->client->ps.stats[ STAT_STATE ] |= SS_SPEEDBOOST;
     }
     
     //this is here so we dont run out of stamina..
@@ -560,6 +558,15 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
         && getTargetTeam(target) == PTE_ALIENS)
         {
             botCmdBuffer->forwardmove = -100; //-100
+        }
+        if (self->s.weapon == WP_PAIN_SAW && self->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS && DistanceSquared(self->s.pos.trBase,tmpVec) > Square(300) && getTargetTeam(target) == PTE_ALIENS)
+        {
+          if(!(self->client->pers.muted) && (level.time % (25000 + rand() % 5000) == 0))
+          {
+            if (level.time % 6000 > 3000)
+          G_Say(self,NULL, SAY_ALL, "STAHP RUNNIN' AWAY!");
+            else G_Say(self,NULL, SAY_ALL, "^5BZZZZT!! ^1FEAR MY ^3PEE-^5SAW^2! MUAHAHAHAHA!!");
+          }
         }
 /* //TODO: dunno whats wrong
 	else if(self->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS &&
@@ -820,17 +827,44 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
             if (self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS)
               {
               if(buildingIndex == botFindBuilding(self, BA_A_SPAWN, -1))
-              G_Say(self,NULL, SAY_TEAM, "Not to be stating the obvious, but there's an eggpod here guys, and I'm going in for it.");
+                {
+              if (self->client->time1000 % 4600 > 2300 )
+              G_Say(self,NULL, SAY_TEAM, "Not to be stating the obvious, but there's an eggpod here guys, and I'm going in for the creds.");
+              else
+              G_Say(self,NULL, SAY_TEAM, "Hey lookie here! I've got an eggie for me self.");
+                }
               if(buildingIndex == botFindBuilding(self, BA_A_OVERMIND, -1))
-              G_Say(self,NULL, SAY_TEAM, "I'm shooting the overmind here guys, mind if you helped? I'll share the funds with you peeps when we're done.");
+                {
+                if (self->client->time1000 % 6000 > 3000 )
+                  {
+                  G_Say(self,NULL, SAY_TEAM, "I'm shooting the overmind here guys, mind if you helped?");
+                  if (self->client->time1000 % 4500 > 2200 )
+                  G_Say(self,NULL, SAY_TEAM, "I'll share the funds with you peeps when we're done.");
+                  }
+                else 
+                  G_Say(self,NULL, SAY_TEAM, "Reporting in: Big blue guy ov'r here.");
+                }
               }
             if (self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS)
-              {
+             {
               if(buildingIndex == botFindBuilding(self, BA_H_SPAWN, -1))
-              G_Say(self,NULL, SAY_TEAM, "T'node's open wide! I'm going for it.");
-              if(buildingIndex == botFindBuilding(self, BA_H_REACTOR, -1))
-              G_Say(self,NULL, SAY_TEAM, "Heh guys, I tell you what: The RC's pretty much standin' there naked to us - why not take a few shots at it?");
+              {
+                if (self->client->time1000 % 6000 > 3000 )
+                G_Say(self,NULL, SAY_TEAM, "T'node's open wide! I'm going for it.");
+                else G_Say(self,NULL, SAY_TEAM, "There's a funny one here with blue rings...");
               }
+              if(buildingIndex == botFindBuilding(self, BA_H_REACTOR, -1))
+              {
+                if (self->client->time1000 % 3000 > 1200 )
+                {
+              if (self->client->time1000 % 7000 > 4000 )
+              G_Say(self,NULL, SAY_TEAM, "Heh guys, I tell you what:");
+              G_Say(self,NULL, SAY_TEAM, "The RC's pretty much standin' there naked to us - Why not have a few shots at it?");
+                }
+                else
+              G_Say(self,NULL, SAY_TEAM, "Ima chomp on this big rotating round fella here. You guys keep doing what you're doing.");
+              }
+             }
             }
         }
         else
@@ -1120,13 +1154,13 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                 botCmdBuffer->buttons |= BUTTON_GESTURE; //poor  grangie; taunt like you mean it!
                 break;
             case PCL_ALIEN_LEVEL0:
-                if((distance < Square(390)) && (distance > Square(500)) && (self->client->time1000 % (rand() * 1800) == 0) && g_bot_dodge_jump.integer == 1 && self->botMind->botSkill.level > 3)
+                if((distance < Square(390)) && (distance > Square(500)) && (self->client->time1000 % (rand() * 1800) <= 200) && g_bot_dodge_jump.integer == 1 && self->botMind->botSkill.level > 3)
                     botCmdBuffer->upmove = 20; //jump when getting close
                     else
                     botCmdBuffer->upmove = -1;
                     //botCmdBuffer->buttons |= BUTTON_ATTACK; //aka do nothing
                     botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
-                if (self->client->time1000 % 5000 == 0)
+                if (self->client->time1000 % 5000 <= 200)
                 botCmdBuffer->buttons |= BUTTON_GESTURE;
                 break;
             case PCL_ALIEN_LEVEL1:
@@ -1171,7 +1205,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                     botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
                 break;
             case PCL_ALIEN_LEVEL2_UPG:
-                if(self->client->time1000 % (rand() * 1000) == 0) {
+                if(self->client->time1000 % (rand() * 1000) <= 100) {
                     botCmdBuffer->upmove = 20; //jump
                     if (self->client->time1000 % 3000 == 0)
                     botCmdBuffer->buttons |= BUTTON_GESTURE; }
@@ -1228,7 +1262,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
         if(self->client->ps.weapon == WP_FLAMER)
         {
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
-            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % (rand() * 1200) == 0 && g_bot_dodge_jump.integer == 1)
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % (rand() * 300) <= 300 && g_bot_dodge_jump.integer == 1)
                 botCmdBuffer->upmove = 20; //only jump when too close
 
         } else if( self->client->ps.weapon == WP_LUCIFER_CANNON ) {
@@ -1242,7 +1276,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
 
         } else //all other guns
             {
-            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL4_CLAW_RANGE * 3) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 3.5) && self->client->time1000 % (rand() * 1200) == 0 && g_bot_dodge_jump.integer == 1)
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL4_CLAW_RANGE * 3) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 3.5) && self->client->time1000 % (rand() * 500) == 0 && g_bot_dodge_jump.integer == 1)
               {
                 botCmdBuffer->upmove = 20; //TODO: g_bot_react_jump
                 if (self->client->time1000 % 3000 == 0)
@@ -1507,9 +1541,25 @@ qboolean G_BotCheckForSpawningPlayers( gentity_t *self )
  * Called when we are in intermission.
  * Just flag that we are ready to proceed.
  */
-void G_BotIntermissionThink( gclient_t *client )
+void G_BotIntermissionThink( gclient_t *client ) //does/must not accept gentity_t because it can't identify the client owner in g_active.c
 {
+    qboolean exitmessage;
+    exitmessage = qfalse;
+    //don't yell at the same time
+    if((level.time % (rand() % 3000) > 500) && !exitmessage)
+    {/*
+      if(!(client->pers.muted))
+      {
+      if (level.time % 600 > 100)
+      G_Say(self->client,NULL, SAY_ALL, "gg");
+      else
+      G_Say(self->client,NULL, SAY_ALL, "jeejee, wish I'd do better...");
+      }
+     */
+      //don't repeat
+    exitmessage = qtrue;
     client->readyToExit = qtrue;
+    }
 }
 
 void botGetAimLocation( botTarget_t target, vec3_t *aimLocation) {
@@ -1595,7 +1645,11 @@ void botShakeAim( gentity_t *self, vec3_t *rVec ){
     length = (float) VectorLength(diffVec)/1000;
 
     if (self->client->ps.stats[ STAT_STATE ] & SS_POISONCLOUDED)
+    {
     length *= 3; //disturb its aim TODO: Add a constant rather than multiply
+          if(!(self->client->pers.muted) && (level.time % (55000 + rand() % 5000) == 0))
+          G_Say(self,NULL, SAY_ALL, "*cough cough* I feel dizzy...");
+    }
     if (self->s.weapon == WP_PAIN_SAW
     || self->s.weapon == WP_GRENADE
     || self->s.weapon == WP_LUCIFER_CANNON
@@ -1914,7 +1968,7 @@ void findNewNode( gentity_t *self, usercmd_t *botCmdBuffer) {
         botCmdBuffer->buttons = 0;
         botCmdBuffer->buttons = BUTTON_GESTURE; //|=
         if (self->client->time10000 % (10000 + rand() % 100000) == 0 && !(self->client->pers.muted))
-        G_Say(self,NULL, SAY_TEAM, "Sorry guys, I'm Lost. I'll just sit here on guard.");
+        G_Say(self,NULL, SAY_TEAM, "Sorry guys, I got Lost. I'll just sit here on guard.");
     }
 }
 

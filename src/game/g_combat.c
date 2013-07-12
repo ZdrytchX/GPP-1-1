@@ -436,7 +436,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
     {
       //make bot say its line
       if(attacker->r.svFlags & SVF_BOT && !( self->r.svFlags & SVF_BOT) && rand() % 9 <= 3 && attacker->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM] && !self->client->pers.muted && ( attacker->client->ps.stats[STAT_HEALTH] > attacker->client->ps.stats[STAT_MAX_HEALTH] * 0.3) )
-G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next?^7");
+G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^2Who's Next?^7");
 
       killerName = attacker->client->pers.netname;
       tk = ( attacker != self && attacker->client->ps.stats[ STAT_PTEAM ] 
@@ -514,10 +514,12 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^3Who's Next?^7");
       trap_SendServerCommand( -1, va( "print \"%s^7 stepped on %s's ^2GREEN^8-^1AID^7\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
     else if ( (meansOfDeath == MOD_GRENADE_DIRECT || meansOfDeath == MOD_GRENADE) && attacker == self )
       trap_SendServerCommand( -1, va( "print \"%s^7 threw the pin instead of the grenade\n\"", self->client->pers.netname ) );
-    else if ( meansOfDeath == MOD_LEVEL3_BOUNCEBALL_SPLASH && attacker != self )
+      
+    else if ( meansOfDeath == MOD_LEVEL3_BOUNCEBALL_SPLASH && attacker != self && !(self->s.number == ENTITYNUM_WORLD) )
       trap_SendServerCommand( -1, va( "print \"%s^7 almost dodged %s's acid barb\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
     else if ( meansOfDeath == MOD_LEVEL3_BOUNCEBALL_SPLASH && attacker == self )
       trap_SendServerCommand( -1, va( "print \"%s^7 couldn't take it anymore\n\"", self->client->pers.netname ) );
+      
     else if ( meansOfDeath == MOD_SLOWBLOB && attacker != self ) //granger blobs didn't show the killer's name
       trap_SendServerCommand( -1, va( "print \"%s^7 was ^2gooed^7 by %s's granger spit\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
     else if ( meansOfDeath == MOD_SLOWBLOB && attacker == self )
@@ -1679,7 +1681,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		damage *= FLAMER_DMG_MOD;
 	}
 
-  if ( mod == MOD_LEVEL3_BOUNCEBALL_SPLASH && targ->s.eType == ET_BUILDABLE || targ == attacker ) {
+  if ( mod == MOD_LEVEL3_BOUNCEBALL_SPLASH && (targ->s.eType == ET_BUILDABLE || targ == attacker )) {
 		damage *= LEVEL3_BOUNCEBALL_SPLASH_MOD;
 	}
 
