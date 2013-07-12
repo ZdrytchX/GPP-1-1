@@ -752,7 +752,7 @@ void G_BotBuy(gentity_t *self, usercmd_t *botCmdBuffer) {
             G_BotBuyUpgrade( self, UP_AMMO );
         }
         //buy gren
-        if (g_bot_gren.integer = 1 && (level.time % (30000) < (300 * g_bot_gren_buypercent.integer)) ) //fingers crossed
+        if ((g_bot_gren.integer == 1) && (level.time % (30000) < (300 * g_bot_gren_buypercent.integer)) ) //fingers crossed
         {
             if ( G_BotBuyUpgrade( self, UP_GRENADE ) ) //don't say you bought a grenade unless you really did
             if( !(self->client->pers.muted))
@@ -815,16 +815,16 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
             //Tell your teammates what you're attacking. Remember the structure isn't known to be dead.
             if (self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS)
               {
-              if(buildingIndex = botFindBuilding(self, BA_A_SPAWN, -1))
+              if(buildingIndex == botFindBuilding(self, BA_A_SPAWN, -1))
               G_Say(self,NULL, SAY_TEAM, "Not to be stating the obvious, but there's an eggpod here guys, and I'm going in for it.");
-              if(buildingIndex = botFindBuilding(self, BA_A_OVERMIND, -1))
+              if(buildingIndex == botFindBuilding(self, BA_A_OVERMIND, -1))
               G_Say(self,NULL, SAY_TEAM, "I'm shooting the overmind here guys, mind if you helped? I'll share the funds with you peeps when we're done.");
               }
             if (self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS)
               {
-              if(buildingIndex = botFindBuilding(self, BA_H_SPAWN, -1))
+              if(buildingIndex == botFindBuilding(self, BA_H_SPAWN, -1))
               G_Say(self,NULL, SAY_TEAM, "T'node's open wide! I'm going for it.");
-              if(buildingIndex = botFindBuilding(self, BA_H_REACTOR, -1))
+              if(buildingIndex == botFindBuilding(self, BA_H_REACTOR, -1))
               G_Say(self,NULL, SAY_TEAM, "Heh guys, I tell you what: The RC's pretty much standin' there naked to us - why not take a few shots at it?");
               }
             }
@@ -1261,11 +1261,11 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
           if (
           (
             (getTargetType(self->botMind->goal) != ET_BUILDABLE)
-          && level.time % (20000 + rand() * 20000) < (200 * g_bot_gren_buildablesonlypercent.integer)
+          && (level.time % (20000 + rand() * 20000) < (200 * g_bot_gren_buildablesonlypercent.integer))
           || (self->client->ps.stats[ STAT_HEALTH ] < BOT_LOW_HP_NADE //health must be below this before we can do a scaredy drop
           && !BG_InventoryContainsUpgrade(UP_MEDKIT,self->client->ps.stats)
-          && level.time % (self->client->ps.stats[ STAT_HEALTH ] * 200 * rand()) < (500)) //chance of dropping a grenade based on health,
-          ) && g_bot_gren_buildablesonlypercent.integer != 1 //absolute chance of dropping if health < 3
+          && (level.time % (self->client->ps.stats[ STAT_HEALTH ] * 200 * rand()) < (500))) //chance of dropping a grenade based on health,
+          ) && (g_bot_gren_buildablesonlypercent.integer != 1) //absolute chance of dropping if health < 3
             )
           {
             BG_ActivateUpgrade(UP_GRENADE,self->client->ps.stats);
