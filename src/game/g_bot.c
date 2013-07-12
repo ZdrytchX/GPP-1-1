@@ -1592,7 +1592,7 @@ void botShakeAim( gentity_t *self, vec3_t *rVec ){
     || self->s.weapon == WP_SHOTGUN
     || self->s.weapon == WP_BLASTER
     || self->s.weapon == WP_MASS_DRIVER)
-    length *= 2
+    length *= 2;
 
     VectorNormalize(diffVec);
     speedAngle=RAD2DEG(acos(DotProduct(forward,diffVec)))/100;
@@ -1658,7 +1658,7 @@ int botFindClosestEnemy( gentity_t *self, qboolean includeTeam ) {
                         closestTarget = entityList[i];
                     }
                     //if the entity is a player and not us (and is not hoveling)
-                } else if( target->client && self != target && target->ps->stats[ STAT_STATE ] & !SS_HOVELING) {
+                } else if( target->client && self != target && target->client->ps.stats[ STAT_STATE ] & !SS_HOVELING) {
                     //if we are not on the same team (unless we can attack teamates)
                     if( target->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM] || includeTeam ) {
                         
