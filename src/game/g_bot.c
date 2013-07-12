@@ -1476,6 +1476,13 @@ void G_BotSpectatorThink( gentity_t *self ) {
             self->client->pers.classSelection = PCL_HUMAN;
             self->client->ps.stats[STAT_PCLASS] = PCL_HUMAN;
 
+            if(self->botMind->command = BOT_AUTO)
+            {
+            if(self->client->time10000 % 1000 > 500) {
+            self->botMind->spawnItem = WP_MACHINEGUN; }
+            else {
+            self->botMind->spawnItem = WP_HBUILD; }
+            }
             self->client->pers.humanItemSelection = self->botMind->spawnItem;
 
             G_PushSpawnQueue( &level.humanSpawnQueue, clientNum );
