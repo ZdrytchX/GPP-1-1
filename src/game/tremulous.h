@@ -816,7 +816,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
                                          //note: this value * MAX_MAX_HEALTH * player's max health
 #define MEDKIT_EXTRA                10 + (VAMP_ON * 20) //Extra raw health added to medkit.
 
-
 // g_suddenDeathMode settings
 #define SDMODE_BP                   ( REPEATER_BP + ARMOURY_BP + DC_BP + MEDISTAT_BP )
 #define SDMODE_NO_BUILD             0
