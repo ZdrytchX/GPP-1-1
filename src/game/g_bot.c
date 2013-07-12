@@ -485,10 +485,10 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
     botGetAimLocation(target, &tmpVec);
     
     if(!targetIsEntity(target))
-        botSlowAim(self, tmpVec, 0.4f, &tmpVec);
+        botSlowAim(self, tmpVec, 0.3f, &tmpVec);
     else if ( getTargetType(target) == ET_BUILDABLE )
     {
-        botSlowAim(self, tmpVec, 0.5f, &tmpVec);
+        botSlowAim(self, tmpVec, 0.4f, &tmpVec);
     }
     else
         botSlowAim(self, tmpVec, self->botMind->botSkill.aimSlowness, &tmpVec);
@@ -497,7 +497,6 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
     if ( (self->client->time1000 % 150) >= 80
     && self->s.weapon != WP_PAIN_SAW
     && self->s.weapon != WP_GRENADE
-    && self->s.weapon != WP_CHAINGUN
     && self->s.weapon != WP_LUCIFER_CANNON
     && self->s.weapon != WP_SHOTGUN
     && self->s.weapon != WP_BLASTER
@@ -791,17 +790,39 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
         if(buildingIndex == ENTITYNUM_NONE) {
             buildingIndex = botFindBuilding(self, BA_A_SPAWN, -1);
         }
-        teamRush = (level.time % 300000 < 150000) ? qtrue : qfalse;
+        teamRush = (level.time % 300000 < 50000) ? qtrue : qfalse;        
+        if (level.time % 300000 < 50000 && self->client->time10000 % (rand() % 150000) == 0 //150 seconds because if there's only one or two teammates it's pointless
+        && !(self->client->pers.muted))
+        G_Say(self,NULL, SAY_TEAM, "Rush their colonies!");
     } else {
         buildingIndex = botFindBuilding(self, BA_H_REACTOR, -1);
         if(buildingIndex == ENTITYNUM_NONE) {
             buildingIndex = botFindBuilding(self, BA_H_SPAWN, -1);
         }
-        teamRush = (level.time % 300000 > 150000) ? qtrue : qfalse;
+        teamRush = (level.time % 300000 > 250000) ? qtrue : qfalse;
+        if (level.time % 300000 > 250000 && self->client->time10000 % (rand() % 150000) == 0
+        && !(self->client->pers.muted))
+        G_Say(self,NULL, SAY_TEAM, "CHAAAARGE!!!");
     }
     if(buildingIndex != ENTITYNUM_NONE && teamRush ) {
         if(buildingIndex != getTargetEntityNumber(self->botMind->goal))
+        {
             setGoalEntity(self,&g_entities[buildingIndex]);
+            //don't say it every time
+            if (self->client->time1000 % (5000 + rand() % 15000) == 0
+                && !(self->client->pers.muted))
+            {
+            //Tell your teammates what you're attacking. Remember the structure isn't known to be dead, so no MessagesOfDeath here.
+              if(buildingIndex = botFindBuilding(self, BA_A_SPAWN, -1))
+              G_Say(self,NULL, SAY_TEAM, "Not to be stating the obvious, but there's an eggpod here guys, and I'm going in for it.");
+              if(buildingIndex = botFindBuilding(self, BA_A_OVERMIND, -1))
+              G_Say(self,NULL, SAY_TEAM, "I'm shooting the overmind here guys, mind if you helped? I'll share the funds with you peeps when we're done.");
+              if(buildingIndex = botFindBuilding(self, BA_H_SPAWN, -1))
+              G_Say(self,NULL, SAY_TEAM, "T'node's open wide! I'm going for it.");
+              if(buildingIndex = botFindBuilding(self, BA_H_REACTOR, -1))
+              G_Say(self,NULL, SAY_TEAM, "Heh guys, I tell you what: The RC's pretty much standin' there naked to us - why not take a few shots at it?");
+            }
+        }
         else
             G_BotMoveDirectlyToGoal(self, botCmdBuffer);
     }else {
@@ -971,7 +992,7 @@ qboolean botTargetInAttackRange(gentity_t *self, botTarget_t target) {
             break;
         case WP_ALEVEL2_UPG:
             range = LEVEL2_CLAW_RANGE*1.5; //Get it to miss occasionally by changing this to 1.5
-            secondaryRange = LEVEL2_AREAZAP_RANGE*1.0;
+            secondaryRange = LEVEL2_AREAZAP_RANGE;
             break;
         case WP_ALEVEL3:
             range = LEVEL3_CLAW_RANGE;
@@ -1089,7 +1110,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                 botCmdBuffer->buttons |= BUTTON_GESTURE; //poor  grangie; taunt like you mean it!
                 break;
             case PCL_ALIEN_LEVEL0:
-                if((distance < Square(390)) && (distance > Square(400)) && (self->client->time1000 % 900 == 0) && g_bot_dodge_jump.integer == 1 && self->botMind->botSkill.level > 3)
+                if((distance < Square(390)) && (distance > Square(500)) && (self->client->time1000 % (rand() * 1800) == 0) && g_bot_dodge_jump.integer == 1 && self->botMind->botSkill.level > 3)
                     botCmdBuffer->upmove = 20; //jump when getting close
                     else
                     botCmdBuffer->upmove = -1;
@@ -1102,8 +1123,11 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
                 if(distance < Square(LEVEL1_GRAB_RANGE * 0.8))
                    {
-		    botCmdBuffer->forwardmove = 0;
-//		    botCmdBuffer->rightmove = 0; //Can't tell if we're behind him yet, just keep strafing and swiping
+        if (self->botMind->botSkill.level < 7) //high levels have good aim, they can aim and strafe
+        {
+		    botCmdBuffer->rightmove = 0; //TODO: Find a way to make them know they're behind the opponent
+		    botCmdBuffer->forwardmove = 0; //low levels need to stop moving forward else they'll slide on the opponent's bbox and end up doing a big spiral around the target
+		    }
                    }
                 if(distance < Square(LEVEL1_GRAB_RANGE * 0.5))
                    {
@@ -1130,14 +1154,14 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                    }
                 break;
             case PCL_ALIEN_LEVEL2:
-                if((distance < Square(300)) && (distance > Square(400)) && self->client->time1000 % 300 == 0)
+                if((distance < Square(300)) && (distance > Square(400)) && self->client->time1000 % (rand() * 1000) == 0)
                     botCmdBuffer->upmove = 20; //jump when getting close
-                else botCmdBuffer->upmove = -1;
+                else botCmdBuffer->upmove = 0;
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
                     botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
                 break;
             case PCL_ALIEN_LEVEL2_UPG:
-                if(self->client->time1000 % 500 == 0) {
+                if(self->client->time1000 % (rand() * 1000) == 0) {
                     botCmdBuffer->upmove = 20; //jump
                     if (self->client->time1000 % 3000 == 0)
                     botCmdBuffer->buttons |= BUTTON_GESTURE; }
@@ -1194,11 +1218,11 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
         if(self->client->ps.weapon == WP_FLAMER)
         {
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
-            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % 300 == 0 && g_bot_dodge_jump.integer == 1)
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % (rand() * 1200) == 0 && g_bot_dodge_jump.integer == 1)
                 botCmdBuffer->upmove = 20; //only jump when too close
 
         } else if( self->client->ps.weapon == WP_LUCIFER_CANNON ) {
-            if( self->client->time10000 % 1900 ) {
+            if( self->client->time10000 % (rand() * LCANNON_CHARGE_TIME + 100) ) { //time10000 % 1900
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
                 self->botMind->isFireing = qtrue;
             }
@@ -1206,19 +1230,19 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
         } else if(self->client->ps.weapon == WP_HBUILD || self->client->ps.weapon == WP_HBUILD2) {
             botCmdBuffer->buttons |= BUTTON_ATTACK2;
 
-        } else
+        } else //all other guns
             {
-            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL4_CLAW_RANGE * 3) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 3.5) && self->client->time1000 % 300 == 0 && g_bot_dodge_jump.integer == 1)
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL4_CLAW_RANGE * 3) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 3.5) && self->client->time1000 % (rand() * 1200) == 0 && g_bot_dodge_jump.integer == 1)
               {
                 botCmdBuffer->upmove = 20; //TODO: g_bot_react_jump
                 if (self->client->time1000 % 3000 == 0)
                 botCmdBuffer->buttons |= BUTTON_GESTURE;
               }
 
-            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE * 2) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 2) && self->client->time1000 % 300 <= 300 && g_bot_dodge_crouch.integer == 1)
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE * 2) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 2) && self->client->time1000 % (rand() * 600) <= 300 && g_bot_dodge_crouch.integer == 1)
                 botCmdBuffer->upmove = -1;
 
-            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % 300 == 0 && g_bot_dodge_jump.integer == 1)
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % (rand() * 3500) == 0 && g_bot_dodge_jump.integer == 1)
                 botCmdBuffer->upmove = 20;
 
             botCmdBuffer->buttons |= BUTTON_ATTACK; //just fire the damn gun!
@@ -1231,10 +1255,10 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
           if (
           (
             (getTargetType(self->botMind->goal) != ET_BUILDABLE)
-          && level.time % 20000 < (200 * g_bot_gren_buildablesonlypercent.integer)
+          && level.time % (20000 + rand() * 20000) < (200 * g_bot_gren_buildablesonlypercent.integer)
           || (self->client->ps.stats[ STAT_HEALTH ] < BOT_LOW_HP_NADE //health must be below this before we can do a scaredy drop
           && !BG_InventoryContainsUpgrade(UP_MEDKIT,self->client->ps.stats)
-          && level.time % (self->client->ps.stats[ STAT_HEALTH ] * 200) < (500)) //chance of dropping a grenade based on health,
+          && level.time % (self->client->ps.stats[ STAT_HEALTH ] * 200 * rand()) < (500)) //chance of dropping a grenade based on health,
           ) && g_bot_gren_buildablesonlypercent.integer != 1 //absolute chance of dropping if health < 3
             )
           {
@@ -1559,8 +1583,17 @@ void botShakeAim( gentity_t *self, vec3_t *rVec ){
     //int shakeMag = 8192 / self->botMind->botSkill.aimShake
     VectorSubtract(*rVec,self->s.origin, diffVec);
     length = (float) VectorLength(diffVec)/1000;
+
     if (self->client->ps.stats[ STAT_STATE ] & SS_POISONCLOUDED)
-    length *= 2; //disturb its aim TODO: Add a constant rather than multiply
+    length *= 3; //disturb its aim TODO: Add a constant rather than multiply
+    if (self->s.weapon == WP_PAIN_SAW
+    || self->s.weapon == WP_GRENADE
+    || self->s.weapon == WP_LUCIFER_CANNON
+    || self->s.weapon == WP_SHOTGUN
+    || self->s.weapon == WP_BLASTER
+    || self->s.weapon == WP_MASS_DRIVER)
+    length *= 2
+
     VectorNormalize(diffVec);
     speedAngle=RAD2DEG(acos(DotProduct(forward,diffVec)))/100;
     r = crandom() * self->botMind->botSkill.aimShake * length * speedAngle;
@@ -1597,11 +1630,12 @@ int botFindClosestEnemy( gentity_t *self, qboolean includeTeam ) {
         //if entity is closer than previous stored one and the target is alive
         if( newDistance < minDistance && target->health > 0) {
             
-            //if we can see the entity OR we are on aliens (who dont care about LOS because they have radar)
-            if( (self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS ) || botTargetInRange(self, botTarget, MASK_SHOT) ){
+            //if we can see the entity OR we are on aliens OR has helmet (who dont care about LOS because they have radar)
+            if( (self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS ) || botTargetInRange(self, botTarget, MASK_SHOT)
+                || BG_InventoryContainsUpgrade( UP_HELMET, self->client->ps.stats ) ){
                 
                 //if the entity is a building and we can attack structures even we are a normal granger
-                if(target->s.eType == ET_BUILDABLE && g_bot_attackStruct.integer /*&& self->client->ps.stats[STAT_PCLASS] != PCL_ALIEN_BUILDER0*/) {
+                if(target->s.eType == ET_BUILDABLE && g_bot_attackStruct.integer) {
                     if ( self->client->ps.stats[STAT_PCLASS] == PCL_ALIEN_LEVEL0 ) //Make sure the structure is attack-able
                        {
                        if( target->s.modelindex == BA_H_DCC    ||
@@ -1623,8 +1657,8 @@ int botFindClosestEnemy( gentity_t *self, qboolean includeTeam ) {
                         minDistance = newDistance;
                         closestTarget = entityList[i];
                     }
-                    //if the entity is a player and not us (and is not hovelling)
-                } else if( target->client && self != target /*&& target->ps->stats[ STAT_STATE ] & !SS_HOVELING*/) {
+                    //if the entity is a player and not us (and is not hoveling)
+                } else if( target->client && self != target && target->ps->stats[ STAT_STATE ] & !SS_HOVELING) {
                     //if we are not on the same team (unless we can attack teamates)
                     if( target->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM] || includeTeam ) {
                         
@@ -1750,13 +1784,11 @@ void doLastNodeAction(gentity_t *self, usercmd_t *botCmdBuffer) {
         case BOT_JUMP:  
             
             if( self->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS && 
-                self->client->ps.stats[ STAT_STAMINA ] < -800 )
+                self->client->ps.stats[ STAT_STAMINA ] <= STAMINA_JUMP_CUTOFF )
             {break;}
-            if( !BG_ClassHasAbility( self->client->ps.stats[ STAT_PCLASS ], SCA_WALLCLIMBER ) )
-                
+            //if( !BG_ClassHasAbility( self->client->ps.stats[ STAT_PCLASS ], SCA_WALLCLIMBER ) )
                 botCmdBuffer->upmove = 20;
             break;
-            //we should not need this now that wallclimb is always enabled in G_BotGoto
         case BOT_WALLCLIMB: if( BG_ClassHasAbility( self->client->ps.stats[ STAT_PCLASS ], SCA_WALLCLIMBER ) ) {
             botCmdBuffer->upmove = -1;
         }
@@ -1772,7 +1804,7 @@ void doLastNodeAction(gentity_t *self, usercmd_t *botCmdBuffer) {
             botCmdBuffer->buttons |= BUTTON_ATTACK2;
             }else if(self->client->ps.stats[STAT_PCLASS] == PCL_ALIEN_LEVEL3_UPG && 
                 self->client->ps.stats[ STAT_MISC ] < LEVEL3_POUNCE_UPG_SPEED) {
-            botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 6 - self->client->ps.delta_angles[PITCH];
+            botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 5.6 - self->client->ps.delta_angles[PITCH];
             botCmdBuffer->buttons |= BUTTON_ATTACK2;
                 }
                 break;
@@ -1837,8 +1869,8 @@ void findRouteToTarget( gentity_t *self, botTarget_t target ) {
         //now we check to see if we can skip the first node
         //we want to do this to avoid peculiar backtracking to the first node in the chain
         //note that we already know that there are at least 2 nodes in the route because of the previous check that startNode != endNode
-        
         //can we see the second node?
+        //Note: Doesn't Work (bots get stuck in the pits in atcs sometimes
         trap_Trace(&trace, start, NULL, NULL, level.nodes[self->botMind->routeToTarget[startNum]].coord, self->s.number, MASK_SHOT);
         
         //check if we are blocked from getting there
@@ -1863,11 +1895,14 @@ void findNewNode( gentity_t *self, usercmd_t *botCmdBuffer) {
         self->botMind->state = TARGETNODE;
     } else {
         self->botMind->state = LOST;//Maybe ask for a search party to the team, or maybe kill oneself after x minutes
+        //TODO: Make them follow a teammate instead
         botCmdBuffer->forwardmove = 0;
         botCmdBuffer->upmove = -1;
         botCmdBuffer->rightmove = 0;
         botCmdBuffer->buttons = 0;
         botCmdBuffer->buttons = BUTTON_GESTURE; //|=
+        if (self->client->time10000 % (10000 + rand() % 100000) == 0 && !(self->client->pers.muted))
+        G_Say(self,NULL, SAY_TEAM, "Sorry guys, I'm Lost. I'll just sit here on guard.");
     }
 }
 
