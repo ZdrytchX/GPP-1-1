@@ -583,7 +583,7 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^2Who's Next?^7");
 
     if( attacker != self && ( OnSameTeam( self, attacker ) ) )
     {
-      if (g_bot_teamkill.integer == 0) AddScore( attacker, -1 );
+      if (!g_bot_teamkill.integer) { AddScore( attacker, -1 ); }
       else AddScore( attacker, 1 );
 
       //make bot say his line
@@ -598,7 +598,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
 
         if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) 
         {
-            tk_value = BG_ClassCanEvolveFromTo( PCL_ALIEN_LEVEL0,
+            tk_value = BG_ClassCanEvolveFromTo( PCL_ALIEN_BUILDER0,
             self->client->ps.stats[ STAT_PCLASS ], ALIEN_MAX_KILLS, 0 );
         } else
         {
@@ -607,23 +607,14 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
           type = "credits";
         }
 
+        if(!g_bot_teamkill.integer){
         if( attacker->client->ps.persistant[ PERS_CREDIT ] < tk_value )
           tk_value = attacker->client->ps.persistant[ PERS_CREDIT ];
         if( self->client->ps.persistant[ PERS_CREDIT ]+tk_value > max )
           tk_value = max-self->client->ps.persistant[ PERS_CREDIT ];
-
-        //teamkill mode
-        if (g_retribution.integer < 0)
-        {
-          if(attacker->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS)
-          tk_value += FREEKILL_ALIEN;
-          else
-          tk_value += FREEKILL_HUMAN;
-
-          tk_value *= -1; //flip the sign
         }
 
-        if( tk_value > 0 ) {
+        if( tk_value > 0 && !g_bot_teamkill.integer ) {
 
           // adjust using the retribution cvar (in percent)
           tk_value = tk_value*g_retribution.integer/100;
@@ -638,22 +629,36 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
             va( "print \"Transfered ^3%d %s ^7to %s ^7in retribution.\n\"",
             tk_value, type, self->client->pers.netname ) );
         }
-        else if (tk_value < 0)
+        else if (g_bot_teamkill.integer)
         {
+          if(attacker->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS)
+          tk_value += FREEKILL_ALIEN;
+          else
+          tk_value += FREEKILL_HUMAN;
+
           tk_value = tk_value*g_retribution.integer/100;
+          if (tk_value < 1)
+          tk_value = 1;
 
           G_AddCreditToClient( attacker->client, tk_value, qtrue );
 
           trap_SendServerCommand( attacker->client->ps.clientNum,
             va( "print \"Picked up ^3%d %s ^7from %s^7's corpse.\n\"",
             tk_value, type, self->client->pers.netname ) );
+          if( self->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
+            {
+            trap_Cvar_Set( "g_alienKills", va( "%d", g_alienKills.integer + 1 ) );
+            }
+          else
+            {
+            trap_Cvar_Set( "g_humanKills", va( "%d", g_humanKills.integer + 1 ) );
+            }
         }
           }
       }
 
       // Normal teamkill penalty
-//      else if (g_bot_teamkill.integer == 0) {
-        if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
+      else if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
           G_AddCreditToClient( attacker->client, -FREEKILL_ALIEN, qtrue );
         else if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS )
           G_AddCreditToClient( attacker->client, -FREEKILL_HUMAN, qtrue );
@@ -771,7 +776,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
         if( !player->client )
           continue;
 
-        if( player->client->ps.stats[ STAT_PTEAM ] != PTE_HUMANS || (g_bot_teamkill.integer == 1) )
+        if( player->client->ps.stats[ STAT_PTEAM ] != PTE_HUMANS || g_bot_teamkill.integer)
           continue;
 
         if( !self->credits[ i ] )
@@ -808,7 +813,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
         if( !player->client )
           continue;
 
-        if( player->client->ps.stats[ STAT_PTEAM ] != PTE_ALIENS || (g_bot_teamkill.integer == 1) )
+        if( player->client->ps.stats[ STAT_PTEAM ] != PTE_ALIENS || g_bot_teamkill.integer )
           continue;
 
         //this client did no damage

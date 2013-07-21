@@ -69,7 +69,7 @@ void G_BotAdd( char *name, int team, int skill ) {
     bot->botMind->command = BOT_AUTO;
     bot->botMind->botTeam = team;
     //don't always spawn ckit
-    if ((bot->client->time100 % 200) > 100) {
+    if ((level.time % 200) > 100) {
     bot->botMind->spawnItem = WP_MACHINEGUN; }
     else {
     bot->botMind->spawnItem = WP_HBUILD; }
@@ -770,7 +770,7 @@ void G_BotBuy(gentity_t *self, usercmd_t *botCmdBuffer) {
         if ((g_bot_gren.integer == 1) && (level.time % (30000) < (300 * g_bot_gren_buypercent.integer)) ) //fingers crossed
         {
             if ( G_BotBuyUpgrade( self, UP_GRENADE ) ) //don't say you bought a grenade unless you really did
-            if( !(self->client->pers.muted))
+            if( !(self->client->pers.muted) && !g_bot_teamkill.integer)
             G_Say(self,NULL, SAY_TEAM, "Bought Grenade");    
         }
         self->botMind->currentModus = ROAM; //hack to prevent buy-spam
@@ -807,7 +807,7 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
         }
         teamRush = (level.time % 300000 < 150000) ? qtrue : qfalse; //changing these effect the bot's ability to attack other players?      
         if (level.time % 300000 < 50000 && self->client->time10000 % ((int)(rand() % 150000)) == 0 //150 seconds because if there's only one or two teammates it's pointless
-        && !(self->client->pers.muted))
+        && !(self->client->pers.muted) && !g_bot_teamkill.integer)
         {
         if (self->client->time1000 % 3000 < 1000)
         G_Say(self,NULL, SAY_TEAM, "Rush their colonies!");
@@ -821,7 +821,7 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
         }
         teamRush = (level.time % 300000 > 150000) ? qtrue : qfalse;
         if (level.time % 300000 > 250000 && self->client->time10000 % ((int)(rand() % 150000)) == 0
-        && !(self->client->pers.muted))
+        && !(self->client->pers.muted) && !g_bot_teamkill.integer)
         {
         if (self->client->time1000 % 3000 < 1000)
         G_Say(self,NULL, SAY_TEAM, "CHAAAARGE!!!");
@@ -838,7 +838,7 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
             setGoalEntity(self,&g_entities[buildingIndex]);
             //don't say it every time
             if (self->client->time1000 % (5000 + rand() % 15000) < 1000
-                && !(self->client->pers.muted))
+                && !(self->client->pers.muted) && !g_bot_teamkill.integer)
             {
             //Tell your teammates what you're attacking. Remember the structure isn't known to be dead.
             if (self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS)
@@ -1500,7 +1500,7 @@ void G_BotSpectatorThink( gentity_t *self ) {
 
             if(self->botMind->command == BOT_AUTO)
             {
-            if(self->client->time100 % 200 > 100) {
+            if(level.time % 200 < 100) {
             self->botMind->spawnItem = WP_MACHINEGUN; }
             else {
             self->botMind->spawnItem = WP_HBUILD; }
@@ -1510,12 +1510,12 @@ void G_BotSpectatorThink( gentity_t *self ) {
             G_PushSpawnQueue( &level.humanSpawnQueue, clientNum );
         } else if( teamnum == PTE_ALIENS) {
             //don't always spawn granger
-          if (g_bot_granger.integer == 1 && g_alienStage.integer == 0 && (self->client->time100 % 200) > 100)//kharn0v's heaven!
+          if (g_bot_granger.integer == 1 && g_alienStage.integer == 0 && (level.time % 200) > 100)//kharn0v's heaven!
           {
             self->client->pers.classSelection = PCL_ALIEN_BUILDER0;
             self->client->ps.stats[STAT_PCLASS] = PCL_ALIEN_BUILDER0;
           }
-          else if (g_bot_granger.integer == 1 && g_alienStage.integer > 0 && (self->client->time100 % 200) > 100) //Go adv!
+          else if (g_bot_granger.integer == 1 && g_alienStage.integer > 0 && (level.time % 200) > 100) //Go adv!
           {
             self->client->pers.classSelection = PCL_ALIEN_BUILDER0_UPG;
             self->client->ps.stats[STAT_PCLASS] = PCL_ALIEN_BUILDER0_UPG;
