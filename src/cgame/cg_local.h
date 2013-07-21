@@ -1270,6 +1270,8 @@ typedef struct
 
   qhandle_t   buildWeaponTimerPie[ 8 ];
   qhandle_t   upgradeClassIconShader;
+  //hitsound
+  sfxHandle_t hitSound[ 10 ];
 } cgMedia_t;
 
 typedef struct
@@ -1537,6 +1539,7 @@ extern  vmCvar_t    cg_unlagged;
 extern  vmCvar_t    cg_thirdpersonheight;
 extern  vmCvar_t    cg_firstpersonanglefix_yaw;
 extern  vmCvar_t    cg_firstpersonanglefix_pitch;
+extern  vmCvar_t    cg_hitsound;
 //extern  vmCvar_t    g_mode_cpm;
 
 //

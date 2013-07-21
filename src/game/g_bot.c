@@ -69,7 +69,7 @@ void G_BotAdd( char *name, int team, int skill ) {
     bot->botMind->command = BOT_AUTO;
     bot->botMind->botTeam = team;
     //don't always spawn ckit
-    if ((bot->client->time10000 % 1000) > 500) {
+    if ((bot->client->time100 % 200) > 100) {
     bot->botMind->spawnItem = WP_MACHINEGUN; }
     else {
     bot->botMind->spawnItem = WP_HBUILD; }
@@ -261,21 +261,26 @@ void G_BotThink( gentity_t *self) {
     botCmdBuffer.buttons = 0;
     botCmdBuffer.forwardmove = 0;
     botCmdBuffer.rightmove = 0;
-    
-    //use medkit when hp is low
-    if(self->health < BOT_USEMEDKIT_HP && BG_InventoryContainsUpgrade(UP_MEDKIT,self->client->ps.stats))
-        BG_ActivateUpgrade(UP_MEDKIT,self->client->ps.stats);
-    
-    //try to evolve every so often (aliens only)
-    if(g_bot_evolve.integer > 0 && self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS && self->client->ps.persistant[PERS_CREDIT] > 0)
-        G_BotEvolve(self,&botCmdBuffer);
 
     //use /teamstatus to inform team of base status
     //TODO: Make it so only more bots doesn't mean more teamstatus messages
-    if( !(self->client->pers.muted) && (self->client->time10000 % (20000 + rand() % 100000) == 0) && g_teamStatus.integer)
+    //TODO: Why is it that human bots don't use this?
+    if( !(self->client->pers.muted) && (self->client->time1000 % (21000 + rand() % 100000) <= 20) && g_teamStatus.integer)
     Cmd_TeamStatus_f( self );
 
+
+    //use medkit when hp is low
+    if(self->health < BOT_USEMEDKIT_HP && BG_InventoryContainsUpgrade(UP_MEDKIT,self->client->ps.stats) && (self->client->time100 % (200 + rand() % 2000) <= 200)) //don't use medkit immediately
+        BG_ActivateUpgrade(UP_MEDKIT,self->client->ps.stats);
+
+    //try to evolve every so often (aliens only)
+    if(g_bot_evolve.integer > 0 && self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS && self->client->ps.persistant[PERS_CREDIT] > 0)
+    {
+        G_BotEvolve(self,&botCmdBuffer);
+    }
+
     //donate team funds if surplus periodically
+    /*
     if (g_allowShare.integer && self->client->time1000 % (10000 + rand() % 10000) == 0
         && !g_bot_infinite_funds.integer) //don't donate at the same time
     {
@@ -294,12 +299,17 @@ void G_BotThink( gentity_t *self) {
       //Cmd_Donate_f( self );
       }
     }
+    */
     //infinite funds cvar
     if(g_bot_infinite_funds.integer == 1)
         G_AddCreditToClient(self->client, HUMAN_MAX_CREDITS, qtrue);
 
     //hacky ping fix
+    if (g_bot_ping.integer > 0) //must not be negative for safety
+    {
     self->client->ps.ping = rand() % 20 + g_bot_ping.integer;
+    self->client->unlaggedTime = 10 + g_bot_ping.integer; //test hack - instead of delaying the client, why not just apply bias unlagged?
+    }
     
     G_BotModusManager(self);
     switch(self->botMind->currentModus) {
@@ -419,7 +429,7 @@ void G_BotMoveDirectlyToGoal( gentity_t *self, usercmd_t *botCmdBuffer ) {
             findRouteToTarget(self, self->botMind->goal);
             setNewRoute(self);
         }
-        if(distanceToTargetNode(self) < 70)
+        if(distanceToTargetNode(self) < 80)
         {
             self->botMind->lastNodeID = self->botMind->targetNodeID;
             self->botMind->targetNodeID = self->botMind->routeToTarget[self->botMind->targetNodeID];
@@ -485,7 +495,7 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
     botGetAimLocation(target, &tmpVec);
     
     if(!targetIsEntity(target))
-        botSlowAim(self, tmpVec, 0.3f, &tmpVec);
+        botSlowAim(self, tmpVec, 0.4f, &tmpVec);
     else if ( getTargetType(target) == ET_BUILDABLE )
     {
         botSlowAim(self, tmpVec, 0.4f, &tmpVec);
@@ -503,7 +513,7 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
     && self->s.weapon != WP_MASS_DRIVER )
         botShakeAim(self, &tmpVec);
         
-    else if ( self->client->time1000 % (800 * rand() ) <= 80 ) //jerk the view
+    else if ( self->client->time1000 % 800 <= 80 ) //jerk the view
         botShakeAim(self, &tmpVec);
     }
 
@@ -544,7 +554,7 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
     }
     
     //need to periodically reset upmove to 0 for jump to work
-    if( self->client->time10000 % 1000)
+    if( self->client->time1000 % 1000)
         botCmdBuffer->upmove = 0;
         
             // enable wallwalk for classes that can wallwalk
@@ -561,9 +571,9 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
         }
         if (self->s.weapon == WP_PAIN_SAW && self->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS && DistanceSquared(self->s.pos.trBase,tmpVec) > Square(300) && getTargetTeam(target) == PTE_ALIENS)
         {
-          if(!(self->client->pers.muted) && (level.time % (25000 + rand() % 5000) == 0))
+          if(!(self->client->pers.muted) && (level.time % 25000 == 0))
           {
-            if (level.time % 6000 > 3000)
+            if (self->client->time1000 % 6000 > 3000)
           G_Say(self,NULL, SAY_ALL, "STAHP RUNNIN' AWAY!");
             else G_Say(self,NULL, SAY_ALL, "^5BZZZZT!! ^1FEAR MY ^3PEE-^5SAW^2! MUAHAHAHAHA!!");
           }
@@ -718,7 +728,13 @@ void G_BotBuy(gentity_t *self, usercmd_t *botCmdBuffer) {
         G_BotBuyUpgrade( self, UP_LIGHTARMOUR);
 */
 //Bsuits dont wear visual bsuits
+  if(g_bot_bsuit.integer)
         if( !G_BotBuyUpgrade( self, UP_BATTLESUIT) )//buy ordinary armour
+	{
+            G_BotBuyUpgrade( self, UP_HELMET);
+            G_BotBuyUpgrade( self, UP_LIGHTARMOUR);
+	}
+	else
 	{
             G_BotBuyUpgrade( self, UP_HELMET);
             G_BotBuyUpgrade( self, UP_LIGHTARMOUR);
@@ -741,12 +757,9 @@ void G_BotBuy(gentity_t *self, usercmd_t *botCmdBuffer) {
         if( !G_BotBuyWeapon( self, WP_LUCIFER_CANNON ) )
 //            if( !G_BotBuyWeapon( self, WP_PULSE_RIFLE ) )
             res = (random()>0.5) ? G_BotBuyWeapon( self, WP_PULSE_RIFLE ) : G_BotBuyWeapon( self, WP_FLAMER );
-               if(!res) { //DO NOT FORGET THE BRACES
-//                if( !G_BotBuyWeapon( self, WP_FLAMER ) )
-//                      if( !G_BotBuyWeapon( self, WP_CHAINGUN ) ) //Shifted back
-//                 	  if( !G_BotBuyWeapon( self, WP_MASS_DRIVER ) )
+               if(!res) {
                   res = (random()>0.5) ? G_BotBuyWeapon( self, WP_CHAINGUN  ) : G_BotBuyWeapon( self, WP_MASS_DRIVER );
-                     if(!res) {//DO NOT FORGET THE BRACES
+                     if(!res) {
                             if( !G_BotBuyWeapon( self, WP_LAS_GUN ) )
                                 if( !G_BotBuyWeapon( self, WP_SHOTGUN ) )
                                     if( !G_BotBuyWeapon( self, WP_PAIN_SAW ) )
@@ -799,18 +812,28 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
             buildingIndex = botFindBuilding(self, BA_A_SPAWN, -1);
         }
         teamRush = (level.time % 300000 < 150000) ? qtrue : qfalse; //changing these effect the bot's ability to attack other players?      
-        if (level.time % 300000 < 50000 && self->client->time10000 % (rand() % 150000) == 0 //150 seconds because if there's only one or two teammates it's pointless
+        if (level.time % 300000 < 50000 && self->client->time10000 % ((int)(rand() % 150000)) == 0 //150 seconds because if there's only one or two teammates it's pointless
         && !(self->client->pers.muted))
+        {
+        if (self->client->time1000 % 3000 < 1000)
         G_Say(self,NULL, SAY_TEAM, "Rush their colonies!");
+        else
+        G_Say(self,NULL, SAY_TEAM, "Let's earn some money, shall we?");
+        }
     } else if (self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS){
         buildingIndex = botFindBuilding(self, BA_H_REACTOR, -1);
         if(buildingIndex == ENTITYNUM_NONE) {
             buildingIndex = botFindBuilding(self, BA_H_SPAWN, -1);
         }
         teamRush = (level.time % 300000 > 150000) ? qtrue : qfalse;
-        if (level.time % 300000 > 250000 && self->client->time10000 % (rand() % 150000) == 0
+        if (level.time % 300000 > 250000 && self->client->time10000 % ((int)(rand() % 150000)) == 0
         && !(self->client->pers.muted))
+        {
+        if (self->client->time1000 % 3000 < 1000)
         G_Say(self,NULL, SAY_TEAM, "CHAAAARGE!!!");
+        else
+        G_Say(self,NULL, SAY_TEAM, "Hey look guys, stop providing them funds and start consuming them!");
+        }
     }
     else //shut the compiler up
     buildingIndex = ENTITYNUM_NONE;
@@ -820,7 +843,7 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
         {
             setGoalEntity(self,&g_entities[buildingIndex]);
             //don't say it every time
-            if (self->client->time1000 % (5000 + rand() % 15000) == 0
+            if (self->client->time1000 % (5000 + rand() % 15000) < 1000
                 && !(self->client->pers.muted))
             {
             //Tell your teammates what you're attacking. Remember the structure isn't known to be dead.
@@ -828,41 +851,41 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
               {
               if(buildingIndex == botFindBuilding(self, BA_A_SPAWN, -1))
                 {
-              if (self->client->time1000 % 4600 > 2300 )
-              G_Say(self,NULL, SAY_TEAM, "Not to be stating the obvious, but there's an eggpod here guys, and I'm going in for the creds.");
+              if (self->client->time100 % 4600 < 2300 )
+              G_Say(self,NULL, SAY_TEAM, "I'm going after an egg.");
               else
-              G_Say(self,NULL, SAY_TEAM, "Hey lookie here! I've got an eggie for me self.");
+              G_Say(self,NULL, SAY_TEAM, "Reporting In: I'm going in for the eggs.");
                 }
               if(buildingIndex == botFindBuilding(self, BA_A_OVERMIND, -1))
                 {
-                if (self->client->time1000 % 6000 > 3000 )
+                if (self->client->time100 % 6000 < 300 )
                   {
-                  G_Say(self,NULL, SAY_TEAM, "I'm shooting the overmind here guys, mind if you helped?");
-                  if (self->client->time1000 % 4500 > 2200 )
+                  G_Say(self,NULL, SAY_TEAM, "I'm going after the overmind here guys, mind if you helped?");
+                  if (self->client->time100 % 4500 < 2200 )
                   G_Say(self,NULL, SAY_TEAM, "I'll share the funds with you peeps when we're done.");
                   }
                 else 
-                  G_Say(self,NULL, SAY_TEAM, "Reporting in: Big blue guy ov'r here.");
+                  G_Say(self,NULL, SAY_TEAM, "Targeting the Big blue guy ov'r.");
                 }
               }
             if (self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS)
              {
               if(buildingIndex == botFindBuilding(self, BA_H_SPAWN, -1))
               {
-                if (self->client->time1000 % 6000 > 3000 )
-                G_Say(self,NULL, SAY_TEAM, "T'node's open wide! I'm going for it.");
-                else G_Say(self,NULL, SAY_TEAM, "There's a funny one here with blue rings...");
+                if (self->client->time1000 % 6000 < 3000 )
+                G_Say(self,NULL, SAY_TEAM, "T'node's inviting me!");
+                else G_Say(self,NULL, SAY_TEAM, "There's a funny in their base with blue rings...");
               }
               if(buildingIndex == botFindBuilding(self, BA_H_REACTOR, -1))
               {
-                if (self->client->time1000 % 3000 > 1200 )
+                if (self->client->time100 % 3500 < 300 )
                 {
-              if (self->client->time1000 % 7000 > 4000 )
+              if (self->client->time1000 % 7000 < 4000 )
               G_Say(self,NULL, SAY_TEAM, "Heh guys, I tell you what:");
               G_Say(self,NULL, SAY_TEAM, "The RC's pretty much standin' there naked to us - Why not have a few shots at it?");
                 }
                 else
-              G_Say(self,NULL, SAY_TEAM, "Ima chomp on this big rotating round fella here. You guys keep doing what you're doing.");
+              G_Say(self,NULL, SAY_TEAM, "Ima try chompin' on the big rotating round fella. You guys keep doing what ya doing.");
               }
              }
             }
@@ -1154,7 +1177,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                 botCmdBuffer->buttons |= BUTTON_GESTURE; //poor  grangie; taunt like you mean it!
                 break;
             case PCL_ALIEN_LEVEL0:
-                if((distance < Square(390)) && (distance > Square(500)) && (self->client->time1000 % (rand() * 1800) <= 200) && g_bot_dodge_jump.integer == 1 && self->botMind->botSkill.level > 3)
+                if((distance < Square(390)) && (distance > Square(500)) && (self->client->time1000 % 1800) <= 200 && g_bot_dodge_jump.integer == 1 && self->botMind->botSkill.level > 3)
                     botCmdBuffer->upmove = 20; //jump when getting close
                     else
                     botCmdBuffer->upmove = -1;
@@ -1198,14 +1221,14 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                    }
                 break;
             case PCL_ALIEN_LEVEL2:
-                if((distance < Square(300)) && (distance > Square(400)) && self->client->time1000 % (rand() * 1000) == 0)
+                if(((distance < Square(300)) && (distance > Square(400)) && self->client->time1000 % 1500) <= 500)
                     botCmdBuffer->upmove = 20; //jump when getting close
                 else botCmdBuffer->upmove = 0;
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
                     botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
                 break;
             case PCL_ALIEN_LEVEL2_UPG:
-                if(self->client->time1000 % (rand() * 1000) <= 100) {
+                if(self->client->time1000 % 1500 <= 700) {
                     botCmdBuffer->upmove = 20; //jump
                     if (self->client->time1000 % 3000 == 0)
                     botCmdBuffer->buttons |= BUTTON_GESTURE; }
@@ -1262,11 +1285,11 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
         if(self->client->ps.weapon == WP_FLAMER)
         {
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
-            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % (rand() * 3000) <= 300 && g_bot_dodge_jump.integer == 1)
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % 3000 <= 300 && g_bot_dodge_jump.integer == 1)
                 botCmdBuffer->upmove = 20; //only jump when too close
 
         } else if( self->client->ps.weapon == WP_LUCIFER_CANNON ) {
-            if( self->client->time10000 % (rand() * LCANNON_CHARGE_TIME + 100) ) { //time10000 % 1900
+            if( self->client->time10000 % (LCANNON_CHARGE_TIME - 100) ) { //time10000 % 1900
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
                 self->botMind->isFireing = qtrue;
             }
@@ -1299,10 +1322,11 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
           if (
           (
             ((getTargetType(self->botMind->goal) != ET_BUILDABLE)
-          && (level.time % (20000 + rand() * 20000) < (200 * g_bot_gren_buildablesonlypercent.integer)))
+          && (level.time % 20000 < (200 * g_bot_gren_buildablesonlypercent.integer)))
           || (self->client->ps.stats[ STAT_HEALTH ] < BOT_LOW_HP_NADE //health must be below this before we can do a scaredy drop
           && (!BG_InventoryContainsUpgrade(UP_MEDKIT,self->client->ps.stats))
-          && (level.time % (self->client->ps.stats[ STAT_HEALTH ] * 200 * rand()) < (500))) //chance of dropping a grenade based on health,
+          && (level.time % (self->client->ps.stats[ STAT_HEALTH ] * 200)
+          < (200 * g_bot_gren_buildablesonlypercent.integer))) //chance of dropping a grenade based on health,
           ) && (g_bot_gren_buildablesonlypercent.integer != 1) //absolute chance of dropping if health < 3
             )
           {
@@ -1476,9 +1500,9 @@ void G_BotSpectatorThink( gentity_t *self ) {
             self->client->pers.classSelection = PCL_HUMAN;
             self->client->ps.stats[STAT_PCLASS] = PCL_HUMAN;
 
-            if(self->botMind->command = BOT_AUTO)
+            if(self->botMind->command == BOT_AUTO)
             {
-            if(self->client->time10000 % 1000 > 500) {
+            if(self->client->time100 % 200 > 100) {
             self->botMind->spawnItem = WP_MACHINEGUN; }
             else {
             self->botMind->spawnItem = WP_HBUILD; }
@@ -1487,15 +1511,22 @@ void G_BotSpectatorThink( gentity_t *self ) {
 
             G_PushSpawnQueue( &level.humanSpawnQueue, clientNum );
         } else if( teamnum == PTE_ALIENS) {
-            self->client->pers.classSelection = PCL_ALIEN_LEVEL0;
-            self->client->ps.stats[STAT_PCLASS] = PCL_ALIEN_LEVEL0;
             //don't always spawn granger
-          if (g_bot_granger.integer == 1 && g_alienStage.integer == 0 && (self->client->time10000 % 1000) > rand() % 500)//kharn0v's heaven!
+          if (g_bot_granger.integer == 1 && g_alienStage.integer == 0 && (self->client->time100 % 200) > 100)//kharn0v's heaven!
+          {
             self->client->pers.classSelection = PCL_ALIEN_BUILDER0;
             self->client->ps.stats[STAT_PCLASS] = PCL_ALIEN_BUILDER0;
-          if (g_bot_granger.integer == 1 && g_alienStage.integer > 0 && (self->client->time10000 % 1000) > rand() % 500) //Go adv!
+          }
+          else if (g_bot_granger.integer == 1 && g_alienStage.integer > 0 && (self->client->time100 % 200) > 100) //Go adv!
+          {
             self->client->pers.classSelection = PCL_ALIEN_BUILDER0_UPG;
             self->client->ps.stats[STAT_PCLASS] = PCL_ALIEN_BUILDER0_UPG;
+          }
+          else
+          {
+            self->client->pers.classSelection = PCL_ALIEN_LEVEL0;
+            self->client->ps.stats[STAT_PCLASS] = PCL_ALIEN_LEVEL0;
+          }
 
             G_PushSpawnQueue( &level.alienSpawnQueue, clientNum );
         }
@@ -1553,7 +1584,7 @@ void G_BotIntermissionThink( gclient_t *client ) //does/must not accept gentity_
     qboolean exitmessage;
     exitmessage = qfalse;
     //don't yell at the same time
-    if((level.time % (rand() % 3000) > 500) && !exitmessage)
+    if((level.time % (rand() % 3000) > 2000) && !exitmessage)
     {/*
       if(!(client->pers.muted))
       {
@@ -1654,7 +1685,7 @@ void botShakeAim( gentity_t *self, vec3_t *rVec ){
     if (self->client->ps.stats[ STAT_STATE ] & SS_POISONCLOUDED)
     {
     length *= 3; //disturb its aim TODO: Add a constant rather than multiply
-          if(!(self->client->pers.muted) && (level.time % (55000 + rand() % 5000) == 0))
+          if(!(self->client->pers.muted) && (level.time % 55000 == 0))
           G_Say(self,NULL, SAY_ALL, "*cough cough* I feel dizzy...");
     }
     if (self->s.weapon == WP_PAIN_SAW
@@ -1974,7 +2005,7 @@ void findNewNode( gentity_t *self, usercmd_t *botCmdBuffer) {
         botCmdBuffer->rightmove = 0;
         botCmdBuffer->buttons = 0;
         botCmdBuffer->buttons = BUTTON_GESTURE; //|=
-        if (self->client->time10000 % (10000 + rand() % 100000) == 0 && !(self->client->pers.muted))
+        if (self->client->time10000 % 100000 == 0 && !(self->client->pers.muted))
         G_Say(self,NULL, SAY_TEAM, "Sorry guys, I got Lost. I'll just sit here on guard.");
     }
 }
@@ -2033,7 +2064,7 @@ void setSkill(gentity_t *self, int skill) {
     self->botMind->botSkill.level = skill;
     //different aim for different teams
     if(self->botMind->botTeam == PTE_HUMANS) {
-        self->botMind->botSkill.aimSlowness = (float)(0.1 + (skill * skill) / 111);
+        self->botMind->botSkill.aimSlowness = (float)( skill * 1) / 20;//(0.2 + (skill * skill) / 125);
         self->botMind->botSkill.aimShake = (int) ((float)(20 - (skill * skill)/5));
     } else {
         self->botMind->botSkill.aimSlowness = (float)( skill * 1) / 10;

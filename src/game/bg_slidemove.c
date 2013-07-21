@@ -225,7 +225,7 @@ qboolean  PM_SlideMove( qboolean gravity )
     VectorCopy( endVelocity, pm->ps->velocity );
 
   // don't change velocity if in a timer (FIXME: is this correct?)
-  if( pm->ps->pm_time )
+  if( pm->ps->pm_time ) //clipping is caused by this
     VectorCopy( primal_velocity, pm->ps->velocity );
 
   return ( bumpcount != 0 );
@@ -333,7 +333,7 @@ qboolean PM_StepSlideMove( qboolean gravity, qboolean predictive )
     VectorMA( down, -STEPSIZE, normal, down );
     pm->trace( &trace, start_o, pm->mins, pm->maxs, down, pm->ps->clientNum, pm->tracemask );
     // never step up when you still have up velocity
-    if( DotProduct( trace.plane.normal, pm->ps->velocity ) > 0.0f &&
+    if( DotProduct( trace.plane.normal, pm->ps->velocity ) > 0.0f && //[ 2 ]?
         ( trace.fraction == 1.0f || DotProduct( trace.plane.normal, normal ) < 0.7f ) )
     {
       return stepped;

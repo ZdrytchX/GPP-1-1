@@ -211,7 +211,7 @@ qboolean botStructureIsDamaged(int team)
         inspectedBuilding = BG_FindBuildNumForEntityName( target->classname );
         if(target->s.eType == ET_BUILDABLE &&
             target->biteam == team &&
-            ( target->health * ( 1 / BUILDABE_REPAIR_HEALTH ) ) <  BG_FindHealthForBuildable( inspectedBuilding ) &&
+            ( target->health /** ( 1 / BUILDABE_REPAIR_HEALTH ) */) <  BG_FindHealthForBuildable( inspectedBuilding ) &&
             target->health > 0 && target->spawned) {
             return qtrue;
         }
@@ -246,12 +246,12 @@ qboolean botNeedsItem(gentity_t *self) {
     
     //TODO: Add Bsuit without removing larmour/helms from this list
     //see if we can afford lightarmor and we dont have any on currently
-    if(g_humanStage.integer == S1 || g_humanStage.integer == S2 || g_humanStage.integer == S3) {
-        
+    if(g_humanStage.integer == S1 || g_humanStage.integer == S2 || g_humanStage.integer == S3 )
+    {
         //70 is the highest minimum amount of credits needed to buy something new
         if((short) self->client->ps.persistant[PERS_CREDIT] > BG_FindPriceForUpgrade(UP_LIGHTARMOUR) && 
         !BG_InventoryContainsUpgrade(UP_LIGHTARMOUR, self->client->ps.stats) && !BG_InventoryContainsUpgrade(UP_BATTLESUIT, self->client->ps.stats))
-        if (g_bot_bsuit.integer && !BG_InventoryContainsUpgrade(UP_BATTLESUIT, self->client->ps.stats))
+        if (!BG_InventoryContainsUpgrade(UP_BATTLESUIT, self->client->ps.stats))
             return qtrue;
     }
     //see if we can afford a helmet and we dont have any on currently
@@ -261,10 +261,9 @@ qboolean botNeedsItem(gentity_t *self) {
         if (g_bot_bsuit.integer && !BG_InventoryContainsUpgrade(UP_BATTLESUIT, self->client->ps.stats))
             return qtrue;
     }
-    if(g_bot_bsuit.integer)
-    if(g_humanStage.integer == S3) {
+    if( g_bot_bsuit.integer == 1 && g_humanStage.integer == S3) {
         if((short) self->client->ps.persistant[PERS_CREDIT] > BG_FindPriceForUpgrade(UP_BATTLESUIT) &&
-        !BG_InventoryContainsUpgrade(UP_BATTLESUIT, self->client->ps.stats))
+        !BG_InventoryContainsUpgrade(UP_BATTLESUIT, self->client->ps.stats) && (self->client->time1000 % 5000 < 1000))
             return qtrue;
     }
     

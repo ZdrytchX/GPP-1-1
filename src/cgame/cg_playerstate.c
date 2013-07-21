@@ -245,11 +245,73 @@ CG_CheckLocalSounds
 */
 void CG_CheckLocalSounds( playerState_t *ps, playerState_t *ops )
 {
-  int reward;
+  int reward, delta;
 
   // don't play the sounds if the player just changed teams
   if( ps->persistant[ PERS_TEAM ] != ops->persistant[ PERS_TEAM ] )
     return;
+
+    //hitsound
+		delta = ps->persistant[PERS_HITS] - ops->persistant[PERS_HITS];
+
+    if (cg_hitsound.integer == 3)
+    {
+		if (delta > 250) //used for explosions - multiple hits confirmation
+			trap_S_StartLocalSound( cgs.media.hitSound[9], CHAN_LOCAL_SOUND );
+		else if (delta > 165) //125
+			trap_S_StartLocalSound( cgs.media.hitSound[8], CHAN_LOCAL_SOUND );
+		else if (delta > 120) //100
+			trap_S_StartLocalSound( cgs.media.hitSound[7], CHAN_LOCAL_SOUND );
+		else if (delta > 85) //75
+			trap_S_StartLocalSound( cgs.media.hitSound[6], CHAN_LOCAL_SOUND );
+		else if (delta > 50)
+			trap_S_StartLocalSound( cgs.media.hitSound[5], CHAN_LOCAL_SOUND );
+		else if (delta > 25)
+			trap_S_StartLocalSound( cgs.media.hitSound[4], CHAN_LOCAL_SOUND );
+		else if (delta > 12)
+			trap_S_StartLocalSound( cgs.media.hitSound[3], CHAN_LOCAL_SOUND );
+		else if (delta > 8)
+			trap_S_StartLocalSound( cgs.media.hitSound[2], CHAN_LOCAL_SOUND );
+		else if (delta > 4)
+			trap_S_StartLocalSound( cgs.media.hitSound[1], CHAN_LOCAL_SOUND );
+	  else if (delta > 0) //0 = no events
+			trap_S_StartLocalSound( cgs.media.hitSound[0], CHAN_LOCAL_SOUND );
+	  }
+	  else if (cg_hitsound.integer == 2)
+	  { //hit sound depends on how many you hit at once; this is a combo sound style
+		if (delta > 9) //used for explosions and shotgun and GPP-1.1/Lolards' chaingun secondary
+			trap_S_StartLocalSound( cgs.media.hitSound[9], CHAN_LOCAL_SOUND );
+		else if (delta > 8)
+			trap_S_StartLocalSound( cgs.media.hitSound[8], CHAN_LOCAL_SOUND );
+		else if (delta > 7)
+			trap_S_StartLocalSound( cgs.media.hitSound[7], CHAN_LOCAL_SOUND );
+		else if (delta > 6)
+			trap_S_StartLocalSound( cgs.media.hitSound[6], CHAN_LOCAL_SOUND );
+		else if (delta > 5)
+			trap_S_StartLocalSound( cgs.media.hitSound[5], CHAN_LOCAL_SOUND );
+		else if (delta > 4)
+			trap_S_StartLocalSound( cgs.media.hitSound[4], CHAN_LOCAL_SOUND );
+		else if (delta > 3)
+			trap_S_StartLocalSound( cgs.media.hitSound[3], CHAN_LOCAL_SOUND );
+		else if (delta > 2)
+			trap_S_StartLocalSound( cgs.media.hitSound[2], CHAN_LOCAL_SOUND );
+		else if (delta > 1)
+			trap_S_StartLocalSound( cgs.media.hitSound[1], CHAN_LOCAL_SOUND );
+	  else if (delta > 0) //0 = no events
+			trap_S_StartLocalSound( cgs.media.hitSound[0], CHAN_LOCAL_SOUND );
+	  }
+	  else if (cg_hitsound.integer && (delta > 0)) //no tonal change
+			trap_S_StartLocalSound( cgs.media.hitSound[4], CHAN_LOCAL_SOUND );
+			/*
+	  else if (delta > -25 && delta != 0)
+			trap_S_StartLocalSound( cgs.media.hitSound[0], CHAN_LOCAL_SOUND );
+		else if (delta > -50)
+			trap_S_StartLocalSound( cgs.media.hitSound[1], CHAN_LOCAL_SOUND );
+		else if (delta > -75)
+			trap_S_StartLocalSound( cgs.media.hitSound[2], CHAN_LOCAL_SOUND );
+		else if (delta < -75)
+			trap_S_StartLocalSound( cgs.media.hitSound[3], CHAN_LOCAL_SOUND );
+			*/
 
   // health changes of more than -1 should make pain sounds
   if( ps->stats[ STAT_HEALTH ] < ops->stats[ STAT_HEALTH ] - 1 )

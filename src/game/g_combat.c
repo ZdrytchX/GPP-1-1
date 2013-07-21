@@ -378,7 +378,7 @@ char *modNames[ ] =
   "MOD_LEVEL3_CLAW",
   "MOD_LEVEL3_POUNCE",
   "MOD_LEVEL3_BOUNCEBALL",
-  "MOD_LEVEL3_BOUNCEBALL_SPLASH", //custom
+  "MOD_LEVEL3_BOUNCEBALL_SPLASH",
   "MOD_LEVEL2_CLAW",
   "MOD_LEVEL2_ZAP",
   "MOD_LEVEL4_CLAW",
@@ -517,6 +517,8 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^2Who's Next?^7");
       
     else if ( meansOfDeath == MOD_LEVEL3_BOUNCEBALL_SPLASH && attacker != self && !(self->s.number == ENTITYNUM_WORLD) )
       trap_SendServerCommand( -1, va( "print \"%s^7 almost dodged %s's acid barb\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
+    else if ( meansOfDeath == MOD_LEVEL3_BOUNCEBALL_SPLASH && attacker != self && (self->s.number == ENTITYNUM_WORLD) )
+      trap_SendServerCommand( -1, va( "print \"something was destroyed by %s's barb\n\"", attacker->client->pers.netname ) );
     else if ( meansOfDeath == MOD_LEVEL3_BOUNCEBALL_SPLASH && attacker == self )
       trap_SendServerCommand( -1, va( "print \"%s^7 couldn't take it anymore\n\"", self->client->pers.netname ) );
       
@@ -1764,17 +1766,6 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
       return;
   }
 
-  // add to the attacker's hit counter
-  if( attacker->client && targ != attacker && targ->health > 0
-      && targ->s.eType != ET_MISSILE
-      && targ->s.eType != ET_GENERAL )
-  {
-    if( OnSameTeam( targ, attacker ) )
-      attacker->client->ps.persistant[ PERS_HITS ]--;
-    else
-      attacker->client->ps.persistant[ PERS_HITS ]++;
-  }
-
   take = damage;
   save = 0;
 
@@ -1909,6 +1900,18 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 
     if( targ->client )
       targ->client->ps.stats[ STAT_HEALTH ] = targ->health;
+
+  // add to the attacker's hit counter
+  if( attacker->client && targ != attacker && targ->health > 0
+      && targ->s.eType != ET_MISSILE
+      && targ->s.eType != ET_GENERAL )
+  {
+  /*
+    if( OnSameTeam( targ, attacker ) )
+      attacker->client->ps.persistant[ PERS_HITS ]-= take;
+    else*/
+      attacker->client->ps.persistant[ PERS_HITS ]+= take;
+  }
 
     targ->lastDamageTime = level.time;
 

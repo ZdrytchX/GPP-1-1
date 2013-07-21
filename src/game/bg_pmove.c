@@ -627,11 +627,13 @@ PM_CheckWallJump
 */
 static qboolean PM_CheckWallJump( void )
 {
-  vec3_t  dir, forward, right;
+  vec3_t  dir, forward, right, movedir, point;
   vec3_t  refNormal = { 0.0f, 0.0f, 1.0f };
   float   normalFraction = 1.5f;
   float   cmdFraction = 1.0f;
   float   upFraction = 1.5f;
+  float   minwalljumpangle = 0.7f;
+  trace_t trace; ////
 
   if( pm->ps->pm_flags & PMF_RESPAWNED )
     return qfalse;    // don't allow jump until all buttons are up
@@ -639,8 +641,43 @@ static qboolean PM_CheckWallJump( void )
   if( pm->cmd.upmove < 10 )
     // not holding jump
     return qfalse;
+/////*
+	ProjectPointOnPlane( movedir, pml.forward, refNormal );
+	VectorNormalize( movedir );
 
-  if( pm->ps->pm_flags & PMF_TIME_WALLJUMP )
+	if ( pm->cmd.forwardmove < 0 )
+	{
+		VectorNegate( movedir, movedir );
+	}
+
+	//allow strafe transitions
+	if ( pm->cmd.rightmove )
+	{
+		VectorCopy( pml.right, movedir );
+
+		if ( pm->cmd.rightmove < 0 )
+		{
+			VectorNegate( movedir, movedir );
+		}
+	}
+	//trace into direction we are moving
+	VectorMA( pm->ps->origin, 0.25f, movedir, point );
+	pm->trace( &trace, pm->ps->origin, pm->mins, pm->maxs, point, pm->ps->clientNum, pm->tracemask );
+
+	if ( trace.fraction < 1.0f &&
+	     !( trace.surfaceFlags & ( SURF_SKY | SURF_SLICK ) ) &&
+	     trace.plane.normal[ 2 ] < minwalljumpangle/*MIN_WALK_NORMAL*/ )
+	{
+		VectorCopy( trace.plane.normal, pm->ps->grapplePoint );
+	}
+	/*
+	else
+	{
+		return qfalse;
+	}
+	*/
+////*/
+  if( /*pm->ps->pm_time > LEVEL2_WALLJUMP_REPEAT*/pm->ps->pm_flags & PMF_TIME_WALLJUMP )
     return qfalse;
 
   // must wait for jump to be released
@@ -653,10 +690,11 @@ static qboolean PM_CheckWallJump( void )
     return qfalse;
   }
 */
+
   if (LEVEL2_WALLJUMP_REPEAT != 0) //0 bug check
   {
   pm->ps->pm_flags |= PMF_TIME_WALLJUMP;
-  pm->ps->pm_time = LEVEL2_WALLJUMP_REPEAT;
+  pm->ps->pm_time = LEVEL2_CLIPVELOCITY;//LEVEL2_WALLJUMP_REPEAT;
   }
 
   pml.groundPlane = qfalse;   // jumping away
@@ -726,6 +764,13 @@ PM_CheckJump
 */
 static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, I want to be able to scale the human's jump based on stamina.
 {
+  int jumpvel;
+
+  float extrajumpvel = 0.5;//(pm->ps->pm_time - PLAYER_DOUBLEJUMP_TIME_TAKE) / PLAYER_DOUBLEJUMP_TIME;
+
+  if( pm->ps->pm_time > PLAYER_CLIP_VEL_TIME)
+  pm->ps->pm_time = PLAYER_CLIP_VEL_TIME;
+
   if( BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] ) == 0.0f )
   {
     return qfalse;
@@ -763,7 +808,7 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
     return qfalse;
   }
   //Bunny hop
-  if(BUNNYHOP_TRUE == 0) //If it is enabled, don't read this
+  if(!BUNNYHOP_TRUE)
   {
     // must wait for jump to be released
     if( pm->ps->pm_flags & PMF_JUMP_HELD )
@@ -821,6 +866,18 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
   else //make people jump normally
 */
 //{
+  if ( qfalse/*PLAYER_DOUBLEJUMP_TIME > 0 && pm->ps->pm_time > PLAYER_DOUBLEJUMP_TIME_TAKE*/ )
+  {
+  jumpvel = (BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] ) +
+  BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] )*extrajumpvel); //woah woah there.
+  }
+  else
+  jumpvel = BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
+
+
+  //Allow buggy-exploit for clipping players
+  pm->ps->pm_time == PLAYER_CLIP_VEL_TIME; //doesn't interfere with WALLJUMP for gpp-style because it calls for checkwalljump()
+
   if( pm->ps->stats[ STAT_STATE ] & SS_WALLCLIMBING )
   {
     vec3_t normal = { 0, 0, -1 };
@@ -828,7 +885,7 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
     if( !( pm->ps->stats[ STAT_STATE ] & SS_WALLCLIMBINGCEILING ) )
       VectorCopy( pm->ps->grapplePoint, normal );
 
-    VectorMA( pm->ps->velocity, BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] ),
+    VectorMA( pm->ps->velocity, jumpvel,//BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] ),
               normal, pm->ps->velocity );
   }
 
@@ -837,9 +894,10 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
 	if(pm->ps->velocity[ 2 ] > 0)
 	pm->ps->velocity[ 2 ] += BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
 	else
-	pm->ps->velocity[ 2 ] = BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
+	pm->ps->velocity[ 2 ] = jumpvel;
   PM_AddEvent( EV_JUMP );//jump!
   }
+
   //TA: take some stamina off
   if( pm->ps->stats[ STAT_PTEAM ] == PTE_HUMANS )
     pm->ps->stats[ STAT_STAMINA ] -= STAMINA_JUMP; //300
@@ -1760,7 +1818,7 @@ static void PM_CrashLand( void )
     pm->ps->torsoTimer = TIMER_LAND;
 
   // calculate the exact verticle velocity on landing
-  dist = pm->ps->origin[ 2 ] - pml.previous_origin[ 2 ]; //I still don't get why we need this, in fact wth does it do? With this here, if you get on a jumppad and fall, technically this becomes 0 and delta ends up always being vel * vel
+  dist = pm->ps->origin[ 2 ] - pml.previous_origin[ 2 ]; //calculates distance from peak of parabolic path
   vel = pml.previous_velocity[ 2 ];
   acc = -pm->ps->gravity;
 
@@ -2449,8 +2507,8 @@ static void PM_GroundTrace( void )
     if( pml.previous_velocity[ 2 ] < -200 )
     {
       // don't allow another jump for a little while
-      pm->ps->pm_flags |= PMF_TIME_LAND;
-      pm->ps->pm_time = 250;
+      pm->ps->pm_flags |= PMF_TIME_LAND; //Q3 clip cause antibunnyhop doesn't work
+      //pm->ps->pm_time = 250; //causes bugs
     }
   }
 
@@ -3800,6 +3858,7 @@ void PmoveSingle( pmove_t *pmove )
     pm->cmd.forwardmove = 0;
     pm->cmd.rightmove = 0;
     pm->cmd.upmove = 0;
+    //!pm->cmd.buttons |= BUTTON_GESTURE;
   }
 
   if( pm->ps->pm_type == PM_SPECTATOR )

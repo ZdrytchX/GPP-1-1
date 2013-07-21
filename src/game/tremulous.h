@@ -112,6 +112,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL2_AREAZAP_MAX_TARGETS  3
 #define LEVEL2_WALLJUMP_MAXSPEED    3870.0f //1290.0f //idk, don't really want a max
 #define LEVEL2_WALLJUMP_REPEAT      200 //200 - Prevents extreme acceleration, feels buggy with no walljump repeat timer but else stumbles and loses speed when stair climbing
+#define LEVEL2_CLIPVELOCITY         LEVEL2_WALLJUMP_REPEAT //Allows clipping through walls GPP-style
 #define LEVEL2_AREAZAP_K_SCALE      -3.0f //Chain-ees get pulled together with this
 
 //Goon modified heavily to get close to gpp values.
@@ -783,6 +784,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define FREEKILL_PERIOD             90000
 #define FREEKILL_ALIEN              1
 #define FREEKILL_HUMAN              LEVEL0_VALUE
+
+//Clipping Exploit
+#define PLAYER_CLIP_VEL_TIME        300//time to allow sliding past walls cpm-style
+#define PLAYER_DOUBLEJUMP_TIME      200 //allow 200msec of time to doublejump
+#define PLAYER_DOUBLEJUMP_TIME_TAKE (PLAYER_CLIP_VEL_TIME - PLAYER_DOUBLEJUMP_TIME)
 
 //Raised thresholds
 #define DEFAULT_ALIEN_BUILDPOINTS   "140"
