@@ -581,7 +581,7 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^2Who's Next?^7");
      trap_SendServerCommand( self-g_entities, va( "print \"Your killer, %s^7, had ^1%3i^7 HP.\n\"", killerName, attacker->health ) );
    }
 
-    if( attacker != self (( OnSameTeam( self, attacker ) )) )
+    if( attacker != self && ( OnSameTeam( self, attacker ) ) )
     {
       if (g_bot_teamkill.integer == 0) AddScore( attacker, -1 );
       else AddScore( attacker, 1 );
