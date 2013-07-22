@@ -728,17 +728,11 @@ void G_BotBuy(gentity_t *self, usercmd_t *botCmdBuffer) {
         G_BotBuyUpgrade( self, UP_LIGHTARMOUR);
 */
 //Bsuits dont wear visual bsuits
-  if(g_bot_bsuit.integer)
         if( !G_BotBuyUpgrade( self, UP_BATTLESUIT) )//buy ordinary armour
-	{
+	      {
             G_BotBuyUpgrade( self, UP_HELMET);
             G_BotBuyUpgrade( self, UP_LIGHTARMOUR);
-	}
-	else
-	{
-            G_BotBuyUpgrade( self, UP_HELMET);
-            G_BotBuyUpgrade( self, UP_LIGHTARMOUR);
-	}
+	      }
 //obviously doesn't work
 /*
         if( BG_InventoryContainsUpgrade( UP_BATTLESUIT, self->client->ps.stats )  ) //set model
@@ -919,8 +913,10 @@ void G_BotReactToEnemy(gentity_t *self, usercmd_t *botCmdBuffer) {
             if( ( (DistanceSquared(self->s.pos.trBase, level.nodes[self->botMind->targetNodeID].coord) < Square(200) && self->botMind->botSkill.level > 4 && (self->client->time1000 % 1100 == 0) && g_bot_dodge_jump.integer == 1)
                 || self->botMind->botSkill.level < 2 ) && g_bot_dodge_jump.integer == 1)
                 botCmdBuffer->upmove = 20;
-             else
+             else if (self->botMind->botSkill.level > 2)
              botCmdBuffer->upmove = -1;
+             else
+             botCmdBuffer->upmove = 0;
             break;
         case PCL_ALIEN_LEVEL2:
         case PCL_ALIEN_LEVEL2_UPG:
@@ -1179,8 +1175,10 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
             case PCL_ALIEN_LEVEL0:
                 if((distance < Square(390)) && (distance > Square(500)) && (self->client->time1000 % 1800) <= 200 && g_bot_dodge_jump.integer == 1 && self->botMind->botSkill.level > 3)
                     botCmdBuffer->upmove = 20; //jump when getting close
-                    else
-                    botCmdBuffer->upmove = -1;
+                else if (self->botMind->botSkill.level > 2)
+                botCmdBuffer->upmove = -1;
+                else
+                botCmdBuffer->upmove = 0;
                     //botCmdBuffer->buttons |= BUTTON_ATTACK; //aka do nothing
                     botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
                 if (self->client->time1000 % 5000 <= 200)
@@ -1196,10 +1194,10 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
 		    botCmdBuffer->forwardmove = 0; //low levels need to stop moving forward else they'll slide on the opponent's bbox and end up doing a big spiral around the target
 		    }
                    }
-                if(distance < Square(LEVEL1_GRAB_RANGE * 0.5))
+                if(distance < Square(LEVEL1_GRAB_RANGE * 0.2))
                    {
 		    botCmdBuffer->forwardmove = 0;
-		    botCmdBuffer->rightmove = 0; //To add a degree of variance and to imrove close-range grabs, just dont move
+//		    botCmdBuffer->rightmove = 0; //To add a degree of variance and to imrove close-range grabs, just dont move
                    }
                 break;
             case PCL_ALIEN_LEVEL1_UPG:

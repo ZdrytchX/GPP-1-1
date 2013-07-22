@@ -581,16 +581,17 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^2Who's Next?^7");
      trap_SendServerCommand( self-g_entities, va( "print \"Your killer, %s^7, had ^1%3i^7 HP.\n\"", killerName, attacker->health ) );
    }
 
-    if( attacker == self || (( OnSameTeam( self, attacker ) ) && g_bot_teamkill.integer == 0) ) //to be replaced with g_teamkill
+    if( attacker != self (( OnSameTeam( self, attacker ) )) )
     {
-      AddScore( attacker, -1 );
+      if (g_bot_teamkill.integer == 0) AddScore( attacker, -1 );
+      else AddScore( attacker, 1 );
 
       //make bot say his line
-      if( attacker == self && attacker->r.svFlags & SVF_BOT && !(self->r.svFlags & SVF_BOT) && !(self->client->pers.muted))
+      if( attacker == self && attacker->r.svFlags & SVF_BOT && !(self->r.svFlags & SVF_BOT) && !(self->client->pers.muted) && g_retribution.integer > -1)
 G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
 
       // Retribution: transfer value of player from attacker to victim
-      if( g_retribution.integer) {
+      if(g_retribution.integer) {
           if(attacker!=self){
         int max = ALIEN_MAX_KILLS, tk_value = 0;
         char *type = "evos";
@@ -599,7 +600,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
         {
             tk_value = BG_ClassCanEvolveFromTo( PCL_ALIEN_LEVEL0,
             self->client->ps.stats[ STAT_PCLASS ], ALIEN_MAX_KILLS, 0 );
-        } else 
+        } else
         {
           tk_value = BG_GetValueOfEquipment( &self->client->ps );
           max = HUMAN_MAX_CREDITS;
@@ -610,6 +611,17 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
           tk_value = attacker->client->ps.persistant[ PERS_CREDIT ];
         if( self->client->ps.persistant[ PERS_CREDIT ]+tk_value > max )
           tk_value = max-self->client->ps.persistant[ PERS_CREDIT ];
+
+        //teamkill mode
+        if (g_retribution.integer < 0)
+        {
+          if(attacker->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS)
+          tk_value += FREEKILL_ALIEN;
+          else
+          tk_value += FREEKILL_HUMAN;
+
+          tk_value *= -1; //flip the sign
+        }
 
         if( tk_value > 0 ) {
 
@@ -626,6 +638,16 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
             va( "print \"Transfered ^3%d %s ^7to %s ^7in retribution.\n\"",
             tk_value, type, self->client->pers.netname ) );
         }
+        else if (tk_value < 0)
+        {
+          tk_value = tk_value*g_retribution.integer/100;
+
+          G_AddCreditToClient( attacker->client, -tk_value, qtrue );
+
+          trap_SendServerCommand( attacker->client->ps.clientNum,
+            va( "print \"Picked up ^3%d %s ^7from %s^7's corpse.\n\"",
+            tk_value, type, self->client->pers.netname ) );
+        }
           }
       }
 
@@ -637,16 +659,9 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
           G_AddCreditToClient( attacker->client, -FREEKILL_HUMAN, qtrue );
 //      }
     }
-    
-    //temporary reward
-    else if( attacker == self || (( OnSameTeam( self, attacker ) ) && g_bot_teamkill.integer) ) //to be replaced with g_teamkill
-    {
-        if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
-          G_AddCreditToClient( attacker->client, -FREEKILL_ALIEN, qtrue );
-        else if( attacker->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS )
-          G_AddCreditToClient( attacker->client, -FREEKILL_HUMAN, qtrue );
-        AddScore( attacker, 1 );
-    }
+    else if (attacker == self)
+    AddScore( attacker, -1 ); //don't take funds
+
     else
     {
       AddScore( attacker, 1 );
@@ -1906,10 +1921,10 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
       && targ->s.eType != ET_MISSILE
       && targ->s.eType != ET_GENERAL )
   {
-  /*
-    if( OnSameTeam( targ, attacker ) )
-      attacker->client->ps.persistant[ PERS_HITS ]-= take;
-    else*/
+  
+    if( targ->s.eType == ET_BUILDABLE/*OnSameTeam( targ, attacker )*/ )
+      attacker->client->ps.persistant[ PERS_HITS ]+= take; //gets annoying when you use luci
+    else
       attacker->client->ps.persistant[ PERS_HITS ]+= take;
   }
 

@@ -263,7 +263,7 @@ qboolean botNeedsItem(gentity_t *self) {
     }
     if( g_bot_bsuit.integer == 1 && g_humanStage.integer == S3) {
         if((short) self->client->ps.persistant[PERS_CREDIT] > BG_FindPriceForUpgrade(UP_BATTLESUIT) &&
-        !BG_InventoryContainsUpgrade(UP_BATTLESUIT, self->client->ps.stats) && (self->client->time1000 % 5000 < 1000))
+        !BG_InventoryContainsUpgrade(UP_BATTLESUIT, self->client->ps.stats))
             return qtrue;
     }
     
