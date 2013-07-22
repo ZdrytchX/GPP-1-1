@@ -642,7 +642,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
         {
           tk_value = tk_value*g_retribution.integer/100;
 
-          G_AddCreditToClient( attacker->client, -tk_value, qtrue );
+          G_AddCreditToClient( attacker->client, tk_value, qtrue );
 
           trap_SendServerCommand( attacker->client->ps.clientNum,
             va( "print \"Picked up ^3%d %s ^7from %s^7's corpse.\n\"",
