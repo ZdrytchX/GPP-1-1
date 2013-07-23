@@ -245,6 +245,7 @@ vmCvar_t  cg_thirdpersonheight;
 vmCvar_t  cg_firstpersonanglefix_yaw;
 vmCvar_t  cg_firstpersonanglefix_pitch;
 vmCvar_t  cg_hitsound;
+vmCvar_t  cg_doublejumpsound;
 //vmCvar_t  g_mode_cpm;
 
 
@@ -398,6 +399,7 @@ static cvarTable_t cvarTable[ ] =
   { &cg_firstpersonanglefix_pitch, "cg_firstpersonanglefix_pitch", "0", CVAR_ARCHIVE},
 //  { &g_mode_cpm, "g_mode_cpm", "0", CVAR_SYSTEMINFO }, //Special CPM cvar
   { &cg_hitsound, "cg_hitsound", "3", CVAR_ARCHIVE},
+  { &cg_doublejumpsound, "cg_doublejumpsound", "1", CVAR_ARCHIVE},
 };
 
 static int   cvarTableSize = sizeof( cvarTable ) / sizeof( cvarTable[0] );
@@ -730,6 +732,8 @@ static void CG_RegisterSounds( void )
 	cgs.media.hitSound[7] = trap_S_RegisterSound( "sound/feedback/hit125.wav", qfalse  );
 	cgs.media.hitSound[8] = trap_S_RegisterSound( "sound/feedback/hit150.wav", qfalse  );
 	cgs.media.hitSound[9] = trap_S_RegisterSound( "sound/feedback/hitcrit.wav", qfalse  );
+	//doublejumpsound
+	cgs.media.doublejumpsound = trap_S_RegisterSound( "sound/feedback/doublejump.wav", qfalse  );
 
   for( i = 0; i < 4; i++ )
     cgs.media.humanBuildableDamage[ i ] = trap_S_RegisterSound(

@@ -245,7 +245,7 @@ CG_CheckLocalSounds
 */
 void CG_CheckLocalSounds( playerState_t *ps, playerState_t *ops )
 {
-  int reward, delta;
+  int reward, delta, doublejumped;
 
   // don't play the sounds if the player just changed teams
   if( ps->persistant[ PERS_TEAM ] != ops->persistant[ PERS_TEAM ] )
@@ -324,6 +324,12 @@ void CG_CheckLocalSounds( playerState_t *ps, playerState_t *ops )
   // if we are going into the intermission, don't start any voices
   if( cg.intermissionStarted )
     return;
+
+    //hitsound
+		doublejumped = ops->persistant[PERS_HITS] - ps->persistant[PERS_HITS];
+  if( doublejumped && doublejumped != 400 && doublejumped < 400
+   && cg_doublejumpsound.integer)
+			trap_S_StartLocalSound( cgs.media.doublejumpsound, CHAN_LOCAL_SOUND );
 
   // reward sounds
   reward = qfalse;

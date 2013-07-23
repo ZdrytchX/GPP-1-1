@@ -1272,6 +1272,8 @@ typedef struct
   qhandle_t   upgradeClassIconShader;
   //hitsound
   sfxHandle_t hitSound[ 10 ];
+  //doublejump
+  sfxHandle_t doublejumpsound;
 } cgMedia_t;
 
 typedef struct
@@ -1540,6 +1542,7 @@ extern  vmCvar_t    cg_thirdpersonheight;
 extern  vmCvar_t    cg_firstpersonanglefix_yaw;
 extern  vmCvar_t    cg_firstpersonanglefix_pitch;
 extern  vmCvar_t    cg_hitsound;
+extern  vmCvar_t    cg_doublejumpsound;
 //extern  vmCvar_t    g_mode_cpm;
 
 //

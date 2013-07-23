@@ -258,7 +258,7 @@ typedef enum
 typedef enum
 {
   PERS_SCORE,           // !!! MUST NOT CHANGE, SERVER AND GAME BOTH REFERENCE !!!
-  PERS_HITS,            // total points damage inflicted so damage beeps can sound on change
+  PERS_HITS,            // used for hit counters, currently only being used for hitsounds, does this really need to be a persistant stat?
   PERS_UNUSED,          // used to be PERS_RANK, no longer used
   PERS_TEAM,
   PERS_SPAWN_COUNT,     // incremented every respawn
