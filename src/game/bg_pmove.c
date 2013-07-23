@@ -766,11 +766,6 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
 {
   int jumpvel;
 
-  float extrajumpvel = 0.5;//(pm->ps->pm_time - PLAYER_DOUBLEJUMP_TIME_TAKE) / PLAYER_DOUBLEJUMP_TIME;
-
-  if( pm->ps->pm_time > PLAYER_CLIP_VEL_TIME)
-  pm->ps->pm_time = PLAYER_CLIP_VEL_TIME;
-
   if( BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] ) == 0.0f )
   {
     return qfalse;
@@ -823,55 +818,7 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
   pm->ps->pm_flags |= PMF_JUMP_HELD;
 
   pm->ps->groundEntityNum = ENTITYNUM_NONE;
-  
-  
-/*
-  //Set Stamina-dependant Jumping Magnitudes
 
-  //TODO: Set via bg_promode.c
-  //TODO: Clean up code
-  if( pm->ps->stats[ STAT_PTEAM ] == PTE_HUMANS )
-{
-  pm_jumpmag = 1;
-//  if( pm->ps->stats[ STAT_STAMINA ] < STAMINA_MIN_TO_JUMP && pm->ps->stats[ STAT_STAMINA ] > STAMINA_JUMP_CUTOFF)
-//    pm_jumpmag = (float)(pm->ps->stats[ STAT_STAMINA ] + 1000)/(1000 + STAMINA_MIN_TO_JUMP);
-//a weird glitchy bug - when stamina > 0, jumpmag becomes extremely low (not 0) for some reason
-  if( pm_jumpmag < 0.20 )
-    pm_jumpmag = 0.20;
-  //Stamina taken off is also dependant on this
-  if( pm->ps->stats[ STAT_PTEAM ] == PTE_HUMANS )
-    pm->ps->stats[ STAT_STAMINA ] -= STAMINA_JUMP * pm_jumpmag; //300
-
-  if( pm->ps->stats[ STAT_STATE ] & SS_WALLCLIMBING )
-  {
-    vec3_t normal = { 0, 0, -1 };
-
-    if( !( pm->ps->stats[ STAT_STATE ] & SS_WALLCLIMBINGCEILING ) )
-      VectorCopy( pm->ps->grapplePoint, normal );
-
-    VectorMA( pm->ps->velocity, BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] ) * pm_jumpmag,
-              normal, pm->ps->velocity );
-  }
-
-  else //ramp jump
-  { //TODO: Add int var - 0 = vantrem 1 = {MG} 2 = bob's oc style
-	if(pm->ps->velocity[ 2 ] > 0)
-	pm->ps->velocity[ 2 ] += BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] ) * pm_jumpmag;
-	else
-	pm->ps->velocity[ 2 ] = BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] ) * pm_jumpmag;
-  PM_AddEvent( EV_JUMP );//jump!
-  }
-}
-
-  else //make people jump normally
-*/
-//{
-  if ( qfalse/*PLAYER_DOUBLEJUMP_TIME > 0 && pm->ps->pm_time > PLAYER_DOUBLEJUMP_TIME_TAKE*/ )
-  {
-  jumpvel = (BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] ) +
-  BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] )*extrajumpvel); //woah woah there.
-  }
-  else
   jumpvel = BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
 
 
@@ -885,14 +832,14 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
     if( !( pm->ps->stats[ STAT_STATE ] & SS_WALLCLIMBINGCEILING ) )
       VectorCopy( pm->ps->grapplePoint, normal );
 
-    VectorMA( pm->ps->velocity, jumpvel,//BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] ),
+    VectorMA( pm->ps->velocity, jumpvel,
               normal, pm->ps->velocity );
   }
 
   else //ramp jump
-  { //TODO: Add int var - 0 = vantrem 1 = {MG} 2 = bob's oc style
+  { //TODO: Add int var - 0 = vanilla 1 = {MG} 2 = bob's oc style
 	if(pm->ps->velocity[ 2 ] > 0)
-	pm->ps->velocity[ 2 ] += BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
+	pm->ps->velocity[ 2 ] += jumpvel;
 	else
 	pm->ps->velocity[ 2 ] = jumpvel;
   PM_AddEvent( EV_JUMP );//jump!
@@ -900,62 +847,17 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
 
   //TA: take some stamina off
   if( pm->ps->stats[ STAT_PTEAM ] == PTE_HUMANS )
-    pm->ps->stats[ STAT_STAMINA ] -= STAMINA_JUMP; //300
-//}
+    pm->ps->stats[ STAT_STAMINA ] -= STAMINA_JUMP;
   
-//  float   vel;//, acc;
-//  float   b; //c, a
-    //ripped from fall damage mod effects section
-    // calculate the upward velocity
-//  dist = pm->ps->origin[ 2 ] - pml.previous_origin[ 2 ];
-//  vel = pml.previous_velocity[ 2 ];
-//  acc = -pm->ps->gravity;
-
-//  a = acc / 2;
-//  b = vel;
-//  c = -dist;
-
-
-/*  
 	 // CPM: check for double-jump
-	 if(CPM_ON)
-//		if (cpm_pm_jump_z) {
-			if (pm->ps->stats[STAT_JUMPTIME] > 0) {
-				pm->ps->velocity[2] += cpm_pm_jump_z; // BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ]);
+//	 if(CPM_ON)
+		if (cpm_pm_jump_z) {
+			if (pm->ps->persistant[PERS_JUMPTIME] > 0) {
+				pm->ps->velocity[2] += (cpm_pm_jump_z * BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ])); // BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ]);
 			}
-			pm->ps->stats[STAT_JUMPTIME] = 400;
-//		}
-*/
-	// !CPM
-	/*
-		 // try #2
-	 if(CPM_ON)
-	 		if (cpm_pm_jump_z) {
-	 		if (pm->ps->jumptime > 0) {
-				pm->ps->velocity[2] += ( cpm_pm_jump_z * BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ]) );
-			}
-			pm->ps->jumptime = 0;
-			}
-  */
-  
-      //try#3 - only works on ramps apparently, but works!
-      /*
-  	 if(CPM_ON) {
-	 		if (pml.previous_velocity[ 2 ] > 0) {
-				pm->ps->velocity[2] += BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
-			}
-		 }
-		 */
-		 /*
-	      //try#4    - failed
-  	if(CPM_ON) {
-	 	  if ((pm->ps->origin[ 2 ] - pml.previous_origin[ 2 ]) > 0) {
-				pm->ps->velocity[2] += BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
-		  }
-		}
-		*/ 
-  
-  
+			pm->ps->persistant[PERS_JUMPTIME] = 400;
+	  }
+
   if( pm->cmd.forwardmove >= 0 )
   {
     if( !( pm->ps->persistant[ PERS_STATE ] & PS_NONSEGMODEL ) )
@@ -2779,7 +2681,7 @@ static void PM_Footsteps( void )
             PM_ContinueLegsAnim( NSPA_RUN );
         }
       }
-
+      if(!(pm->ps->weapon == WP_ALEVEL1 || pm->ps->weapon == WP_ALEVEL1_UPG)) //don't play footsteps for assasins
       footstep = qtrue;
     }
     else
@@ -3907,9 +3809,11 @@ void PmoveSingle( pmove_t *pmove )
   
 //  if(CPM_ON){
   // CPM: Double-jump timer
-//		if (pm->ps->stats[STAT_JUMPTIME] > 0) pm->ps->stats[STAT_JUMPTIME] -= pml.msec;
-//    if (pm->ps->jumptime > 0) //uhh
-//    pm->ps->jumptime -= pml.msec;
+		if (pm->ps->persistant[PERS_JUMPTIME] > 0) pm->ps->persistant[PERS_JUMPTIME] -= pml.msec;
+		/*
+    if (pm->ps->jumptime > 0) //uhh
+    pm->ps->jumptime -= pml.msec;
+    */
 	// !CPM
 
   if( pm->ps->pm_type == PM_JETPACK )

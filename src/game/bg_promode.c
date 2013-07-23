@@ -71,8 +71,6 @@ Newbie's Physics - Just another one of my personal settings, comes with all-dire
 =========================================================================================================
 */
 
-//doublejump
-float cpm_pm_jump_z; //Does nothing right now
 float pm_jumpheight; //Height at which one can jump if stamina < allowable && > absolute min
 float pm_jumpmag = 1.00;
 
@@ -105,6 +103,7 @@ float pm_jumpmag = 1.00;
 //| 0       | 0       | 0       |320          | 512             | 0           | 0            | 0      |
 //| 0       | 0       | 0       |0            | 0.5             | 0           | 0            | 0      |
 //| 0       | 0       | 0       |320          | 0               | 0           | 0            | 0      |
+//| 0.37    | 0       | 0.5     |0            | 0               | 0           | 0.37         | 0      |
 //'---------'---------'---------'-------------'-----------------'-------------'--------------'--------'
 // Physics Initiation
 float	cpm_pm_airstopaccelerate = 2.5;
@@ -131,7 +130,9 @@ float pm_groundspeedcap = 0;
 float pm_groundspeedcapfriction = 0;  
 //This one is not finished (Not Working)
 //when speedcap has been breached speed becomes this
-float pm_groundspeedcaplimit = 0;     
+float pm_groundspeedcaplimit = 0;
+//doublejump
+float cpm_pm_jump_z = 0.5; //CPM: 100/270 (normal jumpvel is 270, doublejump default 100) = 0.37037
 
 void CPM_UpdateSettings(int num) //does nothing now
 {

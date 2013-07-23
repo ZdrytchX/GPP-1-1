@@ -216,12 +216,12 @@ typedef enum
   STAT_PTEAM,     //TA: player team
   STAT_STAMINA,   //TA: stamina (human only)
   STAT_STATE,     //TA: client states e.g. wall climbing
-  STAT_MISC,      //TA: for uh...misc stuff
+  STAT_MISC,      //TA: for uh...misc stuff such as trampler, pounce and lcannon charging
   STAT_BUILDABLE, //TA: which ghost model to display for building
   STAT_BOOSTTIME, //TA: time left for boost (alien only)
   STAT_FALLDIST,  //TA: the distance the player fell
   STAT_VIEWLOCK,   //TA: direction to lock the view in
-//  STAT_JUMPTIME   //ZdrytchX: CPM doublejump
+//  STAT_JUMPTIME   //ZdrytchX: CPM doublejump - not enough room
 } statIndex_t;
 
 #define SCA_WALLCLIMBER         0x00000001
@@ -270,7 +270,10 @@ typedef enum
   PERS_CREDIT,    // human credit
   PERS_BANK,      // human credit in the bank
   PERS_QUEUEPOS,  // position in the spawn queue
-  PERS_NEWWEAPON  // weapon to switch to
+  PERS_NEWWEAPON,  // weapon to switch to
+  
+  //zdrytchx: is this a bad idea?
+  PERS_JUMPTIME
 } persEnum_t;
 
 #define PS_WALLCLIMBINGFOLLOW   0x00000001
@@ -298,7 +301,7 @@ typedef enum
 #define EF_BLOBLOCKED       0x00020000    // TA: caught by a trapper
 #define EF_REAL_LIGHT       0x00040000    // TA: light sprites according to ambient light
 #define EF_DBUILDER         0x00080000    // designated builder protection
-
+/*
 typedef enum
 {
   PW_NONE,
@@ -326,7 +329,7 @@ typedef enum
 
   HI_NUM_HOLDABLE
 } holdable_t;
-
+*/
 typedef enum
 {
   WPM_NONE,
@@ -408,14 +411,14 @@ typedef enum
 } WUTeam_t;
 
 //TA: bitmasks for upgrade slots
-#define SLOT_NONE       0x00000000
-#define SLOT_HEAD       0x00000001
-#define SLOT_TORSO      0x00000002
-#define SLOT_ARMS       0x00000004
-#define SLOT_LEGS       0x00000008
-#define SLOT_BACKPACK   0x00000010
-#define SLOT_WEAPON     0x00000020
-#define SLOT_SIDEARM    0x00000040
+#define SLOT_NONE       0x00000000 //misc
+#define SLOT_HEAD       0x00000001 //helm
+#define SLOT_TORSO      0x00000002 //armour
+#define SLOT_ARMS       0x00000004 //armour - "unused"
+#define SLOT_LEGS       0x00000008 //armour - "unused"
+#define SLOT_BACKPACK   0x00000010 //jet/batt
+#define SLOT_WEAPON     0x00000020 //main weap
+#define SLOT_SIDEARM    0x00000040 //zdrytchx: put shotgun/saw as a sidearm?
 
 typedef enum
 {
@@ -465,12 +468,12 @@ typedef enum
 #define B_POWERED_TOGGLEBIT  0x00000040
 #define B_MARKED_TOGGLEBIT   0x00000080
 
-
+/*
 // reward sounds (stored in ps->persistant[PERS_PLAYEREVENTS])
 #define PLAYEREVENT_DENIEDREWARD      0x0001
 #define PLAYEREVENT_GAUNTLETREWARD    0x0002
 #define PLAYEREVENT_HOLYSHIT          0x0004
-
+*/
 // entityState_t->event values
 // entity events are for effects that take place reletive
 // to an existing entities origin.  Very network efficient.
