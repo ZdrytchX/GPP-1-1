@@ -272,7 +272,7 @@ typedef enum
   PERS_QUEUEPOS,  // position in the spawn queue
   PERS_NEWWEAPON,  // weapon to switch to
   
-  //zdrytchx: is this a bad idea?
+  //zdrytchx: no space in stats
   PERS_JUMPTIME
 } persEnum_t;
 
