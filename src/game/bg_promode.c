@@ -42,20 +42,20 @@ from the above URL to add ProMode physics to this mod, GPP-1.1 Arena.
 ProMode [Q3]  - "the old" 2001 CPMA original settings (The "new" CPM source has never been released at
   the point this was written). It is also known as CPMA, or Challenge ProMode Arena.
   
-Vanilla [ioQ3]- Normal Tremulous of course, although I'm not sure where the '400' came from.
+Vanilla Trem [ioQ3]- Normal Tremulous of course, although I'm not sure where the '400' came from.
 
-ProTrem - my own personal setting.
+ProTrem - my own personal setting. A.K.A. GPP-1.1 Arena's default
   
-TF2  [Source] - Simulates settings in Team Fortress 2 as of 2013 (Not all of which are actual values,
+TF2^ [Source] - Simulates settings in Team Fortress 2 as of 2013 (Not all of which are actual values,
   but some are true. Note that hammer units are slightly different (x1.25?).
   
-TFC [GoldSrc] - Simulates settings in Team Fortress Classic (Not actual values, just estimates)
+TFC^ [GoldSrc] - Simulates settings in Team Fortress Classic (Not actual values, just estimates)
 
 Xonotic* [DarkPlaces] - Simulates settings for Xonotic. Xonotic is a community-driven mod that used to
   support Nexuiz until they went commercial. They have fantastic graphics although choppy animations
   and inaccurate client game predictions (Q1 online didn't have cgame prediction).
   
-WarSow* [???]  - Not Sure, but it's from a Q2 mod. Gameplay is pretty much CPM with a dodge/dash key
+WarSow*^ [???]  - Not Sure, but it's from a Q2 mod. Gameplay is pretty much CPM with a dodge/dash key
   (similar to gpp's except you can dash forward and wallhop with it), a really strong air control
   (however with a STRONG speed penalty* for turning too quickly or using it at a wide angle) and a
   fantastic "noodle" lightning gun which they trashed out with the ammo strengths system. :'/
@@ -68,6 +68,7 @@ Newbie's Physics - Just another one of my personal settings, comes with all-dire
   strafe jump.
 
 *TODO: Air Control Penalty (Makes the player slow down if they turn too fast
+^TODO: Ramp Sliding
 =========================================================================================================
 */
 
@@ -88,7 +89,9 @@ float pm_jumpmag = 1.00;
 //| 70      | 1       | 70      |150          | 1000            | 100         | 70           | 9      |
 //|                                                 Query: What is sv_stopspeed 100? (xonotic configs)|
 //| 30      | 400     | 30      |30           | 30 //Don't know | 24          | 30           | 10     |
+//| 0.370370| 0       | 0.5     |0            | 0               | 0           | 0.37037037037| 0      |
 //|---------+---------+---------+-------------+-----------------+-------------+--------------+--------|
+//| qfalse  | qfalse  | qtrue   |qfalse       | qfalse          | qtrue       | qtrue        | qtrue  |
 //| 0       | 0       | 1200    |0            | 0               | 800         | 925          | 3000   |
 //| 0.00    | 0       | 0.08    |0            | 0               | 0.1593      | 0.1593       | 0.3    |
 //|---------+---------+---------+-------------+-----------------+-------------+--------------+--------|
@@ -103,26 +106,35 @@ float pm_jumpmag = 1.00;
 //| 0       | 0       | 0       |320          | 512             | 0           | 0            | 0      |
 //| 0       | 0       | 0       |0            | 0.5             | 0           | 0            | 0      |
 //| 0       | 0       | 0       |320          | 0               | 0           | 0            | 0      |
-//| 0.37    | 0       | 0.5     |0            | 0               | 0           | 0.37         | 0      |
 //'---------'---------'---------'-------------'-----------------'-------------'--------------'--------'
 // Physics Initiation
 float	cpm_pm_airstopaccelerate = 2.5;
 float	cpm_pm_aircontrol = 165; 
 float cpm_pm_aircontrolmod = 0.9;
+//This makes most aliens turn faster when you're on a larger attack angle, except for granger and marauder.
+//Marauder and normal granger use the opposite, where large attack angles don't turn you as much.
 qboolean  cpm_pm_aircontrolmoding = qtrue;
 float	cpm_pm_strafeaccelerate = 70;
 float	cpm_pm_wishspeed = 30;
+//doublejump
+float cpm_pm_jump_z = 0.5; //CPM: 100/270 (normal jumpvel is 270, doublejump default 100) = 0.37037
+
 //Add-Ons =)
+qboolean pm_autojump = qtrue;
+//note: For some reason, these are broken :'/
 float pm_bunnyhopspeedcap = 1200; //(TODO: No Penalty for turning)  
 float pm_bunnyhopaccel = 0.08;    //accel = bhopaccel - bhopaccel * ([speed-320]/bhopspeedcap-320)
+
 //Moved from bg_pmove.c here
 float pm_airaccelerate = 1.0f;
 float	pm_accelerate = 10;         //Ground Acceleration        
-float	pm_friction = 6;            //Ground Friction    
+float	pm_friction = 6;            //Ground Friction  
+  
 //Air Strafe settings
 qboolean pm_q1strafe = qfalse; //Allows cpm_pm_strafeaccelerate and cpm_pm_wishspeed to take effect in all directions
 qboolean pm_q3strafe = qtrue; //Allows you to accelerate even when past the cpm_pm_wishspeed
 qboolean pm_aircontrol_alldir = qfalse; //Sets air control in all directions (prevents strafe jumping as well)
+
 //The speedcap and speedcaplimit are multiplied by BG_FindSpeedForClass()
 //Note that GSrc's units are slightly different.
 float pm_groundspeedcap = 0;          
@@ -131,8 +143,6 @@ float pm_groundspeedcapfriction = 0;
 //This one is not finished (Not Working)
 //when speedcap has been breached speed becomes this
 float pm_groundspeedcaplimit = 0;
-//doublejump
-float cpm_pm_jump_z = 0.5; //CPM: 100/270 (normal jumpvel is 270, doublejump default 100) = 0.37037
 
 void CPM_UpdateSettings(int num) //does nothing now
 {

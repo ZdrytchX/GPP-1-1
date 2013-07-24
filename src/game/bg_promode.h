@@ -24,6 +24,7 @@ extern qboolean  cpm_pm_aircontrolmoding;
 extern float	pm_accelerate; // located in bg_pmove.c
 extern float	pm_friction; // located in bg_pmove.c
 
+extern qboolean  pm_autojump;
 extern float  pm_bunnyhopspeedcap; //bunnyhop
 extern float  pm_bunnyhopaccel; //acceleration for bhop
 

@@ -770,7 +770,7 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
   {
     return qfalse;
   }
-
+//TODO: A way to fix mara's normal jump restriction is by making walljump only exec'd when surface is un-jump-able
   if( BG_ClassHasAbility( pm->ps->stats[ STAT_PCLASS ], SCA_WALLJUMPER ) )
     return PM_CheckWallJump( );
 
@@ -803,7 +803,7 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
     return qfalse;
   }
   //Bunny hop
-  if(!BUNNYHOP_TRUE)
+  if(!pm_autojump)
   {
     // must wait for jump to be released
     if( pm->ps->pm_flags & PMF_JUMP_HELD )

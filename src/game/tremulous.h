@@ -577,7 +577,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define H_WEAP_SWITCH_DELAY_END     120 //end default 250
 //TODO: Replace with cvar, bg_pmove and trem.h doesn't know from g_main/g_local.h which poses a problem, same for bunnyhop
 #define H_WEAP_SWITCH_BENIFIT       400 //Time taken off firing time if you're switching weaps
-#define BUNNYHOP_TRUE               0 //Off = 0 on = 1
 
 //misc
 #define FASTFIRE                    200 //Allows a short period of fast fire - includes aliens
