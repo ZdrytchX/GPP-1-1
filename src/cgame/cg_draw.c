@@ -1721,7 +1721,7 @@ static void CG_DrawFPS( rectDef_t *rect, float text_x, float text_y,
   static int  previousTimes[ FPS_FRAMES ];
   static int  index;
   int         i, total;
-  int         fps;
+  int         fps, speedvel;
   static int  previous;
   int         t, frameTime;
 

@@ -951,11 +951,11 @@ static void CG_CalcEntityLerpPositions( centity_t *cent )
     cent->currentState.eType == ET_MISSILE &&
     !( cg.snap->ps.pm_flags & PMF_FOLLOW ) )
   {
-        if(cg_projectileNudge.integer > 1)//for the stupid servers which unlagged isn't calculated 100% correct :)
+        if(cg_projectileNudge.integer > 2)//for the stupid servers which unlagged isn't calculated 100% correct :)
         {
            timeshift = cg_projectileNudge.integer;
         }
-  else if( cg.demoPlayback )
+  else if( cg.demoPlayback && cg_projectileNudge.integer == 1 )//don't want it hard-coded
     timeshift = 0;//demos show ping = 999999 or something
   else
     timeshift = cg.ping;
