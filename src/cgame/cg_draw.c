@@ -1750,6 +1750,12 @@ static void CG_DrawFPS( rectDef_t *rect, float text_x, float text_y,
 
     fps = 1000 * FPS_FRAMES / total;
 
+    speedvel = cg.xyspeed;
+    if( cg_drawFPS.integer == 2 )//sneaky speedometer
+     {
+    s = va( "Speed: %d        %d", speedvel, fps);
+     }
+    else
     s = va( "%d", fps );
     w = CG_Text_Width( "0", scale, 0 );
     strLength = CG_DrawStrlen( s );
@@ -2285,6 +2291,14 @@ static void CG_DrawLagometer( rectDef_t *rect, float text_x, float text_y,
   {
     char        *s;
 
+    int i = ( lagometer.frameCount - 1 - a ) & ( LAG_SAMPLES - 1 );
+    int v = lagometer.frameSamples[ i ]; //flickers too fast
+    if( cg_lagometer.integer == 2 )//sneaky polation number to help people predict the error of unlagged
+     {
+    s = va( "%dX%d", v, cg.ping);
+     }
+    ///
+    else
     s = va( "%d", cg.ping );
     ax = rect->x + ( rect->w / 2.0f ) - ( CG_Text_Width( s, scale, 0 ) / 2.0f ) + text_x;
     ay = rect->y + ( rect->h / 2.0f ) + ( CG_Text_Height( s, scale, 0 ) / 2.0f ) + text_y;

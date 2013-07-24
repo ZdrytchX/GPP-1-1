@@ -1130,7 +1130,7 @@ Think function for Alien Hive
 void AHive_Think( gentity_t *self )
 {
   int       entityList[ MAX_GENTITIES ];
-  vec3_t    range = { ACIDTUBE_RANGE, ACIDTUBE_RANGE, ACIDTUBE_RANGE };
+  vec3_t    range = { HIVE_RANGE, HIVE_RANGE, HIVE_RANGE };
   vec3_t    mins, maxs;
   int       i, num;
   gentity_t *enemy;
@@ -2150,9 +2150,9 @@ qboolean HMGTurret_CheckTarget( gentity_t *self, gentity_t *target, qboolean ign
 
   if( target->flags & FL_NOTARGET )
     return qfalse;
-  if( !target->client )
+/*  if( !target->client )
     return qfalse;
-
+*/
   if( target->client->ps.stats[ STAT_STATE ] & SS_HOVELING )
     return qfalse;
 
@@ -2173,7 +2173,8 @@ qboolean HMGTurret_CheckTarget( gentity_t *self, gentity_t *target, qboolean ign
   if( !traceEnt->client )
     return qfalse;
 
-  if( traceEnt->client && traceEnt->client->ps.stats[ STAT_PTEAM ] != PTE_ALIENS )
+  if( traceEnt->client && traceEnt->client->ps.stats[ STAT_PTEAM ] != PTE_ALIENS
+  && !g_bot_teamkill.integer)
     return qfalse;
 
   return qtrue;
@@ -2205,7 +2206,7 @@ void HMGTurret_FindEnemy( gentity_t *self )
   {
     target = &g_entities[ entityList[ i ] ];
 
-    if( target->client && target->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
+    if( /*target->client && */target->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS || g_bot_teamkill.integer )
     {
       //if target is not valid keep searching
       if( !HMGTurret_CheckTarget( self, target, qfalse ) )
@@ -2224,7 +2225,7 @@ void HMGTurret_FindEnemy( gentity_t *self )
     {
       target = &g_entities[ entityList[ i ] ];
 
-      if( target->client && target->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
+      if( /*target->client && */target->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS || g_bot_teamkill.integer )
       {
         //if target is not valid keep searching
         if( !HMGTurret_CheckTarget( self, target, qtrue ) )
