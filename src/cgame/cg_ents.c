@@ -957,9 +957,12 @@ static void CG_CalcEntityLerpPositions( centity_t *cent )
         }
   else if( cg.demoPlayback && cg_projectileNudge.integer == 1 )//don't want it hard-coded
     timeshift = 0;//demos show ping = 999999 or something
+  else if(cg_projectileNudge.integer == 1 && cg_unlagged.integer)
+    timeshift = 0;//people don't like having to see projectilenudge with lagged; it screws up their aim
   else
     timeshift = cg.ping;
   }
+  //TODO: Use projectilenudge's code for calculating unlagged for projectiles :)
 
   // just use the current frame and evaluate as best we can
   BG_EvaluateTrajectory( &cent->currentState.pos,
