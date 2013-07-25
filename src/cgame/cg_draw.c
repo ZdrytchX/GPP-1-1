@@ -2295,8 +2295,9 @@ static void CG_DrawLagometer( rectDef_t *rect, float text_x, float text_y,
     int v = lagometer.frameSamples[ i ]; //flickers too fast
     if( cg_lagometer.integer == 2 )//sneaky polation number to help people predict the error of unlagged
      {
-     if(v < 0 && v > (-900))
-    s = va( "%03d %d", v, cg.ping);
+     if(v < 0 && v > (-900)){
+     v *= -1;
+    s = va( "-%03d %d", v, cg.ping); }
      else if (v < 900 )
     s = va( "+%03d %d", v, cg.ping);
      else 
