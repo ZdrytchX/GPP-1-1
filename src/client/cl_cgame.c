@@ -1008,10 +1008,10 @@ void CL_SetCGameTime( void ) {
 		int tn;
 		
 		tn = cl_timeNudge->integer;
-		if (tn<-30) {
-			tn = -30;
-		} else if (tn>30) {
-			tn = 30;
+		if (tn<-90) {
+			tn = -90;
+		} else if (tn>90) {
+			tn = 90;
 		}
 
 		cl.serverTime = cls.realtime + cl.serverTimeDelta - tn;
