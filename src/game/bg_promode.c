@@ -73,7 +73,6 @@ Newbie's Physics - Just another one of my personal settings, comes with all-dire
 */
 
 float pm_jumpheight; //Height at which one can jump if stamina < allowable && > absolute min
-float pm_jumpmag = 1.00;
 
 //TODO: Set to a variable, 0 = CPM and 6 = WarSow
 //Game Mode Physics Defaults
@@ -108,19 +107,19 @@ float pm_jumpmag = 1.00;
 //| 0       | 0       | 0       |320          | 0               | 0           | 0            | 0      |
 //'---------'---------'---------'-------------'-----------------'-------------'--------------'--------'
 // Physics Initiation
-float	cpm_pm_airstopaccelerate = 2.5;
-float	cpm_pm_aircontrol = 165; 
+float	cpm_pm_airstopaccelerate = 1;
+float	cpm_pm_aircontrol = 0; 
 float cpm_pm_aircontrolmod = 0.9;
 //This makes most aliens turn faster when you're on a larger attack angle, except for granger and marauder.
 //Marauder and normal granger use the opposite, where large attack angles don't turn you as much.
 qboolean  cpm_pm_aircontrolmoding = qtrue;
-float	cpm_pm_strafeaccelerate = 70;
-float	cpm_pm_wishspeed = 30;
+float	cpm_pm_strafeaccelerate = 1;
+float	cpm_pm_wishspeed = 400;
 //doublejump
-float cpm_pm_jump_z = 0.5; //CPM: 100/270 (normal jumpvel is 270, doublejump default 100) = 0.37037
+float cpm_pm_jump_z = 0.0; //CPM: 100/270 (normal jumpvel is 270, doublejump default 100) = 0.37037
 
 //Add-Ons =)
-qboolean pm_autojump = qtrue;
+qboolean pm_autojump = qfalse;
 //note: For some reason, these are broken :'/
 float pm_bunnyhopspeedcap = 1200; //(TODO: No Penalty for turning)  
 float pm_bunnyhopaccel = 0.08;    //accel = bhopaccel - bhopaccel * ([speed-320]/bhopspeedcap-320)
