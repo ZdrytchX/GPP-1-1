@@ -1815,6 +1815,8 @@ void ClientThink_real( gentity_t *ent )
     {
       if( rand( ) > JETPACK_DISABLE_CHANCE )
         client->ps.pm_type = PM_NORMAL;
+      else 
+        client->ps.pm_type = PM_JETPACK;
     }
 
     //switch jetpack off if no reactor
@@ -2042,15 +2044,28 @@ void ClientThink_real( gentity_t *ent )
   }
 
   // Give clients some credit periodically
-  if( ent->client->lastKillTime + FREEKILL_PERIOD < level.time )
+  if( !g_suddenDeath.integer )
   {
-    if( !g_suddenDeath.integer ) {
+    if( ent->client->lastKillTime + FREEKILL_PERIOD < level.time )
+     {
       if( ent->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
+      {
         G_AddCreditToClient( ent->client, FREEKILL_ALIEN, qtrue );
-      if( ent->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS )
-        G_AddCreditToClient( ent->client, FREEKILL_HUMAN, qtrue );
+        ent->client->lastKillTime = level.time;
+        if ( ent->client->ps.weapon == (WP_ABUILD || WP_ABUILD2) )
+        G_AddCreditToClient( ent->client, FREEKILL_ALIEN, qtrue );
+      }
+     }
+    else if( ent->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS )//increment funds evenly over time
+    {
+      if(ent->client->lastKillTime + FREEKILL_PERIOD_H < level.time)
+      {
+        G_AddCreditToClient( ent->client, 1, qtrue );
+        ent->client->lastKillTime = level.time;
+        if ( ent->client->ps.weapon == (WP_HBUILD || WP_HBUILD2) )
+        G_AddCreditToClient( ent->client, 1, qtrue );
+      }
     }
-    ent->client->lastKillTime = level.time;
   }
 
   // perform once-a-second actions

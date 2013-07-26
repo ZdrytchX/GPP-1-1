@@ -308,8 +308,9 @@ void G_BotThink( gentity_t *self) {
     if (g_bot_ping.integer > 0) //must not be negative for safety
     {
     self->client->ps.ping = rand() % 20 + g_bot_ping.integer;
+    self->client->pers.ping = g_bot_ping.integer; //used for unlagged
     self->client->pers.useUnlagged = qtrue;
-    self->client->unlaggedTime = 10 + g_bot_ping.integer; //test hack - instead of delaying the client, why not just apply bias unlagged?
+    //self->client->unlaggedTime = 10 + g_bot_ping.integer; //Server-time type, not relative, this won't work
     }
     else
     {

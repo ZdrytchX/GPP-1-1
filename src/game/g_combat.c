@@ -435,7 +435,8 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
     if( attacker->client )
     {
       //make bot say its line
-      if(attacker->r.svFlags & SVF_BOT && !( self->r.svFlags & SVF_BOT) && rand() % 9 <= 3 && attacker->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM] && !self->client->pers.muted && ( attacker->client->ps.stats[STAT_HEALTH] > attacker->client->ps.stats[STAT_MAX_HEALTH] * 0.3) )
+      if(attacker->r.svFlags & SVF_BOT && !( self->r.svFlags & SVF_BOT) && rand() % 9 <= 3 && !attacker->client->pers.muted && ( attacker->client->ps.stats[STAT_HEALTH] > attacker->client->ps.stats[STAT_MAX_HEALTH] * 0.3) )
+      if( g_bot_teamkill.integer || attacker->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM])
 G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^2Who's Next?^7");
 
       killerName = attacker->client->pers.netname;
@@ -579,6 +580,13 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^2Who's Next?^7");
    if ((( g_devmapKillerHP.integer && g_cheats.integer ) || (g_ShowKillerHealth.integer > 0)) &&  attacker != self ) /* cicho-sza add on */
    {
      trap_SendServerCommand( self-g_entities, va( "print \"Your killer, %s^7, had ^1%3i^7 HP.\n\"", killerName, attacker->health ) );
+
+         //make bot say encourage the team to chase
+      if( self->r.svFlags & SVF_BOT && !self->client->pers.muted
+       && (attacker->client->ps.stats[STAT_HEALTH] < (attacker->client->ps.stats[STAT_MAX_HEALTH] * 0.2 + 25))
+       && (attacker->client->ps.stats[STAT_MAX_HEALTH] > LEVEL0_HEALTH) )//never say if it's a dretch
+      if( g_bot_teamkill.integer || !( OnSameTeam( self, attacker ) ))
+      G_Say(attacker,NULL, SAY_TEAM, "Chase the screamer! He's low!");
    }
 
     if( attacker != self && ( OnSameTeam( self, attacker ) ) )

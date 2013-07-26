@@ -632,8 +632,7 @@ static qboolean PM_CheckWallJump( void )
   float   normalFraction = 1.5f;
   float   cmdFraction = 1.0f;
   float   upFraction = 1.5f;
-  float   minwalljumpangle = 0.7f;
-  trace_t trace; ////
+  //trace_t trace; ////
 
   if( pm->ps->pm_flags & PMF_RESPAWNED )
     return qfalse;    // don't allow jump until all buttons are up
@@ -642,6 +641,7 @@ static qboolean PM_CheckWallJump( void )
     // not holding jump
     return qfalse;
 /////*
+/*
 	ProjectPointOnPlane( movedir, pml.forward, refNormal );
 	VectorNormalize( movedir );
 
@@ -666,22 +666,22 @@ static qboolean PM_CheckWallJump( void )
 
 	if ( trace.fraction < 1.0f &&
 	     !( trace.surfaceFlags & ( SURF_SKY | SURF_SLICK ) ) &&
-	     trace.plane.normal[ 2 ] < minwalljumpangle/*MIN_WALK_NORMAL*/ )
+	     trace.plane.normal[ 2 ] < MIN_WALK_NORMAL )
 	{
 		VectorCopy( trace.plane.normal, pm->ps->grapplePoint );
 	}
-	/*
-	else
-	{
-		return qfalse;
-	}
+	
+	//else
+	//{
+	//	return qfalse;
+	//}
 	*/
 ////*/
   if( /*pm->ps->pm_time > LEVEL2_WALLJUMP_REPEAT*/pm->ps->pm_flags & PMF_TIME_WALLJUMP )
     return qfalse;
 
   // must wait for jump to be released
-/*
+  if(!pm_autojump)
   if( pm->ps->pm_flags & PMF_JUMP_HELD &&
       pm->ps->grapplePoint[ 2 ] == 1.0f )
   {
@@ -689,12 +689,11 @@ static qboolean PM_CheckWallJump( void )
     pm->cmd.upmove = 0;
     return qfalse;
   }
-*/
 
   if (LEVEL2_WALLJUMP_REPEAT != 0) //0 bug check
   {
   pm->ps->pm_flags |= PMF_TIME_WALLJUMP;
-  pm->ps->pm_time = LEVEL2_CLIPVELOCITY;//LEVEL2_WALLJUMP_REPEAT;
+  pm->ps->pm_time = LEVEL2_CLIPVELOCITY_TIME;//LEVEL2_WALLJUMP_REPEAT;
   }
 
   pml.groundPlane = qfalse;   // jumping away
