@@ -806,6 +806,7 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
             buildingIndex = botFindBuilding(self, BA_A_SPAWN, -1);
         }
         teamRush = (level.time % 300000 < 150000) ? qtrue : qfalse; //changing these effect the bot's ability to attack other players?      
+        
         if (level.time % 300000 < 50000 && self->client->time10000 % ((int)(rand() % 150000)) == 0 //150 seconds because if there's only one or two teammates it's pointless
         && !(self->client->pers.muted) && !g_bot_teamkill.integer)
         {
@@ -814,12 +815,14 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
         else
         G_Say(self,NULL, SAY_TEAM, "Let's earn some money, shall we?");
         }
+        
     } else if (self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS){
         buildingIndex = botFindBuilding(self, BA_H_REACTOR, -1);
         if(buildingIndex == ENTITYNUM_NONE) {
             buildingIndex = botFindBuilding(self, BA_H_SPAWN, -1);
         }
         teamRush = (level.time % 300000 > 150000) ? qtrue : qfalse;
+        
         if (level.time % 300000 > 250000 && self->client->time10000 % ((int)(rand() % 150000)) == 0
         && !(self->client->pers.muted) && !g_bot_teamkill.integer)
         {
@@ -828,6 +831,7 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
         else
         G_Say(self,NULL, SAY_TEAM, "Hey look guys, stop providing them funds and start consuming them!");
         }
+        
     }
     else //shut the compiler up
     buildingIndex = ENTITYNUM_NONE;
@@ -836,6 +840,7 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
         if(buildingIndex != getTargetEntityNumber(self->botMind->goal))
         {
             setGoalEntity(self,&g_entities[buildingIndex]);
+            /*
             //don't say it every time
             if (self->client->time1000 % (5000 + rand() % 15000) < 1000
                 && !(self->client->pers.muted) && !g_bot_teamkill.integer)
@@ -883,6 +888,7 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
               }
              }
             }
+            */
         }
         else
             G_BotMoveDirectlyToGoal(self, botCmdBuffer);

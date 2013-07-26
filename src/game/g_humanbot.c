@@ -47,6 +47,9 @@ int G_BotBuyUpgrade ( gentity_t *ent, int upgrade )
     //are we /allowed/ to buy this?
     if( !BG_FindStagesForUpgrade( upgrade, g_humanStage.integer ) || !BG_UpgradeIsAllowed( upgrade ) )
         return 0;
+        
+    if( upgrade == UP_BATTLESUIT && g_bot_bsuit.integer == 0 )
+        return 0;
 
     if( upgrade == UP_AMMO )
         G_GiveClientMaxAmmo( ent, qfalse );
