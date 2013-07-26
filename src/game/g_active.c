@@ -1630,7 +1630,7 @@ void ClientThink_real( gentity_t *ent )
   if( client->pers.connected != CON_CONNECTED )
     return;
 
-  // mark the time, so the connection sprite can be removed
+  // mark the time
   ucmd = &ent->client->pers.cmd;
 
   // sanity check the command time to prevent speedup cheating
@@ -1813,7 +1813,7 @@ void ClientThink_real( gentity_t *ent )
   {
     if( ent->lastDamageTime + JETPACK_DISABLE_TIME > level.time )
     {
-      if( random( ) > JETPACK_DISABLE_CHANCE )
+      if( rand( ) > JETPACK_DISABLE_CHANCE )
         client->ps.pm_type = PM_NORMAL;
     }
 
