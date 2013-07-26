@@ -627,7 +627,7 @@ PM_CheckWallJump
 */
 static qboolean PM_CheckWallJump( void )
 {
-  vec3_t  dir, forward, right, movedir, point;
+  vec3_t  dir, forward, right; //movedir, point;
   vec3_t  refNormal = { 0.0f, 0.0f, 1.0f };
   float   normalFraction = 1.5f;
   float   cmdFraction = 1.0f;
@@ -1167,8 +1167,8 @@ static void PM_AirMove( void )
   wishspeed *= scale;
   
   wishspeed2 = wishspeed;
-	pm_bunnyhopspeedcap *= scale;
-	pm_bunnyhopaccel    *= scale;
+	pm_bunnyhopspeedcap *= BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
+	pm_bunnyhopaccel    *= BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
   
   	// CPM: Air Control
 //  if (CPM_ON)
@@ -1191,10 +1191,11 @@ static void PM_AirMove( void )
      && wishspeed <= DotProduct(pm->ps->velocity, wishdir) //are we travelling faster than wishspeed?
      && DotProduct(pm->ps->velocity, wishdir) < pm_bunnyhopspeedcap) //Is our velocity below speed cap?
 	{
+	  float scaler = ((DotProduct(pm->ps->velocity, wishdir) - 320.000)
+		/(pm_bunnyhopspeedcap - 320.000));
 		wishspeed = pm_bunnyhopspeedcap;	
-		accel *= pm_bunnyhopaccel - (pm_bunnyhopaccel *
-		((DotProduct(pm->ps->velocity, wishdir) - 320)
-		/(pm_bunnyhopspeedcap - 320)));  //Accelerate at pm_bhopaccel at 320 ups,
+		accel = pm_bunnyhopaccel - (pm_bunnyhopaccel * scaler
+		);  //Accelerate at pm_bhopaccel at 320 ups,
 		                                //0 at pm_bhopspeedcap, linear relationship
 	}
 	
