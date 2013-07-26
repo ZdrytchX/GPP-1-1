@@ -2052,7 +2052,7 @@ void ClientThink_real( gentity_t *ent )
       {
         G_AddCreditToClient( ent->client, FREEKILL_ALIEN, qtrue );
         ent->client->lastKillTime = level.time;
-        if ( ent->client->ps.weapon == (WP_ABUILD || WP_ABUILD2) )
+        if ( ent->client->ps.weapon == WP_ABUILD || ent->client->ps.weapon == WP_ABUILD2) )
         G_AddCreditToClient( ent->client, FREEKILL_ALIEN, qtrue );
       }
      }
@@ -2062,8 +2062,7 @@ void ClientThink_real( gentity_t *ent )
       {
         G_AddCreditToClient( ent->client, 1, qtrue );
         ent->client->lastKillTime = level.time;
-        if ( ent->client->ps.weapon == (WP_HBUILD || WP_HBUILD2) )
-        G_AddCreditToClient( ent->client, 1, qtrue );
+        if ( ent->client->ps.weapon == WP_HBUILD || ent->client->ps.weapon == WP_HBUILD2 )
       }
     }
   }

@@ -730,6 +730,13 @@ static qboolean PM_CheckWallJump( void )
     VectorNormalize( pm->ps->velocity );
     VectorScale( pm->ps->velocity, (LEVEL2_WALLJUMP_MAXSPEED + ( (VectorLength( pm->ps->velocity ) - LEVEL2_WALLJUMP_MAXSPEED)/3 )), pm->ps->velocity );
 //TODO: Make the "hard" limit 'sqrt(speed^2 − LEVEL2_WALLJUMP_MAXSPEED^2)' but sqrt() doesn't accept
+    if(pm->ps->stats[ STAT_STAMINA ] > STAMINA_MIN_TO_JUMP || pm->ps->stats[ STAT_PTEAM ] == PTE_ALIENS )
+		  if (cpm_pm_jump_z) {
+			  if (pm->ps->persistant[PERS_JUMPTIME] > 0) {
+				pm->ps->velocity[2] += (cpm_pm_jump_z * BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ])); // BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ]);
+			  }
+			  pm->ps->persistant[PERS_JUMPTIME] = 400;
+	    }
   }
 
   PM_AddEvent( EV_JUMP );
@@ -820,10 +827,6 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
 
   jumpvel = BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
 
-
-  //Allow buggy-exploit for clipping players
-  pm->ps->pm_time == PLAYER_CLIP_VEL_TIME; //doesn't interfere with WALLJUMP for gpp-style because it calls for checkwalljump()
-
   if( pm->ps->stats[ STAT_STATE ] & SS_WALLCLIMBING )
   {
     vec3_t normal = { 0, 0, -1 };
@@ -850,6 +853,7 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
   
 	 // CPM: check for double-jump
 //	 if(CPM_ON)
+  if(pm->ps->stats[ STAT_STAMINA ] > STAMINA_MIN_TO_JUMP || pm->ps->stats[ STAT_PTEAM ] == PTE_ALIENS )
 		if (cpm_pm_jump_z) {
 			if (pm->ps->persistant[PERS_JUMPTIME] > 0) {
 				pm->ps->velocity[2] += (cpm_pm_jump_z * BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ])); // BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ]);
@@ -1139,8 +1143,10 @@ static void PM_AirMove( void )
   usercmd_t cmd;
   float		accel; // CPM
 	float		wishspeed2; // CPM
+	float   velscale;//classes
 
   PM_Friction( );
+  velscale = BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
 
   fmove = pm->cmd.forwardmove;
   smove = pm->cmd.rightmove;
@@ -1167,13 +1173,13 @@ static void PM_AirMove( void )
   wishspeed *= scale;
   
   wishspeed2 = wishspeed;
-	pm_bunnyhopspeedcap *= BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
-	pm_bunnyhopaccel    *= BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
+	pm_bunnyhopspeedcap *= velscale;
+	pm_bunnyhopaccel    *= velscale;
   
   	// CPM: Air Control
 //  if (CPM_ON)
 //  {
-	if (DotProduct(pm->ps->velocity, wishdir) < 0 && BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] ) < cpm_pm_airstopaccelerate )// Stop marauders from climbing walls easily
+	if (DotProduct(pm->ps->velocity, wishdir) < 0 && velscale < cpm_pm_airstopaccelerate )// Stop marauders from climbing walls easily
 		accel = cpm_pm_airstopaccelerate;
 	else
 		accel = pm_airaccelerate;	
@@ -1186,13 +1192,12 @@ static void PM_AirMove( void )
 
 	
 		//Bunnyhop Acceleration
-		//TODO: something wrong? (doesn't work anymore)
 	if (wishspeed < pm_bunnyhopspeedcap //is bhop enabled?
      && wishspeed <= DotProduct(pm->ps->velocity, wishdir) //are we travelling faster than wishspeed?
      && DotProduct(pm->ps->velocity, wishdir) < pm_bunnyhopspeedcap) //Is our velocity below speed cap?
 	{
-	  float scaler = ((DotProduct(pm->ps->velocity, wishdir) - 320.000)
-		/(pm_bunnyhopspeedcap - 320.000));
+	  float scaler = ((DotProduct(pm->ps->velocity, wishdir) - velscale * 320.000)
+		/(pm_bunnyhopspeedcap - velscale * 320.000));
 		wishspeed = pm_bunnyhopspeedcap;	
 		accel = pm_bunnyhopaccel - (pm_bunnyhopaccel * scaler
 		);  //Accelerate at pm_bhopaccel at 320 ups,

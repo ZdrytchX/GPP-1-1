@@ -122,8 +122,8 @@ float cpm_pm_jump_z = 0.5; //CPM: 100/270 (normal jumpvel is 270, doublejump def
 //Add-Ons =)
 qboolean pm_autojump = qtrue;
 //note: For some reason, these are broken :'/
-float pm_bunnyhopspeedcap = 1200; //(TODO: No Penalty for turning)  
-float pm_bunnyhopaccel = 0.0800;    //accel = bhopaccel - bhopaccel * ([speed-320]/bhopspeedcap-320)
+float pm_bunnyhopspeedcap = 0; //(TODO: No Penalty for turning)  
+float pm_bunnyhopaccel = 0;    //accel = bhopaccel - bhopaccel * ([speed-320]/bhopspeedcap-320)
 
 //Moved from bg_pmove.c here
 float pm_airaccelerate = 1.0f;
