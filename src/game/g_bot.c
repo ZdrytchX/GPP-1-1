@@ -1641,16 +1641,18 @@ void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation)
     if(getTargetType(target) != ET_BUILDABLE && getTargetTeam(target) == PTE_HUMANS && getTargetEntityNumber(target) != ENTITYNUM_NONE)
 	{
         (*aimLocation)[2] += g_entities[getTargetEntityNumber(target)].r.maxs[2] * 0.85;
-//TODO: Update botGetAimLocation function first
-   //make lucifer cannons aim ahead based on the target's velocity
+   //aim ahead
        if(self->s.weapon == WP_LUCIFER_CANNON) {
-            VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / (LCANNON_SPEED * 2), target.ent->s.pos.trDelta, *aimLocation);
+         VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / (LCANNON_SPEED * 2), target.ent->s.pos.trDelta, *aimLocation);
        }else if(self->s.weapon == WP_PULSE_RIFLE) {
-            VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / PRIFLE_SPEED, target.ent->s.pos.trDelta, *aimLocation);
+         VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / PRIFLE_SPEED, target.ent->s.pos.trDelta, *aimLocation);
        }else if(self->s.weapon == WP_MASS_DRIVER) {
-            VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / MDRIVER_SPEED, target.ent->s.pos.trDelta, *aimLocation);
+         VectorMA(*aimLocation, (0.1 + Distance(self->s.pos.trBase, *aimLocation) / MDRIVER_SPEED), target.ent->s.pos.trDelta, *aimLocation);
        }else if(self->s.weapon == WP_BLASTER) {
-            VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / BLASTER_SPEED, target.ent->s.pos.trDelta, *aimLocation);
+         VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / BLASTER_SPEED, target.ent->s.pos.trDelta, *aimLocation);
+       }else
+       {
+         VectorMA(*aimLocation, 0.1, target.ent->s.pos.trDelta, *aimLocation);
        }
 	}
     if(getTargetType(target) == ET_BUILDABLE) {
