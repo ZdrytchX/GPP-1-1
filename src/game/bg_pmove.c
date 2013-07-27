@@ -627,12 +627,12 @@ PM_CheckWallJump
 */
 static qboolean PM_CheckWallJump( void )
 {
-  vec3_t  dir, forward, right; //movedir, point;
+  vec3_t  dir, forward, right, movedir, point;
   vec3_t  refNormal = { 0.0f, 0.0f, 1.0f };
   float   normalFraction = 1.5f;
   float   cmdFraction = 1.0f;
   float   upFraction = 1.5f;
-  //trace_t trace; ////
+  trace_t trace; ////
 
   if( pm->ps->pm_flags & PMF_RESPAWNED )
     return qfalse;    // don't allow jump until all buttons are up
@@ -663,7 +663,7 @@ static qboolean PM_CheckWallJump( void )
 	//trace into direction we are moving
 	VectorMA( pm->ps->origin, 0.25f, movedir, point );
 	pm->trace( &trace, pm->ps->origin, pm->mins, pm->maxs, point, pm->ps->clientNum, pm->tracemask );
-
+*/
 	if ( trace.fraction < 1.0f &&
 	     !( trace.surfaceFlags & ( SURF_SKY | SURF_SLICK ) ) &&
 	     trace.plane.normal[ 2 ] < MIN_WALK_NORMAL )
@@ -675,7 +675,7 @@ static qboolean PM_CheckWallJump( void )
 	//{
 	//	return qfalse;
 	//}
-	*/
+	
 ////*/
   if( /*pm->ps->pm_time > LEVEL2_WALLJUMP_REPEAT*/pm->ps->pm_flags & PMF_TIME_WALLJUMP )
     return qfalse;
