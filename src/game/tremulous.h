@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define ALIENREGEN_NOCREEP_MOD      0.7f //out of creep modifier
 
 #define ABUILDER_BUILD_REPEAT       500
-#define ABUILDER_CLAW_DMG           ADM(27 + (VAMP_ON * 10))//3 hit headshot kill
+#define ABUILDER_CLAW_DMG           ADM(27 + (VAMP_ON * 6))//3 hit headshot kill
 #define ABUILDER_CLAW_RANGE         78.0f //64f
 #define ABUILDER_CLAW_WIDTH         8.0f //4f
 #define ABUILDER_BASE_CLAW_REPEAT   1000
@@ -241,19 +241,19 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define LEVEL3_SPEED                1.1f
 #define LEVEL3_VALUE                AVM(575)
-#define LEVEL3_HEALTH               AHM(200)
+#define LEVEL3_HEALTH               AHM(200 + (VAMP_ON * 25))
 #define LEVEL3_REGEN                6
 #define LEVEL3_COST                 1
 
 #define LEVEL3_UPG_SPEED            1.1f
 #define LEVEL3_UPG_VALUE            AVM(650)
-#define LEVEL3_UPG_HEALTH           AHM(250)
+#define LEVEL3_UPG_HEALTH           AHM(250 + (VAMP_ON * 25))
 #define LEVEL3_UPG_REGEN            7
 #define LEVEL3_UPG_COST             1
 
 #define LEVEL4_SPEED                1.2f //1.2f //Switched back from 1.1 to 1.2 because of sprinters
 #define LEVEL4_VALUE                AVM(800)
-#define LEVEL4_HEALTH               AHM(375)
+#define LEVEL4_HEALTH               AHM(375 + (VAMP_ON * 45))
 #define LEVEL4_REGEN                8
 #define LEVEL4_COST                 2
 
@@ -786,9 +786,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define FREEKILL_PERIOD_H           90000/FREEKILL_HUMAN //500msec
 
 //Clipping Exploit
-#define PLAYER_CLIP_VEL_TIME        300//time to allow sliding past walls cpm-style
-#define PLAYER_DOUBLEJUMP_TIME      200 //allow 200msec of time to doublejump
-#define PLAYER_DOUBLEJUMP_TIME_TAKE (PLAYER_CLIP_VEL_TIME - PLAYER_DOUBLEJUMP_TIME)
+//#define PLAYER_CLIP_VEL_TIME        300//time to allow sliding past walls cpm-style
 
 //Raised thresholds
 #define DEFAULT_ALIEN_BUILDPOINTS   "140"
@@ -806,7 +804,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //see g_combat.c for the equation.
 //TODO: Set as external cvars
 
-#define VAMP_ON                     0.0f //Used to balance some things above and enables/disables vampire mode
+#define VAMP_ON                     1.0f //Used to balance some things above and enables/disables vampire mode
                                       //Use '1.0f' or '0.0f' only, set as a float for misc purpouses
 
 #define VAMP_EXTRA                  50 //extra "health" [before modding] added to self
@@ -816,7 +814,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define VAMP_TAKE                   6.25 //6.25 //Confusing, recommended to leave as is. Basically at MAX-vamp'd health, you lose 4 times as much as you would with 25% vamp'd health. The higher the less health drained/s.
 #define VAMP_INIT_HEALTH            1.00 //Spawn with this health
                                        //Human max extra health is 50, so it takes 8 hp/s at most...
-#define MAX_MAX_HEALTH              1.0f//1.0f + (VAMP_ON * 1.0f) //Max health for players * this = Max vamped health, in this case its 1+(if vamp is on/off [1/0]*0.5) = 1.5x normal max health
+#define MAX_MAX_HEALTH              1.5f//1.0f + (VAMP_ON * 1.0f) //Max health for players * this = Max vamped health, in this case its 1+(if vamp is on/off [1/0]*0.5) = 1.5x normal max health
 //medkits extras
 #define MEDKIT_OVERHEAL             0.9f + (VAMP_ON * 0.1f) //yes > 1.0f | no = 1.0f | little = 1.2f | L4D-like = 0.8
                                          //note: this value * MAX_MAX_HEALTH * player's max health
