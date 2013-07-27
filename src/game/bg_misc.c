@@ -1557,7 +1557,7 @@ classAttributes_t bg_classList[ ] =
     1.0f,                                           //float   bobCycle;
     0,                                              //int     steptime;
 
-    1200,                                            //float   speed; //wth, 600 so gay
+    600,                                            //float   speed; //wth, 600 so gay, want 1200
     10.0f,                                          //float   acceleration; //makes no fking sense
     10.0f,                                           //float   airAcceleration;
     5.0f,                                           //float   friction; //pm-move shows 5.0, therfore changed frm 6.0 to 5.0, well this is ground friction :/

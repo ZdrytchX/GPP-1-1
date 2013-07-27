@@ -2870,8 +2870,17 @@ qboolean G_admin_kick( gentity_t *ent, int skiparg )
   trap_Cvar_VariableStringBuffer( "g_banNotice", notice, sizeof( notice ) );
 
   minargc = 3 + skiparg;
+
+  vic = &g_entities[ pids[ 0 ] ];
+
   if( G_admin_permission( ent, ADMF_UNACCOUNTABLE ) )
     minargc = 2 + skiparg;
+
+//  if(vic-client->r.svFlags & SVF_BOT)
+//  {
+//    ADMP( "^3!kick: ^7Use !bot del or ^3/callvote kick^7 to remove bots\n" );
+//    return qfalse;
+//  }
 
   if( G_SayArgc() < minargc )
   {
@@ -2892,7 +2901,6 @@ qboolean G_admin_kick( gentity_t *ent, int skiparg )
         " level than you\n" );
     return qfalse;
   }
-  vic = &g_entities[ pids[ 0 ] ];
   admin_create_ban( ent,
     vic->client->pers.netname,
     vic->client->pers.guid,
@@ -3177,6 +3185,17 @@ qboolean G_admin_botcfg(gentity_t *ent, int skiparg) {
         trap_FS_Write( va("g_bot_infinite_funds %d\n",g_bot_infinite_funds.integer ? 1:0), 23, f );
         trap_FS_Write( va("g_bot_survival %d\n",g_bot_survival.integer ? 1:0), 17, f );
         trap_FS_Write( va("g_bot_wave_interval %d\n",g_bot_wave_interval.integer ? g_bot_wave_interval.integer:0), 40, f );
+//zdrytchx add-ons
+        trap_FS_Write( va("g_bot_teamkill %d\n",g_bot_teamkill.integer ? 1:0), 16, f );
+        trap_FS_Write( va("g_bot_granger %d\n",g_bot_granger.integer ? 1:0), 15, f );
+        trap_FS_Write( va("g_bot_bsuit %d\n",g_bot_bsuit.integer ? 1:0), 13, f );
+        trap_FS_Write( va("g_bot_dodge_jump %d\n",g_bot_dodge_jump.integer ? 1:0), 18, f );
+        trap_FS_Write( va("g_bot_dodge_crouch %d\n",g_bot_dodge_crouch.integer ? 1:20), 20, f );
+        trap_FS_Write( va("g_bot_ping %d\n",g_bot_ping.integer ? g_bot_ping.integer:0), 15, f );
+        trap_FS_Write( va("g_bot_gren %d\n",g_bot_gren.integer ? 1:0), 12, f );
+        trap_FS_Write( va("g_bot_gren_buypercent %d\n",g_bot_gren_buypercent.integer ? g_bot_gren_buypercent.integer:0), 25, f );
+        trap_FS_Write( va("g_bot_gren_buildablesonlypercent %d\n",g_bot_gren_buildablesonlypercent.integer ? g_bot_gren_buildablesonlypercent.integer:0), 36, f );
+        trap_FS_Write( va("g_bot_alien_secondaryonly %d\n",g_bot_alien_secondaryonly.integer ? 1:0), 27, f );
         
         trap_FS_FCloseFile( f );
         trap_SendServerCommand( -1, va("print \"Saved bot config as: %s\n\"",cfgName) );
@@ -4612,7 +4631,7 @@ qboolean G_admin_listadmins( gentity_t *ent, int skiparg )
   {
     if( minlevel >= -9 )
     {
-      ADMP( va( "^3!listadmins: ^7no admins level %i or greater found\n", minlevel ) );
+      ADMP( va( "^3!listadmins: ^7no admins level %i or greater available\n", minlevel ) );
     }
     else
     {

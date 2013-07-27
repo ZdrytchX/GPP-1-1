@@ -120,8 +120,8 @@ float	cpm_pm_wishspeed = 30;
 float cpm_pm_jump_z = 0.5; //CPM: 100/270 (normal jumpvel is 270, doublejump default 100) = 0.37037
 
 //Add-Ons =)
-qboolean pm_autojump = qtrue;
-//note: For some reason, these are broken :'/
+qboolean pm_autojump = qfalse;
+
 float pm_bunnyhopspeedcap = 0; //(TODO: No Penalty for turning)  
 float pm_bunnyhopaccel = 0;    //accel = bhopaccel - bhopaccel * ([speed-320]/bhopspeedcap-320)
 

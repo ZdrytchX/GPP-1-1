@@ -434,14 +434,14 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 
     if( attacker->client )
     {
-      //make bot say its line
-      if(attacker->r.svFlags & SVF_BOT && !( self->r.svFlags & SVF_BOT) && rand() % 9 <= 3 && !attacker->client->pers.muted && ( attacker->client->ps.stats[STAT_HEALTH] > attacker->client->ps.stats[STAT_MAX_HEALTH] * 0.3) )
-      if( g_bot_teamkill.integer || attacker->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM])
-G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^2Who's Next?^7");
-
       killerName = attacker->client->pers.netname;
       tk = ( attacker != self && attacker->client->ps.stats[ STAT_PTEAM ] 
         == self->client->ps.stats[ STAT_PTEAM ] );
+
+      //make bot say its line
+      if(attacker->r.svFlags & SVF_BOT && !( self->r.svFlags & SVF_BOT) && rand() % 9 <= 3 && !attacker->client->pers.muted && ( attacker->client->ps.stats[STAT_HEALTH] > attacker->client->ps.stats[STAT_MAX_HEALTH] * 0.3) )
+      if( g_bot_teamkill.integer || attacker->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM])
+G_Say(attacker,NULL, SAY_ALL, va("%s,^2You ^1Suck! ^2Who's Next?^7", killerName));
 
       if( attacker != self && attacker->client->ps.stats[ STAT_PTEAM ]  == self->client->ps.stats[ STAT_PTEAM ] ) 
       {
@@ -584,9 +584,9 @@ G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^2Who's Next?^7");
          //make bot say encourage the team to chase
       if( self->r.svFlags & SVF_BOT && !self->client->pers.muted
        && (attacker->client->ps.stats[STAT_HEALTH] < (attacker->client->ps.stats[STAT_MAX_HEALTH] * 0.2 + 25))
-       && (attacker->client->ps.stats[STAT_MAX_HEALTH] > LEVEL0_HEALTH) )//never say if it's a dretch
+       && (attacker->client->ps.stats[STAT_PCLASS] = PCL_ALIEN_LEVEL0) )//never say if it's a dretch
       if( g_bot_teamkill.integer || !( OnSameTeam( self, attacker ) ))
-      G_Say(self,NULL, SAY_TEAM, "Chase the screamer! He's low!");
+      G_Say(self,NULL, SAY_TEAM, va("Chase %s^5! He's low!", killerName) );
    }
 
     if( attacker != self && ( OnSameTeam( self, attacker ) ) )
@@ -1802,6 +1802,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
   // at the end of the frame
   if( client )
   {
+
     if( attacker )
       client->ps.persistant[ PERS_ATTACKER ] = attacker->s.number;
     else
@@ -1826,76 +1827,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
     targ->client->lasthurt_client = attacker->s.number;
     targ->client->lasthurt_mod = mod;
     
-    //set vamp before damage modifiers
-    //Vampire mode!
-    //The following is OP when killing dretches..
-//#define VAMP (( attacker->client->ps.stats[ STAT_MAX_HEALTH ] + VAMP_EXTRA) * ( take / ( targ->client->ps.stats[ STAT_MAX_HEALTH ] * 2 )) / VAMP_DIVIDE + 0.5) // supports health gain that is less than 1 value and the '+50' means proportionate to (health + 50). Its also to help dretches and small ones gain health. Now also proportionate to the enemy's health.
 
-//backup - only works for aliens vs naked humans
-#define VAMP (( attacker->client->ps.stats[ STAT_MAX_HEALTH ] + VAMP_EXTRA) * take * VAMP_TAKE_MULTIPLIER + 0.5); // supports health gain that is less than 1 value and the '+50' means porportionate to health + 50. Its also to help dretches and small ones gain health.
-/* //cancel
-#define VAMP_ENEMY_INIT_MAX_HP targ->client->ps.stats[ STAT_MAX_HEALTH ];
-	if( VAMP_ENEMY_INIT_MAX_HP < 100 )
-	{
-	#define	VAMP_ENEMY_INIT_MAX_HP = 100;
-	} //fuck i know this may not work... i don't do programming, i just add/mod stuff. Honestly i do not credit myself for much except for the ideas like the luci speed and this vamp calculations
-*/
-//#define VAMP (( attacker->client->ps.stats[ STAT_MAX_HEALTH ] + VAMP_EXTRA) * ( take / ( VAMP_ENEMY_INIT_MAX_HP * 2 )) / VAMP_DIVIDE + 0.5);
-
-    if( targ->health <= 0 )
-    {
-        ( targ->health = -999 ); //this should* fix human incability revival glitch
-      if( client )
-        targ->flags |= FL_NO_KNOCKBACK;
-
-      if( targ->health < -9999 )
-        targ->health = -9999;
-
-      targ->enemy = attacker;
-      targ->die( targ, inflictor, attacker, take, mod );
-      return;
-    }
-    else if( targ->pain )
-      targ->pain( targ, attacker, take );
-          // Vampire mod
-		//stop buildable invincability in vampire
-	if (attacker->s.eType == ET_BUILDABLE && g_vampirebuildables.integer > 0)
-		{
-      int maxHP = BG_FindHealthForBuildable( attacker->s.modelindex );
-			attacker->health = attacker->health + ( take * (g_vampirebuildables_take.integer * 0.01f) ); //cvar percent
-//Make sure they don't go over 100% hp due to visual issues
-        		  if (attacker->health > maxHP) 
-        		  {
-            		      attacker->health = maxHP;
-    		      }
-		}
-	else
-	{
-		if (targ->s.eType == ET_BUILDABLE)
-	return; //take too strong and humans don't die when invading alien base.
-/*{
-	attacker->health = attacker->health + ( take / 4 ); //no matter what buildable's health is
-}*/
-//TODO: If attacker has flamer - deny vamp gain abilities.
-//TODO: If Victim is a tyrant, reward half.
-//TODO: If victim is armoured, use the inverse of that modifier.
-	else if(attacker->client)
-		{
-          attacker->health = attacker->health + VAMP; //gain according to the player's health ratio so a dretch doesn't become invincable.//Also, they gain porportional according to their max health (+ 50).
-          if (attacker->health > attacker->client->ps.stats[ STAT_MAX_HEALTH ] * 1.5) 
-          {
-                  attacker->health = attacker->client->ps.stats[ STAT_MAX_HEALTH ] * 1.5;
-          }
-         // end Vampire
-          //to make sure they STAY DEAD >={D) (no glitchy revives):
-          if ( attacker->health < 0 )
-              { attacker->health = -999; } //still possible, if he nades the same spot 999 times... but that will be unlikely because targets would've died and no more hp would be dealt.
-         //Apprently you still see ur HUDs though... i can't fix this
-         //Also, these apply to those who heal once every second, in this case its only aliens. This becomes a problem as humans become invincable still. This is fixed in g_active.c
-//note: It fixed itself 'somehow'. This code was not needed anymore although it was spammed 3 times throughout the source code including in g_active.c
-		}
-	}
-    
     damagemodifier = G_CalcDamageModifier( point, targ, attacker, client->ps.stats[ STAT_PCLASS ], dflags );
     take = (int)( (float)take * damagemodifier );
 
@@ -2007,8 +1939,8 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
   
     if( targ->s.eType == ET_BUILDABLE/*OnSameTeam( targ, attacker )*/ )
       attacker->client->ps.persistant[ PERS_HITS ]+= take; //gets annoying when you use luci
-    else
-      attacker->client->ps.persistant[ PERS_HITS ]+= take;
+//    else
+//      attacker->client->ps.persistant[ PERS_HITS ]+= take;
   }
 
     targ->lastDamageTime = level.time;
@@ -2021,6 +1953,77 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
       else if( attacker != targ && OnSameTeam( targ, attacker ) )
         targ->client->tkcredits[ attacker->client->ps.clientNum ] += takeNoOverkill;
     }
+
+          //TODO set vamp before damage modifiers
+    //Vampire mode!
+    //The following is OP when killing dretches..
+//#define VAMP (( attacker->client->ps.stats[ STAT_MAX_HEALTH ] + VAMP_EXTRA) * ( take / ( targ->client->ps.stats[ STAT_MAX_HEALTH ] * 2 )) / VAMP_DIVIDE + 0.5) // supports health gain that is less than 1 value and the '+50' means proportionate to (health + 50). Its also to help dretches and small ones gain health. Now also proportionate to the enemy's health.
+
+//backup - only works for aliens vs naked humans
+#define VAMP (( attacker->client->ps.stats[ STAT_MAX_HEALTH ] + VAMP_EXTRA) * damage * VAMP_TAKE_MULTIPLIER + 0.5); // supports health gain that is less than 1 value and the '+50' means porportionate to health + 50. Its also to help dretches and small ones gain health.
+/* //cancel
+#define VAMP_ENEMY_INIT_MAX_HP targ->client->ps.stats[ STAT_MAX_HEALTH ];
+	if( VAMP_ENEMY_INIT_MAX_HP < 100 )
+	{
+	#define	VAMP_ENEMY_INIT_MAX_HP = 100;
+	} //fuck i know this may not work... i don't do programming, i just add/mod stuff. Honestly i do not credit myself for much except for the ideas like the luci speed and this vamp calculations
+*/
+//#define VAMP (( attacker->client->ps.stats[ STAT_MAX_HEALTH ] + VAMP_EXTRA) * ( damage / ( VAMP_ENEMY_INIT_MAX_HP * 2 )) / VAMP_DIVIDE + 0.5);
+
+    if( targ->health <= 0 )
+    {
+        ( targ->health = -999 ); //this should* fix human incability revival glitch
+      if( client )
+        targ->flags |= FL_NO_KNOCKBACK;
+
+      if( targ->health < -9999 )
+        targ->health = -9999;
+
+      targ->enemy = attacker;
+      targ->die( targ, inflictor, attacker, damage, mod );
+      return;
+    }
+    else if( targ->pain )
+      targ->pain( targ, attacker, damage );
+          // Vampire mod
+		//stop buildable invincability in vampire
+	if (attacker->s.eType == ET_BUILDABLE && g_vampirebuildables.integer > 0)
+		{
+      int maxHP = BG_FindHealthForBuildable( attacker->s.modelindex );
+			attacker->health = attacker->health + ( damage * (g_vampirebuildables_take.integer * 0.01f) ); //cvar percent
+//Make sure they don't go over 100% hp due to visual issues
+        		  if (attacker->health > maxHP) 
+        		  {
+            		      attacker->health = maxHP;
+    		      }
+		}
+	else
+	{
+		if (targ->s.eType == ET_BUILDABLE)
+	return; //damage too strong and humans don't die when invading alien base.
+/*{
+	attacker->health = attacker->health + ( damage / 4 ); //no matter what buildable's health is
+}*/
+//TODO: If attacker has flamer - deny vamp gain abilities.
+//TODO: If Victim is a tyrant, reward half.
+//TODO: If victim is armoured, use the inverse of that modifier.
+	else if(attacker->client)
+		{
+          attacker->health = attacker->health + VAMP; //gain according to the player's health ratio so a dretch doesn't become invincable.//Also, they gain porportional according to their max health (+ 50).
+          if (attacker->health > attacker->client->ps.stats[ STAT_MAX_HEALTH ] * 1.5) 
+          {
+                  attacker->health = attacker->client->ps.stats[ STAT_MAX_HEALTH ] * 1.5;
+          }
+         // end Vampire
+          //to make sure they STAY DEAD >={D) (no glitchy revives):
+          if ( attacker->health < 0 )
+              { attacker->health = -999; } //still possible, if he nades the same spot 999 times... but that will be unlikely because targets would've died and no more hp would be dealt.
+         //Apprently you still see ur HUDs though... i can't fix this
+         //Also, these apply to those who heal once every second, in this case its only aliens. This becomes a problem as humans become invincable still. This is fixed in g_active.c
+//note: It fixed itself 'somehow'. This code was not needed anymore although it was spammed 3 times throughout the source code including in g_active.c
+		}
+	}
+
   }
 }
 

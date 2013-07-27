@@ -627,12 +627,12 @@ PM_CheckWallJump
 */
 static qboolean PM_CheckWallJump( void )
 {
-  vec3_t  dir, forward, right, movedir, point;
+  vec3_t  dir, forward, right;//, movedir, point;///-movedir, point
   vec3_t  refNormal = { 0.0f, 0.0f, 1.0f };
   float   normalFraction = 1.5f;
   float   cmdFraction = 1.0f;
   float   upFraction = 1.5f;
-  trace_t trace; ////
+  //trace_t trace; ////
 
   if( pm->ps->pm_flags & PMF_RESPAWNED )
     return qfalse;    // don't allow jump until all buttons are up
@@ -663,7 +663,7 @@ static qboolean PM_CheckWallJump( void )
 	//trace into direction we are moving
 	VectorMA( pm->ps->origin, 0.25f, movedir, point );
 	pm->trace( &trace, pm->ps->origin, pm->mins, pm->maxs, point, pm->ps->clientNum, pm->tracemask );
-*/
+
 	if ( trace.fraction < 1.0f &&
 	     !( trace.surfaceFlags & ( SURF_SKY | SURF_SLICK ) ) &&
 	     trace.plane.normal[ 2 ] < MIN_WALK_NORMAL )
@@ -676,8 +676,8 @@ static qboolean PM_CheckWallJump( void )
 	//	return qfalse;
 	//}
 	
-////*/
-  if( /*pm->ps->pm_time > LEVEL2_WALLJUMP_REPEAT*/pm->ps->pm_flags & PMF_TIME_WALLJUMP )
+*/
+  if( pm->ps->pm_flags & PMF_TIME_WALLJUMP )
     return qfalse;
 
   // must wait for jump to be released
@@ -729,6 +729,7 @@ static qboolean PM_CheckWallJump( void )
   {
     VectorNormalize( pm->ps->velocity );
     VectorScale( pm->ps->velocity, (LEVEL2_WALLJUMP_MAXSPEED + ( (VectorLength( pm->ps->velocity ) - LEVEL2_WALLJUMP_MAXSPEED)/3 )), pm->ps->velocity );
+    /*
 //TODO: Make the "hard" limit 'sqrt(speed^2 − LEVEL2_WALLJUMP_MAXSPEED^2)' but sqrt() doesn't accept
     if(pm->ps->stats[ STAT_STAMINA ] > STAMINA_MIN_TO_JUMP || pm->ps->stats[ STAT_PTEAM ] == PTE_ALIENS )
 		  if (cpm_pm_jump_z) {
@@ -737,6 +738,7 @@ static qboolean PM_CheckWallJump( void )
 			  }
 			  pm->ps->persistant[PERS_JUMPTIME] = 400;
 	    }
+	  */
   }
 
   PM_AddEvent( EV_JUMP );
@@ -1179,10 +1181,10 @@ static void PM_AirMove( void )
   	// CPM: Air Control
 //  if (CPM_ON)
 //  {
-	if (DotProduct(pm->ps->velocity, wishdir) < 0 && velscale < cpm_pm_airstopaccelerate )// Stop marauders from climbing walls easily
+	if (DotProduct(pm->ps->velocity, wishdir) < 0 && (pm_airaccelerate * velscale) < cpm_pm_airstopaccelerate )// Stop marauders from climbing walls easily
 		accel = cpm_pm_airstopaccelerate;
 	else
-		accel = pm_airaccelerate;	
+		accel = pm_airaccelerate * velscale;	
 	//allow standard half-beat strafe jumping if pm_q3strafe is true
 	if( !pm_q3strafe && pm_q1strafe )
 	{
@@ -1191,17 +1193,16 @@ static void PM_AirMove( void )
 	}
 
 	
-		//Bunnyhop Acceleration
+		//Bunnyhop Acceleration - TODO Bug: apparently warps people out of the map?
 	if (wishspeed < pm_bunnyhopspeedcap //is bhop enabled?
      && wishspeed <= DotProduct(pm->ps->velocity, wishdir) //are we travelling faster than wishspeed?
      && DotProduct(pm->ps->velocity, wishdir) < pm_bunnyhopspeedcap) //Is our velocity below speed cap?
 	{
-	  float scaler = ((DotProduct(pm->ps->velocity, wishdir) - velscale * 320.000)
-		/(pm_bunnyhopspeedcap - velscale * 320.000));
+	  float scaler = (DotProduct(pm->ps->velocity, wishdir) - velscale * 320.000)
+		/(pm_bunnyhopspeedcap - velscale * 320.000);
 		wishspeed = pm_bunnyhopspeedcap;	
-		accel = pm_bunnyhopaccel - (pm_bunnyhopaccel * scaler
-		);  //Accelerate at pm_bhopaccel at 320 ups,
-		                                //0 at pm_bhopspeedcap, linear relationship
+		accel = pm_bunnyhopaccel - (pm_bunnyhopaccel * scaler);//linear relationship - is it bad?
+		//TODO: Floating number restrictions; ProTrem settings does not accelerate past ~1000 ups
 	}
 	
 	PM_Accelerate(wishdir, wishspeed, accel );
@@ -1225,8 +1226,8 @@ static void PM_AirMove( void )
 	  //allow standard half-beat strafe jumping if pm_q3strafe is true
 		if (wishspeed > cpm_pm_wishspeed && !(DotProduct(pm->ps->velocity, wishdir) > cpm_pm_wishspeed) )
 		{
-	  wishspeed = cpm_pm_wishspeed * BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );	
-		accel = cpm_pm_strafeaccelerate * BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
+	  wishspeed = cpm_pm_wishspeed * velscale;	
+		accel = cpm_pm_strafeaccelerate * velscale;
 		PM_Accelerate (wishdir, wishspeed, accel); //Re-exec'd - dodgy but should work
 		}
 	}

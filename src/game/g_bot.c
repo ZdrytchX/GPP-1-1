@@ -308,14 +308,14 @@ void G_BotThink( gentity_t *self) {
     if (g_bot_ping.integer > 0) //must not be negative for safety
     {
     self->client->ps.ping = rand() % 20 + g_bot_ping.integer;
-    self->client->pers.ping = g_bot_ping.integer; //used for unlagged
-    self->client->pers.useUnlagged = qtrue;
+    //self->client->pers.ping = g_bot_ping.integer; //used for unlagged
+    //self->client->pers.useUnlagged = qtrue;
     //self->client->unlaggedTime = 10 + g_bot_ping.integer; //Server-time type, not relative, this won't work
     }
-    else
-    {
-    self->client->pers.useUnlagged = qfalse;
-    }
+    //else
+    //{
+    //self->client->pers.useUnlagged = qfalse;
+    //}
     
     G_BotModusManager(self);
     switch(self->botMind->currentModus) {
@@ -498,7 +498,7 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
     vec3_t tmpVec;
     
     //aim at the destination
-    botGetAimLocation(target, &tmpVec);
+    botGetAimLocation(self, target, &tmpVec);
     
     if(!targetIsEntity(target))
         botSlowAim(self, tmpVec, 0.4f, &tmpVec);
@@ -1118,7 +1118,7 @@ qboolean botTargetInAttackRange(gentity_t *self, botTarget_t target) {
             secondaryRange = 0; //no secondary attack
     }
     getTargetPos(target, &targetPos);
-    botGetAimLocation(target, &targetPos);
+    botGetAimLocation(self, target, &targetPos);
     trap_Trace(&trace,muzzle,NULL,NULL,targetPos,self->s.number,MASK_SHOT);
     distance = DistanceSquared(self->s.pos.trBase, targetPos);
     distance = (int) distance - myMax/2 - targetMax/2;
@@ -1297,8 +1297,29 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
             if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % 3000 <= 300 && g_bot_dodge_jump.integer == 1)
                 botCmdBuffer->upmove = 20; //only jump when too close
+        }
+        ///
+       else if(self->client->ps.weapon == WP_MASS_DRIVER)
+            if(distance > Square(LEVEL3_CLAW_RANGE + LEVEL3_CLAW_RANGE/2) && 
+            self->client->ps.stats[ STAT_MISC ] < LEVEL3_POUNCE_UPG_SPEED)
+            {
+            botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 0.1 - self->client->ps.delta_angles[PITCH]; //aim up a teeny bit
+                botCmdBuffer->buttons |= BUTTON_ATTACK;
 
-        } else if( self->client->ps.weapon == WP_LUCIFER_CANNON ) {
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL4_CLAW_RANGE * 3) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 3.5) && self->client->time1000 % 1500 <= 800 && g_bot_dodge_jump.integer == 1)
+              {
+                botCmdBuffer->upmove = 20; //TODO: g_bot_react_jump
+                botCmdBuffer->buttons |= BUTTON_GESTURE;
+              }
+
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE * 2) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 2) && self->client->time1000 % 600 <= 300 && g_bot_dodge_crouch.integer == 1)
+                botCmdBuffer->upmove = -1;
+
+            if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % 3500 <= 1000 && g_bot_dodge_jump.integer == 1)
+                botCmdBuffer->upmove = 20;
+            }
+///
+       else if( self->client->ps.weapon == WP_LUCIFER_CANNON ) {
             if( self->client->time10000 % (LCANNON_CHARGE_TIME - 100) ) { //time10000 % 1900
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
                 self->botMind->isFireing = qtrue;
@@ -1601,7 +1622,7 @@ void G_BotIntermissionThink( gclient_t *client ) //does/must not accept gentity_
       if (level.time % 600 > 100)
       G_Say(self->client,NULL, SAY_ALL, "gg");
       else
-      G_Say(self->client,NULL, SAY_ALL, "jeejee, wish I'd do better...");
+      G_Say(self->client,NULL, SAY_ALL, "jeejee");
       }
      */
       //don't repeat
@@ -1610,7 +1631,9 @@ void G_BotIntermissionThink( gclient_t *client ) //does/must not accept gentity_
     }
 }
 
-void botGetAimLocation( botTarget_t target, vec3_t *aimLocation) {
+void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation) {
+    vec3_t mins;
+
     //get the position of the enemy
     getTargetPos(target, aimLocation);
     //gentity_t *targetEnt = &g_entities[getTargetEntityNumber(target)];
@@ -1620,12 +1643,23 @@ void botGetAimLocation( botTarget_t target, vec3_t *aimLocation) {
         (*aimLocation)[2] += g_entities[getTargetEntityNumber(target)].r.maxs[2] * 0.85;
 //TODO: Update botGetAimLocation function first
    //make lucifer cannons aim ahead based on the target's velocity
-/*       if(self->s.weapon == WP_LUCIFER_CANNON) {
-            VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / LCANNON_SPEED, target.ent->s.pos.trDelta, *aimLocation);
-       }*/
+       if(self->s.weapon == WP_LUCIFER_CANNON) {
+            VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / (LCANNON_SPEED * 2), target.ent->s.pos.trDelta, *aimLocation);
+       }else if(self->s.weapon == WP_PULSE_RIFLE) {
+            VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / PRIFLE_SPEED, target.ent->s.pos.trDelta, *aimLocation);
+       }else if(self->s.weapon == WP_MASS_DRIVER) {
+            VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / MDRIVER_SPEED, target.ent->s.pos.trDelta, *aimLocation);
+       }else if(self->s.weapon == WP_BLASTER) {
+            VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / BLASTER_SPEED, target.ent->s.pos.trDelta, *aimLocation);
+       }
 	}
     if(getTargetType(target) == ET_BUILDABLE) {
         VectorCopy( g_entities[getTargetEntityNumber(target)].s.origin, *aimLocation );
+    }
+    else
+    {
+        BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], mins, NULL, NULL, NULL, NULL);
+        (*aimLocation)[2] += -mins[2] + self->client->ps.viewheight;
     }
 }
 

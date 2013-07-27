@@ -651,6 +651,7 @@ void AHive_ReturnToHive( gentity_t *self )
 
     self->think = G_ExplodeMissile;
     self->nextthink = level.time + HIVE_LIFETIME;
+    self->parent->active = qfalse; //allow the parent to start again
   }
 }
 

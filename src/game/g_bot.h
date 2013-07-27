@@ -50,7 +50,7 @@ void setTargetCoordinate(botTarget_t *target, vec3_t goal );
 
 int G_BotEvolveToClass( gentity_t *ent, char *classname, usercmd_t *botCmdBuffer);
 void G_BotEvolve ( gentity_t *self , usercmd_t *botCmdBuffer);
-void botGetAimLocation( botTarget_t target, vec3_t *aimLocation);
+void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation);
 void botSlowAim( gentity_t *self, vec3_t target, float slow, vec3_t *rVec);
 void botShakeAim( gentity_t *self, vec3_t *rVec );
 void botAimAtLocation( gentity_t *self, vec3_t target , usercmd_t *rAngles);
