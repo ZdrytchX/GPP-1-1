@@ -1300,8 +1300,6 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
         }
         ///
        else if(self->client->ps.weapon == WP_MASS_DRIVER)
-            if(distance > Square(LEVEL3_CLAW_RANGE + LEVEL3_CLAW_RANGE/2) && 
-            self->client->ps.stats[ STAT_MISC ] < LEVEL3_POUNCE_UPG_SPEED)
             {
             botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 0.1 - self->client->ps.delta_angles[PITCH]; //aim up a teeny bit
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
