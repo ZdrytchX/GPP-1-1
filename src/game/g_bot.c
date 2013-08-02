@@ -1628,7 +1628,7 @@ void G_BotIntermissionThink( gclient_t *client ) //does/must not accept gentity_
 
 void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation) {
     vec3_t mins;
-    float pingmod g_bot_ping.integer/1000;
+    float pingmod = g_bot_ping.integer/1000;
 
     //get the position of the enemy
     getTargetPos(target, aimLocation);
