@@ -1684,7 +1684,7 @@ void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation)
         && self->s.weapon != WP_LUCIFER_CANNON)
     {
 //        BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], mins, NULL, NULL, NULL, NULL);
-//        (*aimLocation)[2] += -mins[2] + self->client->ps.viewheight;
+        (*aimLocation)[2] += 24;
     }
 }
 
