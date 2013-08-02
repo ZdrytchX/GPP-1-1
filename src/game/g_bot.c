@@ -1628,6 +1628,7 @@ void G_BotIntermissionThink( gclient_t *client ) //does/must not accept gentity_
 
 void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation) {
     vec3_t mins;
+    float pingmod g_bot_ping.integer/1000;
 
     //get the position of the enemy
     getTargetPos(target, aimLocation);
@@ -1642,7 +1643,7 @@ void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation)
         
    //aim ahead
     if(self->s.weapon == WP_LUCIFER_CANNON) {
-         VectorMA(*aimLocation, (1 + Distance(self->s.pos.trBase, *aimLocation) / (LCANNON_SPEED * 1.5)), target.ent->s.pos.trDelta, *aimLocation);
+         VectorMA(*aimLocation, (1 + pingmod + Distance(self->s.pos.trBase, *aimLocation) / (LCANNON_SPEED * 1.5)), target.ent->s.pos.trDelta, *aimLocation);
          //aim down
          //TODO: Only if on the ground
          BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], mins, NULL, NULL, NULL, NULL);
@@ -1650,15 +1651,15 @@ void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation)
        }
        else if(self->s.weapon == WP_PULSE_RIFLE)
        {
-         VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / (PRIFLE_SPEED), target.ent->s.pos.trDelta, *aimLocation);
+         VectorMA(*aimLocation, (pingmod + Distance(self->s.pos.trBase, *aimLocation) / (PRIFLE_SPEED)), target.ent->s.pos.trDelta, *aimLocation);
        }
        else if(self->s.weapon == WP_MASS_DRIVER)
        {
-         VectorMA(*aimLocation, (0.3 + Distance(self->s.pos.trBase, *aimLocation) / MDRIVER_SPEED * 0.8), target.ent->s.pos.trDelta, *aimLocation);
+         VectorMA(*aimLocation, (pingmod + 0.3 + Distance(self->s.pos.trBase, *aimLocation) / MDRIVER_SPEED * 0.8), target.ent->s.pos.trDelta, *aimLocation);
        }
        else if(self->s.weapon == WP_BLASTER)
        {
-         VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / (BLASTER_SPEED * 1.1), target.ent->s.pos.trDelta, *aimLocation);
+         VectorMA(*aimLocation, (pingmod + Distance(self->s.pos.trBase, *aimLocation) / (BLASTER_SPEED * 1.1)), target.ent->s.pos.trDelta, *aimLocation);
          //aim down
          //TODO: Only if on the ground
          BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], mins, NULL, NULL, NULL, NULL);
@@ -1666,7 +1667,7 @@ void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation)
        }        
        else if(self->s.weapon == WP_ALEVEL3_UPG)
        {
-        VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / (LEVEL3_BOUNCEBALL_SPEED * 1.2), target.ent->s.pos.trDelta, *aimLocation);
+        VectorMA(*aimLocation, (pingmod + Distance(self->s.pos.trBase, *aimLocation) / (LEVEL3_BOUNCEBALL_SPEED * 1.2)), target.ent->s.pos.trDelta, *aimLocation);
          //aim down
          //TODO: Only if on the ground
          BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], mins, NULL, NULL, NULL, NULL);
@@ -1674,7 +1675,7 @@ void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation)
        }
        else
        {
-         VectorMA(*aimLocation, 0.1, target.ent->s.pos.trDelta, *aimLocation);
+         VectorMA(*aimLocation, (pingmod + 0.1), target.ent->s.pos.trDelta, *aimLocation);
        }
     }
     if (getTargetTeam(target) == PTE_HUMANS
