@@ -68,11 +68,7 @@ void G_BotAdd( char *name, int team, int skill ) {
     bot->botMind->enemyLastSeen = 0;
     bot->botMind->command = BOT_AUTO;
     bot->botMind->botTeam = team;
-    //don't always spawn ckit
-    if ((level.time % 200) > 100) {
-    bot->botMind->spawnItem = WP_MACHINEGUN; }
-    else {
-    bot->botMind->spawnItem = WP_HBUILD; }
+    bot->botMind->spawnItem = WP_HBUILD;
     bot->botMind->state = FINDNEWNODE;
     bot->botMind->timeFoundEnemy = 0;
     bot->botMind->followingRoute = qfalse;
@@ -1539,7 +1535,8 @@ void G_BotSpectatorThink( gentity_t *self ) {
             self->client->pers.humanItemSelection = self->botMind->spawnItem;
 
             G_PushSpawnQueue( &level.humanSpawnQueue, clientNum );
-        } else if( teamnum == PTE_ALIENS) {
+        } else if( teamnum == PTE_ALIENS)
+        {
             //don't always spawn granger
           if (g_bot_granger.integer == 1 && g_alienStage.integer == 0 && (level.time % 200) > 100)//kharn0v's heaven!
           {
@@ -1639,27 +1636,35 @@ void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation)
     if(getTargetType(target) != ET_BUILDABLE && getTargetTeam(target) == PTE_HUMANS && getTargetEntityNumber(target) != ENTITYNUM_NONE)
 	{
         (*aimLocation)[2] += g_entities[getTargetEntityNumber(target)].r.maxs[2] * 0.85;
+	}
+    if(getTargetType(target) == ET_BUILDABLE  || getTargetTeam(target) == PTE_ALIENS || getTargetTeam(target) == PTE_HUMANS) {
+        VectorCopy( g_entities[getTargetEntityNumber(target)].s.origin, *aimLocation );
+        
    //aim ahead
-       if(self->s.weapon == WP_LUCIFER_CANNON) {
+    if(self->s.weapon == WP_LUCIFER_CANNON) {
          VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / (LCANNON_SPEED * 2), target.ent->s.pos.trDelta, *aimLocation);
        }else if(self->s.weapon == WP_PULSE_RIFLE) {
-         VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / PRIFLE_SPEED, target.ent->s.pos.trDelta, *aimLocation);
+         VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / (PRIFLE_SPEED * 1.8), target.ent->s.pos.trDelta, *aimLocation);
        }else if(self->s.weapon == WP_MASS_DRIVER) {
-         VectorMA(*aimLocation, (0.1 + Distance(self->s.pos.trBase, *aimLocation) / MDRIVER_SPEED), target.ent->s.pos.trDelta, *aimLocation);
+         VectorMA(*aimLocation, (0.3 + Distance(self->s.pos.trBase, *aimLocation) / MDRIVER_SPEED), target.ent->s.pos.trDelta, *aimLocation);
        }else if(self->s.weapon == WP_BLASTER) {
-         VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / BLASTER_SPEED, target.ent->s.pos.trDelta, *aimLocation);
+         VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / (BLASTER_SPEED * 1.3), target.ent->s.pos.trDelta, *aimLocation);
+         //aim down
+         //TODO: Only if on the ground
+//         BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], mins, NULL, NULL, NULL, NULL);
+//        (*aimLocation)[2] += mins[2] + self->client->ps.viewheight;
        }else
        {
          VectorMA(*aimLocation, 0.1, target.ent->s.pos.trDelta, *aimLocation);
        }
-	}
-    if(getTargetType(target) == ET_BUILDABLE) {
-        VectorCopy( g_entities[getTargetEntityNumber(target)].s.origin, *aimLocation );
     }
     else
     {
         BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], mins, NULL, NULL, NULL, NULL);
         (*aimLocation)[2] += -mins[2] + self->client->ps.viewheight;
+        
+        if(self->s.weapon == WP_ALEVEL3_UPG)
+        VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / (LEVEL3_BOUNCEBALL_SPEED * 1.8), target.ent->s.pos.trDelta, *aimLocation);
     }
 }
 
@@ -2108,7 +2113,7 @@ void setSkill(gentity_t *self, int skill) {
     self->botMind->botSkill.level = skill;
     //different aim for different teams
     if(self->botMind->botTeam == PTE_HUMANS) {
-        self->botMind->botSkill.aimSlowness = (float)( skill * 1) / 20;//(0.2 + (skill * skill) / 125);
+        self->botMind->botSkill.aimSlowness = /*(float)( skill * 1) / 20;//*/(0.2 + (skill * skill) / 125);
         self->botMind->botSkill.aimShake = (int) ((float)(20 - (skill * skill)/5));
     } else {
         self->botMind->botSkill.aimSlowness = (float)( skill * 1) / 10;

@@ -329,15 +329,16 @@ static void PM_Friction( void )
   vel[ 0 ] = vel[ 0 ] * newspeed;
   vel[ 1 ] = vel[ 1 ] * newspeed;
   vel[ 2 ] = vel[ 2 ] * newspeed;
-  
-  //TODO: Clean up Code
+
   //TODO: Allow alien special movement abilities to bypass this limit
   //Add TFC Style Anti-Bunnyhop - Has to apply to Z surfaces as well due to wallwalk
+  /*
   if
   ( pm->waterlevel <= 1 )
   {
 
   }
+  */
   }
 }
 
@@ -423,8 +424,8 @@ static float PM_CmdScale( usercmd_t *cmd )
     }
 
     //must have +ve stamina to jump
-    if( pm->ps->stats[ STAT_STAMINA ] < STAMINA_JUMP_CUTOFF )// able to jump still
-      cmd->upmove = 10;
+    if( pm->ps->stats[ STAT_STAMINA ] < /*STAMINA_JUMP_CUTOFF*/STAMINA_MIN_TO_JUMP )// able to jump still
+      cmd->upmove = 10 + ((1000 + pm->ps->stats[ STAT_STAMINA ])/200); //testing...
 
     //slow down once stamina depletes
     if( pm->ps->stats[ STAT_STAMINA ] <= -500 )
@@ -827,8 +828,24 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
 
   pm->ps->groundEntityNum = ENTITYNUM_NONE;
 
-  jumpvel = BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
+  //TA: take some stamina off
+  if( pm->ps->stats[ STAT_PTEAM ] == PTE_HUMANS )
+    pm->ps->stats[ STAT_STAMINA ] -= STAMINA_JUMP;
 
+//Alright, let's start the jumping process.
+  jumpvel = BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ] );
+  
+	 // CPM: check for double-jump
+//	 if(CPM_ON)
+  if(pm->ps->stats[ STAT_STAMINA ] > STAMINA_MIN_TO_JUMP || pm->ps->stats[ STAT_PTEAM ] == PTE_ALIENS )
+		if (cpm_pm_jump_z) {
+			if (pm->ps->persistant[PERS_JUMPTIME] > 0) {
+				//pm->ps->velocity[2] += (cpm_pm_jump_z * BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ])); // BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ]);
+				jumpvel += (cpm_pm_jump_z * BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ]));
+			}
+			pm->ps->persistant[PERS_JUMPTIME] = 400;
+	  }
+//only NOW you jump.
   if( pm->ps->stats[ STAT_STATE ] & SS_WALLCLIMBING )
   {
     vec3_t normal = { 0, 0, -1 };
@@ -843,25 +860,11 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
   else //ramp jump
   { //TODO: Add int var - 0 = vanilla 1 = {MG} 2 = bob's oc style
 	if(pm->ps->velocity[ 2 ] > 0)
-	pm->ps->velocity[ 2 ] += jumpvel;
+	pm->ps->velocity[ 2 ] += jumpvel;//really, ramp jumps aren't that complicated.
 	else
 	pm->ps->velocity[ 2 ] = jumpvel;
-  PM_AddEvent( EV_JUMP );//jump!
+  PM_AddEvent( EV_JUMP );//jumped!
   }
-
-  //TA: take some stamina off
-  if( pm->ps->stats[ STAT_PTEAM ] == PTE_HUMANS )
-    pm->ps->stats[ STAT_STAMINA ] -= STAMINA_JUMP;
-  
-	 // CPM: check for double-jump
-//	 if(CPM_ON)
-  if(pm->ps->stats[ STAT_STAMINA ] > STAMINA_MIN_TO_JUMP || pm->ps->stats[ STAT_PTEAM ] == PTE_ALIENS )
-		if (cpm_pm_jump_z) {
-			if (pm->ps->persistant[PERS_JUMPTIME] > 0) {
-				pm->ps->velocity[2] += (cpm_pm_jump_z * BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ])); // BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ]);
-			}
-			pm->ps->persistant[PERS_JUMPTIME] = 400;
-	  }
 
   if( pm->cmd.forwardmove >= 0 )
   {

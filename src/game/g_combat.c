@@ -441,7 +441,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
       //make bot say its line
       if(attacker->r.svFlags & SVF_BOT && !( self->r.svFlags & SVF_BOT) && rand() % 9 <= 3 && !attacker->client->pers.muted && ( attacker->client->ps.stats[STAT_HEALTH] > attacker->client->ps.stats[STAT_MAX_HEALTH] * 0.3) )
       if( g_bot_teamkill.integer || attacker->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM])
-G_Say(attacker,NULL, SAY_ALL, va("%s,^2You ^1Suck! ^2Who's Next?^7", killerName));
+    G_Say(attacker,NULL, SAY_ALL, va("%s,^2You ^1Suck! ^2Who's Next?^7", killerName));
 
       if( attacker != self && attacker->client->ps.stats[ STAT_PTEAM ]  == self->client->ps.stats[ STAT_PTEAM ] ) 
       {
@@ -584,7 +584,7 @@ G_Say(attacker,NULL, SAY_ALL, va("%s,^2You ^1Suck! ^2Who's Next?^7", killerName)
          //make bot say encourage the team to chase
       if( self->r.svFlags & SVF_BOT && !self->client->pers.muted
        && (attacker->client->ps.stats[STAT_HEALTH] < (attacker->client->ps.stats[STAT_MAX_HEALTH] * 0.2 + 25))
-       && (attacker->client->ps.stats[STAT_PCLASS] = PCL_ALIEN_LEVEL0) )//never say if it's a dretch
+       && (attacker->client->ps.stats[STAT_PCLASS] == PCL_ALIEN_LEVEL0) )//never say if it's a dretch
       if( g_bot_teamkill.integer || !( OnSameTeam( self, attacker ) ))
       G_Say(self,NULL, SAY_TEAM, va("Chase %s^5! He's low!", killerName) );
    }

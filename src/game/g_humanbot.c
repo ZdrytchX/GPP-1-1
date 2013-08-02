@@ -240,14 +240,13 @@ qboolean botWeaponHasLowAmmo(gentity_t *self) {
     return qtrue;
 }
 qboolean botNeedsItem(gentity_t *self) {
-    
+
     //we need more ammo
     if(botWeaponHasLowAmmo(self))
         return qtrue;
     if(BG_InventoryContainsWeapon(WP_HBUILD,self->client->ps.stats))
         return qtrue;
-    
-    //TODO: Add Bsuit without removing larmour/helms from this list
+
     //see if we can afford lightarmor and we dont have any on currently
     if(g_humanStage.integer == S1 || g_humanStage.integer == S2 || g_humanStage.integer == S3 )
     {
