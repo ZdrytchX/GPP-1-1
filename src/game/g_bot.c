@@ -1642,29 +1642,48 @@ void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation)
         
    //aim ahead
     if(self->s.weapon == WP_LUCIFER_CANNON) {
-         VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / (LCANNON_SPEED * 2), target.ent->s.pos.trDelta, *aimLocation);
-       }else if(self->s.weapon == WP_PULSE_RIFLE) {
-         VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / (PRIFLE_SPEED * 1.8), target.ent->s.pos.trDelta, *aimLocation);
-       }else if(self->s.weapon == WP_MASS_DRIVER) {
-         VectorMA(*aimLocation, (0.3 + Distance(self->s.pos.trBase, *aimLocation) / MDRIVER_SPEED), target.ent->s.pos.trDelta, *aimLocation);
-       }else if(self->s.weapon == WP_BLASTER) {
-         VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / (BLASTER_SPEED * 1.3), target.ent->s.pos.trDelta, *aimLocation);
+         VectorMA(*aimLocation, (1 + Distance(self->s.pos.trBase, *aimLocation) / (LCANNON_SPEED * 1.5)), target.ent->s.pos.trDelta, *aimLocation);
          //aim down
          //TODO: Only if on the ground
-//         BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], mins, NULL, NULL, NULL, NULL);
-//        (*aimLocation)[2] += mins[2] + self->client->ps.viewheight;
-       }else
+         BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], mins, NULL, NULL, NULL, NULL);
+        (*aimLocation)[2] += mins[2] + self->client->ps.viewheight;
+       }
+       else if(self->s.weapon == WP_PULSE_RIFLE)
+       {
+         VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / (PRIFLE_SPEED), target.ent->s.pos.trDelta, *aimLocation);
+       }
+       else if(self->s.weapon == WP_MASS_DRIVER)
+       {
+         VectorMA(*aimLocation, (0.3 + Distance(self->s.pos.trBase, *aimLocation) / MDRIVER_SPEED * 0.8), target.ent->s.pos.trDelta, *aimLocation);
+       }
+       else if(self->s.weapon == WP_BLASTER)
+       {
+         VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / (BLASTER_SPEED * 1.1), target.ent->s.pos.trDelta, *aimLocation);
+         //aim down
+         //TODO: Only if on the ground
+         BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], mins, NULL, NULL, NULL, NULL);
+        (*aimLocation)[2] += mins[2] + self->client->ps.viewheight;
+       }        
+       else if(self->s.weapon == WP_ALEVEL3_UPG)
+       {
+        VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / (LEVEL3_BOUNCEBALL_SPEED * 1.2), target.ent->s.pos.trDelta, *aimLocation);
+         //aim down
+         //TODO: Only if on the ground
+         BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], mins, NULL, NULL, NULL, NULL);
+        (*aimLocation)[2] += mins[2] + self->client->ps.viewheight;
+       }
+       else
        {
          VectorMA(*aimLocation, 0.1, target.ent->s.pos.trDelta, *aimLocation);
        }
     }
-    else
+    if (getTargetTeam(target) == PTE_HUMANS
+        && self->s.weapon != WP_BLASTER
+        && self->s.weapon != WP_PULSE_RIFLE
+        && self->s.weapon != WP_LUCIFER_CANNON)
     {
         BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], mins, NULL, NULL, NULL, NULL);
         (*aimLocation)[2] += -mins[2] + self->client->ps.viewheight;
-        
-        if(self->s.weapon == WP_ALEVEL3_UPG)
-        VectorMA(*aimLocation, Distance(self->s.pos.trBase, *aimLocation) / (LEVEL3_BOUNCEBALL_SPEED * 1.8), target.ent->s.pos.trDelta, *aimLocation);
     }
 }
 
@@ -2113,7 +2132,7 @@ void setSkill(gentity_t *self, int skill) {
     self->botMind->botSkill.level = skill;
     //different aim for different teams
     if(self->botMind->botTeam == PTE_HUMANS) {
-        self->botMind->botSkill.aimSlowness = /*(float)( skill * 1) / 20;//*/(0.2 + (skill * skill) / 125);
+        self->botMind->botSkill.aimSlowness = (float)( skill * 1) / 20;//(0.2 + (skill * skill) / 125);
         self->botMind->botSkill.aimShake = (int) ((float)(20 - (skill * skill)/5));
     } else {
         self->botMind->botSkill.aimSlowness = (float)( skill * 1) / 10;
