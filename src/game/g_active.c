@@ -1161,22 +1161,41 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS && level.surrenderTeam != PTE_A
         if( ent->health > 0 && ent->health < client->ps.stats[ STAT_MAX_HEALTH ] &&
             ( ent->lastDamageTime + ALIEN_REGEN_DAMAGE_TIME ) < level.time )
 		{
+		         int numer = 2;
+		         int denom = 1;
+		         float modifier;
         	   ent->health ++;
-		//TODO: Find out why 'while' function doesn't work
+		//TODO: Find out why 'for' function doesn't work (not effect elided)
+		//so I a simple unreliable loop here, checked only 4 times
 		if(client->autoregen < 50)//TODO: Insert sv_fps.integer here
 		   {
 		   ent->health ++;
-		   client->autoregen *= 2;
+		   modifier = numer/denom;
+		   client->autoregen *= modifier;
+		   numer ++;
+		   denom ++;
      		   }
 		if(client->autoregen < 50)
 		   {
 		   ent->health ++;
-		   client->autoregen *= 1.5;
+		   modifier = numer/denom;
+		   client->autoregen *= modifier;
+		   numer ++;
+		   denom ++;
      		   }
-		if(client->autoregen < 50)//Tripple check
+		if(client->autoregen < 50)
 		   {
 		   ent->health ++;
-		   client->autoregen *= (4/3);
+		   modifier = numer/denom;
+		   client->autoregen *= modifier;
+		   numer ++;
+		   denom ++;
+     		   }
+		if(client->autoregen < 50)//quadruple check
+		   {
+		   ent->health ++;
+		   modifier = numer/denom;
+		   client->autoregen *= modifier;
      		   }
 		}
   }

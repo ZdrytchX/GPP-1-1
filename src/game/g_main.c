@@ -282,6 +282,7 @@ vmCvar_t  g_minDeconLevel;
 vmCvar_t  g_bot_alien_secondaryonly;
 vmCvar_t  g_mode_cpm;
 vmCvar_t  g_noclip_speed;
+vmCvar_t  g_tk_human_knockback;
 
 vmCvar_t  g_level4_trample_buildable_percent;
 
@@ -555,7 +556,8 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_level4_trample_buildable_percent, "g_level4_trample_buildable_percent", "35", CVAR_ARCHIVE,           0, qfalse },
   //Special Modes
   { &g_mode_cpm,     "g_mode_cpm",     "1", CVAR_ARCHIVE | CVAR_SERVERINFO, 0, qfalse },
-  { &g_bot_teamkill, "g_bot_teamkill", "0", CVAR_ARCHIVE, 0, qfalse }//,
+  { &g_bot_teamkill, "g_bot_teamkill", "0", CVAR_ARCHIVE, 0, qfalse },
+  { &g_tk_human_knockback, "g_tk_human_knockback",     "1.8", CVAR_ARCHIVE | CVAR_SERVERINFO, 0, qfalse },
 };
 
 static int gameCvarTableSize = sizeof( gameCvarTable ) / sizeof( gameCvarTable[ 0 ] );

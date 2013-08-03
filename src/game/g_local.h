@@ -1617,6 +1617,7 @@ extern  vmCvar_t  g_minDeconLevel;
 extern  vmCvar_t  g_bot_alien_secondaryonly; //applies to those who has secondary
 extern  vmCvar_t  g_myStatstime;
 extern  vmCvar_t  g_noclip_speed;
+extern  vmCvar_t  g_tk_human_knockback;
 
 extern  vmCvar_t  g_level4_trample_buildable_percent;
 

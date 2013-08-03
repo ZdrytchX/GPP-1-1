@@ -441,7 +441,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
       //make bot say its line
       if(attacker->r.svFlags & SVF_BOT && !( self->r.svFlags & SVF_BOT) && rand() % 9 <= 3 && !attacker->client->pers.muted && ( attacker->client->ps.stats[STAT_HEALTH] > attacker->client->ps.stats[STAT_MAX_HEALTH] * 0.3) )
       if( g_bot_teamkill.integer || attacker->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM])
-    G_Say(attacker,NULL, SAY_ALL, va("%s,^2You ^1Suck! ^2Who's Next?^7", killerName));
+    G_Say(attacker,NULL, SAY_ALL, va("%s,^2You ^1Suck! ^2Who's Next?^7", self->client->pers.netname));
 
       if( attacker != self && attacker->client->ps.stats[ STAT_PTEAM ]  == self->client->ps.stats[ STAT_PTEAM ] ) 
       {
@@ -584,9 +584,9 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
          //make bot say encourage the team to chase
       if( self->r.svFlags & SVF_BOT && !self->client->pers.muted
        && (attacker->client->ps.stats[STAT_HEALTH] < (attacker->client->ps.stats[STAT_MAX_HEALTH] * 0.2 + 25))
-       && (attacker->client->ps.stats[STAT_PCLASS] == PCL_ALIEN_LEVEL0) )//never say if it's a dretch
+       && (attacker->client->ps.stats[STAT_PCLASS] != PCL_ALIEN_LEVEL0) )//never say if it's a dretch
       if( g_bot_teamkill.integer || !( OnSameTeam( self, attacker ) ))
-      G_Say(self,NULL, SAY_TEAM, va("Chase %s^5! He's low!", killerName) );
+      G_Say(self,NULL, SAY_TEAM, va("Chase %s^5! He's low!", attacker->client->pers.netname) );//killername is wrong? (gives own name)
    }
 
     if( attacker != self && ( OnSameTeam( self, attacker ) ) )
@@ -631,7 +631,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
           G_AddCreditToClient( attacker->client, -tk_value, qtrue );
 
           trap_SendServerCommand( self->client->ps.clientNum,
-            va( "print \"Received ^3%d %s ^7from %s ^7in retribution.\n\"",
+            va( "print \"Received ^3%d %s ^7in compensation from %s^7.\n\"",
             tk_value, type, attacker->client->pers.netname ) );
           trap_SendServerCommand( attacker->client->ps.clientNum,
             va( "print \"Transfered ^3%d %s ^7to %s ^7in retribution.\n\"",
@@ -651,7 +651,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
           G_AddCreditToClient( attacker->client, tk_value, qtrue );
 
           trap_SendServerCommand( attacker->client->ps.clientNum,
-            va( "print \"Picked up ^3%d %s ^7from %s^7's corpse.\n\"",
+            va( "print \"Picked up ^5%d %s ^7from %s^7's corpse.\n\"",
             tk_value, type, self->client->pers.netname ) );
           if( self->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
             {
@@ -1621,6 +1621,14 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 
   if( ( mod == MOD_TARGET_LASER || MOD_BLASTER ) && g_bot_teamkill.integer ) {
 		knockback *= BLASTER_K_TK;
+  }
+  
+  else if(g_bot_teamkill.integer && mod != MOD_LCANNON
+  && mod != MOD_LCANNON_SPLASH && mod != MOD_GRENADE
+  && attacker->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS
+  && targ->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS)//only apply to humans
+  {
+    knockback *= g_tk_human_knockback.value;
   }
 
   else if ( mod == MOD_BLASTER )
