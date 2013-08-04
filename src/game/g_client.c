@@ -1437,6 +1437,19 @@ char *ClientConnect( int clientNum, qboolean firstTime )
   Q_strncpyz( client->pers.ip, ip, sizeof( client->pers.ip ) );
   client->pers.adminLevel = G_admin_level( ent );
 
+  // do autoghost now so that there won't be any name conflicts later on
+  if ( g_autoGhost.integer && client->pers.guid[0] != 'X' )
+  {
+    for ( i = 0; i < MAX_CLIENTS; i++ )
+    {
+      if ( i != ent - g_entities && g_entities[i].client && g_entities[i].client->pers.connected != CON_DISCONNECTED && !Q_stricmp( g_entities[i].client->pers.guid, client->pers.guid ) )
+      {
+        trap_SendServerCommand( i, "disconnect \"You cannot connect multiple clients to this server.\"" );
+        trap_DropClient( i, "was dropped" );
+      }
+    }
+  }
+
   client->pers.connected = CON_CONNECTING;
 
   // read or initialize the session data

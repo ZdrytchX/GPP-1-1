@@ -260,8 +260,12 @@ g_admin_cmd_t g_admin_cmds[ ] =
     },
 
     {"putteam", G_admin_putteam, "p",
+    /*
       "move a player to a specified team",
       "[^3name|slot#^7] [^3h|a|s^7]"
+    */
+    "move a player to a specified team for an optional duration",
+    "[^3name|slot#^7] [^3h|a|s^7] (^3duration^7)"
     },
 
     {"readconfig", G_admin_readconfig, "G",
@@ -4111,7 +4115,9 @@ qboolean G_admin_unban( gentity_t *ent, int skiparg )
 qboolean G_admin_putteam( gentity_t *ent, int skiparg )
 {
   int pids[ MAX_CLIENTS ];
-  char name[ MAX_NAME_LENGTH ], team[ 7 ], err[ MAX_STRING_CHARS ];
+  //char name[ MAX_NAME_LENGTH ], team[ 7 ], err[ MAX_STRING_CHARS ];
+  char name[ MAX_NAME_LENGTH ], team[ 7 ], err[ MAX_STRING_CHARS ], secs[ 7 ];
+  int seconds = 0;
   gentity_t *vic;
   pTeam_t teamnum = PTE_NONE;
   char teamdesc[ 32 ] = {"spectators"};
@@ -4120,7 +4126,7 @@ qboolean G_admin_putteam( gentity_t *ent, int skiparg )
   G_SayArgv( 2 + skiparg, team, sizeof( team ) );
   if( G_SayArgc() < 3 + skiparg )
   {
-    ADMP( "^3!putteam: ^7usage: !putteam [name] [h|a|s]\n" );
+    ADMP( "^3!putteam: ^7usage: !putteam [name] [h|a|s] (duration)\n" );
     return qfalse;
   }
 
@@ -4154,8 +4160,40 @@ qboolean G_admin_putteam( gentity_t *ent, int skiparg )
     ADMP( va( "^3!putteam: ^7unknown team %c\n", team[ 0 ] ) );
     return qfalse;
   }
-  if( vic->client->pers.teamSelection == teamnum )
+  // duration
+  if( G_SayArgc() > 3 + skiparg )
+  {
+    int modifier = 1;
+    // only allow locking into spec, reduces the fun of abuse
+    if ( teamnum != PTE_NONE )
+    {
+      ADMP( "^3!putteam: ^7You can only lock a player into the spectators team\n" );
+      return qfalse;
+    }
+    G_SayArgv( 3 + skiparg, secs, sizeof( secs ) );
+    // support "h" (hours), and "m" (minutes) modifiers
+    if( secs[ 0 ] )
+    {
+      int lastchar = strlen( secs ) - 1;
+      if( secs[ lastchar ] == 'h' )
+        modifier = 60 * 60;
+      else if( secs[ lastchar ] == 'm' )
+        modifier = 60;
+      else if( secs[ lastchar ] < '0' || secs[ lastchar ] > '9' )
+        secs[ lastchar ] = '\0';
+    }
+    seconds = atoi( secs );
+    if( seconds > 0 )
+      seconds *= modifier;
+    else
+      seconds = 0;
+  }
+  if( vic->client->pers.teamSelection == teamnum && teamnum != PTE_NONE )
+  {
+    ADMP( va( "^3!putteam: ^7%s ^7is already on the %s team\n", vic->client->pers.netname, teamdesc ) );
     return qfalse;
+  }
+  vic->client->pers.specExpires = level.time + seconds * 1000;
   if( level.demoState == DS_PLAYBACK )
   {
   ADMP( "^3!putteam: ^7cannot join a team while a demo is playing\n" );
@@ -4163,9 +4201,10 @@ qboolean G_admin_putteam( gentity_t *ent, int skiparg )
   }
   G_ChangeTeam( vic, teamnum );
 
-  AP( va( "print \"^3!putteam: ^7%s^7 put %s^7 on to the %s team\n\"",
-          ( ent ) ? G_admin_adminPrintName( ent ) : "console",
-          vic->client->pers.netname, teamdesc ) );
+  AP( va( "print \"^3!putteam: ^7%s^7 put %s^7 on to the %s team%s\n\"",
+          ( ent ) ? ent->client->pers.netname : "console",
+          ent->client->pers.netname, teamdesc,
+          ( seconds ) ? va( " for %i seconds", seconds ) : "" ) );
   return qtrue;
 }
 

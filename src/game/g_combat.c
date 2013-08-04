@@ -586,7 +586,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
        && (attacker->client->ps.stats[STAT_HEALTH] < (attacker->client->ps.stats[STAT_MAX_HEALTH] * 0.2 + 25))
        && (attacker->client->ps.stats[STAT_PCLASS] != PCL_ALIEN_LEVEL0) )//never say if it's a dretch
       if( g_bot_teamkill.integer || !( OnSameTeam( self, attacker ) ))
-      G_Say(self,NULL, SAY_TEAM, va("Chase %s^5! He's low!", attacker->client->pers.netname) );//killername is wrong? (gives own name)
+      G_Say(self,NULL, SAY_TEAM, va("Chase ^7%s^5! He's low!", attacker->client->pers.netname) );//killername is wrong? (gives own name)
    }
 
     if( attacker != self && ( OnSameTeam( self, attacker ) ) )

@@ -524,6 +524,7 @@ typedef struct
   qboolean            denyBuild;
   int                 adminLevel;
   char                adminName[ MAX_NETNAME ];
+  int                 specExpires; // level.time at which a player can join a team again after !spec
   qboolean            designatedBuilder;
   qboolean            nakedPlayer;
   qboolean            firstConnect;        // This is the first map since connect
@@ -884,6 +885,8 @@ typedef struct
   int unlaggedTimes[ MAX_UNLAGGED_MARKERS ];
 
   char              layout[ MAX_QPATH ];
+
+  int               extend_vote_count;
 
   pTeam_t           surrenderTeam;
   buildHistory_t    *buildHistory;
@@ -1618,6 +1621,12 @@ extern  vmCvar_t  g_bot_alien_secondaryonly; //applies to those who has secondar
 extern  vmCvar_t  g_myStatstime;
 extern  vmCvar_t  g_noclip_speed;
 extern  vmCvar_t  g_tk_human_knockback;
+extern  vmCvar_t  g_autoGhost;
+extern  vmCvar_t  g_extendVotesPercent;
+extern  vmCvar_t  g_extendVotesTime;
+extern  vmCvar_t  g_extendVotesCount;
+extern  vmCvar_t  g_adminTempSpec;
+
 
 extern  vmCvar_t  g_level4_trample_buildable_percent;
 

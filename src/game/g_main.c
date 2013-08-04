@@ -283,6 +283,11 @@ vmCvar_t  g_bot_alien_secondaryonly;
 vmCvar_t  g_mode_cpm;
 vmCvar_t  g_noclip_speed;
 vmCvar_t  g_tk_human_knockback;
+vmCvar_t  g_autoGhost;
+vmCvar_t  g_extendVotesPercent;
+vmCvar_t  g_extendVotesTime;
+vmCvar_t  g_extendVotesCount;
+vmCvar_t  g_adminTempSpec;
 
 vmCvar_t  g_level4_trample_buildable_percent;
 
@@ -533,27 +538,32 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_vampirebuildables_take,      "g_vampirebuildables_take",  "50", CVAR_ARCHIVE,                       0,  qfalse },
 //  { &g_bunnyhop,         "g_bunnyhop",                          "0", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },//TODO
   { &g_weapswitchtime,   "g_weapswitchtime",                     "250", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },//TODO
-  { &g_blaster_ammoregen,   "g_blaster_ammoregen",              "1250",                       CVAR_ARCHIVE,  0, qfalse },
-  { &g_bot_granger,   "g_bot_granger",                            "0",                        CVAR_ARCHIVE,  0, qfalse },
-  { &g_bot_dodge_jump,   "g_bot_dodge_jump",                      "1",                        CVAR_ARCHIVE,  1, qfalse },
-  { &g_bot_dodge_crouch,   "g_bot_dodge_crouch",                  "1",                        CVAR_ARCHIVE,  1, qfalse },
-  { &g_bot_ping,   "g_bot_ping",                                 "50",                        CVAR_ARCHIVE,  0, qfalse },
-  { &g_bot_gren,   "g_bot_gren",                                 "1",                         CVAR_ARCHIVE,  0, qfalse },
-  { & g_bot_bsuit,  " g_bot_bsuit",                              "0", CVAR_ARCHIVE,                          0, qfalse },
-  { &g_bot_gren_buypercent, "g_bot_gren_buypercent",             "20",                        CVAR_ARCHIVE,  0, qfalse },
-  { &g_bot_gren_buildablesonlypercent, "g_bot_gren_buildablesonlypercent", "20",              CVAR_ARCHIVE, 0, qfalse },
-  { &g_teamStatus, "g_teamStatus",                               "1", CVAR_ARCHIVE,                          0, qfalse },
-  { &g_teamStatusTime, "g_teamStatusTime",                       "5", CVAR_ARCHIVE,                         0, qfalse },
-  { &g_demoState, "sv_demoState",                                "", 0,                                      0, qfalse },
-  { &g_allowBlackInNames, "g_allowBlackInNames",                 "1", CVAR_ARCHIVE,                          0, qfalse },
-  { &g_killingSpree, "g_killingSpree",                           "5", CVAR_ARCHIVE,                          0, qfalse },
-  { &g_feedingSpree, "g_feedingSpree",                           "5", CVAR_ARCHIVE,                          0, qfalse },
-  { &g_minDeconLevel, "g_minDeconLevel",                         "0", CVAR_ARCHIVE,                          0, qfalse },
-  { &g_bot_alien_secondaryonly, "g_bot_alien_secondaryonly",     "0", CVAR_ARCHIVE,                          0, qfalse },//TODO
-  { &g_myStatstime, "g_myStatstime",                             "5", CVAR_ARCHIVE,                          0, qfalse },
-  { &g_noclip_speed, "g_noclip_speed",                           "2", CVAR_ARCHIVE,                          0, qfalse },
+  { &g_blaster_ammoregen,   "g_blaster_ammoregen",              "1250", CVAR_ARCHIVE,  0, qfalse },
+  { &g_bot_granger,   "g_bot_granger",                            "0", CVAR_ARCHIVE,  0, qfalse },
+  { &g_bot_dodge_jump,   "g_bot_dodge_jump",                      "1", CVAR_ARCHIVE,  1, qfalse },
+  { &g_bot_dodge_crouch,   "g_bot_dodge_crouch",                  "1", CVAR_ARCHIVE,  1, qfalse },
+  { &g_bot_ping,   "g_bot_ping",                                 "50", CVAR_ARCHIVE,  0, qfalse },
+  { &g_bot_gren,   "g_bot_gren",                                 "1",  CVAR_ARCHIVE,  0, qfalse },
+  { & g_bot_bsuit,  " g_bot_bsuit",                              "0", CVAR_ARCHIVE, 0, qfalse },
+  { &g_bot_gren_buypercent, "g_bot_gren_buypercent",             "20",           CVAR_ARCHIVE,  0, qfalse },
+  { &g_bot_gren_buildablesonlypercent, "g_bot_gren_buildablesonlypercent", "20",  CVAR_ARCHIVE, 0, qfalse },
+  { &g_teamStatus, "g_teamStatus",                               "1", CVAR_ARCHIVE, 0, qfalse },
+  { &g_teamStatusTime, "g_teamStatusTime",                       "5", CVAR_ARCHIVE, 0, qfalse },
+  { &g_demoState, "sv_demoState",                                "", 0,             0, qfalse },
+  { &g_allowBlackInNames, "g_allowBlackInNames",                 "1", CVAR_ARCHIVE, 0, qfalse },
+  { &g_killingSpree, "g_killingSpree",                           "5", CVAR_ARCHIVE, 0, qfalse },
+  { &g_feedingSpree, "g_feedingSpree",                           "5", CVAR_ARCHIVE, 0, qfalse },
+  { &g_minDeconLevel, "g_minDeconLevel",                         "0", CVAR_ARCHIVE, 0, qfalse },
+  { &g_bot_alien_secondaryonly, "g_bot_alien_secondaryonly",     "0", CVAR_ARCHIVE, 0, qfalse },//TODO
+  { &g_myStatstime, "g_myStatstime",                             "5", CVAR_ARCHIVE, 0, qfalse },
+  { &g_noclip_speed, "g_noclip_speed",                           "2", CVAR_ARCHIVE, 0, qfalse },
+  { &g_extendVotesPercent, "g_extendVotesPercent",              "75", CVAR_ARCHIVE, 0, qfalse },
+  { &g_extendVotesTime, "g_extendVotesTime",                    "15", CVAR_ARCHIVE, 0, qfalse },
+  { &g_extendVotesCount, "g_extendVotesCount",                   "1", CVAR_ARCHIVE, 0, qfalse },
+  { &g_adminTempSpec, "g_adminTempSpec",                      "120", CVAR_ARCHIVE, 0, qfalse  },
 
-  { &g_level4_trample_buildable_percent, "g_level4_trample_buildable_percent", "35", CVAR_ARCHIVE,           0, qfalse },
+  { &g_level4_trample_buildable_percent, "g_level4_trample_buildable_percent", "35", CVAR_ARCHIVE, 0, qfalse },
+  { &g_autoGhost, "g_autoGhost",                                 "1", CVAR_ARCHIVE, 0, qfalse },
   //Special Modes
   { &g_mode_cpm,     "g_mode_cpm",     "1", CVAR_ARCHIVE | CVAR_SERVERINFO, 0, qfalse },
   { &g_bot_teamkill, "g_bot_teamkill", "0", CVAR_ARCHIVE, 0, qfalse },
