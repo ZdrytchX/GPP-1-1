@@ -338,7 +338,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define HIVE_RANGE                  1200.0f //300 Higher! Bring em higher!
 #define HIVE_REPEAT                 1500 //Insectoid Re-send time //2500 -> 1500 so not so useless close-range
 #define HIVE_K_SCALE                -1.0f //Reel 'em in boys!
-#define HIVE_DMG                    80
+#define HIVE_DMG                    60
 #define HIVE_SPEED                  380.0f //deal with jettards
 #define HIVE_DIR_CHANGE_PERIOD      500
 #define HIVE_HIVE_STUN              500//Stun time from insectoid death and rebirth

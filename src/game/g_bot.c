@@ -261,7 +261,7 @@ void G_BotThink( gentity_t *self) {
     //use /teamstatus to inform team of base status
     //TODO: Make it so only more bots doesn't mean more teamstatus messages
     //TODO: Why is it that human bots don't use this?
-    if( !(self->client->pers.muted) && (self->client->time1000 % (21000 + rand() % 100000) <= 20) && g_teamStatus.integer)
+    if( !(self->client->pers.muted) && (self->client->time1000 % (21000 + rand() % 100000)) && g_teamStatus.integer)
     Cmd_TeamStatus_f( self );
 
 
