@@ -1559,8 +1559,8 @@ classAttributes_t bg_classList[ ] =
 
     600,                                            //float   speed; //wth, 600 so gay, want 1200
     10.0f,                                          //float   acceleration; //makes no fking sense
-    10.0f,                                           //float   airAcceleration;
-    5.0f,                                           //float   friction; //pm-move shows 5.0, therfore changed frm 6.0 to 5.0, well this is ground friction :/
+    1.0f,                                           //float   airAcceleration;
+    6.0f,                                           //float   friction; //pm-move shows 5.0, therfore changed frm 6.0 to 5.0, well this is ground friction :/
     100.0f,                                         //float   stopSpeed;
     270.0f,                                         //float   jumpMagnitude;
     1.0f,                                           //float   knockbackScale;
@@ -5154,7 +5154,7 @@ qboolean BG_WeaponIsFull( weapon_t weapon, int stats[ ], int psAmmo[ ], int psAm
 }
 
 /*
- = *=========================
+ ========================
  BG_WeaponIsEmpty
  
  Check if a weapon is out of ammo

@@ -5801,6 +5801,8 @@ qboolean G_admin_help( gentity_t *ent, int skiparg )
       strcat( additional, " /a /say_admins" );
     if( g_privateMessages.integer )
       strcat( additional, " /m" );
+    if( ent && g_markDeconstruct.integer == 2 )
+    	strcat( additional, " /mark" );
     if( ent && g_actionPrefix.string[0] )
       strcat( additional, " /me /mt /me_team" );
     if( ent && g_myStats.integer )
