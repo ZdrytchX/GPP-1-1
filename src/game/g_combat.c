@@ -1945,10 +1945,26 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
       && targ->s.eType != ET_GENERAL )
   {
   
-    if( targ->s.eType == ET_BUILDABLE/*OnSameTeam( targ, attacker )*/ )
+  //g_hitsounds: 4 = all except teammates, 3 = all, 2 = no buildables, 1 = monotone, 0 = off
+    if (g_hitsounds.integer > 3)
+    {
+    if( !OnSameTeam( targ, attacker ) )
+      attacker->client->ps.persistant[ PERS_HITS ]+= take;
+    }
+    else if(g_hitsounds.integer == 3)
+    {
+      attacker->client->ps.persistant[ PERS_HITS ]+= take;
+    }
+    else if (g_hitsounds.integer == 2)
+    {
+    if( !(targ->s.eType == ET_BUILDABLE) )
       attacker->client->ps.persistant[ PERS_HITS ]+= take; //gets annoying when you use luci
-//    else
-//      attacker->client->ps.persistant[ PERS_HITS ]+= take;
+    }
+    else if (g_hitsounds.integer == 1)
+    {
+    if( !(targ->s.eType == ET_BUILDABLE) )
+      attacker->client->ps.persistant[ PERS_HITS ]++;
+    }
   }
 
     targ->lastDamageTime = level.time;

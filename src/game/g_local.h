@@ -1626,6 +1626,7 @@ extern  vmCvar_t  g_extendVotesPercent;
 extern  vmCvar_t  g_extendVotesTime;
 extern  vmCvar_t  g_extendVotesCount;
 extern  vmCvar_t  g_adminTempSpec;
+extern  vmCvar_t  g_hitsounds;
 
 
 extern  vmCvar_t  g_level4_trample_buildable_percent;

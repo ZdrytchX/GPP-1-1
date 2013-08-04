@@ -288,6 +288,7 @@ vmCvar_t  g_extendVotesPercent;
 vmCvar_t  g_extendVotesTime;
 vmCvar_t  g_extendVotesCount;
 vmCvar_t  g_adminTempSpec;
+vmCvar_t  g_hitsounds;
 
 vmCvar_t  g_level4_trample_buildable_percent;
 
@@ -564,6 +565,8 @@ static cvarTable_t   gameCvarTable[ ] =
 
   { &g_level4_trample_buildable_percent, "g_level4_trample_buildable_percent", "35", CVAR_ARCHIVE, 0, qfalse },
   { &g_autoGhost, "g_autoGhost",                                 "1", CVAR_ARCHIVE, 0, qfalse },
+  { &g_hitsounds, "g_hitsounds",                                 "4", CVAR_ARCHIVE, 0, qfalse },
+
   //Special Modes
   { &g_mode_cpm,     "g_mode_cpm",     "1", CVAR_ARCHIVE | CVAR_SERVERINFO, 0, qfalse },
   { &g_bot_teamkill, "g_bot_teamkill", "0", CVAR_ARCHIVE, 0, qfalse },
