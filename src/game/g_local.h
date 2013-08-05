@@ -435,6 +435,7 @@ typedef struct
   int dretchbasytime;
   int jetpackusewallwalkusetime;
   int timeLastViewed;
+  int allStatsTimeLastViewed;
 } statsCounters_t;
 
 typedef struct
@@ -1620,6 +1621,8 @@ extern  vmCvar_t  g_allowBlackInNames;
 extern  vmCvar_t  g_minDeconLevel;
 extern  vmCvar_t  g_bot_alien_secondaryonly; //applies to those who has secondary
 extern  vmCvar_t  g_myStatstime;
+extern  vmCvar_t  g_allStats;
+extern  vmCvar_t  g_allStatsTime;
 extern  vmCvar_t  g_noclip_speed;
 extern  vmCvar_t  g_tk_human_knockback;
 extern  vmCvar_t  g_autoGhost;

@@ -290,6 +290,8 @@ vmCvar_t  g_extendVotesTime;
 vmCvar_t  g_extendVotesCount;
 vmCvar_t  g_adminTempSpec;
 vmCvar_t  g_hitsounds;
+vmCvar_t  g_allStats;
+vmCvar_t  g_allStatsTime;
 
 vmCvar_t  g_level4_trample_buildable_percent;
 
@@ -562,11 +564,13 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_minDeconLevel, "g_minDeconLevel",                         "0", CVAR_ARCHIVE, 0, qfalse },
   { &g_bot_alien_secondaryonly, "g_bot_alien_secondaryonly",     "0", CVAR_ARCHIVE, 0, qfalse },//TODO
   { &g_myStatstime, "g_myStatstime",                             "5", CVAR_ARCHIVE, 0, qfalse },
+  { &g_allStats, "g_allStats",                                   "1", CVAR_ARCHIVE, 0, qfalse },
+  { &g_allStatsTime, "g_allStatsTime",                          "25", CVAR_ARCHIVE, 0, qfalse },
   { &g_noclip_speed, "g_noclip_speed",                           "2", CVAR_ARCHIVE, 0, qfalse },//nil
   { &g_extendVotesPercent, "g_extendVotesPercent",              "75", CVAR_ARCHIVE, 0, qfalse },
   { &g_extendVotesTime, "g_extendVotesTime",                    "15", CVAR_ARCHIVE, 0, qfalse },
   { &g_extendVotesCount, "g_extendVotesCount",                   "2", CVAR_ARCHIVE, 0, qfalse },
-  { &g_adminTempSpec, "g_adminTempSpec",                       "120", CVAR_ARCHIVE, 0, qfalse  },
+  { &g_adminTempSpec, "g_adminTempSpec",                       "120", CVAR_ARCHIVE, 0, qfalse },
 
   { &g_level4_trample_buildable_percent, "g_level4_trample_buildable_percent", "35", CVAR_ARCHIVE, 0, qfalse },
   { &g_autoGhost, "g_autoGhost",                                 "1", CVAR_ARCHIVE, 0, qfalse },

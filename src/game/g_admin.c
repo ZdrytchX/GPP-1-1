@@ -5782,6 +5782,7 @@ qboolean G_admin_help( gentity_t *ent, int skiparg )
     int count = 0;
 
     ADMBP_begin();
+    //admin commands
     for( i = 0; i < adminNumCmds; i++ )
     {
       if( G_admin_permission( ent, g_admin_cmds[ i ].flag[ 0 ] ) )
@@ -5797,6 +5798,7 @@ qboolean G_admin_help( gentity_t *ent, int skiparg )
         j = 0;
       }
     }
+    //custom commands
     for( i = 0; i < MAX_ADMIN_COMMANDS && g_admin_commands[ i ]; i++ )
     {
       if( ! admin_command_permission( ent, g_admin_commands[ i ]->command ) )
@@ -5811,7 +5813,7 @@ qboolean G_admin_help( gentity_t *ent, int skiparg )
         j = 0;
       }
     }
-    
+    //console commands
     if( ent )
       strcat( additional, " /builder /say_area" );
     if( g_publicSayadmins.integer || G_admin_permission( ent, ADMF_ADMINCHAT ) )
@@ -5824,6 +5826,15 @@ qboolean G_admin_help( gentity_t *ent, int skiparg )
       strcat( additional, " /me /mt /me_team" );
     if( ent && g_myStats.integer )
       strcat( additional, " /mystats" );
+    if ( ent && g_myStats.integer && g_allStats.integer )
+    {
+      /* original:
+      if( count > commandsPerLine && ( count % commandsPerLine ) == 1 ) ADMBP( "\n" );
+      ADMBP( va( "^5/%-12s", "allstats" ) );
+      count++;
+      */
+      strcat( additional, " /allstats" );
+    }
     if( ent && ent->client )
     {
       if( ent->client->pers.designatedBuilder )
@@ -6594,6 +6605,8 @@ qboolean G_admin_putmespec( gentity_t *ent, int skiparg )
     ADMP("!specme: You cannot leave your team until the build timer expires");
     return qfalse;
   }
+  if(ent->r.svFlags & SVF_BOT)
+  return qfalse;//check if bot is trying to mimic a player
   
   G_ChangeTeam( ent, PTE_NONE );
 

@@ -711,13 +711,14 @@ void G_ChangeTeam( gentity_t *ent, pTeam_t newTeam )
   }
   
   ent->client->ps.persistant[ PERS_KILLED ] = 0;
-  ent->client->pers.statscounters.kills = 0;
-  ent->client->pers.statscounters.structskilled = 0;
-  ent->client->pers.statscounters.assists = 0;
+//  ent->client->pers.statscounters.kills = 0;
+//  ent->client->pers.statscounters.structskilled = 0;
+//  ent->client->pers.statscounters.assists = 0;
   ent->client->pers.statscounters.repairspoisons = 0;
   ent->client->pers.statscounters.headshots = 0;
   ent->client->pers.statscounters.hits = 0;
   ent->client->pers.statscounters.hitslocational = 0;
+  /*
   ent->client->pers.statscounters.deaths = 0;
   ent->client->pers.statscounters.feeds = 0;
   ent->client->pers.statscounters.suicides = 0;
@@ -725,7 +726,7 @@ void G_ChangeTeam( gentity_t *ent, pTeam_t newTeam )
   ent->client->pers.statscounters.dmgdone = 0;
   ent->client->pers.statscounters.structdmgdone = 0;
   ent->client->pers.statscounters.ffdmgdone = 0;
-  ent->client->pers.statscounters.structsbuilt = 0;
+  ent->client->pers.statscounters.structsbuilt = 0;*/
   ent->client->pers.statscounters.timealive = 0;
   ent->client->pers.statscounters.timeinbase = 0;
   ent->client->pers.statscounters.dretchbasytime = 0;
@@ -4368,7 +4369,110 @@ char *G_statsString( statsCounters_t *sc, pTeam_t *pt )
   return s;
 }
 
+/*
+=================
+Cmd_AllStats_f
+=================
+*/
+void Cmd_AllStats_f( gentity_t *ent )
+{
+  int i;
+  int NextViewTime;
+  int NumResults;
+  int Teamcolor;
+  gentity_t *tmpent;
 
+  if(!ent)
+    return;
+
+  // Check if the command can be used at this time
+  NextViewTime = ent->client->pers.statscounters.allStatsTimeLastViewed + g_allStatsTime.integer * 1000;
+  if( !level.intermissiontime && level.time < NextViewTime)
+  {
+    ADMP( va("You may only use /allstats once every %i seconds and during intermission. Next valid time is %d:%02d\n",
+      ( g_allStatsTime.integer ) ? ( g_allStatsTime.integer ) : 60,
+      ( NextViewTime / 60000 ),
+      ( NextViewTime / 1000 ) % 60 ) );
+    return;
+  }
+
+  // Check if AllStats is enabled
+  if( !g_allStats.integer )
+  {
+    ADMP( "AllStats has been disabled\n");
+    return;
+  }
+
+  // Output table header
+  ADMP("^3K   A   SK | D   F   S   TK | DD    TDD  | SB | Name\n");
+
+  // Output table contents
+  NumResults = 0;
+  for( i = 0; i < level.numConnectedClients; i++ )
+  {
+   tmpent = &g_entities[ level.sortedClients[ i ] ];
+
+    // Determine current AllStats mode
+    if( g_allStats.integer )
+    {
+      // Check if client is connected, and either has some stats or is on a team
+      if( tmpent->client &&
+          tmpent->client->pers.connected == CON_CONNECTED &&
+          ( tmpent->client->pers.statscounters.kills ||
+            tmpent->client->pers.statscounters.assists ||
+            tmpent->client->pers.statscounters.structskilled ||
+            tmpent->client->pers.statscounters.deaths ||
+            tmpent->client->pers.statscounters.feeds ||
+            tmpent->client->pers.statscounters.suicides ||
+            tmpent->client->pers.statscounters.teamkills ||
+            tmpent->client->pers.statscounters.dmgdone ||
+            tmpent->client->pers.statscounters.ffdmgdone ||
+            tmpent->client->pers.statscounters.structsbuilt ) )
+      {
+        if( tmpent->client->pers.teamSelection == PTE_ALIENS )
+          Teamcolor = 1;
+        else if( tmpent->client->pers.teamSelection == PTE_HUMANS )
+          Teamcolor = 4;
+        else
+          Teamcolor = 7;
+
+        ADMP( va( "^%i%-3i %-3i %-3i^3|^%i %-3i %-3i %-3i %-3i^3|^%i %-5i %-5i^3|^%i %-3i^3|^7 %s\n",
+          Teamcolor,
+          tmpent->client->pers.statscounters.kills         ? tmpent->client->pers.statscounters.kills : 0,
+          tmpent->client->pers.statscounters.assists       ? tmpent->client->pers.statscounters.assists : 0,
+          tmpent->client->pers.statscounters.structskilled ? tmpent->client->pers.statscounters.structskilled : 0,
+          Teamcolor,
+          tmpent->client->pers.statscounters.deaths        ? tmpent->client->pers.statscounters.deaths : 0,
+          tmpent->client->pers.statscounters.feeds         ? tmpent->client->pers.statscounters.feeds : 0,
+          tmpent->client->pers.statscounters.suicides      ? tmpent->client->pers.statscounters.suicides : 0,
+          tmpent->client->pers.statscounters.teamkills     ? tmpent->client->pers.statscounters.teamkills : 0,
+          Teamcolor,
+          tmpent->client->pers.statscounters.dmgdone       ? tmpent->client->pers.statscounters.dmgdone : 0,
+          tmpent->client->pers.statscounters.ffdmgdone     ? tmpent->client->pers.statscounters.ffdmgdone : 0,
+          Teamcolor,
+          tmpent->client->pers.statscounters.structsbuilt  ? tmpent->client->pers.statscounters.structsbuilt : 0,
+          tmpent->client->pers.netname                     ? tmpent->client->pers.netname : "Unknown" ) );
+
+        NumResults++;
+      }
+    }
+  }
+
+  // Output table footer
+  if( NumResults == 0 )
+     ADMP( "^1Empty!\n" );
+
+  // Output legend
+  ADMP("\n^7Legend: ^3K^7ills, ^3A^7ssists, ^3S^7tructure ^3K^7ills\n" );
+  ADMP("        ^3D^7eaths, ^3F^7eeds, ^3S^7uicides, ^3T^7eam ^3K^7ills\n" );
+  ADMP("        ^3D^7amage ^3D^7one, ^3T^7eam ^3D^7amage ^3D^7one\n" );
+  ADMP("        ^3S^7tructures ^3B^7uilt\n" );
+
+  // Update last view time
+  ent->client->pers.statscounters.allStatsTimeLastViewed = level.time;
+
+  return;
+}
 
 /*
 =================
@@ -5653,6 +5757,7 @@ commands_t cmds[ ] = {
 
   { "score", CMD_INTERMISSION, ScoreboardMessage },
   { "mystats", CMD_TEAM|CMD_INTERMISSION, Cmd_MyStats_f },
+  { "allstats", 0, Cmd_AllStats_f },
   { "teamstatus", CMD_TEAM, Cmd_TeamStatus_f },
 
   // cheats
