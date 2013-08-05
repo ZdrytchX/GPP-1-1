@@ -274,7 +274,7 @@ qboolean botNeedsItem(gentity_t *self) {
 qboolean botCanShop(gentity_t *self) {
     //if no powered armoury in range
  //ZdrytchX: FUMA! This isn't powered!
-    if(botFindBuilding(self, BA_H_ARMOURY, BOT_ARM_RANGE) == -1)
+    if(botFindBuilding(self, BA_H_ARMOURY, BOT_ARM_RANGE) == -1 && !G_BuildableRange( self->client->ps.origin, 100, BA_H_ARMOURY )
         return qfalse;
     //bot buying is disabled
     if(g_bot_buy.integer == 0)

@@ -3064,9 +3064,9 @@ void Cmd_Destroy_f( gentity_t *ent )
       !ent->client->pers.designatedBuilder )
     {
       trap_SendServerCommand( ent-g_entities, 
-        "print \"This structure is protected by designated builder\n\"" );
+        "print \"This hovel is protected by designated builder, wait for the entrance to clear and exit\n\"" );
       DBCommand( ent->client->pers.teamSelection,
-        va( "print \"%s^3 has attempted to decon a protected structure!\n\"",
+        va( "print \"%s^3 has attempted to get out of the hovel through destruction\n\"",
           ent->client->pers.netname ) );
       return;
     }
@@ -3144,15 +3144,15 @@ void Cmd_Destroy_f( gentity_t *ent )
             g_suddenDeathMode.integer == SDMODE_NO_BUILD ) )
       {
         trap_SendServerCommand( ent-g_entities,
-          "print \"During Sudden Death you can only decon buildings that "
-          "can be rebuilt\n\"" );
+          "print \"You can only decon buildings that "
+          "can be rebuilt during sudden death\n\"" );
         return;
       }
      // Can't mark occupied hovel
       if( traceEnt->s.modelindex == BA_A_HOVEL && traceEnt->active )
 	  {
         trap_SendServerCommand( ent-g_entities,
-          "print \"Cannot mark occupied Hovel\n\"" );
+          "print \"You cannot mark an occupied Hovel\n\"" );
 		return;
 	  }
 
@@ -3234,7 +3234,7 @@ void Cmd_Mark_f( gentity_t *ent )
   if( g_markDeconstruct.integer != 2 )
   {
     trap_SendServerCommand( ent-g_entities,
-      "print \"Mark is disabled\n\"" );
+      "print \"Mark deconstruction is currently disabled\n\"" );
     return;
   }
 
@@ -3291,8 +3291,8 @@ void Cmd_Mark_f( gentity_t *ent )
             ( g_suddenDeathMode.integer == SDMODE_NO_BUILD ) ) )
       {
         trap_SendServerCommand( ent-g_entities,
-          "print \"During Sudden Death you can only mark buildings that "
-          "can be rebuilt\n\"" );
+          "print \"You can only mark buildings that "
+          "can be rebuilt during Sudden Death\n\"" );
         return;
       }
 
@@ -3475,7 +3475,7 @@ void Cmd_Buy_f( gentity_t *ent )
         !G_BuildableRange( ent->client->ps.origin, 100, BA_H_ARMOURY ) )
     {
       trap_SendServerCommand( ent-g_entities, va(
-        "print \"You must be near a reactor, repeater or armoury\n\"" ) );
+        "print \"You must be near a reactor, repeater or armoury to recharge you ammunition\n\"" ) );
       return;
     }
   }
@@ -3484,7 +3484,7 @@ void Cmd_Buy_f( gentity_t *ent )
     //no armoury nearby
     if( !G_BuildableRange( ent->client->ps.origin, 100, BA_H_ARMOURY ) )
     {
-      trap_SendServerCommand( ent-g_entities, va( "print \"You must be near a powered armoury\n\"" ) );
+      trap_SendServerCommand( ent-g_entities, va( "print \"You must be near a powered armoury to refill your ammunition\n\"" ) );
       return;
     }
   }
