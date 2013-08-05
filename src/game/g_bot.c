@@ -2142,10 +2142,10 @@ void setSkill(gentity_t *self, int skill) {
     self->botMind->botSkill.level = skill;
     //different aim for different teams
     if(self->botMind->botTeam == PTE_HUMANS) {
-        self->botMind->botSkill.aimSlowness = (float)( skill * 3) / 10;//(0.2 + (skill * skill) / 125);
+        self->botMind->botSkill.aimSlowness = (float)( skill ) / 30;//(0.2 + (skill * skill) / 125);
         self->botMind->botSkill.aimShake = (int) ((float)(20 - (skill * skill)/5));
     } else {
-        self->botMind->botSkill.aimSlowness = (float)( skill * 2) / 10;
+        self->botMind->botSkill.aimSlowness = (float)( skill ) / 10;
         self->botMind->botSkill.aimShake = (int) (30 - skill * 3);
     }
 }
