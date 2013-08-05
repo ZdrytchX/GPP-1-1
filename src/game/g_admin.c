@@ -3009,12 +3009,30 @@ qboolean G_admin_bot( gentity_t *ent, int skiparg ) {
 		minargc = 4 + skiparg;
 		if( G_SayArgc() < minargc )	{
 			ADMP( "^7Please have at least name and team.\n" );
-			ADMP( "^3!bot: ^7usage: !bot [add/del] [name] [humans/aliens] (skill)\n" );
+			ADMP( "^3!bot: ^7usage: !bot [add/del] [name] [h/a/s] (skill level, 1-10)\n" );
 			return qfalse;
 		}
 
 		G_SayArgv( 3 + skiparg, team, sizeof( team ) );
-
+///
+    switch( team[ 0 ] )
+    {
+    case 'a':
+      team_int = PTE_ALIENS;
+      break;
+    case 'h':
+      team_int = PTE_HUMANS;
+      break;
+    case 's':
+      team_int = PTE_NONE;
+    break;
+    default:
+			ADMP( "^7Invalid bot team.\n" );
+			ADMP( "^3!bot: ^7usage: !bot add [name] [h/a/s] (skill level, 1-10)\n" );
+      return qfalse;
+    }
+///
+/*
 		if( team[ 0 ] == 'h' || team[ 0 ] == 'H' ) {
 			team_int = PTE_HUMANS;
  		} else if( team[ 0 ] == 'a' || team[ 0 ] == 'A' ) {
@@ -3024,7 +3042,7 @@ qboolean G_admin_bot( gentity_t *ent, int skiparg ) {
 			ADMP( "^3!bot: ^7usage: !bot add [name] [humans/aliens] (skill)\n" );
 			return qfalse;
 		}
-
+*/
 		minargc = 5 + skiparg;
 		if(G_SayArgc() < minargc) {
 			skill_int = 5;
@@ -4115,7 +4133,6 @@ qboolean G_admin_unban( gentity_t *ent, int skiparg )
 qboolean G_admin_putteam( gentity_t *ent, int skiparg )
 {
   int pids[ MAX_CLIENTS ];
-  //char name[ MAX_NAME_LENGTH ], team[ 7 ], err[ MAX_STRING_CHARS ];
   char name[ MAX_NAME_LENGTH ], team[ 7 ], err[ MAX_STRING_CHARS ], secs[ 7 ];
   int seconds = 0;
   gentity_t *vic;
@@ -4202,7 +4219,7 @@ qboolean G_admin_putteam( gentity_t *ent, int skiparg )
   G_ChangeTeam( vic, teamnum );
 
   AP( va( "print \"^3!putteam: ^7%s^7 put %s^7 on to the %s team%s\n\"",
-          ( ent ) ? ent->client->pers.netname : "console",
+          ( ent ) ? G_admin_adminPrintName( ent ) : "console",
           ent->client->pers.netname, teamdesc,
           ( seconds ) ? va( " for %i seconds", seconds ) : "" ) );
   return qtrue;
@@ -6593,7 +6610,7 @@ qboolean G_admin_putmespec( gentity_t *ent, int skiparg )
     }
   }
 
-  AP( va("print \"^3!specme: ^7%s^7 decided to join the spectators\n\"", ent->client->pers.netname ) );
+  AP( va("print \"^3!specme: ^7%s^7's boredom drove him away from the game\n\"", ent->client->pers.netname ) );
   return qtrue;
 }
 

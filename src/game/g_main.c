@@ -268,6 +268,7 @@ vmCvar_t  g_bot_granger;
 vmCvar_t  g_bot_dodge_jump;
 vmCvar_t  g_bot_dodge_crouch;
 vmCvar_t  g_bot_ping;
+vmCvar_t  g_bot_ping_compensate;
 vmCvar_t  g_bot_gren;
 vmCvar_t  g_bot_bsuit;
 vmCvar_t  g_bot_gren_buypercent;
@@ -543,7 +544,11 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_bot_granger,   "g_bot_granger",                            "0", CVAR_ARCHIVE,  0, qfalse },
   { &g_bot_dodge_jump,   "g_bot_dodge_jump",                      "1", CVAR_ARCHIVE,  1, qfalse },
   { &g_bot_dodge_crouch,   "g_bot_dodge_crouch",                  "1", CVAR_ARCHIVE,  1, qfalse },
-  { &g_bot_ping,   "g_bot_ping",                                 "50", CVAR_ARCHIVE,  0, qfalse },
+  { &g_bot_ping,   "g_bot_ping",                                 "10", CVAR_ARCHIVE,  0, qfalse },
+  //this actually just takes away the g_bot_ping aim behind effect, so it can't simulate real ping compensation
+  //Idea: Use g_bot_ping with unlagged to track back players, THEN aim, then track players to normal position
+  //THEN use g_bot_ping_compensate to predict their position.
+  { &g_bot_ping_compensate,   "g_bot_ping_compensate",           "70", CVAR_ARCHIVE,  0, qfalse },
   { &g_bot_gren,   "g_bot_gren",                                 "1",  CVAR_ARCHIVE,  0, qfalse },
   { & g_bot_bsuit,  " g_bot_bsuit",                              "0", CVAR_ARCHIVE, 0, qfalse },
   { &g_bot_gren_buypercent, "g_bot_gren_buypercent",             "20",           CVAR_ARCHIVE,  0, qfalse },
@@ -560,11 +565,12 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_noclip_speed, "g_noclip_speed",                           "2", CVAR_ARCHIVE, 0, qfalse },//nil
   { &g_extendVotesPercent, "g_extendVotesPercent",              "75", CVAR_ARCHIVE, 0, qfalse },
   { &g_extendVotesTime, "g_extendVotesTime",                    "15", CVAR_ARCHIVE, 0, qfalse },
-  { &g_extendVotesCount, "g_extendVotesCount",                   "3", CVAR_ARCHIVE, 0, qfalse },
+  { &g_extendVotesCount, "g_extendVotesCount",                   "2", CVAR_ARCHIVE, 0, qfalse },
   { &g_adminTempSpec, "g_adminTempSpec",                       "120", CVAR_ARCHIVE, 0, qfalse  },
 
   { &g_level4_trample_buildable_percent, "g_level4_trample_buildable_percent", "35", CVAR_ARCHIVE, 0, qfalse },
   { &g_autoGhost, "g_autoGhost",                                 "1", CVAR_ARCHIVE, 0, qfalse },
+
   { &g_hitsounds, "g_hitsounds",                                 "4", CVAR_ARCHIVE, 0, qfalse },
 
   //Special Modes

@@ -3027,7 +3027,7 @@ void Cmd_Destroy_f( gentity_t *ent )
   if( g_lesson.integer > 0 )
   {
     trap_SendServerCommand( ent-g_entities,
-      "print \"^1You cannot deconstruct structures during this lesson.^7\n\"" );
+      "print \"^1You cannot deconstruct structures in this mode.^7\n\"" );
     return;
   }
 
@@ -3050,7 +3050,7 @@ void Cmd_Destroy_f( gentity_t *ent )
   if( G_admin_level( ent ) < g_minDeconLevel.integer )
   {
     trap_SendServerCommand( ent-g_entities,
-      "print \"You do not have deconstruction rights.\n\"" );
+      va( "print \"You need to be at least level %i for deconstruction rights.\n\"", g_minDeconLevel.integer ) );
     return;
   }
 
@@ -3114,7 +3114,7 @@ void Cmd_Destroy_f( gentity_t *ent )
             level.numAlienSpawns <= 1 )
         {
           trap_SendServerCommand( ent-g_entities, 
-            "print \"You cannot deconstruct your last egg\n\"" );
+            "print \"You cannot deconstruct your last eggpod\n\"" );
           return;
         }
         else if( ent->client->pers.teamSelection == PTE_HUMANS &&
@@ -3122,7 +3122,7 @@ void Cmd_Destroy_f( gentity_t *ent )
                  level.numHumanSpawns <= 1 )
         {
           trap_SendServerCommand( ent-g_entities, 
-            "print \"You cannot deconstruct your last node\n\"" );
+            "print \"You cannot deconstruct your last telenode\n\"" );
           return;
         }
       }

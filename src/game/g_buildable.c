@@ -2150,9 +2150,9 @@ qboolean HMGTurret_CheckTarget( gentity_t *self, gentity_t *target, qboolean ign
 
   if( target->flags & FL_NOTARGET )
     return qfalse;
-/*  if( !target->client )
+  if( !target->client || target->s.eType == ET_BUILDABLE )
     return qfalse;
-*/
+
   if( target->client->ps.stats[ STAT_STATE ] & SS_HOVELING )
     return qfalse;
 
@@ -2169,8 +2169,8 @@ qboolean HMGTurret_CheckTarget( gentity_t *self, gentity_t *target, qboolean ign
   trap_Trace( &trace, self->s.pos.trBase, NULL, NULL, target->s.pos.trBase, self->s.number, MASK_SHOT );
 
   traceEnt = &g_entities[ trace.entityNum ];
-
-  if( !traceEnt->client )
+/////
+  if( !traceEnt->client || traceEnt->s.eType == ET_BUILDABLE )
     return qfalse;
 
   if( traceEnt->client && traceEnt->client->ps.stats[ STAT_PTEAM ] != PTE_ALIENS
