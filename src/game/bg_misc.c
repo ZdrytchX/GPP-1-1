@@ -1545,6 +1545,7 @@ classAttributes_t bg_classList[ ] =
     { -15, -15, -15 },                              //vec3_t  deadmins;
     { 15, 15, 15 },                                 //vec3_t  deadmaxs;
     0.0f,                                           //float   zOffset
+    0.f,                                            //float   spriteOffset;
     0, 0,                                           //int     viewheight, crouchviewheight;
     0,                                              //int     health;
     0.0f,                                           //float   fallDamage;
@@ -1585,6 +1586,7 @@ classAttributes_t bg_classList[ ] =
     { -15, -15, -4 },                               //vec3_t  deadmins;
     { 15, 15, 4 },                                  //vec3_t  deadmaxs;
     0.0f,                                           //float   zOffset
+    0.f,                                            //float   spriteOffset;
     0, 0,                                           //int     viewheight, crouchviewheight;
     ABUILDER_HEALTH,                                //int     health;
     3.2f,                                           //float   fallDamage;
@@ -1624,6 +1626,7 @@ classAttributes_t bg_classList[ ] =
     { -20, -20, -4 },                               //vec3_t  deadmins;
     { 20, 20, 4 },                                  //vec3_t  deadmaxs;
     0.0f,                                           //float   zOffset
+    0.f,                                            //float   spriteOffset;
     0, 0,                                           //int     viewheight, crouchviewheight;
     ABUILDER_UPG_HEALTH,                            //int     health;
     1.0f,                                           //float   fallDamage;
@@ -1663,6 +1666,7 @@ classAttributes_t bg_classList[ ] =
     { -15, -15, -4 },                               //vec3_t  deadmins;
     { 15, 15, 4 },                                  //vec3_t  deadmaxs;
     -8.0f,                                          //float   zOffset
+    0.f,                                            //float   spriteOffset;
     0, 0,                                           //int     viewheight, crouchviewheight;
     LEVEL0_HEALTH,                                  //int     health;
     2.0f,                                           //float   fallDamage;
@@ -1703,6 +1707,7 @@ classAttributes_t bg_classList[ ] =
     { -18, -18, -4 },                               //vec3_t  deadmins;
     { 18, 18, 4 },                                  //vec3_t  deadmaxs;
     0.0f,                                           //float   zOffset
+    0.f,                                            //float   spriteOffset;
     0, 0,                                           //int     viewheight, crouchviewheight;
     LEVEL1_HEALTH,                                  //int     health;
     0.0f,                                           //float   fallDamage;
@@ -1743,6 +1748,7 @@ classAttributes_t bg_classList[ ] =
     { -20, -20, -4 },                               //vec3_t  deadmins;
     { 20, 20, 4 },                                  //vec3_t  deadmaxs;
     0.0f,                                           //float   zOffset
+    0.f,                                            //float   spriteOffset;
     0, 0,                                           //int     viewheight, crouchviewheight;
     LEVEL1_UPG_HEALTH,                              //int     health;
     0.0f,                                           //float   fallDamage;
@@ -1783,6 +1789,7 @@ classAttributes_t bg_classList[ ] =
     { -22, -22, -4 },                               //vec3_t  deadmins;
     { 22, 22, 4 },                                  //vec3_t  deadmaxs;
     0.0f,                                           //float   zOffset
+    0.f,                                            //float   spriteOffset;
     10, 10,                                         //int     viewheight, crouchviewheight;
     LEVEL2_HEALTH,                                  //int     health;
     0.0f,                                           //float   fallDamage;
@@ -1823,6 +1830,7 @@ classAttributes_t bg_classList[ ] =
     { -24, -24, -4 },                               //vec3_t  deadmins;
     { 24, 24, 4 },                                  //vec3_t  deadmaxs;
     0.0f,                                           //float   zOffset
+    0.f,                                            //float   spriteOffset;
     12, 12,                                         //int     viewheight, crouchviewheight;
     LEVEL2_UPG_HEALTH,                              //int     health;
     0.0f,                                           //float   fallDamage;
@@ -1863,6 +1871,7 @@ classAttributes_t bg_classList[ ] =
     { -32, -32, -4 },                               //vec3_t  deadmins;
     { 32, 32, 4 },                                  //vec3_t  deadmaxs;
     0.0f,                                           //float   zOffset
+    24.f,                                            //float   spriteOffset;
     24, 24,                                         //int     viewheight, crouchviewheight;
     LEVEL3_HEALTH,                                  //int     health;
     0.0f,                                           //float   fallDamage;
@@ -1903,6 +1912,7 @@ classAttributes_t bg_classList[ ] =
     { -32, -32, -4 },                               //vec3_t  deadmins;
     { 32, 32, 4 },                                  //vec3_t  deadmaxs;
     0.0f,                                           //float   zOffset
+    32.f,                                            //float   spriteOffset;
     27, 27,                                         //int     viewheight, crouchviewheight;
     LEVEL3_UPG_HEALTH,                              //int     health;
     0.0f,                                           //float   fallDamage;
@@ -1943,6 +1953,7 @@ classAttributes_t bg_classList[ ] =
     { -15, -15, -4 },                               //vec3_t  deadmins;
     { 15, 15, 4 },                                  //vec3_t  deadmaxs;
     0.0f,                                           //float   zOffset
+    88.f,                                            //float   spriteOffset;
     35, 35,                                         //int     viewheight, crouchviewheight;
     LEVEL4_HEALTH,                                  //int     health;
     0.0f,                                           //float   fallDamage;
@@ -1983,6 +1994,7 @@ classAttributes_t bg_classList[ ] =
     { -15, -15, -4 },                               //vec3_t  deadmins;
     { 15, 15, 4 },                                  //vec3_t  deadmaxs;
     0.0f,                                           //float   zOffset
+    16.f,                                            //float   spriteOffset;
     26, 12,                                         //int     viewheight, crouchviewheight;
     100,                                            //int     health;
     6.0f,                                           //float   fallDamage;
@@ -2023,6 +2035,7 @@ classAttributes_t bg_classList[ ] =
     { -15, -15, -4 },                               //vec3_t  deadmins;
     { 15, 15, 4 },                                  //vec3_t  deadmaxs;
     -16.0f,                                           //float   zOffset
+    28.f,                                            //float   spriteOffset;
     30, 30,                                         //int     viewheight, crouchviewheight;
     SPY_HEALTH,                                            //int     health;
     1.0f,                                           //float   fallDamage;
@@ -2351,6 +2364,23 @@ void BG_FindBBoxForClass( int pclass, vec3_t mins, vec3_t maxs, vec3_t cmaxs, ve
 
   if( dmaxs != NULL )
     VectorCopy( bg_classList[ 0 ].deadMaxs,    dmaxs );
+}
+/*
+==============
+BG_FindSpriteHeightForClass
+==============
+*/
+float BG_FindSpriteHeightForClass( int pclass ) {
+  int i;
+
+  for( i = 0; i < bg_numPclasses; i++ )
+  {
+    if( bg_classList[ i ].classNum == pclass )
+    {
+      return bg_classList[ i ].maxs[ 2 ]+bg_classList[ i ].spriteOffset;
+    }
+  }
+  return 0.f;
 }
 
 /*

@@ -932,6 +932,7 @@ typedef struct
   vec3_t    deadMins;
   vec3_t    deadMaxs;
   float     zOffset;
+  float     spriteOffset;
 
   int       viewheight;
   int       crouchViewheight;
@@ -1192,6 +1193,7 @@ float     BG_FindShadowScaleForClass( int pclass );
 char      *BG_FindHudNameForClass( int pclass );
 qboolean  BG_FindStagesForClass( int pclass, stage_t stage );
 qboolean  BG_FindNakedStagesForClass( int pclass, stage_t stage );
+float     BG_FindSpriteHeightForClass( int pclass );
 void      BG_FindBBoxForClass( int pclass, vec3_t mins, vec3_t maxs, vec3_t cmaxs, vec3_t dmins, vec3_t dmaxs );
 float     BG_FindZOffsetForClass( int pclass );
 void      BG_FindViewheightForClass( int pclass, int *viewheight, int *cViewheight );

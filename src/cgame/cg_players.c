@@ -1695,7 +1695,7 @@ CG_PlayerFloatSprite
 Float a sprite over the player's head
 ===============
 */
-static void CG_PlayerFloatSprite( centity_t *cent, qhandle_t shader )
+static void CG_PlayerFloatSprite( centity_t *cent, qhandle_t shader, vec4_t color )
 {
   int           rf;
   refEntity_t   ent;
@@ -1712,10 +1712,16 @@ static void CG_PlayerFloatSprite( centity_t *cent, qhandle_t shader )
   ent.customShader = shader;
   ent.radius = 10;
   ent.renderfx = rf;
-  ent.shaderRGBA[ 0 ] = 255;
-  ent.shaderRGBA[ 1 ] = 255;
-  ent.shaderRGBA[ 2 ] = 255;
-  ent.shaderRGBA[ 3 ] = 255;
+
+  ent.shaderRGBA[ 0 ] = color[0]*255;
+  ent.shaderRGBA[ 1 ] = color[1]*255;
+  ent.shaderRGBA[ 2 ] = color[2]*255;
+  ent.shaderRGBA[ 3 ] = color[3]*255;
+
+  // Find the proper height to float the sprite
+  ent.origin[ 2 ] += BG_FindSpriteHeightForClass(
+    ( cent->currentState.powerups >> 8 ) & 0xFF );
+
   trap_R_AddRefEntityToScene( &ent );
 }
 
@@ -1732,14 +1738,21 @@ static void CG_PlayerSprites( centity_t *cent )
 {
   if( cent->currentState.eFlags & EF_CONNECTION )
   {
-    CG_PlayerFloatSprite( cent, cgs.media.connectionShader );
+    vec4_t white = { 1.f, 1.f, 1.f, 1.f };
+    CG_PlayerFloatSprite( cent, cgs.media.connectionShader, white );
     return;
   }
 
   if( cent->currentState.eFlags & EF_TALK )
   {
     // the masses have decreed this to be wrong
-    CG_PlayerFloatSprite( cent, cgs.media.balloonShader );
+    // ... because you coded it wrong. --Risujin
+    vec4_t color_human = { 0.04f, 0.71f, 0.88f, 1.0f };
+    vec4_t color_alien = { 0.75f, 0.00f, 0.00f, 1.0f };
+    if(cgs.clientinfo[ cent->currentState.number ].team==PTE_ALIENS)
+      CG_PlayerFloatSprite( cent, cgs.media.balloonShader, color_alien );
+    else if(cgs.clientinfo[ cent->currentState.number ].team==PTE_HUMANS)
+      CG_PlayerFloatSprite( cent, cgs.media.balloonShader, color_human );
     return;
   }
 }

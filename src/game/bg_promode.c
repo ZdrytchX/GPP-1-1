@@ -68,7 +68,7 @@ Newbie's Physics - Just another one of my personal settings, comes with all-dire
   strafe jump.
 
 *TODO: Air Control Penalty (Makes the player slow down if they turn too fast
-^TODO: Ramp Sliding
+^TODO: Ramp Sliding - when a player goes up a ramp faster than their jump speed, they would slide
 =========================================================================================================
 */
 
@@ -118,23 +118,22 @@ float	cpm_pm_strafeaccelerate = 70;
 float	cpm_pm_wishspeed = 30;
 //doublejump
 float cpm_pm_jump_z = 0.5; //CPM: 100/270 (normal jumpvel is 270, doublejump default 100) = 0.37037
-
+//-------------------------------------------------------------------------------
 //Add-Ons =)
 qboolean pm_autojump = qfalse;
-
 float pm_bunnyhopspeedcap = 0; //(TODO: No Penalty for turning)  
 float pm_bunnyhopaccel = 0;    //accel = bhopaccel - bhopaccel * ([speed-320]/bhopspeedcap-320)
-
+//-------------------------------------------------------------------------------
 //Moved from bg_pmove.c here
 float pm_airaccelerate = 1.0f;
 float	pm_accelerate = 10;         //Ground Acceleration        
 float	pm_friction = 6;            //Ground Friction  
-  
+//-------------------------------------------------------------------------------
 //Air Strafe settings
 qboolean pm_q1strafe = qfalse; //Allows cpm_pm_strafeaccelerate and cpm_pm_wishspeed to take effect in all directions
 qboolean pm_q3strafe = qtrue; //Allows you to accelerate even when past the cpm_pm_wishspeed
 qboolean pm_aircontrol_alldir = qfalse; //Sets air control in all directions (prevents strafe jumping as well)
-
+//-------------------------------------------------------------------------------
 //The speedcap and speedcaplimit are multiplied by BG_FindSpeedForClass()
 //Note that GSrc's units are slightly different.
 float pm_groundspeedcap = 0;          
