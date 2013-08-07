@@ -1707,7 +1707,7 @@ static void CG_PlayerFloatSprite( centity_t *cent, qhandle_t shader, vec4_t colo
 
   memset( &ent, 0, sizeof( ent ) );
   VectorCopy( cent->lerpOrigin, ent.origin );
-  ent.origin[ 2 ] += 48;
+//  ent.origin[ 2 ] += 48;
   ent.reType = RT_SPRITE;
   ent.customShader = shader;
   ent.radius = 10;

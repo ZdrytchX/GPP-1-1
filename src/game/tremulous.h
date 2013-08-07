@@ -579,7 +579,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define H_WEAP_SWITCH_BENIFIT       400 //Time taken off firing time if you're switching weaps
 
 //misc
-#define FASTFIRE                    200 //Allows a short period of fast fire - includes aliens
+#define FASTFIRE                    0 //Allows a short period of fast fire - includes aliens - pre-august default: 200
 
 #define LIGHTARMOUR_PRICE           70
 #define LIGHTARMOUR_POISON_PROTECTION 2
