@@ -1994,7 +1994,7 @@ classAttributes_t bg_classList[ ] =
     { -15, -15, -4 },                               //vec3_t  deadmins;
     { 15, 15, 4 },                                  //vec3_t  deadmaxs;
     0.0f,                                           //float   zOffset
-    16.f,                                            //float   spriteOffset;
+    16.f,                                           //float   spriteOffset;//TODO: Class doesn't change. Uses human_Base for bsuits
     26, 12,                                         //int     viewheight, crouchviewheight;
     100,                                            //int     health;
     6.0f,                                           //float   fallDamage;
@@ -2035,14 +2035,14 @@ classAttributes_t bg_classList[ ] =
     { -15, -15, -4 },                               //vec3_t  deadmins;
     { 15, 15, 4 },                                  //vec3_t  deadmaxs;
     -16.0f,                                           //float   zOffset
-    28.f,                                            //float   spriteOffset;
+    28.f,                                            //float   spriteOffset;//TODO: Class doesn't change. Uses human_Base
     30, 30,                                         //int     viewheight, crouchviewheight;
     SPY_HEALTH,                                            //int     health;
     1.0f,                                           //float   fallDamage;
     SPY_REGEN,                                              //int     regenRate;
     SCA_TAKESFALLDAMAGE|SCA_FOVWARPS|SCA_WALLJUMPER|
       SCA_CANUSELADDERS|SCA_ALIENSENSE,                            //int     abilities;
-    WP_ALEVEL2_UPG, //special-cased in g_client.c          //weapon_t  startWeapon //Testing something //Changed to mara's
+    WP_ALEVEL2_UPG, //special-cased in g_client.c          //weapon_t  startWeapon
     110.0f,                                         //float   buildDist;
     92,                                             //int     fov;
     0.003f,                                         //float   bob;

@@ -1001,7 +1001,8 @@ void ABarricade_Think( gentity_t *self )
   //if there is no creep nearby die
   if( !G_FindCreep( self ) )
   {
-    G_Damage( self, NULL, NULL, NULL, NULL, 10000, 0, MOD_SUICIDE );
+    G_Damage( self, NULL, NULL, NULL, NULL, BARRICADE_HEALTH/30, 0, MOD_SUICIDE );
+    self->nextthink = level.time + 1000;
     return;
   }
 
@@ -1078,7 +1079,8 @@ void AAcidTube_Think( gentity_t *self )
   //if there is no creep nearby die
   if( !G_FindCreep( self ) )
   {
-    G_Damage( self, NULL, NULL, NULL, NULL, 10000, 0, MOD_SUICIDE );
+    G_Damage( self, NULL, NULL, NULL, NULL, ACIDTUBE_HEALTH/30, 0, MOD_SUICIDE );
+    self->nextthink = level.time + 1000;
     return;
   }
 
@@ -1146,7 +1148,8 @@ void AHive_Think( gentity_t *self )
   //if there is no creep nearby die
   if( !G_FindCreep( self ) )
   {
-    G_Damage( self, NULL, NULL, NULL, NULL, 10000, 0, MOD_SUICIDE );
+    G_Damage( self, NULL, NULL, NULL, NULL, HIVE_HEALTH/30, 0, MOD_SUICIDE );
+    self->nextthink = level.time + 1000;
     return;
   }
 
@@ -1602,20 +1605,18 @@ qboolean ATrapper_CheckTarget( gentity_t *self, gentity_t *target, int range )
     return qfalse;
   if( target == self ) // is the target us?
     return qfalse;
-//Gonna test if it attacks buildables :D
-  if( !target->client ) // is the target a bot or player?
+  if( !target->client || target->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS
+  && !g_bot_teamkill.integer)//Is the target one of us, with teamkill mode?
     return qfalse;
   if( target->flags & FL_NOTARGET ) // is the target cheating?
-    return qfalse;
-  if( target->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) // one of us?
     return qfalse;
   if( target->client->sess.sessionTeam == TEAM_SPECTATOR ) // is the target alive?
     return qfalse;
   if( target->health <= 0 ) // is the target still alive?
     return qfalse;
-//want the trapper to kill right?
-//  if( target->client->ps.stats[ STAT_STATE ] & SS_BLOBLOCKED ) // locked?
-//    return qfalse;
+//Trapper won't refire unless teamkill mode is on
+  if( target->client->ps.stats[ STAT_STATE ] & SS_BLOBLOCKED && !g_bot_teamkill.integer ) // locked?
+    return qfalse;
 
   VectorSubtract( target->r.currentOrigin, self->r.currentOrigin, distance );
   if( VectorLength( distance ) > range ) // is the target within range?
@@ -1681,7 +1682,8 @@ void ATrapper_Think( gentity_t *self )
   //if there is no creep nearby die
   if( !G_FindCreep( self ) )
   {
-    G_Damage( self, NULL, NULL, NULL, NULL, 10000, 0, MOD_SUICIDE );
+    G_Damage( self, NULL, NULL, NULL, NULL, TRAPPER_HEALTH/30, 0, MOD_SUICIDE );
+    self->nextthink = level.time + 1000;
     return;
   }
 

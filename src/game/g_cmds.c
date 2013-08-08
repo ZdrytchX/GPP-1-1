@@ -711,14 +711,15 @@ void G_ChangeTeam( gentity_t *ent, pTeam_t newTeam )
   }
   
   ent->client->ps.persistant[ PERS_KILLED ] = 0;
-//  ent->client->pers.statscounters.kills = 0;
-//  ent->client->pers.statscounters.structskilled = 0;
-//  ent->client->pers.statscounters.assists = 0;
+  /*
+  ent->client->pers.statscounters.kills = 0;
+  ent->client->pers.statscounters.structskilled = 0;
+  ent->client->pers.statscounters.assists = 0;
   ent->client->pers.statscounters.repairspoisons = 0;
   ent->client->pers.statscounters.headshots = 0;
   ent->client->pers.statscounters.hits = 0;
   ent->client->pers.statscounters.hitslocational = 0;
-  /*
+  
   ent->client->pers.statscounters.deaths = 0;
   ent->client->pers.statscounters.feeds = 0;
   ent->client->pers.statscounters.suicides = 0;
@@ -726,9 +727,10 @@ void G_ChangeTeam( gentity_t *ent, pTeam_t newTeam )
   ent->client->pers.statscounters.dmgdone = 0;
   ent->client->pers.statscounters.structdmgdone = 0;
   ent->client->pers.statscounters.ffdmgdone = 0;
-  ent->client->pers.statscounters.structsbuilt = 0;*/
+  ent->client->pers.statscounters.structsbuilt = 0;
   ent->client->pers.statscounters.timealive = 0;
   ent->client->pers.statscounters.timeinbase = 0;
+  */
   ent->client->pers.statscounters.dretchbasytime = 0;
   ent->client->pers.statscounters.jetpackusewallwalkusetime = 0;
 
@@ -738,14 +740,14 @@ void G_ChangeTeam( gentity_t *ent, pTeam_t newTeam )
     {
       ent->client->pers.designatedBuilder = qtrue;
       trap_SendServerCommand( ent-g_entities, 
-        "print \"Your designation has been restored\n\"" );
+        "print \"Your building designation has been restored\n\"" );
     }
   }
   else if( ent->client->pers.designatedBuilder )
   {
     ent->client->pers.designatedBuilder = qfalse;
     trap_SendServerCommand( ent-g_entities, 
-     "print \"You have lost designation due to teamchange\n\"" );
+     "print \"You have lost building designation due to teamchange\n\"" );
   }
 
   if( G_admin_permission( ent, ADMF_NPLAYER ) )
@@ -754,7 +756,7 @@ void G_ChangeTeam( gentity_t *ent, pTeam_t newTeam )
     {
       ent->client->pers.nakedPlayer = qtrue;
       trap_SendServerCommand( ent-g_entities,
-        "print \"You are a stripped player here\n\"" );
+        "print \"You are a stripped player here.\n\"" );
     }
   }
 
