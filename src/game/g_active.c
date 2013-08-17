@@ -595,7 +595,7 @@ void ClientTimerActions( gentity_t *ent, int msec )
 //Prevent glitchy human revives
 	if ( ent->health < 0)
 	{
-	ent->health = -99999;
+	ent->health = -10000;
 	}
 
     //if not trying to run then not trying to sprint
@@ -662,7 +662,7 @@ void ClientTimerActions( gentity_t *ent, int msec )
         client->ps.stats[ STAT_MISC ] = pounceSpeed;
     }
 
-    //client is charging up for a... charge
+    //client is charging up for a trample
     if( client->ps.weapon == WP_ALEVEL4 )
     {
       if( client->ps.stats[ STAT_MISC ] < LEVEL4_CHARGE_TIME && ucmd->buttons & BUTTON_ATTACK2 &&
@@ -833,7 +833,7 @@ void ClientTimerActions( gentity_t *ent, int msec )
       G_Damage( ent, client->lastPoisonClient, client->lastPoisonClient, NULL,
         0, damage, 0, MOD_POISON );
     }
-
+/*
     //replenish/regenerate alien health
     if( //client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS &&
       //level.surrenderTeam != PTE_ALIENS
@@ -856,10 +856,10 @@ void ClientTimerActions( gentity_t *ent, int msec )
 
       VectorAdd( client->ps.origin, range, maxs );
       VectorSubtract( client->ps.origin, range, mins );
-/* This is the alien regen.
- * I swapped the Booster and tyrant regen priority
- * so you can use a booster as a tyrant.
- */
+// This is the alien regen.
+// I swapped the Booster and tyrant regen priority
+// so you can use a booster as a tyrant.
+//
 if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens right?
 	{
       num = trap_EntitiesInBox( mins, maxs, entityList, MAX_GENTITIES );
@@ -893,6 +893,7 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
 //        }
       }
 	}
+*/
 //regen
 /*
       if( ent->health > 0 && ent->health < client->ps.stats[ STAT_MAX_HEALTH ] &&
@@ -901,12 +902,15 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
 */
 //vamp degen settings
       if( ent->health > client->ps.stats[ STAT_MAX_HEALTH ] )
-	{ ent->health -= ((client->ps.stats[ STAT_HEALTH ] - (client->ps.stats[ STAT_MAX_HEALTH ] ) )/ VAMP_TAKE  + 0.5 ); } //Degeneration now takes up extrahealth/VAMP_TAKE + 0.5
-      //  ent->health = client->ps.stats[ STAT_MAX_HEALTH ]
+	    {
+	      ent->health -= ((client->ps.stats[ STAT_HEALTH ]
+	      - (client->ps.stats[ STAT_MAX_HEALTH ] ) )/ VAMP_TAKE  + 0.5 );
+	    } //Degeneration now takes up extrahealth/VAMP_TAKE + 0.5
+
       if( ent->health > client->ps.stats[ STAT_MAX_HEALTH ] * MAX_MAX_HEALTH ) //vamp mode: remember! modifier 1.5x max health
         ent->health = client->ps.stats[ STAT_MAX_HEALTH ] * MAX_MAX_HEALTH;
     }
-    
+
     //these are just for stats when doing /(!)mystats or /(!)allstats
     if( ent->client->ps.stats[ STAT_HEALTH ] > 0 && ent->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
     {
@@ -930,12 +934,6 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
     }
     else if( ent->client->ps.stats[ STAT_HEALTH ] > 0 && ent->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS )
     {
-	//Anti-Revive hack
-		if ( ent->health < 0)
-		{
-		ent->health = -9999;
-		}
-	
 		if( ent->health > client->ps.stats[ STAT_MAX_HEALTH ] * MAX_MAX_HEALTH )
 		ent->health = client->ps.stats[ STAT_MAX_HEALTH ] * MAX_MAX_HEALTH; //not reliable
 
@@ -965,11 +963,6 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
       level.surrenderTeam == PTE_ALIENS )
     {
       G_Damage( ent, NULL, NULL, NULL, NULL, client->ps.stats[ STAT_MAX_HEALTH ] / 25, DAMAGE_NO_ARMOR, MOD_SUICIDE );
-/*
-      G_Damage( ent, NULL, NULL, NULL, NULL,
-        BG_FindRegenRateForClass( client->ps.stats[ STAT_PCLASS ] ),
-        DAMAGE_NO_ARMOR, MOD_SUICIDE );
-*/
     }
     else if( client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS &&
       level.surrenderTeam == PTE_HUMANS )
@@ -1018,7 +1011,7 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
     }
   }
   }
-//Blaster charge
+//Blaster charge - has its own timer. Also charges while weapon switching, which is useful
     if( client->blaster_ammoregen >= g_blaster_ammoregen.integer )
     if( BLASTER_CLIPSIZE > 0)
     {
@@ -1035,11 +1028,11 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
         ammo++;
         BG_PackAmmoArray( WP_BLASTER, client->ps.ammo, client->ps.powerups, ammo, BLASTER_MAXCLIPS ); //0
       }
-    client->blaster_ammoregen = 0; //restart timer
+      client->blaster_ammoregen = 0; //restart timer
     }
     }
 //==================================
-//Smooth Regeneration
+//Smooth Regeneration - has its own timer, variable
 //==================================
   while( client->autoregen <= 0 )
   {
@@ -1138,7 +1131,7 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS && level.surrenderTeam != PTE_A
         {
 	  if ( client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL4 )
 	  {	
-        //  modifier *= BOOSTER_REGEN_MOD;
+          modifier *= LEVEL4_REGEN_MOD;//restore its original regen speed when near a booster for super regen
 	  }
           modifier *= BOOSTER_REGEN_MOD;
           break;
@@ -1150,7 +1143,7 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS && level.surrenderTeam != PTE_A
          {
     client->autoregen += (1000 / ( BG_FindRegenRateForClass( client->ps.stats[ STAT_PCLASS ] ) *modifier * ALIENREGEN_NOCREEP_MOD ) );
          }
-//dynamic regeneration
+//dynamic regeneration for humans
     else {
 	int healthneeded;
 	healthneeded = client->ps.stats[ STAT_MAX_HEALTH ] - (client->ps.stats[ STAT_HEALTH ] - 5); //so it doesn't recover horribly slow near 100 hp
@@ -1167,6 +1160,7 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS && level.surrenderTeam != PTE_A
         	   ent->health ++;
 		//TODO: Find out why 'for' function doesn't work (not effect elided)
 		//so I a simple unreliable loop here, checked only 4 times
+		//TODO: Ask fuma?
 		if(client->autoregen < 50)//TODO: Insert sv_fps.integer here
 		   {
 		   ent->health ++;
