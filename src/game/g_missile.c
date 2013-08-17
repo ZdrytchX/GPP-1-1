@@ -376,7 +376,7 @@ gentity_t *fire_blaster( gentity_t *self, vec3_t start, vec3_t dir )
   bolt->s.generic1 = self->s.generic1; //weaponMode
   bolt->r.ownerNum = self->s.number;
   bolt->parent = self;
-//if (g_bot_teamkill.integer == 1)
+//if (g_mode_teamkill.integer == 1)
 //{ teamkillmod = 10 }
   bolt->damage = BLASTER_DMG;// * teamkillmod;
   bolt->splashDamage = BLASTER_PUSH;// * teamkillmod;//blasterjump!

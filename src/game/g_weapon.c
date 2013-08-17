@@ -1010,7 +1010,7 @@ qboolean CheckVenomAttack( gentity_t *ent )
 
   if( traceEnt->client )
   {
-    if( traceEnt->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS && g_bot_teamkill.integer != 1)
+    if( traceEnt->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS && g_mode_teamkill.integer != 1)
       return qfalse;
     if( traceEnt->client->ps.stats[ STAT_HEALTH ] <= 0 )
       return qfalse;

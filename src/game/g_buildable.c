@@ -1606,7 +1606,7 @@ qboolean ATrapper_CheckTarget( gentity_t *self, gentity_t *target, int range )
   if( target == self ) // is the target us?
     return qfalse;
   if( !target->client || target->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS
-  && !g_bot_teamkill.integer)//Is the target one of us, with teamkill mode?
+  && !g_mode_teamkill.integer)//Is the target one of us, with teamkill mode?
     return qfalse;
   if( target->flags & FL_NOTARGET ) // is the target cheating?
     return qfalse;
@@ -1615,7 +1615,7 @@ qboolean ATrapper_CheckTarget( gentity_t *self, gentity_t *target, int range )
   if( target->health <= 0 ) // is the target still alive?
     return qfalse;
 //Trapper won't refire unless teamkill mode is on
-  if( target->client->ps.stats[ STAT_STATE ] & SS_BLOBLOCKED && !g_bot_teamkill.integer ) // locked?
+  if( target->client->ps.stats[ STAT_STATE ] & SS_BLOBLOCKED && !g_mode_teamkill.integer ) // locked?
     return qfalse;
 
   VectorSubtract( target->r.currentOrigin, self->r.currentOrigin, distance );
@@ -2176,7 +2176,7 @@ qboolean HMGTurret_CheckTarget( gentity_t *self, gentity_t *target, qboolean ign
     return qfalse;
 
   if( traceEnt->client && traceEnt->client->ps.stats[ STAT_PTEAM ] != PTE_ALIENS
-  && !g_bot_teamkill.integer)
+  && !g_mode_teamkill.integer)
     return qfalse;
 
   return qtrue;
@@ -2208,7 +2208,7 @@ void HMGTurret_FindEnemy( gentity_t *self )
   {
     target = &g_entities[ entityList[ i ] ];
 
-    if( /*target->client && */target->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS || g_bot_teamkill.integer )
+    if( /*target->client && */target->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS || g_mode_teamkill.integer )
     {
       //if target is not valid keep searching
       if( !HMGTurret_CheckTarget( self, target, qfalse ) )
@@ -2227,7 +2227,7 @@ void HMGTurret_FindEnemy( gentity_t *self )
     {
       target = &g_entities[ entityList[ i ] ];
 
-      if( /*target->client && */target->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS || g_bot_teamkill.integer )
+      if( /*target->client && */target->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS || g_mode_teamkill.integer )
       {
         //if target is not valid keep searching
         if( !HMGTurret_CheckTarget( self, target, qtrue ) )

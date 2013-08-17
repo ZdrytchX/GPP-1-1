@@ -221,7 +221,7 @@ vmCvar_t g_bot_roam;
 vmCvar_t g_bot_infinite_funds;
 vmCvar_t g_bot_survival;
 vmCvar_t g_bot_wave_interval;
-vmCvar_t g_bot_teamkill;
+vmCvar_t g_mode_teamkill;
 
 //</bot stuff>
 // for editing the bot's paths
@@ -258,11 +258,10 @@ vmCvar_t  g_strip_StructDmgPrcnt;
 vmCvar_t  g_strip_StructDmgPrcnt_def;
 vmCvar_t  g_connectedStripPrcnt;
 //ZdrytchX
-vmCvar_t  g_vampiremode;//TODO
-vmCvar_t  g_vampirebuildables;
-vmCvar_t  g_vampirebuildables_take;
+vmCvar_t  g_mode_vampirebuildables;
+vmCvar_t  g_mode_vampirebuildables_take;
 vmCvar_t  g_bunnyhop;//TODO
-vmCvar_t  g_weapswitchtime;//TODO
+vmCvar_t  g_weapswitchtime;//CANNOT EXIST! (bg/g/cg inteference)
 vmCvar_t  g_blaster_ammoregen;
 vmCvar_t  g_bot_granger;
 vmCvar_t  g_bot_dodge_jump;
@@ -283,7 +282,7 @@ vmCvar_t  g_minDeconLevel;
 vmCvar_t  g_bot_alien_secondaryonly;
 vmCvar_t  g_mode_cpm;
 vmCvar_t  g_noclip_speed;
-vmCvar_t  g_tk_human_knockback;
+vmCvar_t  g_mode_teamkill_human_knockback;
 vmCvar_t  g_autoGhost;
 vmCvar_t  g_extendVotesPercent;
 vmCvar_t  g_extendVotesTime;
@@ -292,6 +291,8 @@ vmCvar_t  g_adminTempSpec;
 vmCvar_t  g_hitsounds;
 vmCvar_t  g_allStats;
 vmCvar_t  g_allStatsTime;
+
+vmCvar_t  g_mode_vampire;
 
 vmCvar_t  g_level4_trample_buildable_percent;
 
@@ -537,11 +538,8 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_strip_StructDmgPrcnt_def, "g_strip_StructDmgPrcnt_def", "100", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE | CVAR_NORESTART, 100, qtrue },
   { &g_connectedStripPrcnt,      "g_connectedStripPrcnt",       "50", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE | CVAR_NORESTART,  50, qtrue },
 //ZdrytchX
-  { &g_vampiremode,      "g_vampiremode",                        "0", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse }, //TODO
-  { &g_vampiremode,      "g_vampirebuildables",                  "0", CVAR_ARCHIVE,                        0, qfalse },
-  { &g_vampirebuildables_take,      "g_vampirebuildables_take",  "50", CVAR_ARCHIVE,                       0,  qfalse },
 //  { &g_bunnyhop,         "g_bunnyhop",                          "0", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },//TODO
-  { &g_weapswitchtime,   "g_weapswitchtime",                     "250", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },//TODO
+  { &g_weapswitchtime,   "g_weapswitchtime","250", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },//cannot happen, useless var
   { &g_blaster_ammoregen,   "g_blaster_ammoregen",              "1250", CVAR_ARCHIVE,  0, qfalse },
   { &g_bot_granger,   "g_bot_granger",                            "0", CVAR_ARCHIVE,  0, qfalse },
   { &g_bot_dodge_jump,   "g_bot_dodge_jump",                      "1", CVAR_ARCHIVE,  1, qfalse },
@@ -578,9 +576,12 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_hitsounds, "g_hitsounds",                                 "4", CVAR_ARCHIVE, 0, qfalse },
 
   //Special Modes
-  { &g_mode_cpm,     "g_mode_cpm",     "1", CVAR_ARCHIVE | CVAR_SERVERINFO, 0, qfalse },
-  { &g_bot_teamkill, "g_bot_teamkill", "0", CVAR_ARCHIVE, 0, qfalse },
-  { &g_tk_human_knockback, "g_tk_human_knockback",     "1.8", CVAR_ARCHIVE | CVAR_SERVERINFO, 0, qfalse },
+  { &g_mode_cpm, "g_mode_cpm",                            "1", CVAR_ARCHIVE | CVAR_SERVERINFO, 0, qfalse },
+  { &g_mode_vampire, "g_mode_vampire",                    "0", CVAR_ARCHIVE | CVAR_SERVERINFO, 0, qfalse },
+  { &g_mode_vampirebuildables,      "g_mode_vampirebuildables",                        "0", CVAR_ARCHIVE, 0, qfalse },
+  { &g_mode_vampirebuildables_take,      "g_mode_vampirebuildables_take",  "50", CVAR_ARCHIVE, 0, qfalse },
+  { &g_mode_teamkill, "g_mode_teamkill",                                    "0", CVAR_ARCHIVE, 0, qfalse },
+  { &g_mode_teamkill_human_knockback, "g_mode_teamkill_human_knockback",  "1.8", CVAR_ARCHIVE, 0, qfalse },
 };
 
 static int gameCvarTableSize = sizeof( gameCvarTable ) / sizeof( gameCvarTable[ 0 ] );

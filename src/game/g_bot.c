@@ -772,7 +772,7 @@ void G_BotBuy(gentity_t *self, usercmd_t *botCmdBuffer) {
         if ((g_bot_gren.integer == 1) && (level.time % (30000) < (300 * g_bot_gren_buypercent.integer)) ) //fingers crossed
         {
             if ( G_BotBuyUpgrade( self, UP_GRENADE ) ) //don't say you bought a grenade unless you really did
-            if( !(self->client->pers.muted) && !g_bot_teamkill.integer)
+            if( !(self->client->pers.muted) && !g_mode_teamkill.integer)
             G_Say(self,NULL, SAY_TEAM, "Bought Grenade");    
         }
         self->botMind->currentModus = ROAM; //hack to prevent buy-spam
@@ -810,7 +810,7 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
         teamRush = (level.time % 300000 < 150000) ? qtrue : qfalse; //changing these effect the bot's ability to attack other players?      
         
         if (level.time % 300000 < 50000 && self->client->time10000 % ((int)(rand() % 150000)) == 0 //150 seconds because if there's only one or two teammates it's pointless
-        && !(self->client->pers.muted) && !g_bot_teamkill.integer)
+        && !(self->client->pers.muted) && !g_mode_teamkill.integer)
         {
         if (self->client->time1000 % 3000 < 1000)
         G_Say(self,NULL, SAY_TEAM, "Rush their colonies!");
@@ -826,7 +826,7 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
         teamRush = (level.time % 300000 > 150000) ? qtrue : qfalse;
         
         if (level.time % 300000 > 250000 && self->client->time10000 % ((int)(rand() % 150000)) == 0
-        && !(self->client->pers.muted) && !g_bot_teamkill.integer)
+        && !(self->client->pers.muted) && !g_mode_teamkill.integer)
         {
         if (self->client->time1000 % 3000 < 1000)
         G_Say(self,NULL, SAY_TEAM, "CHAAAARGE!!!");
@@ -845,7 +845,7 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
             /*
             //don't say it every time
             if (self->client->time1000 % (5000 + rand() % 15000) < 1000
-                && !(self->client->pers.muted) && !g_bot_teamkill.integer)
+                && !(self->client->pers.muted) && !g_mode_teamkill.integer)
             {
             //Tell your teammates what you're attacking. Remember the structure isn't known to be dead.
             if (self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS)
@@ -1850,7 +1850,7 @@ int botFindClosestEnemy( gentity_t *self, qboolean includeTeam ) {
                         closestTarget = entityList[i];
                     }
                     if( target->client->ps.stats[STAT_PTEAM] == self->client->ps.stats[STAT_PTEAM]
-                    && g_bot_teamkill.integer == 1 )
+                    && g_mode_teamkill.integer == 1 )
                     {
                         //store the new distance and the index of the enemy
                         minDistance = newDistance;

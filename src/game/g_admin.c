@@ -3208,7 +3208,8 @@ qboolean G_admin_botcfg(gentity_t *ent, int skiparg) {
         trap_FS_Write( va("g_bot_survival %d\n",g_bot_survival.integer ? 1:0), 17, f );
         trap_FS_Write( va("g_bot_wave_interval %d\n",g_bot_wave_interval.integer ? g_bot_wave_interval.integer:0), 40, f );
 //zdrytchx add-ons
-        trap_FS_Write( va("g_bot_teamkill %d\n",g_bot_teamkill.integer ? 1:0), 16, f );
+//TODO: Wait, fuma! You only left 16 slots available! I did this for nothing! >(|
+        trap_FS_Write( va("g_mode_teamkill %d\n",g_mode_teamkill.integer ? 1:0), 16, f );
         trap_FS_Write( va("g_bot_granger %d\n",g_bot_granger.integer ? 1:0), 15, f );
         trap_FS_Write( va("g_bot_bsuit %d\n",g_bot_bsuit.integer ? 1:0), 13, f );
         trap_FS_Write( va("g_bot_dodge_jump %d\n",g_bot_dodge_jump.integer ? 1:0), 18, f );

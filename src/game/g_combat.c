@@ -440,8 +440,15 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 
       //make bot say its line
       if(attacker->r.svFlags & SVF_BOT && !( self->r.svFlags & SVF_BOT) && rand() % 9 <= 3 && !attacker->client->pers.muted && ( attacker->client->ps.stats[STAT_HEALTH] > attacker->client->ps.stats[STAT_MAX_HEALTH] * 0.3) )
-      if( g_bot_teamkill.integer || attacker->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM])
-    G_Say(attacker,NULL, SAY_ALL, va("%s,^2You ^1Suck! ^2Who's Next?^7", self->client->pers.netname));
+      if( g_mode_teamkill.integer || attacker->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM])
+      {
+      if( rand() > 0.33)
+    G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^2Who's Next?^7");
+      else if( rand() > 0.5)
+    G_Say(attacker,NULL, SAY_ALL, va("%s's down with his skills. He needs to train more.", self->client->pers.netname));
+      else
+    G_Say(attacker,NULL, SAY_ALL, va("What's the matter, %s? You mad bro?", self->client->pers.netname));
+      }
 
       if( attacker != self && attacker->client->ps.stats[ STAT_PTEAM ]  == self->client->ps.stats[ STAT_PTEAM ] ) 
       {
@@ -585,13 +592,13 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
       if( self->r.svFlags & SVF_BOT && !self->client->pers.muted
        && (attacker->client->ps.stats[STAT_HEALTH] < (attacker->client->ps.stats[STAT_MAX_HEALTH] * 0.2 + 25))
        && (attacker->client->ps.stats[STAT_PCLASS] != PCL_ALIEN_LEVEL0) )//never say if it's a dretch
-      if( g_bot_teamkill.integer || !( OnSameTeam( self, attacker ) ))
+      if( g_mode_teamkill.integer || !( OnSameTeam( self, attacker ) ))
       G_Say(self,NULL, SAY_TEAM, va("Chase ^7%s^5! He's low!", attacker->client->pers.netname) );//killername is wrong? (gives own name)
    }
 
     if( attacker != self && ( OnSameTeam( self, attacker ) ) )
     {
-      if (!g_bot_teamkill.integer) { AddScore( attacker, -1 ); }
+      if (!g_mode_teamkill.integer) { AddScore( attacker, -1 ); }
       else AddScore( attacker, 1 );
 
       //make bot say his line
@@ -615,14 +622,14 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
           type = "credits";
         }
 
-        if(!g_bot_teamkill.integer){
+        if(!g_mode_teamkill.integer){
         if( attacker->client->ps.persistant[ PERS_CREDIT ] < tk_value )
           tk_value = attacker->client->ps.persistant[ PERS_CREDIT ];
         if( self->client->ps.persistant[ PERS_CREDIT ]+tk_value > max )
           tk_value = max-self->client->ps.persistant[ PERS_CREDIT ];
         }
 
-        if( tk_value > 0 && !g_bot_teamkill.integer ) {
+        if( tk_value > 0 && !g_mode_teamkill.integer ) {
 
           // adjust using the retribution cvar (in percent)
           tk_value = tk_value*g_retribution.integer/100;
@@ -637,7 +644,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
             va( "print \"Transfered ^3%d %s ^7to %s ^7in retribution.\n\"",
             tk_value, type, self->client->pers.netname ) );
         }
-        else if (g_bot_teamkill.integer)
+        else if (g_mode_teamkill.integer)
         {
           if(attacker->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS)
           tk_value += FREEKILL_ALIEN;
@@ -734,7 +741,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
     totalDamage += (float)self->credits[ i ];
 
   // if players did more than DAMAGE_FRACTION_FOR_KILL increment the stage counters
-  if( (!OnSameTeam( self, attacker ) || g_bot_teamkill.integer != 0) && totalDamage >= ( self->client->ps.stats[ STAT_MAX_HEALTH ] * DAMAGE_FRACTION_FOR_KILL ) )
+  if( (!OnSameTeam( self, attacker ) || g_mode_teamkill.integer != 0) && totalDamage >= ( self->client->ps.stats[ STAT_MAX_HEALTH ] * DAMAGE_FRACTION_FOR_KILL ) )
   {
     if( self->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS ) 
     {
@@ -784,7 +791,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
         if( !player->client )
           continue;
 
-        if( player->client->ps.stats[ STAT_PTEAM ] != PTE_HUMANS || g_bot_teamkill.integer)
+        if( player->client->ps.stats[ STAT_PTEAM ] != PTE_HUMANS || g_mode_teamkill.integer)
           continue;
 
         if( !self->credits[ i ] )
@@ -821,7 +828,7 @@ G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
         if( !player->client )
           continue;
 
-        if( player->client->ps.stats[ STAT_PTEAM ] != PTE_ALIENS || g_bot_teamkill.integer )
+        if( player->client->ps.stats[ STAT_PTEAM ] != PTE_ALIENS || g_mode_teamkill.integer )
           continue;
 
         //this client did no damage
@@ -1598,8 +1605,8 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
     knockback = (int)( (float)knockback *
       BG_FindKnockbackScaleForClass( targ->client->ps.stats[ STAT_PCLASS ] ) );
   }
-  if ( mod == MOD_SLOWBLOB ) //Override knockback scale for weapon
-//    knockback == ABUILDER_BLOB_K; //doesn't work?
+  //assigning a == takes almost no effect. 100 dmg -> 500 ups
+  if ( mod == MOD_SLOWBLOB )
       knockback *= ABUILDER_BLOB_SPLASH_K;
 
   if( knockback > 300 )
@@ -1619,16 +1626,16 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 
 //special balancing measures
 
-  if( ( mod == MOD_TARGET_LASER || MOD_BLASTER ) && g_bot_teamkill.integer ) {
+  if( ( mod == MOD_TARGET_LASER || MOD_BLASTER ) && g_mode_teamkill.integer ) {
 		knockback *= BLASTER_K_TK;
   }
   
-  else if(g_bot_teamkill.integer && mod != MOD_LCANNON
+  else if(g_mode_teamkill.integer && mod != MOD_LCANNON
   && mod != MOD_LCANNON_SPLASH && mod != MOD_GRENADE
   && attacker->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS
   && targ->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS)//only apply to humans
   {
-    knockback *= g_tk_human_knockback.value;
+    knockback *= g_mode_teamkill_human_knockback.value;
   }
 
   else if ( mod == MOD_BLASTER )
@@ -1706,7 +1713,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		damage *= BLASTER_DMG_MOD;
 	}
 	/*
-	if ( g_bot_teamkill.integer ) { //teamkill modifiers
+	if ( g_mode_teamkill.integer ) { //teamkill modifiers
   	damage *= HUMAN_TK_DMG_MOD;
   	if ( mod == MOD_TARGET_LASER || MOD_BLASTER )
 	//for some reason it multiplies for rifle and other guns as well
@@ -1983,6 +1990,9 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
     //The following is OP when killing dretches..
 //#define VAMP (( attacker->client->ps.stats[ STAT_MAX_HEALTH ] + VAMP_EXTRA) * ( take / ( targ->client->ps.stats[ STAT_MAX_HEALTH ] * 2 )) / VAMP_DIVIDE + 0.5) // supports health gain that is less than 1 value and the '+50' means proportionate to (health + 50). Its also to help dretches and small ones gain health. Now also proportionate to the enemy's health.
 
+    //TODO: This way, vampire mode doesn't effect trem.h definitions though, so no custom balancing :/
+    if(g_mode_vampire.integer)
+    {
 //backup - only works for aliens vs naked humans
 #define VAMP (( attacker->client->ps.stats[ STAT_MAX_HEALTH ] + VAMP_EXTRA) * damage * VAMP_TAKE_MULTIPLIER + 0.5); // supports health gain that is less than 1 value and the '+50' means porportionate to health + 50. Its also to help dretches and small ones gain health.
 /* //cancel
@@ -2011,14 +2021,14 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
       targ->pain( targ, attacker, damage );
           // Vampire mod
 		//stop buildable invincability in vampire
-	if (attacker->s.eType == ET_BUILDABLE && g_vampirebuildables.integer > 0)
+	if (attacker->s.eType == ET_BUILDABLE && g_mode_vampirebuildables.integer > 0)
 		{
       int maxHP = BG_FindHealthForBuildable( attacker->s.modelindex );
-			attacker->health = attacker->health + ( damage * (g_vampirebuildables_take.integer * 0.01f) ); //cvar percent
-//Make sure they don't go over 100% hp due to visual issues
+			attacker->health = attacker->health + ( damage * (g_mode_vampirebuildables_take.integer * 0.01f) ); //cvar percent
+//Make sure they don't go over 100% hp due to visual issues where health gets looped back to 0
         		  if (attacker->health > maxHP) 
         		  {
-            		      attacker->health = maxHP;
+            	  attacker->health = maxHP;
     		      }
 		}
 	else
@@ -2031,12 +2041,12 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 //TODO: If attacker has flamer - deny vamp gain abilities.
 //TODO: If Victim is a tyrant, reward half.
 //TODO: If victim is armoured, use the inverse of that modifier.
-	else if(attacker->client)
+	else if(attacker->client && g_mode_vampire.integer)
 		{
           attacker->health = attacker->health + VAMP; //gain according to the player's health ratio so a dretch doesn't become invincable.//Also, they gain porportional according to their max health (+ 50).
-          if (attacker->health > attacker->client->ps.stats[ STAT_MAX_HEALTH ] * 1.5) 
+          if (attacker->health > attacker->client->ps.stats[ STAT_MAX_HEALTH ] * MAX_MAX_HEALTH) 
           {
-                  attacker->health = attacker->client->ps.stats[ STAT_MAX_HEALTH ] * 1.5;
+                  attacker->health = attacker->client->ps.stats[ STAT_MAX_HEALTH ] * MAX_MAX_HEALTH;
           }
          // end Vampire
           //to make sure they STAY DEAD >={D) (no glitchy revives):
@@ -2048,6 +2058,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		}
 	}
 
+    }//g_mode_vampire end
   }
 }
 
