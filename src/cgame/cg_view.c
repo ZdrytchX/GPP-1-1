@@ -855,7 +855,8 @@ static int CG_CalcFov( void )
   cg.refdef.fov_y = fov_y;
 
   if( !cg.zoomed )
-    cg.zoomSensitivity = 1;
+  //zdrytchx: for some reason sensitivity is fov-dependant?
+    cg.zoomSensitivity = (7 + (90/cg.refdef.fov_y))/8;//1;
   else
     cg.zoomSensitivity = cg.refdef.fov_y / 75.0;
 
