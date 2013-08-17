@@ -3045,12 +3045,12 @@ qboolean G_admin_bot( gentity_t *ent, int skiparg ) {
 */
 		minargc = 5 + skiparg;
 		if(G_SayArgc() < minargc) {
-			skill_int = 5;
+			skill_int = 50;
 		} else {
 			G_SayArgv( 4 + skiparg, skill, sizeof( skill ) );
 			skill_int = atoi(skill);
-                        if( skill_int > 10)
-                            skill_int = 10;
+                        if( skill_int > 100)
+                            skill_int = 100;
                         if(skill_int < 1)
                             skill_int = 1;
 		}

@@ -538,7 +538,7 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
     if(self->client->ps.stats[STAT_PTEAM] != getTargetTeam(target) && getTargetTeam(target) != PTE_NONE) {
         G_BotDodge(self, botCmdBuffer);
         //sprint if surplus stamina
-        if (self->client->ps.stats[ STAT_STAMINA ] > 0 && self->botMind->botSkill.level > 4)
+        if (self->client->ps.stats[ STAT_STAMINA ] > 0 && self->botMind->botSkill.level > 40)
         self->client->ps.stats[ STAT_STATE ] |= SS_SPEEDBOOST;
     }
     
@@ -918,10 +918,10 @@ void G_BotReactToEnemy(gentity_t *self, usercmd_t *botCmdBuffer) {
             self->botMind->followingRoute = qfalse;
             //dodge
             G_BotDodge(self,botCmdBuffer);
-            if( ( (DistanceSquared(self->s.pos.trBase, level.nodes[self->botMind->targetNodeID].coord) < Square(200) && self->botMind->botSkill.level > 4 && (self->client->time1000 % 1100 == 0) && g_bot_dodge_jump.integer == 1)
-                || self->botMind->botSkill.level < 2 ) && g_bot_dodge_jump.integer == 1)
+            if( ( (DistanceSquared(self->s.pos.trBase, level.nodes[self->botMind->targetNodeID].coord) < Square(200) && self->botMind->botSkill.level > 40 && (self->client->time1000 % 1100 == 0) && g_bot_dodge_jump.integer == 1)
+                || self->botMind->botSkill.level < 20 ) && g_bot_dodge_jump.integer == 1)
                 botCmdBuffer->upmove = 20;
-             else if (self->botMind->botSkill.level > 2)
+             else if (self->botMind->botSkill.level > 20)
              botCmdBuffer->upmove = -1;
              else
              botCmdBuffer->upmove = 0;
@@ -1181,9 +1181,9 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                 botCmdBuffer->buttons |= BUTTON_GESTURE; //poor  grangie; taunt like you mean it!
                 break;
             case PCL_ALIEN_LEVEL0:
-                if((distance < Square(390)) && (distance > Square(500)) && (self->client->time1000 % 1800) <= 200 && g_bot_dodge_jump.integer == 1 && self->botMind->botSkill.level > 3)
+                if((distance < Square(390)) && (distance > Square(500)) && (self->client->time1000 % 1800) <= 200 && g_bot_dodge_jump.integer == 1 && self->botMind->botSkill.level > 30)
                     botCmdBuffer->upmove = 20; //jump when getting close
-                else if (self->botMind->botSkill.level > 2)
+                else if (self->botMind->botSkill.level > 20)
                 botCmdBuffer->upmove = -1;
                 else
                 botCmdBuffer->upmove = 0;
@@ -1196,7 +1196,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
                 if(distance < Square(LEVEL1_GRAB_RANGE * 0.8))
                    {
-        if (self->botMind->botSkill.level < 7) //high levels have good aim, they can aim and strafe
+        if (self->botMind->botSkill.level < 70) //high levels have good aim, they can aim and strafe
         {
 		    botCmdBuffer->rightmove = 0; //TODO: Find a way to make them know they're behind the opponent
 		    botCmdBuffer->forwardmove = 0; //low levels need to stop moving forward else they'll slide on the opponent's bbox and end up doing a big spiral around the target
@@ -1637,11 +1637,12 @@ void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation)
     vec3_t mins;
     float pingmod = g_bot_ping.integer/1000;
     float compensationmod = g_bot_ping_compensate.integer/1000;
+    int   total;
 
     //get the position of the enemy
     getTargetPos(target, aimLocation);
     //gentity_t *targetEnt = &g_entities[getTargetEntityNumber(target)];
-    
+    //self->botMind->botSkill.level
     if(getTargetType(target) != ET_BUILDABLE && getTargetTeam(target) == PTE_HUMANS && getTargetEntityNumber(target) != ENTITYNUM_NONE)
 	{
         (*aimLocation)[2] += g_entities[getTargetEntityNumber(target)].r.maxs[2] * 0.85;
@@ -1651,7 +1652,7 @@ void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation)
 
    //aim ahead - at the end where projectile speed * X, if X is < 1 then it over-aims (BAD) but if it's > 1 it aims ahead, but not as far as it should (ideal for slower projecticles, else buggy things happen)
     if(self->s.weapon == WP_LUCIFER_CANNON) {
-         VectorMA(*aimLocation, (compensationmod - pingmod + Distance(self->s.pos.trBase, *aimLocation) / (LCANNON_SPEED * 1.5)), target.ent->s.pos.trDelta, *aimLocation);
+         total = (compensationmod - pingmod + Distance(self->s.pos.trBase, *aimLocation) / (LCANNON_SPEED * 1.5));
          //aim down
          //TODO: Only if on the ground
          BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], mins, NULL, NULL, NULL, NULL);
@@ -1659,15 +1660,15 @@ void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation)
        }
        else if(self->s.weapon == WP_PULSE_RIFLE)
        {
-         VectorMA(*aimLocation, (compensationmod - pingmod + Distance(self->s.pos.trBase, *aimLocation) / (PRIFLE_SPEED)), target.ent->s.pos.trDelta, *aimLocation);
+         total = (compensationmod - pingmod + Distance(self->s.pos.trBase, *aimLocation) / (PRIFLE_SPEED));
        }
        else if(self->s.weapon == WP_MASS_DRIVER)
        {
-         VectorMA(*aimLocation, (compensationmod - pingmod + Distance(self->s.pos.trBase, *aimLocation) / MDRIVER_SPEED * 0.8), target.ent->s.pos.trDelta, *aimLocation);
+         total = (compensationmod - pingmod + Distance(self->s.pos.trBase, *aimLocation) / MDRIVER_SPEED * 0.8);
        }
        else if(self->s.weapon == WP_BLASTER)
        {
-         VectorMA(*aimLocation, (compensationmod - pingmod + Distance(self->s.pos.trBase, *aimLocation) / (BLASTER_SPEED * 1.1)), target.ent->s.pos.trDelta, *aimLocation);
+         total = (compensationmod - pingmod + Distance(self->s.pos.trBase, *aimLocation) / (BLASTER_SPEED * 1.1));
          //aim down
          //TODO: Only if on the ground
          BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], mins, NULL, NULL, NULL, NULL);
@@ -1675,7 +1676,7 @@ void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation)
        }        
        else if(self->s.weapon == WP_ALEVEL3_UPG)
        {
-        VectorMA(*aimLocation, (compensationmod - pingmod + Distance(self->s.pos.trBase, *aimLocation) / (LEVEL3_BOUNCEBALL_SPEED * 1.2)), target.ent->s.pos.trDelta, *aimLocation);
+        total = (compensationmod - pingmod + Distance(self->s.pos.trBase, *aimLocation) / (LEVEL3_BOUNCEBALL_SPEED * 1.2));
          //aim down
          //TODO: Only if on the ground
          BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], mins, NULL, NULL, NULL, NULL);
@@ -1683,8 +1684,9 @@ void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation)
        }
        else
        {
-         VectorMA(*aimLocation, (compensationmod - pingmod + 0.1), target.ent->s.pos.trDelta, *aimLocation);
+         total = compensationmod - pingmod;
        }
+    VectorMA(*aimLocation, total + 0.1, target.ent->s.pos.trDelta, *aimLocation);
     }
     if (getTargetTeam(target) == PTE_HUMANS//aim at head if using a "hitscan" weapon
         && self->s.weapon != WP_BLASTER
@@ -1693,6 +1695,7 @@ void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation)
         && self->s.weapon != WP_LUCIFER_CANNON)
     {
 //        BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], mins, NULL, NULL, NULL, NULL);
+        //aim at the head
         (*aimLocation)[2] += 24;
     }
 }
@@ -2142,11 +2145,11 @@ void setSkill(gentity_t *self, int skill) {
     self->botMind->botSkill.level = skill;
     //different aim for different teams
     if(self->botMind->botTeam == PTE_HUMANS) {
-        self->botMind->botSkill.aimSlowness = (float)( skill ) / 30;//(0.2 + (skill * skill) / 125);
-        self->botMind->botSkill.aimShake = (int) ((float)(20 - (skill * skill)/5));
+        self->botMind->botSkill.aimSlowness = (0.2 + ((skill * 0.1) * (skill * 0.1)) / 125);//(float)( skill ) / 30;//(0.2 + (skill * skill) / 125);
+        self->botMind->botSkill.aimShake = (int) ((float)(20 - ((skill * 0.1) * (skill * 0.1))/5));
     } else {
-        self->botMind->botSkill.aimSlowness = (float)( skill ) / 10;
-        self->botMind->botSkill.aimShake = (int) (30 - skill * 3);
+        self->botMind->botSkill.aimSlowness = (float)( skill ) / 100;
+        self->botMind->botSkill.aimShake = (int) (30 - skill * 0.3);
     }
 }
     
