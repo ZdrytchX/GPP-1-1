@@ -833,7 +833,7 @@ void ClientTimerActions( gentity_t *ent, int msec )
       G_Damage( ent, client->lastPoisonClient, client->lastPoisonClient, NULL,
         0, damage, 0, MOD_POISON );
     }
-/*
+
     //replenish/regenerate alien health
     if( //client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS &&
       //level.surrenderTeam != PTE_ALIENS
@@ -847,7 +847,7 @@ void ClientTimerActions( gentity_t *ent, int msec )
           g_alienStage.integer ) == 1 )
       )
     {
-      int       entityList[ MAX_GENTITIES ];
+/*      int       entityList[ MAX_GENTITIES ];
       vec3_t    range = { LEVEL4_REGEN_RANGE, LEVEL4_REGEN_RANGE, LEVEL4_REGEN_RANGE };
       vec3_t    mins, maxs;
       int       i, num;
@@ -859,7 +859,7 @@ void ClientTimerActions( gentity_t *ent, int msec )
 // This is the alien regen.
 // I swapped the Booster and tyrant regen priority
 // so you can use a booster as a tyrant.
-//
+
 if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens right?
 	{
       num = trap_EntitiesInBox( mins, maxs, entityList, MAX_GENTITIES );
@@ -892,8 +892,8 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
 //          break;
 //        }
       }
-	}
-*/
+	}*/
+
 //regen
 /*
       if( ent->health > 0 && ent->health < client->ps.stats[ STAT_MAX_HEALTH ] &&
