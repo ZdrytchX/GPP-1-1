@@ -1,0 +1,17 @@
+//back, standing
+{
+  minHeight 0.5
+  maxHeight 0.8
+  minAngle  310
+  maxAngle  50
+  modifier  0.9
+}
+//back, crouching
+{
+  minHeight 0.2
+  maxHeight 0.8
+  minAngle  310
+  maxAngle  50
+  modifier  0.9
+  crouch
+}
