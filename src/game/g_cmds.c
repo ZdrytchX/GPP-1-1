@@ -1878,6 +1878,42 @@ void Cmd_CallVote_f( gentity_t *ent )
      }
    }
 
+   //Teamkill (FFA actually) Mode
+   else if( !Q_stricmp( arg1, "ffa" ) ||
+     !Q_stricmp( arg1, "freeforall" ) ||
+     !Q_stricmp( arg1, "tk" ) ||
+     !Q_stricmp( arg1, "teamkill" ) ||
+     !Q_stricmp( arg1, "teamkillmode" ) )
+   {
+     if(!g_mode_teamkillVotePercent.integer)
+     {
+       trap_SendServerCommand( ent-g_entities, "print \"Teamkill/FreeForAll votes have been disabled\n\"" );
+       return;
+     } 
+    else if( g_mode_teamkill.integer == 1 ) 
+     {
+      level.votePassThreshold = g_mode_teamkillVotePercent.integer;
+      Com_sprintf( level.voteString, sizeof( level.voteString ), "set g_mode_teamkill \"0\"" );
+      //Com_sprintf( level.voteString, sizeof( level.voteString ), "set g_dretchpunt \"1\"" );
+      //Com_sprintf( level.voteString, sizeof( level.voteString ), "set g_friendlyFiremovementattacks \"0\"" );
+      //exec any other important changes
+      Com_sprintf( level.voteString, sizeof( level.voteString ), "exec \"class/normal\"" );
+      Com_sprintf( level.voteDisplayString,
+           sizeof( level.voteDisplayString ), "End Teamkill/FreeForAll mode" );
+     }
+    else 
+     {
+       level.votePassThreshold = g_mode_teamkillVotePercent.integer;
+       Com_sprintf( level.voteString, sizeof( level.voteString ), "set g_mode_teamkill \"1\"" );
+       //Com_sprintf( level.voteString, sizeof( level.voteString ), "set g_dretchpunt \"0\"" );
+       //Com_sprintf( level.voteString, sizeof( level.voteString ), "set g_friendlyFiremovementattacks \"0.7\"" );
+       //exec any other important changes
+       Com_sprintf( level.voteString, sizeof( level.voteString ), "exec \"class/tk\"" );
+       Com_sprintf( level.voteDisplayString,
+           sizeof( level.voteDisplayString ), "Enable Teamkill/FreeForAll mode" );
+     }
+   }
+
   //cpm //TODO: View Quake's Source about <1/0> callvotes
   //TODO: Allow a value between 0 and 6
   //0 = ProTrem (Default)
@@ -1955,7 +1991,8 @@ void Cmd_CallVote_f( gentity_t *ent )
     trap_SendServerCommand( ent-g_entities, "print \"Invalid vote string\n\"" );
     trap_SendServerCommand( ent-g_entities, "print \"Valid vote commands are: "
       "map <map>, map_restart, draw, nextmap <map>, kick <player> (-r <reason>), mute <player> (-r <reason>),\n"
-      "unmute <player> (-r <reason>), poll <subject> (-r <reason>), extend, vampiremode and sudden_death\n" );
+      "unmute <player> (-r <reason>), poll <subject> (-r <reason>), extend, teamkillmode (a.k.a. freeforall)\n"
+      "vampiremode and sudden_death\n" );
     return;
   }
   

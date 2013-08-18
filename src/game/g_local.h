@@ -1627,18 +1627,17 @@ extern  vmCvar_t  g_extendVotesTime;
 extern  vmCvar_t  g_extendVotesCount;
 extern  vmCvar_t  g_adminTempSpec;
 extern  vmCvar_t  g_hitsounds;
+extern  vmCvar_t  g_level4_trample_buildable_percent;
 
+//Various Modes
 extern  vmCvar_t  g_mode_vampire;
 extern  vmCvar_t  g_mode_vampireVotePercent;
 extern  vmCvar_t  g_mode_vampirebuildables;
 extern  vmCvar_t  g_mode_vampirebuildables_take;
 extern  vmCvar_t  g_mode_teamkill_human_knockback;
-
-extern  vmCvar_t  g_level4_trample_buildable_percent;
-
-//Various Modes
-extern  vmCvar_t g_mode_cpm;
-extern  vmCvar_t g_mode_teamkill;
+extern  vmCvar_t  g_mode_cpm;
+extern  vmCvar_t  g_mode_teamkill;
+extern  vmCvar_t  g_mode_teamkillVotePercent;
 
 void      trap_Printf( const char *fmt );
 void      trap_Error( const char *fmt );

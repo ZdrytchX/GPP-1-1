@@ -284,6 +284,7 @@ vmCvar_t  g_minDeconLevel;
 vmCvar_t  g_bot_alien_secondaryonly;
 vmCvar_t  g_mode_cpm;
 vmCvar_t  g_noclip_speed;
+vmCvar_t  g_mode_teamkillVotePercent;
 vmCvar_t  g_mode_teamkill_human_knockback;
 vmCvar_t  g_autoGhost;
 vmCvar_t  g_extendVotesPercent;
@@ -582,6 +583,7 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_mode_vampirebuildables,      "g_mode_vampirebuildables",             "0", CVAR_ARCHIVE, 0, qfalse },
   { &g_mode_vampirebuildables_take,      "g_mode_vampirebuildables_take",  "50", CVAR_ARCHIVE, 0, qfalse },
   { &g_mode_teamkill, "g_mode_teamkill",                                    "0", CVAR_ARCHIVE, 0, qfalse },
+  { &g_mode_teamkillVotePercent, "g_mode_teamkillVotePercent",             "76", CVAR_ARCHIVE, 0, qfalse },
   { &g_mode_teamkill_human_knockback, "g_mode_teamkill_human_knockback",  "1.8", CVAR_ARCHIVE, 0, qfalse },
 };
 
