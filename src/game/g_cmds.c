@@ -1852,7 +1852,7 @@ void Cmd_CallVote_f( gentity_t *ent )
      }
    }
 
-   //Vampire Mode vote: TODO
+   //Vampire Mode
    else if( !Q_stricmp( arg1, "vampire" ) ||
      !Q_stricmp( arg1, "vampiremode" ) ||
      !Q_stricmp( arg1, "vamp" ) )
@@ -1862,20 +1862,19 @@ void Cmd_CallVote_f( gentity_t *ent )
        trap_SendServerCommand( ent-g_entities, "print \"Vampire Mode votes have been disabled\n\"" );
        return;
      } 
-    else if( g_mode_vampire.integer ) 
+    else if( g_mode_vampire.integer == 1 ) 
      {
       level.votePassThreshold = g_mode_vampireVotePercent.integer;
-      Com_sprintf( level.voteString, sizeof( level.voteString ), "g_mode_vampire 0" );//fingers crossed
+      Com_sprintf( level.voteString, sizeof( level.voteString ), "set g_mode_vampire \"0\"" );//fingers crossed
       Com_sprintf( level.voteDisplayString,
            sizeof( level.voteDisplayString ), "End Vampire Mode" );
-      return;
      }
     else 
      {
        level.votePassThreshold = g_mode_vampireVotePercent.integer;
-       Com_sprintf( level.voteString, sizeof( level.voteString ), "g_mode_vampire" );
+       Com_sprintf( level.voteString, sizeof( level.voteString ), "set g_mode_vampire \"1\"" );
        Com_sprintf( level.voteDisplayString,
-           sizeof( level.voteDisplayString ), "Vampire Mode Enabled" );
+           sizeof( level.voteDisplayString ), "Enable Vampire Mode" );
      }
    }
 
