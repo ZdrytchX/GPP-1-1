@@ -1,0 +1,66 @@
+[level]
+level   = -1
+name    = ^1Convict ^7(^1No Rights^7)
+flags   = iahDC Re o9
+
+[level]
+level   = 0
+name    = ^2New Granger
+flags   = iahDC Re o9
+
+[level]
+level   = 1
+name    = ^7Local ^3Dretch
+flags   = iahDC Be R o9
+
+[level]
+level   = 2
+name    = ^7Team ^6Basilisk
+flags   = iahDC PBe7 k4 p l w sR o9?
+
+[level]
+level   = 3
+name    = ^7Advance ^1M^7a^1r^7aude^1r
+flags   = iahDC PBe7 ckm4 pd3ry v l wsR Uq o9?$
+
+[level]
+level   = 4
+name    = ^2H^7igh Drugs ^4D^7ragoon
+flags   = iahDC PBe7 ckbm4 pNdn3r5y lxsG L S v l w QgRE U Zq o9?$
+
+[level]
+level   = 5
+name    = ^7Server ^1Tyrant
+flags   = iahDC P1Be7 ckbm4 VpNKdn3r5y lxsG L M S v j l w QgRE G U Z zq
+
+[level]
+level   = 6
+name    = ^6Sex Slave
+flags   = iahDC P1Be7 ckbm4 VpNKdn3r5y lxsG L M S v j l w Q gRE G U Z zq
+
+[level]
+level   = 7
+name    = ^7S^1erver ^7O^1wner
+flags   = *
+
+[admin]
+name    = ^1C^7ontra^1|*^7Dic^1k^7tion
+guid    = 6452CAD5B985DE83017A3651B4D9A17D
+level   = 6
+flags   = 
+
+[admin]
+name    = ^2F^7risqy
+guid    = F424176DF445E2EA0A69AD967E17D40F
+level   = 7
+flags   = 
+
+[ban]
+name    = ^6F^1ris^8Q^7ui^7L^8ous
+guid    = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+ip      = 
+reason  = kicked by admin
+made    = 08/03/13 11:31:26
+expires = 1375500806
+banner  = ^2F^7risqy
+
