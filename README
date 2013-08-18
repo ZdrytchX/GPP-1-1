@@ -20,7 +20,16 @@ INSTALLATION
 2. Download the folders/files listed, and place them in your "<your trem directory>/gpp-1-1" directory:
   https://github.com/ZdrytchX/GPP-1-1/tree/master/class
   https://github.com/ZdrytchX/GPP-1-1/tree/master/paths
-  
+  For these, put them directly into the /gpp-1-1 folder, not the 'configs' folder (my bad :/)
+  https://github.com/ZdrytchX/GPP-1-1/blob/master/configs/server.cfg
+  https://github.com/ZdrytchX/GPP-1-1/blob/master/configs/admin.dat (comes with a few examples)
+  https://github.com/ZdrytchX/GPP-1-1/blob/master/configs/zzzzz-zdrytchx-1.pk3
+  https://github.com/ZdrytchX/GPP-1-1/blob/master/configs/zzzzz-zdrytchx-2.pk3
+3. Open a port, such as 30715. Do some googling, I've never been able to acomplish this because my ISP (iinet.net.au) disallows private server hosting as it seems. You need a static IP to host a server.
+4. Get a 1.1 tremded to start with:
+  tremded.exe +set dedicated 2 +exec server.cfg +set net_port 30715
+  The port number can be anything, but preferably not 30720 (tremulous default, your client uses this) or some crazy number like 33333 since other applications might use it.
+5. Connect, have fun. Do !bot add <name> <a/h> <skill level, 1-100> for some single-player fun. 
 
 CoW Tremulous QVM v2.0 [incomplete] merge with GPP-1.1/Lolards v0.7 mod
 
