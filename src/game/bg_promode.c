@@ -84,11 +84,11 @@ float pm_jumpmag = 1.00;
 //|---------+---------+---------+-------------+-----------------+-------------+--------------+--------|
 //| 2.5     | 1       | 2.5     |1            | 1               | 3           | 2.5          | 9      |
 //| 150     | 0       | 165     |0            | 0               | 250(125 * 2)| 300 //150 * 2| 9999   |
-//| 1       | 1       | 0.9     |1            | 1               | 1           | 1            | 1      |
+//| 1       | 1       | 0.8     |1            | 1               | 1           | 1            | 1      |
 //| qfalse  | qfalse  | qtrue   |qfalse       | qfalse          | qtrue       | qtrue        | qfalse |
 //| 70      | 1       | 70      |150          | 1000            | 100         | 70           | 9      |
 //|                                                 Query: What is sv_stopspeed 100? (xonotic configs)|
-//| 30      | 400     | 30      |30           | 30 //Don't know | 24          | 30           | 10     |
+//| 30      | 450     | 30      |30           | 30 //Don't know | 24          | 30           | 10     |
 //| 0.370370| 0       | 0.5     |0            | 0               | 0           | 0.37037037037| 0      |
 //|---------+---------+---------+-------------+-----------------+-------------+--------------+--------|
 //| qfalse  | qfalse  | qtrue   |qfalse       | qfalse          | qtrue       | qtrue        | qtrue  |
@@ -101,25 +101,25 @@ float pm_jumpmag = 1.00;
 //|---------+---------+---------+-------------+-----------------+-------------+--------------+--------|
 //| qfalse  | qfalse  | qfalse  |qtrue        | qtrue           | qfalse      | qfalse       | qtrue  |
 //| qfalse  | qfalse  | qtrue   |qtrue        | qfalse          | qtrue       | qfalse       | qtrue  |
-//| qfalse  | qfalse  | qfalse  |qtrue        | qfalse          | qfalse      | qfalse       | qtrue  |
+//| qfalse  | qfalse  | qfalse  |qfalse       | qfalse          | qfalse      | qfalse       | qtrue  |
 //|---------+---------+---------+-------------+-----------------+-------------+--------------+--------|
 //| 0       | 0       | 0       |320          | 512             | 0           | 0            | 0      |
 //| 0       | 0       | 0       |0            | 0.5             | 0           | 0            | 0      |
 //| 0       | 0       | 0       |320          | 0               | 0           | 0            | 0      |
 //'---------'---------'---------'-------------'-----------------'-------------'--------------'--------'
 // Physics Initiation
-float	cpm_pm_airstopaccelerate = 2.5;
-float	cpm_pm_aircontrol = 165; 
-float cpm_pm_aircontrolmod = 0.8;
+float	cpm_pm_airstopaccelerate = 1;
+float	cpm_pm_aircontrol = 0; 
+float cpm_pm_aircontrolmod = 0;
 //This makes most aliens turn faster when you're on a larger attack angle, except for granger and marauder.
 //Marauder and normal granger use the opposite, where large attack angles don't turn you as much.
 qboolean  cpm_pm_aircontrolmoding = qtrue;
-float	cpm_pm_strafeaccelerate = 70;
-float	cpm_pm_wishspeed = 30;
-//doublejump
-float cpm_pm_jump_z = 0.5; //CPM: 100/270 (normal jumpvel is 270, doublejump default 100) = 0.37037
+float	cpm_pm_strafeaccelerate = 1;
+float	cpm_pm_wishspeed = 450;
+//doublejump, velocity multiplier of class jumpvel rather than direct vel adding
+//TODO: Intefering with ADV marauder walljump
+float cpm_pm_jump_z = 0; //CPM: 100/270 (normal jumpvel is 270, doublejump default 100) = 0.37037
 //-------------------------------------------------------------------------------
-//Add-Ons =)
 qboolean pm_autojump = qfalse;
 float pm_bunnyhopspeedcap = 0; //(TODO: No Penalty for turning)  
 float pm_bunnyhopaccel = 0;    //accel = bhopaccel - bhopaccel * ([speed-320]/bhopspeedcap-320)

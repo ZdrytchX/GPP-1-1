@@ -61,10 +61,12 @@ Also, thanks /dev/humancontroller for debugging, Volt for helping me start moddi
 -Bots now are more interactive (uses /teamstatus, /donate, tells you if he drops or buys a grenade)
 -Bots' fake ping is now adjustable by g_bot_ping
 -Bots now buy and drop nades if they have enough funds to do so, with their probability defined by cvars
--Teamkill Mode makes bots teamkill as well (g_bot_teamkill) (to be changed for g_mode_tk)
+-Teamkill Mode makes bots teamkill as well (g_mode_teamkill) (to be changed for g_mode_tk)
 -Bots sprint if they have enough stamina in combat, and walk to regen stamina
 -PoisonCloud (basilisk gas) disorientates human bot's aim a little, depending on their skill level
 -bots classified as AUTO (default) spawn both rifle and ckit, and for aliens, dretches and grangers (if g_bot_granger is on)
+-Bots can buy bsuits with the g_bot_bsuit cvar (currently the model isn't being displayed)
+-Bots talk occasionally, such as complaining about being drugged by basi gas, taunting, when lost etc.
 
 GPP-1.1 Gameplay "Features":
 -Lil' Gwangie has his cutie tusks available in combat
@@ -96,13 +98,16 @@ GPP-1.1 Gameplay "Features":
 -Ramp Jumps
 -Challenge ProMode Physics (and some customisation options via bg_promode.c)
 -Bunnyhop gains a bit of speed with a limit of 1000 (works somewhat similar to xonotic's and warsow's)
--g_bot_teamkill enables teamkill mode
+-g_mode_teamkill enables teamkill/FreeForAll mode
 -[80%]Options (currently requires recompiling) to modify pmove system to mimick certain game modes
 -Air Control varies in 3 types for aliens
 -Custom MessageOfDeaths for some causes
+-Added callvotes for teamkill/freeforall and vampire modes. Teamkill votes need a class/normal.cfg and class/tk.cfg to work properly. (I don't want to hardcode dretchpunt, friendlyfiremovementattacks and stuff, safer to keep them external)
+-Added anti-spawn camping measures for teamkill/FreeForAll mode (Make a layout with a trapper and turret pointing at the spawns, keeps the player dancing at least)
+-Marauder speed limit isn't instantaneous; it slows you down by a portion
 -Other shit
 
-"Imported" and "Invented" Gameplay from Lolards/Misc:
+"Imported" and "Invented" Gameplay from Lolards/Misc mods of mine:
 -Modified Turret aiming code - they aim slower when firing, and aim even slower when they're aiming directly at you
 -Humans regenerate slowly
 -Basi Gas effects un-helmeted people (not un-armoured people, where helmets can get gassed before)
@@ -126,8 +131,8 @@ GPP-1.1 Gameplay "Features":
 -Blaster knockback has been nerfed if an event of basilisk grabbing has taken place for balance reasons
 -Other shit
 
-Irregular Features that are actually 'bugs' but plan on keeping:
--Lcannon can now auto-fire primary shots with primary and tertiary buttons on (wastes ammo quickly, does less damage per bullet, but deals damage fast)
+Irregular Features added that are actually 'bugs' but plan on keeping:
+[nil]
 
 Imported from Sixthly's Aussie Assault 1.1:
 
@@ -138,34 +143,27 @@ Imported from Sixthly's Aussie Assault 1.1:
 
 
 Potential Side Effects/bugs from features:
--Some clients on rare occasions can be "bot infected" (not literally, just a term where his client takes over a bot's and the bot tries to control him when he's lagging) although this bug has not been seen for over half a year
+-Some clients on rare occasions can be "bot infected" (not literally, just a term where his client takes over a bot's and the bot tries to control him when he's lagging) although this bug has not been seen for over a year (did I fix it accidentally?)
 >>>Potential Cause: Adding bots while clients connect [TODO: Refer to CoW QVM]
 -With alien's smooth regeneration system, the server MAY take more CPU (not confirmed)(A fix has been made to heal up to 4 hp per server frame)
 
 TODO list:
 -[35%]Find out how to get cvars to access pmove and related files (bunnyhop, rampjump option, knockback cvars etc.)
--define player positions for advance bot aiming -> add mdriver aiming ahead
--[1%]Upgrade to "new" CoW bots navigation system, and add "aiming ahead" capabilities
--[Unknown Status]Fix the bot's 'rythmetic crouch dance' when walking (not in combat)
--Fix missing flag for buying/selling with bots -> is armoury spawned? (built)
--Fix Shotgun + Battpack 12-clip load (Lolards application somewhere...)
--Allow bots to buy bsuit without raping the armoury, and have the model convert
+-Fix missing flag for buying/selling with bots -> is armoury spawned?
 -Disallow !revert-ing hovels, they make grangers disappear and stuck in a non-existant hovel
 -Adminlogs, server owners can find out who over-uses admin powers (which I don't like)
--/hurtme command (similar to tf2's actually)
--Add lag compensation for projectiles (needed for mass driver especially, only GPP and TremFusion/KoRx has this code)
--fix taunting while dead bug (easy fix, say if health < 1 don't taunt)
+-Add lag compensation for projectiles (needed for mass driver especially, only GPP has this code)
 -Find a non-hacky way of fixing marauder's occasional "walljump" on the ground without removing walljump repeat rate
--Balance out the marauder's wallclimb without putting a hard limit on speeds
--Fix teamkill mode's 'earning credits' for teamkills along with staging up
--Replace g_bot_teamkill with g_mode_teamkill or something like that
 -Add pmove cvars (g_mode_cpm, g_mode_cpm_aircontrol, g_mode_bunnyhop, g_mode_autojump etc.)
 -Replace g_mode_cpm with g_mode_physics
 -Fix TF2's "Anti Circle Strafe' fix (currently doesn't apply the speed change once, rather it makes you either fly or stop completely)
 -Fix g_mode_cpm callvote
 -Fix Bunnyhop Acceleration (unknown cause at the moment, it used to work)
 -Solid slick somewhat doubles your speed momentarily, caused by CPM physics
--Use stamina level to determine cmdscale/jump magnitude withuot bugging out
+-Add "ground accel" qboolean var for WarSow solid slick acceleration settings
+-Add "ramp sliding" (if upward vel on ramp > jump vel, then slide) for the Team Fortress series and WarSow settings
+-Fix bot kicking (callvote, !kick) where the server freezes while finding an invalid IP
+-Allow bots to bypass the invalid IP filter (hence currently is disabled)
 
 Wishlist (I currently have no knowledge how to add these):
 -Add a g_mode_race, refering to bob's oc mod
@@ -173,3 +171,11 @@ Wishlist (I currently have no knowledge how to add these):
 -Make bots do circle jumps something like how CPM does theirs - With bunnyhop mode, we don't need them to strafe jump
 -Add Air Control turning penalty
 -Add Double Jumps (Actually, just a jump that can be stacked, really)
+-Un-hard code the ProTrem physics, so we can vote them in (requires clients to download my cgame client)
+-Use stamina level to determine cmdscale/jump magnitude for dynamic jump heights [Problem: Jump function is a boolean. Double jump can be easily fixed with "if stamina < min then don't doublejump"]
+
+Other features I want to add, but restraining self from doing so:
+-Should I add an airblast for flamer (similar to TF2's)? [Spawn a large missile with enormous splash that effects everyone except the owner, with extra Z-velocity]
+-Should I re-add my lovely acid gun? (Fuck yeah!... oh wait, I gotta keep gameplay as vanilla as possible... :/)
+-Should I re-add Tyrant acid spit?
+-Should I add the Xael gun? (Requires clients to own my cgame.qvm)

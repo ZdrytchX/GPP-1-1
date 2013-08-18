@@ -2946,7 +2946,8 @@ static void PM_Weapon( void )
   // check for weapon change
   // can't change if weapon is firing or charging, but can change
   // again if raising //pm->ps->weaponTime <= 0
-  if( ( pm->ps->weaponTime <= H_WEAP_SWITCH_BENIFIT || pm->ps->weaponstate != WEAPON_FIRING ) && pm->ps->weaponstate != WEAPON_DROPPING && pm->ps->weaponstate != WEAPON_RAISING )
+  if( ( pm->ps->weaponTime <= H_WEAP_SWITCH_BENIFIT || pm->ps->weaponstate != WEAPON_FIRING )
+  && pm->ps->weaponstate != WEAPON_DROPPING && pm->ps->weaponstate != WEAPON_RAISING )
   {
 //      pm->ps->weaponTime -= H_WEAP_SWITCH_BENIFIT;
     //TA: must press use to switch weapons
@@ -2988,7 +2989,7 @@ static void PM_Weapon( void )
     }
   }
 
-  if( pm->ps->weaponTime > FASTFIRE ) //0 //fire a bullet every server frame until this is reached - allows short burst fire
+  if( pm->ps->weaponTime > FASTFIRE ) //fire a bullet every server frame until this is reached - allows short burst fire
     return;
 
   // change weapon if time

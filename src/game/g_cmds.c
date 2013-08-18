@@ -1591,7 +1591,7 @@ void Cmd_CallVote_f( gentity_t *ent )
     {
       if (IsStringListMember(g_lesson_NoVotes.string, arg1))
         {
-           trap_SendServerCommand( ent-g_entities, "print \"callvote: this vote is not allowed during this lesson. \n\"" );
+           trap_SendServerCommand( ent-g_entities, "print \"callvote: this vote is not in this game mode. \n\"" );
            return;
         }      
     }
@@ -3095,7 +3095,7 @@ void Cmd_Destroy_f( gentity_t *ent )
   if( g_lesson.integer > 0 )
   {
     trap_SendServerCommand( ent-g_entities,
-      "print \"^1You cannot deconstruct structures in this mode.^7\n\"" );
+      "print \"^1You cannot deconstruct structures in this game mode.^7\n\"" );
     return;
   }
 
@@ -3301,8 +3301,20 @@ void Cmd_Mark_f( gentity_t *ent )
 
   if( g_markDeconstruct.integer != 2 )
   {
+    if( g_markDeconstruct.integer == 1 )
+    trap_SendServerCommand( ent-g_entities,
+      "print \"g_markDeconstruct needs to be ''2'' for using reload to mark buildables.\n"
+      "Use your decon key to mark a buildable.\n\"" );
+    else
     trap_SendServerCommand( ent-g_entities,
       "print \"Mark deconstruction is currently disabled\n\"" );
+    return;
+  }
+
+  if( g_lesson.integer > 0 )
+  {
+    trap_SendServerCommand( ent-g_entities,
+      "print \"^1You cannot deconstruct structures in this game mode.^7\n\"" );
     return;
   }
 
