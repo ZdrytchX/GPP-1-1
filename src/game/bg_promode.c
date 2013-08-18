@@ -114,11 +114,11 @@ float cpm_pm_aircontrolmod = 0.8;
 //This makes most aliens turn faster when you're on a larger attack angle, except for granger and marauder.
 //Marauder and normal granger use the opposite, where large attack angles don't turn you as much.
 qboolean  cpm_pm_aircontrolmoding = qtrue;
-float	cpm_pm_strafeaccelerate = 1;
-float	cpm_pm_wishspeed = 70;
+float	cpm_pm_strafeaccelerate = 70;
+float	cpm_pm_wishspeed = 30;
 //doublejump, velocity multiplier of class jumpvel rather than direct vel adding
 //TODO: Intefering with ADV marauder walljump
-float cpm_pm_jump_z = 30; //CPM: 100/270 (normal jumpvel is 270, doublejump default 100) = 0.37037
+float cpm_pm_jump_z = 0.5; //CPM: 100/270 (normal jumpvel is 270, doublejump default 100) = 0.37037
 //-------------------------------------------------------------------------------
 qboolean pm_autojump = qfalse;
 float pm_bunnyhopspeedcap = 0; //(TODO: No Penalty for turning)  
