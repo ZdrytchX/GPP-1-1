@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define ABUILDER_BLOB_LIFETIME      ABUILDER_BLOB_REPEAT*3.5//Auto explodes after this time
 #define ABUILDER_BLOB_TIME          5000 //how long a guy gets slowed down
 
-#define LEVEL0_BITE_DMG             ADM(36 + (VAMP_ON * 12))
+#define LEVEL0_BITE_DMG             ADM(48)//36 + (VAMP_ON * 12))
 #define LEVEL0_BITE_RANGE           64.0f
 #define LEVEL0_BITE_WIDTH           1.0f //6f
 #define LEVEL0_BITE_REPEAT          500

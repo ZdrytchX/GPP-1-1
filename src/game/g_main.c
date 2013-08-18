@@ -258,6 +258,8 @@ vmCvar_t  g_strip_StructDmgPrcnt;
 vmCvar_t  g_strip_StructDmgPrcnt_def;
 vmCvar_t  g_connectedStripPrcnt;
 //ZdrytchX
+vmCvar_t  g_mode_vampire;
+vmCvar_t  g_mode_vampireVotePercent;
 vmCvar_t  g_mode_vampirebuildables;
 vmCvar_t  g_mode_vampirebuildables_take;
 vmCvar_t  g_bunnyhop;//TODO
@@ -291,8 +293,6 @@ vmCvar_t  g_adminTempSpec;
 vmCvar_t  g_hitsounds;
 vmCvar_t  g_allStats;
 vmCvar_t  g_allStatsTime;
-
-vmCvar_t  g_mode_vampire;
 
 vmCvar_t  g_level4_trample_buildable_percent;
 
@@ -578,7 +578,8 @@ static cvarTable_t   gameCvarTable[ ] =
   //Special Modes
   { &g_mode_cpm, "g_mode_cpm",                            "1", CVAR_ARCHIVE | CVAR_SERVERINFO, 0, qfalse },
   { &g_mode_vampire, "g_mode_vampire",                    "0", CVAR_ARCHIVE | CVAR_SERVERINFO, 0, qfalse },
-  { &g_mode_vampirebuildables,      "g_mode_vampirebuildables",                        "0", CVAR_ARCHIVE, 0, qfalse },
+  { &g_mode_vampireVotePercent, "g_mode_vampireVotePercent",               "76", CVAR_ARCHIVE, 0, qfalse },
+  { &g_mode_vampirebuildables,      "g_mode_vampirebuildables",             "0", CVAR_ARCHIVE, 0, qfalse },
   { &g_mode_vampirebuildables_take,      "g_mode_vampirebuildables_take",  "50", CVAR_ARCHIVE, 0, qfalse },
   { &g_mode_teamkill, "g_mode_teamkill",                                    "0", CVAR_ARCHIVE, 0, qfalse },
   { &g_mode_teamkill_human_knockback, "g_mode_teamkill_human_knockback",  "1.8", CVAR_ARCHIVE, 0, qfalse },

@@ -1629,6 +1629,7 @@ extern  vmCvar_t  g_adminTempSpec;
 extern  vmCvar_t  g_hitsounds;
 
 extern  vmCvar_t  g_mode_vampire;
+extern  vmCvar_t  g_mode_vampireVotePercent;
 extern  vmCvar_t  g_mode_vampirebuildables;
 extern  vmCvar_t  g_mode_vampirebuildables_take;
 extern  vmCvar_t  g_mode_teamkill_human_knockback;

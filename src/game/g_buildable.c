@@ -1605,7 +1605,7 @@ qboolean ATrapper_CheckTarget( gentity_t *self, gentity_t *target, int range )
     return qfalse;
   if( target == self ) // is the target us?
     return qfalse;
-  if( !target->client || target->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS
+  if( (!target->client || target->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS)
   && !g_mode_teamkill.integer)//Is the target one of us, with teamkill mode?
     return qfalse;
   if( target->flags & FL_NOTARGET ) // is the target cheating?

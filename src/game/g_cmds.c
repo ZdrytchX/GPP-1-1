@@ -1821,6 +1821,7 @@ void Cmd_CallVote_f( gentity_t *ent )
           sizeof( level.voteDisplayString ), "[Poll] \'%s\'", arg2plus );
    }
    else if( !Q_stricmp( arg1, "sudden_death" ) ||
+     !Q_stricmp( arg1, "sd" ) ||
      !Q_stricmp( arg1, "suddendeath" ) )
    {
      if(!g_suddenDeathVotePercent.integer)
@@ -1850,6 +1851,34 @@ void Cmd_CallVote_f( gentity_t *ent )
 
      }
    }
+
+   //Vampire Mode vote: TODO
+   else if( !Q_stricmp( arg1, "vampire" ) ||
+     !Q_stricmp( arg1, "vampiremode" ) ||
+     !Q_stricmp( arg1, "vamp" ) )
+   {
+     if(!g_mode_vampireVotePercent.integer)
+     {
+       trap_SendServerCommand( ent-g_entities, "print \"Vampire Mode votes have been disabled\n\"" );
+       return;
+     } 
+    else if( g_mode_vampire.integer ) 
+     {
+      level.votePassThreshold = g_mode_vampireVotePercent.integer;
+      Com_sprintf( level.voteString, sizeof( level.voteString ), "g_mode_vampire 0" );//fingers crossed
+      Com_sprintf( level.voteDisplayString,
+           sizeof( level.voteDisplayString ), "End Vampire Mode" );
+      return;
+     }
+    else 
+     {
+       level.votePassThreshold = g_mode_vampireVotePercent.integer;
+       Com_sprintf( level.voteString, sizeof( level.voteString ), "g_mode_vampire" );
+       Com_sprintf( level.voteDisplayString,
+           sizeof( level.voteDisplayString ), "Vampire Mode Enabled" );
+     }
+   }
+
   //cpm //TODO: View Quake's Source about <1/0> callvotes
   //TODO: Allow a value between 0 and 6
   //0 = ProTrem (Default)
@@ -1865,7 +1894,7 @@ void Cmd_CallVote_f( gentity_t *ent )
   //*cough cough* this brings up <NULL> instead of the number
   int gamemode;
   gamemode = g_mode_cpm.integer;
-  if (gamemode = 0)
+  if (gamemode == 0)
   gamemode = 1; //Lil' Switcharoos.
   else
   gamemode = 0;
@@ -1927,7 +1956,7 @@ void Cmd_CallVote_f( gentity_t *ent )
     trap_SendServerCommand( ent-g_entities, "print \"Invalid vote string\n\"" );
     trap_SendServerCommand( ent-g_entities, "print \"Valid vote commands are: "
       "map <map>, map_restart, draw, nextmap <map>, kick <player> (-r <reason>), mute <player> (-r <reason>),\n"
-      "unmute <player> (-r <reason>), poll <subject> (-r <reason>), extend, g_mode_cpm [TODO] and sudden_death\n" );
+      "unmute <player> (-r <reason>), poll <subject> (-r <reason>), extend, vampiremode and sudden_death\n" );
     return;
   }
   
