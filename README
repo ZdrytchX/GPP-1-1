@@ -16,8 +16,9 @@ Occasionally, this qvm gets a few unstable builds, bugs or other problems. I may
 INSTALLATION
 *****************
 1. Get vms from https://github.com/ZdrytchX/GPP-1-1/tree/master/build/release-linux-x86/base/vm
-  and put them in "<your trem directory>/base/vm" - you might need to create the /vm directory yourself.
-2. Download the folders "" 
+  and put them in "<your trem directory>/gpp-1-1/vm" - you might need to create some folders yourself.
+2. Download the folders listed, and place them in your "<your trem directory>/gpp-1-1" directory:
+  
 
 CoW Tremulous QVM v2.0 [incomplete] merge with GPP-1.1/Lolards v0.7 mod
 
