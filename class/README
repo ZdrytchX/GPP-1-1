@@ -1,0 +1,9 @@
+CLASS
+=====
+
+This is where various classes are stored.
+By class, I mean a class of game such as a base rush or ambush.
+Their names are fairly self explanatory. :)
+
+baserush.cfg is 'inherited' by baserush_alien and baserush_human
+and should never be used directly.
