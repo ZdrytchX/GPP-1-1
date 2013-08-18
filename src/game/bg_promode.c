@@ -45,7 +45,11 @@ ProMode [Q3]  - "the old" 2001 CPMA original settings (The "new" CPM source has 
 Vanilla Trem [ioQ3]- Normal Tremulous of course, although I'm not sure where the '400' came from.
 
 ProTrem - my own personal setting. A.K.A. GPP-1.1 Arena's default
-  
+
+QuakeWorld [Q1, slightly modded] - Quake 1 physics, QuakeWorld style. No step-up in mid air, but
+  QuakeWorld's modified physics allows ramp jumping and ramp sliding. Identical to TFC's physics,
+  without the speed limit, and has air (strafe) acceleration of 150.
+
 TF2^ [Source] - Simulates settings in Team Fortress 2 as of 2013 (Not all of which are actual values,
   but some are true. Note that hammer units are slightly different (x1.25?).
   
