@@ -1,12 +1,12 @@
   ____      ____     ___              __         __    
- / ___\    | __ \   | __ \           /  |       /  |   
-| /   _    |  __/   |  __/   ____     | |        | |  
-| |__| |   | |      | |     |____|   _| |_   _  _| |_ 
- \____/    |_|      |_|             |_____| (_)|_____|
-         _      ____    ____   __    _      _       Now Includes
-        / \    | __ \  |  __| |  \  | |    / \    Challenge ProMode Physics!
-       / ^ \   |    /  |  \   |   \ | |   / ^ \     (And Other Stuff =D)
-      / /=\ \  | |\ \  |  /_  | |\ \| |  / /=\ \
+ / ___\    | __ \   | __ \           /  |       /  |   Now Includes
+| /   _    |  __/   |  __/   ____     | |        | |  Challenge ProMode Physics!
+| |__| |   | |      | |     |____|   _| |_   _  _| |_   (Comes with a table to compile
+ \____/    |_|      |_|             |_____| (_)|_____|  other game physics for simulation)
+         _      ____    ____   __    _      _      "Smarter" (than P-Bot) Bots!
+        / \    | __ \  |  __| |  \  | |    / \     Vote-able Vampire mode!
+       / ^ \   |'--'/  |  \   |   \ | |   / ^ \     Teamkill/FreeForAll mode!
+      / /=\ \  | |\ \  |  /_  | |\ \| |  / /=\ \    (And Other Stuff =D)
      /_/   \_\ |_| \_\ |____| |_| \___| /_/   \_\
 *This qvm is "sort of" in active developement. If you have requests, feel free to do so here or email me at my youtube channel
 youtube.com/user/zdrytchx
@@ -182,6 +182,8 @@ TODO list:
 -Add "ramp sliding" (if upward vel on ramp > jump vel, then slide) for the Team Fortress series and WarSow settings
 -Fix bot kicking (callvote, !kick) where the server freezes while finding an invalid IP
 -Allow bots to bypass the invalid IP filter (hence currently is disabled)
+-Add teamstatus flags for the teams, one per team. Only the bots with the team's teamstatus flag are allowed to exec Cmd_TeamStatus_f(self)
+-Bot disconnect messages appear in the server console each time you !restart. Could possibly contribute to a problem involving teamstatus flags for bots in the future.
 
 Wishlist (I currently have no knowledge how to add these):
 -Add a g_mode_race, refering to bob's oc mod
@@ -189,7 +191,19 @@ Wishlist (I currently have no knowledge how to add these):
 -Make bots do circle jumps something like how CPM does theirs - With bunnyhop mode, we don't need them to strafe jump
 -Add Air Control turning penalty
 -Add Double Jumps (Actually, just a jump that can be stacked, really)
--Un-hard code the ProTrem physics, so we can vote them in (requires clients to download my cgame client)
+-Un-hard code the ProTrem physics, so we can vote them in (requires clients to download my cgame client). This also would allow space for voteable physics that simulate from the following games:
+  +Vanilla Quake3/Vanilla Tremulous (1.1 Default)
+  +Tremulous 1.2 Gameplay Preview (GPP)/Unvanquished [Alpha] (Bob calls it 'MG' ramp jumps)
+  +Challenge ProMode Arena (Old CPM 2003 from http://games.linuxdude.com/tamaps/archive/cpm1_dev_docs.zip)
+  +ProTrem (My personal settings, it's a mix of CPM and bunnyhop, a bit like WarSow's old/new movement mix)
+  +WarSow 1.2 (Xonotic Configs)
+  +Xonotic 0.6/0.7 (Xonotic Configs)
+  +Quake 1/QuakeWorld/(Quake TeamFortress uses QW) (Xonotic Configs)
+  +Team Fortress Classic (GoldSrc) (Values from Wiki + Guesstimates)
+  +Team Fortress 2 (as of 2013, it has modified over the years) (Values from Wiki + cl_drawpos 1 Estimates)
+  +Newbie Physics (Disallows strafe jumping, bunnyhopping enabled, velocity goes in direction of keys and camera angle)
+I already have the data somewhat ready for the games, but the qvm needs recompiling each time to change the settings.
+
 -Use stamina level to determine cmdscale/jump magnitude for dynamic jump heights [Problem: Jump function is a boolean. Double jump can be easily fixed with "if stamina < min then don't doublejump"]
 
 Other features I want to add, but restraining self from doing so:

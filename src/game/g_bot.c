@@ -260,7 +260,9 @@ void G_BotThink( gentity_t *self) {
 
     //use /teamstatus to inform team of base status
     //TODO: Make it so only more bots doesn't mean more teamstatus messages
-    //TODO: Why is it that human bots don't use this?
+    //Possible Solution: Get the first bot the join a team assign himself 'the one and only' teamstatus flag for its team
+    //while others on the same team can't use teamstatus since they cannot obtain the flag.
+    //A possible way to achieve this is using client numbers but things can get a bit fishy (i.e. !restart)
     if( !(self->client->pers.muted) && (self->client->time1000 % (21000 + ((int)(100 * rand()) % 10000)/100) <= 50) && g_teamStatus.integer)
     Cmd_TeamStatus_f( self );
     //TODO: warning: implicit declaration of function ‘Cmd_TeamStatus_f’
