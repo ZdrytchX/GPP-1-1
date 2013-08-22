@@ -85,11 +85,14 @@ Also, thanks /dev/humancontroller for debugging, Volt for helping me start moddi
 -bots classified as AUTO (default) spawn both rifle and ckit, and for aliens, dretches and grangers (if g_bot_granger is on)
 -Bots can buy bsuits with the g_bot_bsuit cvar (currently the model isn't being displayed)
 -Bots talk occasionally, such as complaining about being drugged by basi gas, taunting, when lost etc.
+-Reaction time dependant on cvars, ping and skill level
+-Bots chase the same guy for about 3 seconds even if another enemy is blocking the view
 
-GPP-1.1 Gameplay "Features":
+GPP-1.1 Arena "Features":
 -Lil' Gwangie has his cutie tusks available in combat
 -Smooth Regeneration
 -Regen speeds depend upon creeps and basis
+-Degeneration
 -Rant can "lawn mow" but has beenn nerfed by lots, and does 20% damage to buildables only
 -Pounce whoring possible, but has been balanced with chomps
 -Re-gassing as a basilisk resets the victim's disorientation timer rather than doing nothing and waiting for it to finish before becomming effective
@@ -123,6 +126,17 @@ GPP-1.1 Gameplay "Features":
 -Added callvotes for teamkill/freeforall and vampire modes. Teamkill votes need a class/normal.cfg and class/tk.cfg to work properly. (I don't want to hardcode dretchpunt, friendlyfiremovementattacks and stuff, safer to keep them external)
 -Added anti-spawn camping measures for teamkill/FreeForAll mode (Make a layout with a trapper and turret pointing at the spawns, keeps the player dancing at least)
 -Marauder speed limit isn't instantaneous; it slows you down by a portion
+-Hitsounds! Read on:
++cg_hitsounds gives a hitsound dependant on the value.
+Take note that Vanilla tremulous ONLY has monotone and server owners using this mod can disable hitsounds.
+  3 = Dependant on Damage, g_hitsounds MUST have monotone DISABLED.
+  2 = Dependant on number of hits, g_hitsounds MUST have monotone ENABLED
+  1 = Monotone, no matter what. Works when both monotone is enabled and disabled.
+  0 = off
+  Default = 3
++g_hitsounds is an 'enum' type variable from 0-15.
+  8 = No teammates, 4 = no buildables, 2 = monotone, 1 = on, 0 = off, default 8
+  i.e. 15 and 14 means "no teammates and no buildables" for the hitsound to come out but 15 means the server only returns a '1' instead of <damage dealt>. This means you need to alter cg_hitsounds accordingly manually at this point, it does not automatically swap to '2' if monotone is enabled.)
 -Other shit
 
 "Imported" and "Invented" Gameplay from Lolards/Misc mods of mine:
@@ -184,6 +198,7 @@ TODO list:
 -Allow bots to bypass the invalid IP filter (hence currently is disabled)
 -Add teamstatus flags for the teams, one per team. Only the bots with the team's teamstatus flag are allowed to exec Cmd_TeamStatus_f(self)
 -Bot disconnect messages appear in the server console each time you !restart. Could possibly contribute to a problem involving teamstatus flags for bots in the future.
+-Make cg_hitsounds change from 2/3 if the server has/not monotone
 
 Wishlist (I currently have no knowledge how to add these):
 -Add a g_mode_race, referring to bob's oc mod

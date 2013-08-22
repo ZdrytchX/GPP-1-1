@@ -591,13 +591,6 @@ void ClientTimerActions( gentity_t *ent, int msec )
   {
     client->time100 -= 100;
 
-
-//Prevent glitchy human revives
-	if ( ent->health < 0)
-	{
-	ent->health = -10000;
-	}
-
     //if not trying to run then not trying to sprint
     if( aForward <= 64 )
       client->ps.stats[ STAT_STATE ] &= ~SS_SPEEDBOOST;

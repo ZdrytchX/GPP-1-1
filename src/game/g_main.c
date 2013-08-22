@@ -575,8 +575,10 @@ static cvarTable_t   gameCvarTable[ ] =
 
   { &g_level4_trample_buildable_percent, "g_level4_trample_buildable_percent", "35", CVAR_ARCHIVE, 0, qfalse },
   { &g_autoGhost, "g_autoGhost",                                 "1", CVAR_ARCHIVE, 0, qfalse },
-
-  { &g_hitsounds, "g_hitsounds",                                 "4", CVAR_ARCHIVE, 0, qfalse },
+  //g_hitsounds is an 'enum' type var. from 0-15.
+  //8 = No teammates, 4 = no buildables, 2 = monotone, 1 = on, 0 = off
+  //i.e. 15 is monotone, no teammates, no buildables
+  { &g_hitsounds, "g_hitsounds",                                 "8", CVAR_ARCHIVE, 0, qfalse },
 
   //Special Modes
   { &g_mode_cpm, "g_mode_cpm",                            "1", CVAR_ARCHIVE | CVAR_SERVERINFO, 0, qfalse },

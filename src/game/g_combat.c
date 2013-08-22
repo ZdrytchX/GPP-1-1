@@ -1951,8 +1951,10 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
       && targ->s.eType != ET_MISSILE
       && targ->s.eType != ET_GENERAL )
   {
-  
-  //g_hitsounds: 4 = all except teammates, 3 = all, 2 = no buildables, 1 = monotone, 0 = off
+  //ZdrytchX: Hitsounds cvar
+  //TODO: More Efficent way using ENUMs
+  //such for g_hitsounds: 8 = No teammates, 4 = no buildables, 2 = monotone, 1 = on
+  /*
     if (g_hitsounds.integer > 3)
     {
     if( !OnSameTeam( targ, attacker ) )
@@ -1971,7 +1973,39 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
     {
     if( !(targ->s.eType == ET_BUILDABLE) )
       attacker->client->ps.persistant[ PERS_HITS ]++;
-    }
+    }*/
+    //Shut up, This is my first time trying the switches. I only just figured it out 5 minutes ago by looking a g_bot.c's "ATTACK/ROAMING" modus. I doubt it'll work anyway.
+    if(g_hitsounds.integer)
+    {
+      qboolean  monotone = qfalse;
+      qboolean  noteammates = qfalse;
+      qboolean  nobuildables = qfalse;
+      switch(g_hitsounds.integer)
+      {
+        case 1://g_hitsounds must be at least 1 anyway to execute this
+            break;
+        case 2:
+            monotone = qtrue;
+            break;
+        case 4:
+            nobuildables = qtrue;
+            break;
+        case 8:
+            noteammates = qtrue;
+            break;
+      }
+      //fufufu
+      if((!OnSameTeam( targ, attacker ) && noteammates) || (OnSameTeam( targ, attacker )) )
+      if((!targ->s.eType == ET_BUILDABLE && nobuildables) || targ->s.eType == ET_BUILDABLE )
+      {
+        if(monotone)
+        attacker->client->ps.persistant[ PERS_HITS ]++;
+        else
+        attacker->client->ps.persistant[ PERS_HITS ]+= take;
+      }
+     }
+     //what the fuck shit, did I just do that on my first go? :D
+     
   }
 
     targ->lastDamageTime = level.time;
@@ -1986,7 +2020,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
     }
 
 //Vampire mode!
-//Welcome to my #define graveyard!
+//Welcome to my #define graveyard! Just skip the commented stuff and move along...
 
     //The following is OP when killing dretches..
 //#define VAMP (( attacker->client->ps.stats[ STAT_MAX_HEALTH ] + VAMP_EXTRA) * ( take / ( targ->client->ps.stats[ STAT_MAX_HEALTH ] * 2 )) / VAMP_DIVIDE + 0.5) // supports health gain that is less than 1 value and the '+50' means proportionate to (health + 50). Its also to help dretches and small ones gain health. Now also proportionate to the enemy's health.
@@ -2005,11 +2039,10 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 
     if( targ->health <= 0 )
     {
-        targ->health = -1000; //this should* fix human incability revival glitch
       if( client )
         targ->flags |= FL_NO_KNOCKBACK;
 
-      if( targ->health < -10000 )//read 0s on the HUD
+      if( targ->health < -10000 )
         targ->health = -10000;
 
       targ->enemy = attacker;
@@ -2023,7 +2056,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 	if (attacker->s.eType == ET_BUILDABLE && g_mode_vampirebuildables.integer > 0)
 		{
       int maxHP = BG_FindHealthForBuildable( attacker->s.modelindex );
-			attacker->health = attacker->health + ( damage * (g_mode_vampirebuildables_take.integer * 0.01f) ); //cvar percent
+			attacker->health = attacker->health + ( damage * (g_mode_vampirebuildables_take.integer * 0.01f) ); //cvar in percent
 //Make sure they don't go over 100% hp due to visual issues where health gets looped back to 0
         		  if (attacker->health > maxHP) 
         		  {
@@ -2037,22 +2070,18 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 /*{
 	attacker->health = attacker->health + ( damage / 4 ); //no matter what buildable's health is
 }*/
-//TODO: If attacker has flamer - deny vamp gain abilities.
-//TODO: If Victim is a tyrant, reward half.
-//TODO: If victim is armoured, use the inverse of that modifier.
 	else if(attacker->client && g_mode_vampire.integer)
 		{
           //to make sure they STAY DEAD >={D) (no glitchy revives):
 		      if(g_mode_vampire.integer && attacker->health > 0)
-          attacker->health = attacker->health + VAMP; //gain according to the player's health ratio so a dretch doesn't become invincable.//Also, they gain porportional according to their max health (+ 50).
+          attacker->health = attacker->health + VAMP;
           if (attacker->health > attacker->client->ps.stats[ STAT_MAX_HEALTH ] * MAX_MAX_HEALTH) 
           {
                   attacker->health = attacker->client->ps.stats[ STAT_MAX_HEALTH ] * MAX_MAX_HEALTH;
           }
-         // end Vampire
 		}
 	}
-//g_mode_vampire end
+//End Vampire
   }
 }
 
