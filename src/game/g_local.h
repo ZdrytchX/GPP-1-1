@@ -1612,6 +1612,7 @@ extern  vmCvar_t  g_bot_gren;
 extern  vmCvar_t  g_bot_gren_buypercent;
 extern  vmCvar_t  g_bot_gren_buildablesonlypercent;
 extern  vmCvar_t  g_bot_bsuit;
+extern  vmCvar_t  g_bot_reactiontime;
 extern  vmCvar_t  g_teamStatus;
 extern  vmCvar_t  g_teamStatusTime;
 extern  vmCvar_t  g_allowBlackInNames;

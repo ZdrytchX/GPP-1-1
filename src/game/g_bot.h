@@ -89,19 +89,15 @@ int G_BotBuyWeapon(gentity_t *ent, int weapon);
 //How long in milliseconds the bots will chase an enemy if he goes out of their sight (humans) or radar (aliens)
 #define BOT_ENEMY_CHASETIME 15000 //5000
 
-//How long in milliseconds the bots will chase a friend if he goes out of their sight (humans) or radar (aliens)
-//#define BOT_FRIEND_CHASETIME 15000 //5000
-
-//How often in milliseconds, we will search for a new (closer) enemy
-//Note: This also applies for reaction time. 3000 can equal 3 seconds reaction time at most.
-//However, higher numbers allows them to chase down players rather than focus on closest enemies all the time and changing targets.
-#define BOT_ENEMYSEARCH_INTERVAL 800 //500 //3000
+//How often in milliseconds, we will search for a new (closer) enemy when not in combat
+//Higher numbers allows them to chase down players rather than focus on closest enemies all the time and changing targets.
+#define BOT_SAME_ENEMY_INTERVAL 3000
 
 //at what hp do we use medkit?
 #define BOT_USEMEDKIT_HP 48 //50
 
 //when human bots reach this ammo percentage left or less(and no enemy), they will head back to the base to refuel ammo when in range of arm as defined by BOT_ARM_RANGE
-#define BOT_LOW_AMMO 0.60f - (VAMP_ON * 30.00f) //0.50f
+#define BOT_LOW_AMMO 0.60f
 
 //when human bots reach this health or below (and no medkit/enemy) they will head back to the base to heal when in range of medi as defined by BOT_MEDI_RANGE
 //turns out this variable includes healing on the medistat itself

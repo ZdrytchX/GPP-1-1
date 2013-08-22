@@ -4221,7 +4221,7 @@ qboolean G_admin_putteam( gentity_t *ent, int skiparg )
 
   AP( va( "print \"^3!putteam: ^7%s^7 put %s^7 on to the %s team%s\n\"",
           ( ent ) ? G_admin_adminPrintName( ent ) : "console",
-          ent->client->pers.netname, teamdesc,
+          vic->client->pers.netname, teamdesc, //sixthly-sensei no baka, print the victim, not yourself again :'/
           ( seconds ) ? va( " for %i seconds", seconds ) : "" ) );
   return qtrue;
 }
@@ -6607,7 +6607,10 @@ qboolean G_admin_putmespec( gentity_t *ent, int skiparg )
     return qfalse;
   }
   if(ent->r.svFlags & SVF_BOT)
-  return qfalse;//check if bot is trying to mimic a player
+  {
+    G_Say(ent,NULL, SAY_ALL, "lolu");
+    return qfalse;//check if bot is trying to mimic a player
+  }
   
   G_ChangeTeam( ent, PTE_NONE );
 
@@ -6624,7 +6627,7 @@ qboolean G_admin_putmespec( gentity_t *ent, int skiparg )
     }
   }
 
-  AP( va("print \"^3!specme: ^7%s^7's boredom drove him away from the game\n\"", ent->client->pers.netname ) );
+  AP( va("print \"^3!specme: ^7%s^7's boredom drove him away and decided to watch the game instead\n\"", ent->client->pers.netname ) );
   return qtrue;
 }
 

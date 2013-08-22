@@ -2006,13 +2006,16 @@ void HMedistat_Think( gentity_t *self )
       if( self->enemy->client && self->enemy->client->ps.stats[ STAT_STATE ] & SS_POISONED )
         self->enemy->client->ps.stats[ STAT_STATE ] &= ~SS_POISONED;
 
-      if( self->enemy->client && self->enemy->client->ps.stats[ STAT_STATE ] & SS_MEDKIT_ACTIVE )
-        self->enemy->client->ps.stats[ STAT_STATE ] &= ~SS_MEDKIT_ACTIVE;
+      //ZdrytchX: Feels ugly when you lose your medkit powers when standing on a medistat, oh well
+      //if( self->enemy->client && self->enemy->client->ps.stats[ STAT_STATE ] & SS_MEDKIT_ACTIVE )
+      //  self->enemy->client->ps.stats[ STAT_STATE ] &= ~SS_MEDKIT_ACTIVE;
 
       self->enemy->health++;
 
-      //if they're completely healed, give them a medkit
-      if( self->enemy->health >= self->enemy->client->ps.stats[ STAT_MAX_HEALTH ] &&
+      //ZdrytchX: give them a medkit, just in case the medistat dies while healing the player,
+      //giving the player a chance. Also solves the bot's 'missing medkit' problem when jumping off
+      //the medistat too early
+      if( //self->enemy->health >= self->enemy->client->ps.stats[ STAT_MAX_HEALTH ] &&
           !BG_InventoryContainsUpgrade( UP_MEDKIT, self->enemy->client->ps.stats ) )
         BG_AddUpgradeToInventory( UP_MEDKIT, self->enemy->client->ps.stats );
     }

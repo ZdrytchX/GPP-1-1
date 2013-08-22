@@ -350,13 +350,30 @@ void G_BotModusManager( gentity_t *self ) {
     int damagedBuildingIndex = botFindDamagedFriendlyStructure(self);
     int medistatIndex = botFindBuilding(self, BA_H_MEDISTAT, BOT_MEDI_RANGE);
     int armouryIndex = botFindBuilding(self, BA_H_ARMOURY, BOT_ARM_RANGE);
+    int reactiontime = g_bot_ping.integer + g_bot_reactiontime.integer
+        - (self->botMind->botSkill.level * g_bot_reactiontime.integer * 0.01);
     
-    //search for a new enemy every so often
-   if(self->client->time10000 % BOT_ENEMYSEARCH_INTERVAL == 0) 
+    //search for a new enemy every so often when not in combat, also gives a random reaction time
+    //which is based off its skill level and ping and reactiontime cvars
+  if(self->client->time10000 % reactiontime == 0
+      && self->botMind->currentModus != ATTACK)
+    {
         enemyIndex = botFindClosestEnemy(self, qfalse);
-    
-    //if we are in attackmode, we have an enemy, continue chasing him for a while even if he goes out of sight/range unless a new enemy is closer
-    if(level.time - self->botMind->enemyLastSeen < BOT_ENEMY_CHASETIME && self->botMind->currentModus == ATTACK && g_entities[getTargetEntityNumber(self->botMind->goal)].health > 0 && enemyIndex == ENTITYNUM_NONE)
+    }
+    //search for the closest enemy every so often when in combat
+  else if(self->client->time10000 % BOT_SAME_ENEMY_INTERVAL == 0
+    && self->botMind->currentModus == ATTACK)
+    {
+        enemyIndex = botFindClosestEnemy(self, qfalse);
+    }
+
+
+    //if we are in attackmode, we have an enemy, continue chasing him for a while even if
+    //he goes out of sight/range unless a new enemy is closer
+    if(level.time - self->botMind->enemyLastSeen < BOT_ENEMY_CHASETIME
+    && self->botMind->currentModus == ATTACK
+    && g_entities[getTargetEntityNumber(self->botMind->goal)].health > 0
+    && enemyIndex == ENTITYNUM_NONE)
         enemyIndex = getTargetEntityNumber(self->botMind->goal);
     
     //dont do anything if given the idle command
@@ -2143,10 +2160,11 @@ void findNextNode( gentity_t *self )
         return;
     }
 void setSkill(gentity_t *self, int skill) {
+  float humanslowness = 0.20 + ((skill * 0.10) * (skill * 0.10)) / 125;
     self->botMind->botSkill.level = skill;
     //different aim for different teams
     if(self->botMind->botTeam == PTE_HUMANS) {
-        self->botMind->botSkill.aimSlowness = (0.2 + ((skill * 0.1) * (skill * 0.1)) / 125);//(float)( skill ) / 30;//(0.2 + (skill * skill) / 125);
+        self->botMind->botSkill.aimSlowness = humanslowness;//(float)( skill ) / 30;//(0.2 + (skill * skill) / 125);
         self->botMind->botSkill.aimShake = (int) ((float)(20 - ((skill * 0.1) * (skill * 0.1))/5));
     } else {
         self->botMind->botSkill.aimSlowness = (float)( skill ) / 100;

@@ -2820,7 +2820,7 @@ static void PM_BeginWeaponChange( int weapon )
 //    return; //return gives a weird bug where you can gain extra ammo
   }
 
-  if( pm->ps->weaponstate = WEAPON_RELOADING) { //often this stupid bug pops up
+  if( pm->ps->weaponstate == WEAPON_RELOADING) { //often this stupid bug pops up
     pm->ps->weaponTime = 50; //gets added and weaponstate gets replaced below anyway,
  }
 

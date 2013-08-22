@@ -274,6 +274,7 @@ vmCvar_t  g_bot_gren;
 vmCvar_t  g_bot_bsuit;
 vmCvar_t  g_bot_gren_buypercent;
 vmCvar_t  g_bot_gren_buildablesonlypercent;
+vmCvar_t  g_bot_reactiontime;
 vmCvar_t  g_teamStatus;
 vmCvar_t  g_teamStatusTime;
 vmCvar_t  g_demoState;
@@ -551,7 +552,8 @@ static cvarTable_t   gameCvarTable[ ] =
   //THEN use g_bot_ping_compensate to predict their position.
   { &g_bot_ping_compensate,   "g_bot_ping_compensate",           "70", CVAR_ARCHIVE,  0, qfalse },
   { &g_bot_gren,   "g_bot_gren",                                 "1",  CVAR_ARCHIVE,  0, qfalse },
-  { & g_bot_bsuit,  " g_bot_bsuit",                              "0", CVAR_ARCHIVE, 0, qfalse },
+  { &g_bot_bsuit,  " g_bot_bsuit",                              "0", CVAR_ARCHIVE, 0, qfalse },
+  { &g_bot_reactiontime, "g_bot_reactiontime",                  "1500", CVAR_ARCHIVE, 0, qfalse },
   { &g_bot_gren_buypercent, "g_bot_gren_buypercent",             "20",           CVAR_ARCHIVE,  0, qfalse },
   { &g_bot_gren_buildablesonlypercent, "g_bot_gren_buildablesonlypercent", "20",  CVAR_ARCHIVE, 0, qfalse },
   { &g_teamStatus, "g_teamStatus",                               "1", CVAR_ARCHIVE, 0, qfalse },

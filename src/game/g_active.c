@@ -1791,7 +1791,8 @@ void ClientThink_real( gentity_t *ent )
       client->ps.stats[ STAT_STATE ] |= SS_MEDKIT_ACTIVE;
       client->lastMedKitTime = level.time;
       client->medKitHealthToRestore =
-        ( client->ps.stats[ STAT_MAX_HEALTH ] * ( MAX_MAX_HEALTH * MEDKIT_OVERHEAL ) )  + MEDKIT_EXTRA - client->ps.stats[ STAT_HEALTH ];
+        ( client->ps.stats[ STAT_MAX_HEALTH ] * ( MAX_MAX_HEALTH * MEDKIT_OVERHEAL ) )
+         + MEDKIT_EXTRA - client->ps.stats[ STAT_HEALTH ];
       client->medKitIncrementTime = level.time +
         ( MEDKIT_STARTUP_TIME / MEDKIT_STARTUP_SPEED );
 
