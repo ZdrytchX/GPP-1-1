@@ -186,7 +186,7 @@ TODO list:
 -Bot disconnect messages appear in the server console each time you !restart. Could possibly contribute to a problem involving teamstatus flags for bots in the future.
 
 Wishlist (I currently have no knowledge how to add these):
--Add a g_mode_race, refering to bob's oc mod
+-Add a g_mode_race, referring to bob's oc mod
   +Unlimited stamina, however sprint and mods (like back peddling) will be taken off
 -Make bots do circle jumps something like how CPM does theirs - With bunnyhop mode, we don't need them to strafe jump
 -Add Air Control turning penalty
