@@ -134,9 +134,9 @@ Take note that Vanilla tremulous ONLY has monotone and server owners using this 
   1 = Monotone, no matter what. Works when both monotone is enabled and disabled.
   0 = off
   Default = 3
-+g_hitsounds is an 'enum' type variable from 0-15.
-  8 = No teammates, 4 = no buildables, 2 = monotone, 1 = on, 0 = off, default 8
-  i.e. 15 and 14 means "no teammates and no buildables" for the hitsound to come out but 15 means the server only returns a '1' instead of <damage dealt>. This means you need to alter cg_hitsounds accordingly manually at this point, it does not automatically swap to '2' if monotone is enabled.)
++g_hitsounds is an 'enum' type variable from 0-15. Odd numbers do not contribute any change.
+  8 = No teammates, 4 = no buildables, 2 = monotone, 0 = off, default 8
+  i.e. 14 and 12 means "no teammates and no buildables" for the hitsound to come out but 14 means the server only returns a '1' instead of <damage dealt>. This means clients need to alter cg_hitsounds accordingly manually at this point, it does not automatically swap to '2' if monotone is enabled.)
 -Other shit
 
 "Imported" and "Invented" Gameplay from Lolards/Misc mods of mine:
