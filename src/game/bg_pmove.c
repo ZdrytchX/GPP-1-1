@@ -52,13 +52,14 @@ pml_t       pml;
 // movement parameters
 float pm_stopspeed = 100.0f;
 float pm_duckScale = 0.25f;
-float pm_swimScale = 0.75f;
+float pm_swimScale = 0.75f; //0.50f
 float pm_wadeScale = 0.70f;
 
 //float pm_accelerate = 10.0f;
 //float pm_airaccelerate = 1.0f;
 float pm_wateraccelerate = 4.0f;
 float pm_flyaccelerate = JETPACK_ACCELERATE; //4.0f not too high, makes them hard to pounce at
+float pm_spectatoraccelerate = 4.0f; //ahh no wonder :P
 
 //float pm_friction = 6.0f;
 float pm_waterfriction = 1.0f;
@@ -1125,7 +1126,7 @@ static void PM_FlyMove( void )
   VectorCopy( wishvel, wishdir );
   wishspeed = VectorNormalize( wishdir );
 
-  PM_Accelerate( wishdir, wishspeed, pm_flyaccelerate );
+  PM_Accelerate( wishdir, wishspeed, pm_spectatoraccelerate );//pm_flyaccelerate
 
   PM_StepSlideMove( qfalse, qfalse );
 }
@@ -2935,7 +2936,7 @@ static void PM_Weapon( void )
     && pm->ps->weapon == WP_ALEVEL4 
     && pm->cmd.buttons & BUTTON_ATTACK
     && pm->ps->pm_flags & PMF_CHARGE )
-  {
+  { //TODO: compiler returns 'no effect' but it works.
      pm->ps->weaponTime ==  LEVEL4_CHARGE_TIMEOUT; //TODO: sv_fps.integer?
     return;
   }

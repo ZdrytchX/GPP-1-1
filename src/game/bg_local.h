@@ -71,6 +71,7 @@ extern  float pm_accelerate;
 extern  float pm_airaccelerate;
 extern  float pm_wateraccelerate;
 extern  float pm_flyaccelerate;
+extern  float pm_spectatoraccelerate;
 
 extern  float pm_friction;
 extern  float pm_waterfriction;
