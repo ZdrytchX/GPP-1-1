@@ -576,7 +576,7 @@ static cvarTable_t   gameCvarTable[ ] =
 
   { &g_level4_trample_buildable_percent, "g_level4_trample_buildable_percent", "35", CVAR_ARCHIVE, 0, qfalse },
   { &g_autoGhost, "g_autoGhost",                                 "1", CVAR_ARCHIVE, 0, qfalse },
-  //g_hitsounds_type is an 'enum' type var. (bitfield) from 0-7
+  //g_hitsounds_type is an bitfield variable from 0-7
   //4 = No teammates, 2 = no buildables, 1 = monotone
   { &g_hitsounds, "g_hitsounds",                                 "1", CVAR_ARCHIVE, 0, qfalse },
   { &g_hitsounds_type, "g_hitsounds_type",                       "4", CVAR_ARCHIVE, 0, qfalse },
