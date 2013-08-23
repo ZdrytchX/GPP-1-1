@@ -1988,11 +1988,11 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
       }
       */
       //check teammates
-      if((!OnSameTeam( targ, attacker ) && g_hitsounds_type.integer & 4) || (OnSameTeam( targ, attacker )) )
+      if(!(OnSameTeam( targ, attacker ) && g_hitsounds_type.integer & 4) )
       //Check buildables
-      if((!targ->s.eType == ET_BUILDABLE && g_hitsounds_type.integer & 2) || targ->s.eType == ET_BUILDABLE )
-      //if((!OnSameTeam( targ, attacker ) && noteammates) || (OnSameTeam( targ, attacker )) )
-      //if((!targ->s.eType == ET_BUILDABLE && nobuildables) || targ->s.eType == ET_BUILDABLE )
+      if(!(targ->s.eType == ET_BUILDABLE && g_hitsounds_type.integer & 2) )
+      //if(!(OnSameTeam( targ, attacker ) && noteammates))
+      //if(!(targ->s.eType == ET_BUILDABLE && nobuildables))
       {
         //check monotone
         //if(monotone)
