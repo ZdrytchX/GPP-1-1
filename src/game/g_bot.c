@@ -1106,7 +1106,7 @@ qboolean botTargetInAttackRange(gentity_t *self, botTarget_t target) {
             secondaryRange = 0;
             break;
         case WP_FLAMER:
-            range = FLAMER_SPEED * (FLAMER_LAG + 1)/2; //takes some speed from the user right?
+            range = FLAMER_SPEED * (FLAMER_LAG + 1); //takes some speed from the user right?
             secondaryRange = 0;
             break;
         case WP_LAS_GUN:
@@ -1124,10 +1124,10 @@ qboolean botTargetInAttackRange(gentity_t *self, botTarget_t target) {
         case WP_CHAINGUN:
             range = 300;
             secondaryRange = (100 * 8192)/CHAINGUN_SPREAD;
-	    break;
+	          break;
         case WP_LUCIFER_CANNON:
-            range = 900;
-            secondaryRange = 2000;
+            range = 1024;
+            secondaryRange = 4096;
             break;
         default:
             range = 4098 * 4; //large range for guns because guns have large ranges :)

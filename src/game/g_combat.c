@@ -1951,35 +1951,14 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
       && targ->s.eType != ET_MISSILE
       && targ->s.eType != ET_GENERAL )
   {
-  //ZdrytchX: Hitsounds cvar
-  //TODO: More Efficent way using ENUMs
-  //such for g_hitsounds: 4 = No teammates, 2 = no buildables, 1 = monotone
-  /*
-    if (g_hitsounds.integer > 3)
-    {
-    if( !OnSameTeam( targ, attacker ) )
-      attacker->client->ps.persistant[ PERS_HITS ]+= take;
-    }
-    else if(g_hitsounds.integer == 3)
-    {
-      attacker->client->ps.persistant[ PERS_HITS ]+= take;
-    }
-    else if (g_hitsounds.integer == 2)
-    {
-    if( !(targ->s.eType == ET_BUILDABLE) )
-      attacker->client->ps.persistant[ PERS_HITS ]+= take; //gets annoying when you use luci
-    }
-    else if (g_hitsounds.integer == 1)
-    {
-    if( !(targ->s.eType == ET_BUILDABLE) )
-      attacker->client->ps.persistant[ PERS_HITS ]++;
-    }*/
-    //Shut up, This is my first time trying the switches. I only just figured it out 5 minutes ago by looking a g_bot.c's "ATTACK/ROAMING" modus. I doubt it'll work anyway.
+//Hit sounds
     if(g_hitsounds.integer)
     {
+      
       qboolean  monotone = qfalse;
       qboolean  noteammates = qfalse;
       qboolean  nobuildables = qfalse;
+
       switch(g_hitsounds_type.integer)
       {
         case 1:
@@ -1988,11 +1967,26 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
         case 2:
             nobuildables = qtrue;
             break;
+        case 3:
+            nobuildables = qtrue;
+            monotone = qtrue;
+            break;
         case 4:
             noteammates = qtrue;
             break;
+        case 5:
+            monotone = qtrue;
+            noteammates = qtrue;
+            break;
+        case 6:
+            nobuildables = qtrue;
+            noteammates = qtrue;
+        case 7:
+            nobuildables = qtrue;
+            noteammates = qtrue;
+            monotone = qtrue;
       }
-      //fufufu
+
       if((!OnSameTeam( targ, attacker ) && noteammates) || (OnSameTeam( targ, attacker )) )
       if((!targ->s.eType == ET_BUILDABLE && nobuildables) || targ->s.eType == ET_BUILDABLE )
       {
@@ -2002,7 +1996,6 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
         attacker->client->ps.persistant[ PERS_HITS ]+= take;
       }
      }
-     //what the fuck shit, did I just do that on my first go? :D
      
   }
 
