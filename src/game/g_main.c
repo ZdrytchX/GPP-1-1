@@ -293,6 +293,7 @@ vmCvar_t  g_extendVotesTime;
 vmCvar_t  g_extendVotesCount;
 vmCvar_t  g_adminTempSpec;
 vmCvar_t  g_hitsounds;
+vmCvar_t  g_hitsounds_type;
 vmCvar_t  g_allStats;
 vmCvar_t  g_allStatsTime;
 
@@ -575,10 +576,10 @@ static cvarTable_t   gameCvarTable[ ] =
 
   { &g_level4_trample_buildable_percent, "g_level4_trample_buildable_percent", "35", CVAR_ARCHIVE, 0, qfalse },
   { &g_autoGhost, "g_autoGhost",                                 "1", CVAR_ARCHIVE, 0, qfalse },
-  //g_hitsounds is an 'enum' type var. from 0-15.
-  //8 = No teammates, 4 = no buildables, 2 = monotone, 1 = on, 0 = off
-  //i.e. 15 is monotone, no teammates, no buildables
-  { &g_hitsounds, "g_hitsounds",                                 "8", CVAR_ARCHIVE, 0, qfalse },
+  //g_hitsounds_type is an 'enum' type var. (bitfield) from 0-7
+  //4 = No teammates, 2 = no buildables, 1 = monotone
+  { &g_hitsounds, "g_hitsounds",                                 "1", CVAR_ARCHIVE, 0, qfalse },
+  { &g_hitsounds_type, "g_hitsounds_type",                       "4", CVAR_ARCHIVE, 0, qfalse },
 
   //Special Modes
   { &g_mode_cpm, "g_mode_cpm",                            "1", CVAR_ARCHIVE | CVAR_SERVERINFO, 0, qfalse },

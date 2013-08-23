@@ -1953,7 +1953,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
   {
   //ZdrytchX: Hitsounds cvar
   //TODO: More Efficent way using ENUMs
-  //such for g_hitsounds: 8 = No teammates, 4 = no buildables, 2 = monotone, 1 = on
+  //such for g_hitsounds: 4 = No teammates, 2 = no buildables, 1 = monotone
   /*
     if (g_hitsounds.integer > 3)
     {
@@ -1980,17 +1980,15 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
       qboolean  monotone = qfalse;
       qboolean  noteammates = qfalse;
       qboolean  nobuildables = qfalse;
-      switch(g_hitsounds.integer)
+      switch(g_hitsounds_type.integer)
       {
-        case 1://g_hitsounds must be at least 1 anyway to execute this
-            break;
-        case 2:
+        case 1:
             monotone = qtrue;
             break;
-        case 4:
+        case 2:
             nobuildables = qtrue;
             break;
-        case 8:
+        case 4:
             noteammates = qtrue;
             break;
       }

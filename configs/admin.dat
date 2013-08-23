@@ -1,4 +1,9 @@
 [level]
+level   = -2
+name    = ^1Loner ^7(^1Cannot Join Team^7)
+flags   = iahDC Re o9
+
+[level]
 level   = -1
 name    = ^1Convict ^7(^1No Rights^7)
 flags   = iahDC Re o9
@@ -35,7 +40,7 @@ flags   = iahDC P1Be7 ckbm4 VpNKdn3r5y lxsG L M S v j l w QgRE G U Z zq
 
 [level]
 level   = 6
-name    = ^6Sex Slave
+name    = ^2F^7risqy's ^6Slave
 flags   = iahDC P1Be7 ckbm4 VpNKdn3r5y lxsG L M S v j l w Q gRE G U Z zq
 
 [level]
@@ -56,8 +61,8 @@ level   = 7
 flags   = 
 
 [ban]
-name    = ^6F^1ris^8Q^7ui^7L^8ous
-guid    = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+name    = ^6BitchyBot
+guid    = 66666F424176DF445E2EA0A69AD967E1
 ip      = 
 reason  = kicked by admin
 made    = 08/03/13 11:31:26

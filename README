@@ -20,11 +20,9 @@ INSTALLATION
 2. Download the folders/files listed, and place them in your "<your trem directory>/gpp-1-1" directory:
   https://github.com/ZdrytchX/GPP-1-1/tree/master/class
   https://github.com/ZdrytchX/GPP-1-1/tree/master/paths
-  For these, put them directly into the /gpp-1-1 folder, not the 'configs' folder (my bad :/)
-  https://github.com/ZdrytchX/GPP-1-1/blob/master/configs/server.cfg
-  https://github.com/ZdrytchX/GPP-1-1/blob/master/configs/admin.dat (comes with a few examples)
-  https://github.com/ZdrytchX/GPP-1-1/blob/master/configs/zzzzz-zdrytchx-1.pk3
-  https://github.com/ZdrytchX/GPP-1-1/blob/master/configs/zzzzz-zdrytchx-2.pk3
+  For these, put them directly into the /gpp-1-1 folder, don't create the /config folder! (my bad :/)
+  https://github.com/ZdrytchX/GPP-1-1/blob/master/configs
+  The Admin.dat comes with a few examples. The flag definitions are in g_admin.c in (https://github.com/ZdrytchX/GPP-1-1/tree/master/src/game/g_admin.c)
 3. Open a port, such as 30715. Do some googling, I've never been able to acomplish this because my ISP (iinet.net.au) disallows private server hosting as it seems. You need a static IP to host a server.
 4. Get a 1.1 tremded to start with:
   tremded.exe +set dedicated 2 +exec server.cfg +set net_port 30715
@@ -129,14 +127,16 @@ GPP-1.1 Arena "Features":
 -Hitsounds! Read on:
 +cg_hitsounds gives a hitsound dependant on the value.
 Take note that Vanilla tremulous ONLY has monotone and server owners using this mod can disable hitsounds.
-  3 = Dependant on Damage, g_hitsounds MUST have monotone DISABLED.
-  2 = Dependant on number of hits, g_hitsounds MUST have monotone ENABLED
-  1 = Monotone, no matter what. Works when both monotone is enabled and disabled.
+  3 = Dependant on Damage, g_hitsounds MUST have monotone DISABLED. Idea came from Quake 3 Challenge ProMode mod.
+  2 = Dependant on number of hits, g_hitsounds MUST have monotone ENABLED.
+  1 = Monotone, no matter what. Works when both monotone is enabled and disabled. This is the Quake 3 Arena default.
   0 = off
   Default = 3
-+g_hitsounds is an 'enum' type variable from 0-15. Odd numbers do not contribute any change.
-  8 = No teammates, 4 = no buildables, 2 = monotone, 0 = off, default 8
-  i.e. 14 and 12 means "no teammates and no buildables" for the hitsound to come out but 14 means the server only returns a '1' instead of <damage dealt>. This means clients need to alter cg_hitsounds accordingly manually at this point, it does not automatically swap to '2' if monotone is enabled.)
++g_hitsounds enables/disables hitsounds. Server owners who prefer to have their game not effected by 'spray to find dretch' tactics should set this off. As a fast-paced gamer, I prefer this to be on as it helps in 1-on-1 combat, and determins your accuracy without monotone mode.
++g_hitsounds_type is an 'enum' type variable from 0-7.
+  8 = No teammates, 4 = no buildables, 2 = monotone, 0 = off, default 4
+  i.e. 5 = monotone, server will return a '1'  value whenever anyone except buildables are hit.
+  Please note that 'monotone' effects the hitsounds, see above at cg_hitsounds
 -Other shit
 
 "Imported" and "Invented" Gameplay from Lolards/Misc mods of mine:
