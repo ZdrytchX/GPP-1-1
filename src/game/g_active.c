@@ -770,7 +770,7 @@ void ClientTimerActions( gentity_t *ent, int msec )
 
       if( remainingStartupTime < 0 )
       {
-        if( ent->health < ( ent->client->ps.stats[ STAT_MAX_HEALTH ] * MAX_MAX_HEALTH ) &&
+        if( ent->health < ( ent->client->ps.stats[ STAT_MAX_HEALTH ]/* * MAX_MAX_HEALTH */) &&
             ent->client->medKitHealthToRestore &&
             ent->client->ps.pm_type != PM_DEAD )
         {
