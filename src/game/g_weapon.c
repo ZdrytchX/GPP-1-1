@@ -437,9 +437,12 @@ void massDriverFire( gentity_t *ent )
 }
 */
 /*
-//===========================================
-//MDRIVER BULLET TEST
-//===========================================
+======================================================================
+
+MASS DRIVER
+BULLET PHYSICS
+
+======================================================================
 */
 
 void massDriverFire( gentity_t *ent )
@@ -450,8 +453,6 @@ void massDriverFire( gentity_t *ent )
 
 //VectorAdd( m->s.pos.trDelta, ent->client->ps.velocity, m->s.pos.trDelta ); 
 }
-
-
 
 /*
 ======================================================================
@@ -535,6 +536,20 @@ void flamerFire( gentity_t *ent )
 
   m = fire_flamer( ent, muzzle, forward );
 }
+/*
+===============
+airBlastFire
+===============
+*/
+void airBlastFire( gentity_t *ent )
+{
+  gentity_t *m;
+
+  m = fire_airBlast( ent, muzzle, forward );
+  //must be on so it works on lifts and movers and shit
+  VectorAdd( m->s.pos.trDelta, ent->client->ps.velocity, m->s.pos.trDelta );
+}
+
 
 /*
 ======================================================================
@@ -1523,13 +1538,30 @@ qboolean CheckPounceAttack( gentity_t *ent )
 
   return qtrue;
 }
-
+/*
+===============
+bounceBallFire
+===============
+*/
 void bounceBallFire( gentity_t *ent )
 {
   gentity_t *m;
 
   m = fire_bounceBall( ent, muzzle, forward );
+//test for max ammo
+/*
+  if(ent->client)
+  {
+      int ammo, maxAmmo;
 
+      BG_FindAmmoForWeapon( WP_ALEVEL3_UPG, &maxAmmo, NULL );
+      BG_UnpackAmmoArray( WP_ALEVEL3_UPG, ent->client->ps.ammo, client->ps.powerups, &ammo, NULL );
+            else if ( ammo == maxAmmo )
+      {
+        ent->client->time10000 = 0; //Set timer
+      }
+  }
+*/
 //  VectorAdd( m->s.pos.trDelta, ent->client->ps.velocity, m->s.pos.trDelta );  // "real" physics by adding ur inertia - gets annoying
 }
 
@@ -1585,6 +1617,19 @@ void ChargeAttack( gentity_t *ent, gentity_t *victim )
 
   G_Damage( victim, ent, ent, forward, victim->s.origin, damage, 0|DAMAGE_NO_LOCDAMAGE, MOD_LEVEL4_CHARGE );
 }
+/*
+===============
+aBlobFire
+===============
+*/
+
+void aBlobFire( gentity_t *ent )
+{
+  gentity_t *m;
+
+  m = fire_aBlob( ent, muzzle, forward );
+  VectorAdd( m->s.pos.trDelta, ent->client->ps.velocity, m->s.pos.trDelta );  
+}
 
 //======================================================================
 
@@ -1634,6 +1679,10 @@ void FireWeapon3( gentity_t *ent )
     case WP_ABUILD2:
       slowBlobFire( ent );
       break;
+
+    case WP_ALEVEL4:
+      aBlobFire( ent );
+    break;
 
     default:
       break;
@@ -1685,6 +1734,10 @@ void FireWeapon2( gentity_t *ent )
       bulletFire( ent, CHAINGUN_SPREAD2, CHAINGUN_DMG/3, MOD_CHAINGUN ); 
       bulletFire( ent, CHAINGUN_SPREAD2, CHAINGUN_DMG/3, MOD_CHAINGUN );
       break;
+
+    case WP_FLAMER:
+      airBlastFire( ent );
+    break;
 
     case WP_ABUILD:
     case WP_ABUILD2:

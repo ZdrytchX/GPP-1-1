@@ -3210,8 +3210,8 @@ static void PM_Weapon( void )
   {
     if( BG_WeaponHasThirdMode( pm->ps->weapon ) )
     {
-      //hacky special case for slowblob
-      if( pm->ps->weapon == WP_ALEVEL3_UPG && !ammo )
+      //hacky special case for bounceball and ablob
+      if( ( pm->ps->weapon == WP_ALEVEL3_UPG || pm->ps->weapon == WP_ALEVEL4 ) && !ammo )
       {
         PM_AddEvent( EV_NOAMMO );
         pm->ps->weaponTime += 200;
@@ -3330,7 +3330,7 @@ static void PM_Weapon( void )
   // take an ammo away if not infinite
   if( !BG_FindInfinteAmmoForWeapon( pm->ps->weapon ) )
   {
-    //special case for lCanon
+    //special case for lucifer cannon
     if( pm->ps->weapon == WP_LUCIFER_CANNON && attack1 && !attack2 )
     {
       ammo -= (int)( ceil( ( (float)pm->ps->stats[ STAT_MISC ] / (float)LCANNON_TOTAL_CHARGE ) * LCANNON_TAKE ) );
@@ -3355,12 +3355,27 @@ static void PM_Weapon( void )
         pm->ps->generic1 = WPM_NOTFIRING;
 		}
 	}
+	else if( pm->ps->weapon == WP_FLAMER && !attack3 && attack2 && !attack1 )
+	{
+	  if (ammo >= FLAMER_AIRBLAST_AMMO ) {
+	  ammo -= FLAMER_AIRBLAST_AMMO;
+	  }
+	  else if (ammo < FLAMER_AIRBLAST_AMMO )
+    {
+	  ammo = 0;
+	  }
+	  else
+	  {
+    pm->ps->weaponTime = 0;
+    pm->ps->generic1 = WPM_NOTFIRING;
+    }
+  }
     else if( pm->ps->weapon == WP_MGTURRET && !attack3 && attack2 && !attack1 ) {
 	if (ammo >= 50) {
 	ammo -= 50;
 	}
 	else if (ammo >= 1 )
-        	{
+    {
 	ammo = 0;
 		}
 	else {
@@ -3380,9 +3395,9 @@ static void PM_Weapon( void )
 
     BG_PackAmmoArray( pm->ps->weapon, pm->ps->ammo, pm->ps->powerups, ammo, clips );
   }
-  else if( pm->ps->weapon == WP_ALEVEL3_UPG && attack3 )
+  else if( ( pm->ps->weapon == WP_ALEVEL3_UPG || pm->ps->weapon == WP_ALEVEL4 ) && attack3 )
   {
-    //special case for bounceball
+    //special case for bounceball and ablob
     ammo--;
     BG_PackAmmoArray( pm->ps->weapon, pm->ps->ammo, pm->ps->powerups, ammo, clips );
   }
@@ -3422,47 +3437,7 @@ static void PM_Weapon( void )
       pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 8 ) - 4 ) * ( 30.0 / (float)addTime ) );
     }
   }
-  //blaster
-  if( pm->ps->weapon == WP_BLASTER )
-  {
-    if( pm->ps->pm_flags & PMF_DUCKED ||
-        BG_InventoryContainsUpgrade( UP_BATTLESUIT, pm->ps->stats ) ) //no movement at all
-    {
-      pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 0.0 ) - 0.0 ) * ( 30 / (float)addTime ) );
-      pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 0.0 ) - 0.0 ) * ( 30.0 / (float)addTime ) );
-    }
-    else if (BG_InventoryContainsUpgrade( UP_LIGHTARMOUR, pm->ps->stats ))
-    {
-      pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 0.0 ) - 0.0 ) * ( 30.0 / (float)addTime ) );
-      pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 0.0 ) - 0.0 ) * ( 30.0 / (float)addTime ) );
-    }
-    else
-    {
-      pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 0 ) - 0 ) * ( 30.0 / (float)addTime ) );
-      pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 0) -0 ) * ( 30.0 / (float)addTime ) );
-    }
-  }
-  //Rifle
-  if( pm->ps->weapon == WP_MACHINEGUN )
-  {
-    if( pm->ps->pm_flags & PMF_DUCKED ||
-        BG_InventoryContainsUpgrade( UP_BATTLESUIT, pm->ps->stats ) )
-    {
-      pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 0.0 ) - 0.0 ) * ( 30.0 / (float)addTime ) );
-      pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 0.0 ) - 0.00 ) * ( 30.0 / (float)addTime ) );
-    }
-    else if (BG_InventoryContainsUpgrade( UP_LIGHTARMOUR, pm->ps->stats ))
-    {
-      pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 0.0 ) - 0.0 ) * ( 30.0 / (float)addTime ) );
-      pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 0.0 ) - 0.0 ) * ( 30.0 / (float)addTime ) );
-    }
-    else
-    {
-      pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 0 ) - 0 ) * ( 30.0 / (float)addTime ) );
-      pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 0 ) - 0 ) * ( 30.0 / (float)addTime ) );
-    }
-  //FIXME: doesn't work
-  if( pm->ps->weapon == WP_SHOTGUN )
+  if( pm->ps->weapon == WP_SHOTGUN && SHOTGUN_KICKBACK )
   {
     if( pm->ps->pm_flags & PMF_DUCKED ||
         BG_InventoryContainsUpgrade( UP_BATTLESUIT, pm->ps->stats ) ) //no recoil
@@ -3470,12 +3445,16 @@ static void PM_Weapon( void )
       pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 0.0 ) - 0.0 ) * ( 30 / (float)addTime ) );
       pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 0.0 ) - 0.0 ) * ( 30.0 / (float)addTime ) );
     }
+    else if (BG_InventoryContainsUpgrade( UP_LIGHTARMOUR, pm->ps->stats ))
+    {
+      pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 3.0 ) - 2.0 ) * ( 30.0 / (float)addTime ) );
+      pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 1.0 ) - 0.5 ) * ( 30.0 / (float)addTime ) );
+    }
     else
     {
-      pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 16 ) - 4 ) * ( 30.0 / (float)addTime ) ); //big recoil upwards
+      pm->ps->delta_angles[ PITCH ] -= ANGLE2SHORT( ( ( random() * 16 ) - 8 ) * ( 30.0 / (float)addTime ) ); //big recoil upwards
       pm->ps->delta_angles[ YAW ] -= ANGLE2SHORT( ( ( random() * 2 ) - 1 ) * ( 30.0 / (float)addTime ) );
     }
-  }
   }
 
   pm->ps->weaponTime += addTime;

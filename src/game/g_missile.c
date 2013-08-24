@@ -908,3 +908,85 @@ gentity_t *fire_bounceBall( gentity_t *self, vec3_t start, vec3_t dir )
   return bolt;
 }
 
+/*
+=================
+fire_airBlast
+=================
+*/
+gentity_t *fire_airBlast( gentity_t *self, vec3_t start, vec3_t dir )
+{
+  gentity_t *bolt;
+
+  VectorNormalize ( dir );
+
+  bolt = G_Spawn( );
+  bolt->classname = "airblast";
+  bolt->nextthink = level.time + FLAMER_AIRBLAST_PERIOD;
+  bolt->think = G_ExplodeMissile;
+  bolt->s.eType = ET_MISSILE;
+  bolt->r.svFlags = SVF_USE_CURRENT_ORIGIN;
+  bolt->s.weapon = WP_ALEVEL4;
+  bolt->s.generic1 = self->s.generic1;
+  bolt->r.ownerNum = self->s.number;
+  bolt->parent = self;
+  bolt->damage = FLAMER_AIRBLAST_DMG/FLAMER_K_SCALE;
+  bolt->splashDamage = FLAMER_AIRBLAST_DMG;
+  bolt->splashRadius = FLAMER_AIRBLAST_RADIUS;
+  bolt->methodOfDeath = MOD_AIRBLAST;
+  bolt->splashMethodOfDeath = MOD_AIRBLAST;
+  bolt->clipmask = MASK_SHOT;
+  bolt->target_ent = NULL;
+  bolt->r.mins[ 0 ] = bolt->r.mins[ 1 ] = bolt->r.mins[ 2 ] = -FLAMER_AIRBLAST_SIZE;
+  bolt->r.maxs[ 0 ] = bolt->r.maxs[ 1 ] = bolt->r.maxs[ 2 ] = FLAMER_AIRBLAST_SIZE;
+
+  bolt->s.pos.trType = TR_LINEAR;
+  bolt->s.pos.trTime = level.time - MISSILE_PRESTEP_TIME;   // move a bit on the very first frame
+  VectorCopy( start, bolt->s.pos.trBase );
+  VectorScale( dir, FLAMER_AIRBLAST_SPEED, bolt->s.pos.trDelta );
+  SnapVector( bolt->s.pos.trDelta );      // save net bandwidth
+  VectorCopy( start, bolt->r.currentOrigin );
+  bolt->s.eFlags |= EF_BOUNCE_HALF;
+  return bolt;
+}
+
+/*
+=================
+fire_ablob
+=================
+*/
+gentity_t *fire_aBlob( gentity_t *self, vec3_t start, vec3_t dir )
+{
+  gentity_t *bolt;
+
+  VectorNormalize ( dir );
+
+  bolt = G_Spawn( );
+  bolt->classname = "ablob";
+  bolt->nextthink = level.time + LEVEL4_ABLOB_LIFETIME;
+  bolt->think = G_ExplodeMissile;
+  bolt->s.eType = ET_MISSILE;
+  bolt->r.svFlags = SVF_USE_CURRENT_ORIGIN;
+  bolt->s.weapon = WP_ALEVEL4;
+  bolt->s.generic1 = self->s.generic1; //weaponMode
+  bolt->r.ownerNum = self->s.number;
+  bolt->parent = self;
+  bolt->damage = LEVEL4_ABLOB_DMG;
+  bolt->splashDamage = LEVEL4_ABLOB_DMG;
+  bolt->splashRadius = LEVEL4_ABLOB_RADIUS;
+  bolt->methodOfDeath = MOD_LEVEL4_ABLOB;
+  bolt->splashMethodOfDeath = MOD_LEVEL4_ABLOB;
+  bolt->clipmask = MASK_SHOT;
+  bolt->target_ent = NULL;
+  bolt->r.mins[ 0 ] = bolt->r.mins[ 1 ] = bolt->r.mins[ 2 ] = -3.0f;
+  bolt->r.maxs[ 0 ] = bolt->r.maxs[ 1 ] = bolt->r.maxs[ 2 ] = 3.0f;
+
+  bolt->s.pos.trType = TR_GRAVITY;
+  bolt->s.pos.trTime = level.time - MISSILE_PRESTEP_TIME;   // move a bit on the very first frame
+  VectorCopy( start, bolt->s.pos.trBase );
+  VectorScale( dir, LEVEL4_ABLOB_SPEED, bolt->s.pos.trDelta );
+  SnapVector( bolt->s.pos.trDelta );      // save net bandwidth
+  VectorCopy( start, bolt->r.currentOrigin );
+  bolt->s.eFlags |= EF_BOUNCE_HALF; //dont explode upon contact with the world //TODO: don't collide with players
+
+  return bolt;
+}

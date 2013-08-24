@@ -358,16 +358,16 @@ void G_BotModusManager( gentity_t *self ) {
     //search for a new enemy every so often when not in combat, also gives a random reaction time
     //which is based off its skill level and ping and reactiontime cvars
   if(self->client->time10000 % reactiontime == 0
-      && self->botMind->currentModus != ATTACK)
+      /*&& self->botMind->currentModus != ATTACK*/)
     {
         enemyIndex = botFindClosestEnemy(self, qfalse);
     }
     //search for the closest enemy every so often when in combat
-  else if(self->client->time10000 % BOT_SAME_ENEMY_INTERVAL == 0
+  /*else if(self->client->time10000 % BOT_SAME_ENEMY_INTERVAL == 0
     && self->botMind->currentModus == ATTACK)
     {
         enemyIndex = botFindClosestEnemy(self, qfalse);
-    }
+    }*/
 
 
     //if we are in attackmode, we have an enemy, continue chasing him for a while even if

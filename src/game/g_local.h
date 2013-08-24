@@ -611,7 +611,7 @@ struct gclient_s
 //zdrytchx
   int                 autoregen; //regeneration, variable variable
   int                 blaster_ammoregen;
-  int                 jumptime; //for cpm jumps
+  int                 ablobregen;
   
   
   char                *areabits;
@@ -1130,7 +1130,9 @@ gentity_t *fire_slowBlob( gentity_t *self, vec3_t start, vec3_t dir );
 gentity_t *fire_bounceBall( gentity_t *self, vec3_t start, vec3_t dir );
 gentity_t *fire_hive( gentity_t *self, vec3_t start, vec3_t dir );
 gentity_t *launch_grenade( gentity_t *self, vec3_t start, vec3_t dir );
-gentity_t *fire_mdriver( gentity_t *self, vec3_t start, vec3_t dir ); //
+gentity_t *fire_mdriver( gentity_t *self, vec3_t start, vec3_t dir );
+gentity_t *fire_aBlob( gentity_t *self, vec3_t start, vec3_t dir );
+gentity_t *fire_airBlast( gentity_t *self, vec3_t start, vec3_t dir );
 
 
 //

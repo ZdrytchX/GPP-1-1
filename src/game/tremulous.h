@@ -170,12 +170,20 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 					//~0.9s larm+helm [Bsuit not tested, but bsuit should be the same as this]
 #define LEVEl4_CHARGE_K_ORIGINAL    85.0f //gpp 111.0f
 #define LEVEl4_CHARGE_K_COUNTER     (1/LEVEL4_CLAW_K_SCALE)*(LEVEl4_CHARGE_K_ORIGINAL/LEVEL4_CHARGE_DMG) //counteracts the claw knockback and damage differences between this and LEVEl4_CHARGE_K_ORIGINAL
-//Removed tyrant spit bomb
 
 #define LEVEL4_CHARGE_EXTRA         ADM(15) //Extra damage added to charge so it isnt completely useless when slow
 
 #define LEVEL4_REGEN_RANGE          150.0f //Used for basi, booster and overmind healing, default 200
                                            //rant has no aura now
+//Re-added Tyrant Spitbomb
+#define LEVEL4_ABLOB_DMG            ADM(200)
+#define LEVEL4_ABLOB_DMG_B          0.6f //damage to buildables modifier
+#define LEVEL4_ABLOB_RADIUS         200 //200 is more than enough to annoy campers
+#define LEVEL4_ABLOB_SPEED          500
+#define LEVEL4_ABLOB_STUNTIME       1200 //Prevents self from re-attacking immediately
+#define LEVEL4_ABLOB_REGEN          60000//limits bomb rushes
+#define LEVEL4_ABLOB_LIFETIME       10000 //spitbomb lifetime
+
 
 
 
@@ -475,6 +483,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define SHOTGUN_RELOAD              2000 + (VAMP_ON * 1000) //( SHOTGUN_SHELLS * 400 + 800 )
 #define SHOTGUN_SPREAD              900 + (VAMP_ON * 475)
 #define SHOTGUN_DMG                 HDM(4 + (VAMP_ON * 2))
+#define SHOTGUN_KICKBACK            0//on/off
 
 #define LASGUN_PRICE                250
 #define LASGUN_AMMO                 200
@@ -534,6 +543,18 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define FLAMER_LIFETIME             800.0f //Apparently gpp uses 700
 #define FLAMER_SPEED                400.0f //1.1 300 (Useless when chasing) gpp 500 (OP) - My custom particle system is sync'd to 400
 #define FLAMER_LAG                  0.65f //user's velocity * this value gets added as velocity to flame ball
+
+//Airblast Secondary Fire
+#define FLAMER_AIRBLAST_DMG         100//knockback
+#define FLAMER_AIRBLAST_REALDMG     0//actual damage dealt
+#define FLAMER_AIRBLAST_UP_K        50//additional upward knockback
+#define FLAMER_AIRBLAST_UP          40//shift enemy centerpoint this much up for knockback direction
+#define FLAMER_AIRBLAST_REPEAT      800
+#define FLAMER_AIRBLAST_AMMO        20//ammo gobbled up
+#define FLAMER_AIRBLAST_PERIOD      10 //period the airblast can exist for
+#define FLAMER_AIRBLAST_SPEED       (50 * 1000 / FLAMER_AIRBLAST_PERIOD)//Speed of particle, first number determines the range before the bubble bursts
+#define FLAMER_AIRBLAST_RADIUS      100//Radius of Knockback
+#define FLAMER_AIRBLAST_SIZE        32.0f//(Square) Radius Size of particle
 
 #define LCANNON_PRICE               600
 #define LCANNON_AMMO                90 + (VAMP_ON * 30)

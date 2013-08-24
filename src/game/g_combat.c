@@ -360,6 +360,7 @@ char *modNames[ ] =
   "MOD_LCANNON_SPLASH",
   "MOD_FLAMER",
   "MOD_FLAMER_SPLASH",
+  "MOD_AIRBLAST",
   "MOD_GRENADE",
   "MOD_WATER",
   "MOD_SLIME",
@@ -383,6 +384,7 @@ char *modNames[ ] =
   "MOD_LEVEL2_ZAP",
   "MOD_LEVEL4_CLAW",
   "MOD_LEVEL4_CHARGE",
+  "MOD_LEVEL4_ABLOB"
 
   "MOD_SLOWBLOB",
   "MOD_POISON",
@@ -529,6 +531,13 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
       trap_SendServerCommand( -1, va( "print \"something was destroyed by %s's barb\n\"", attacker->client->pers.netname ) );
     else if ( meansOfDeath == MOD_LEVEL3_BOUNCEBALL_SPLASH && attacker == self )
       trap_SendServerCommand( -1, va( "print \"%s^7 couldn't take it anymore\n\"", self->client->pers.netname ) );
+
+    else if ( meansOfDeath == MOD_LEVEL4_ABLOB && attacker == self)
+      trap_SendServerCommand( -1, va( "print \"%s^7 forgot where he placed his acid bomb\n\"", self->client->pers.netname ) );
+    else if ( meansOfDeath == MOD_LEVEL4_ABLOB && attacker != self && (self->s.number != ENTITYNUM_WORLD) )
+      trap_SendServerCommand( -1, va( "print \"%s^7 dissolved in %s's spit\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
+    else if ( meansOfDeath == MOD_LEVEL4_ABLOB && attacker != self && (self->s.number == ENTITYNUM_WORLD) )
+      trap_SendServerCommand( -1, va( "print \"%s^7 destroyed something\n\"", attacker->client->pers.netname ) );
       
     else if ( meansOfDeath == MOD_SLOWBLOB && attacker != self ) //granger blobs didn't show the killer's name
       trap_SendServerCommand( -1, va( "print \"%s^7 was ^2gooed^7 by %s's granger spit\n\"", self->client->pers.netname, attacker->client->pers.netname ) );
@@ -1677,7 +1686,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
   }
 
   if ( mod == MOD_LEVEL4_CHARGE )
-                knockback *= LEVEl4_CHARGE_K_COUNTER; //help shove people around
+    knockback *= LEVEl4_CHARGE_K_COUNTER; //help shove people around
 
 
   // figure momentum add, even if the damage won't be taken
@@ -1689,6 +1698,15 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
     mass = 200;
 
     VectorScale( dir, g_knockback.value * (float)knockback / mass, kvel );
+
+//Special Case for airblast for extra upward velocity
+    if ( mod == MOD_AIRBLAST && targ != attacker 
+      && (!(g_mode_teamkill.integer && OnSameTeam( targ, attacker ) ) )
+      && attacker->client->ps.stats[ STAT_STATE ] & SS_GRABBED ) //safety net for basis
+    {
+		  kvel[2] += g_knockback.value * (float)FLAMER_AIRBLAST_UP_K / mass * BG_FindKnockbackScaleForClass( targ->client->ps.stats[ STAT_PCLASS ] );
+    }
+
     VectorAdd( targ->client->ps.velocity, kvel, targ->client->ps.velocity );
 
     // set the timer so that the other client can't cancel
@@ -1709,9 +1727,17 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
     }
   }
   
-  if ( mod == MOD_TARGET_LASER ) { //Temporary useless MOD - use for nullifying the knockback
+  if ( mod == MOD_TARGET_LASER ) { //Temporary useless MOD for blaster splash
 		damage *= BLASTER_DMG_MOD;
 	}
+
+  if ( mod == MOD_AIRBLAST && targ != attacker ){
+    {
+    if(!(g_mode_teamkill.integer && OnSameTeam( targ, attacker ) ) )
+		damage *= FLAMER_AIRBLAST_REALDMG;
+		}
+	}
+
 	/*
 	if ( g_mode_teamkill.integer ) { //teamkill modifiers
   	damage *= HUMAN_TK_DMG_MOD;
@@ -1725,10 +1751,18 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
   if ( mod == MOD_FLAMER_SPLASH ) {
 		damage *= FLAMER_DMG_MOD;
 	}
+  if ( mod == MOD_AIRBLAST ) {
+		damage == FLAMER_AIRBLAST_REALDMG; //don't deal damage
+	}
 
   if ( mod == MOD_LEVEL3_BOUNCEBALL_SPLASH && (targ->s.eType == ET_BUILDABLE || targ == attacker )) {
 		damage *= LEVEL3_BOUNCEBALL_SPLASH_MOD;
 	}
+
+  if( targ->s.eType == ET_BUILDABLE && mod == MOD_LEVEL4_ABLOB )
+  {
+    damage *= LEVEL4_ABLOB_DMG_B;
+  }
 
   // check for completely getting out of the damage
   if( !( dflags & DAMAGE_NO_PROTECTION ) )
@@ -2280,7 +2314,9 @@ qboolean G_RadiusDamage( vec3_t origin, gentity_t *attacker, float damage,
       // get knocked into the air more
 			// CPM: Add some extra knockback
 			if (ent == attacker) { // explosive jumps are same as in normal Q3A
-				dir[2] +=24;
+				dir[2] += 24;
+			}else if ( mod == MOD_AIRBLAST ){
+			  dir[2] += FLAMER_AIRBLAST_UP;
 			} else {
 				dir[2] += 40; //24
 			}

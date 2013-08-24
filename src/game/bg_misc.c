@@ -3232,11 +3232,11 @@ weaponAttributes_t bg_weapons[ ] =
     qfalse,               //int       infiniteAmmo;
     qfalse,               //int       usesEnergy;
     FLAMER_REPEAT,        //int       repeatRate1;
-    0,                    //int       repeatRate2;
+    FLAMER_AIRBLAST_REPEAT, //int       repeatRate2;
     0,                    //int       repeatRate3;
-    FLAMER_RELOAD,                    //int       reloadTime;
+    FLAMER_RELOAD,        //int       reloadTime;
     FLAMER_K_SCALE,       //float     knockbackScale;
-    qfalse,               //qboolean  hasAltMode;
+    qtrue,               //qboolean  hasAltMode;
     qfalse,               //qboolean  hasThirdMode;
     qfalse,               //qboolean  canZoom;
     90.0f,                //float     zoomFov;
@@ -3721,17 +3721,17 @@ weaponAttributes_t bg_weapons[ ] =
     SLOT_WEAPON,          //int       slots;
     "level4",             //char      *weaponName;
     "Charge",             //char      *weaponHumanName;
-    0,                    //int       maxAmmo; //now stumbles instead
+    1,                    //int       maxAmmo;
     0,                    //int       maxClips;
     qtrue,                //int       infiniteAmmo;
     qfalse,               //int       usesEnergy;
     LEVEL4_CLAW_REPEAT,   //int       repeatRate1;
     100,                    //int       repeatRate2;
-    15000,                    //int       repeatRate3; //now stumbles instead
+    LEVEL4_ABLOB_STUNTIME, //int       repeatRate3;
     0,                    //int       reloadTime;
     LEVEL4_CLAW_K_SCALE,  //float     knockbackScale;
     qfalse,               //qboolean  hasAltMode;
-    qfalse,               //qboolean  hasThirdMode;
+    qtrue,               //qboolean  hasThirdMode;
     qfalse,               //qboolean  canZoom;
     90.0f,                //float     zoomFov;
     qfalse,               //qboolean  purchasable;

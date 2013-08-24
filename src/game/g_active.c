@@ -575,6 +575,7 @@ void ClientTimerActions( gentity_t *ent, int msec )
   client->time10000 += msec;
   client->autoregen -= msec;
   client->blaster_ammoregen += msec;
+  client->ablobregen += msec;
 //  client->jumptime -= msec;
 
 
@@ -980,7 +981,28 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
     }
 //End painsaw
 */
+  while( client->ablobregen >= LEVEL4_ABLOB_REGEN )
+  {
+    client->ablobregen -= LEVEL4_ABLOB_REGEN;
 
+    if( client->ps.weapon == WP_ALEVEL4 )
+    {
+      int ammo, maxAmmo;
+
+      BG_FindAmmoForWeapon( WP_ALEVEL4, &maxAmmo, NULL );
+      BG_UnpackAmmoArray( WP_ALEVEL4, client->ps.ammo, client->ps.powerups, &ammo, NULL );
+
+      if( ammo < maxAmmo )
+      {
+        ammo++;
+        BG_PackAmmoArray( WP_ALEVEL4, client->ps.ammo, client->ps.powerups, ammo, 0 );
+      }
+      else if ( ammo == maxAmmo ) //Hacky odd fix
+      {
+        client->ablobregen = LEVEL4_ABLOB_REGEN; //No cheap quick reloads
+      }
+    }
+  }
   while( client->time10000 >= LEVEL3_BOUNCEBALL_RECHARGE ) 
   {
     client->time10000 -= LEVEL3_BOUNCEBALL_RECHARGE;
@@ -997,10 +1019,7 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
         ammo++;
         BG_PackAmmoArray( WP_ALEVEL3_UPG, client->ps.ammo, client->ps.powerups, ammo, 0 );
       }
-      else if ( ammo == maxAmmo )
-      {
-        client->time10000 = 8000; //Set only 15-5 = (10) seconds to recharge after first shot from full bay
-      }
+      //Timer Problem solved in g_weapon.c
     }
   }
   }
