@@ -1702,7 +1702,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 //Special Case for airblast for extra upward velocity
     if ( mod == MOD_AIRBLAST && targ != attacker 
       && (!(g_mode_teamkill.integer && OnSameTeam( targ, attacker ) ) )
-      && attacker->client->ps.stats[ STAT_STATE ] & SS_GRABBED ) //safety net for basis
+      && !(attacker->client->ps.stats[ STAT_STATE ] & SS_GRABBED) ) //safety net for basis
     {
 		  kvel[2] += g_knockback.value * (float)FLAMER_AIRBLAST_UP_K / mass * BG_FindKnockbackScaleForClass( targ->client->ps.stats[ STAT_PCLASS ] );
     }
@@ -1731,13 +1731,6 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		damage *= BLASTER_DMG_MOD;
 	}
 
-  if ( mod == MOD_AIRBLAST && targ != attacker ){
-    {
-    if(!(g_mode_teamkill.integer && OnSameTeam( targ, attacker ) ) )
-		damage *= FLAMER_AIRBLAST_REALDMG;
-		}
-	}
-
 	/*
 	if ( g_mode_teamkill.integer ) { //teamkill modifiers
   	damage *= HUMAN_TK_DMG_MOD;
@@ -1752,6 +1745,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		damage *= FLAMER_DMG_MOD;
 	}
   if ( mod == MOD_AIRBLAST ) {
+    if(!(g_mode_teamkill.integer && OnSameTeam( targ, attacker ) ) )
 		damage == FLAMER_AIRBLAST_REALDMG; //don't deal damage
 	}
 

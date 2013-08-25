@@ -929,7 +929,7 @@ gentity_t *fire_airBlast( gentity_t *self, vec3_t start, vec3_t dir )
   bolt->s.generic1 = self->s.generic1;
   bolt->r.ownerNum = self->s.number;
   bolt->parent = self;
-  bolt->damage = FLAMER_AIRBLAST_DMG/FLAMER_K_SCALE;
+  bolt->damage = FLAMER_AIRBLAST_DMG;
   bolt->splashDamage = FLAMER_AIRBLAST_DMG;
   bolt->splashRadius = FLAMER_AIRBLAST_RADIUS;
   bolt->methodOfDeath = MOD_AIRBLAST;

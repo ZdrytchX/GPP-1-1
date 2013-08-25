@@ -547,13 +547,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //Airblast Secondary Fire
 #define FLAMER_AIRBLAST_DMG         100//knockback
 #define FLAMER_AIRBLAST_REALDMG     0//actual damage dealt
-#define FLAMER_AIRBLAST_UP_K        50//additional upward knockback
+#define FLAMER_AIRBLAST_UP_K        60//additional upward knockback
 #define FLAMER_AIRBLAST_UP          40//shift enemy centerpoint this much up for knockback direction
 #define FLAMER_AIRBLAST_REPEAT      800
 #define FLAMER_AIRBLAST_AMMO        20//ammo gobbled up
 #define FLAMER_AIRBLAST_PERIOD      10 //period the airblast can exist for
 #define FLAMER_AIRBLAST_SPEED       (50 * 1000 / FLAMER_AIRBLAST_PERIOD)//Speed of particle, first number determines the range before the bubble bursts
-#define FLAMER_AIRBLAST_RADIUS      100//Radius of Knockback
+#define FLAMER_AIRBLAST_RADIUS      150//Radius of Knockback
 #define FLAMER_AIRBLAST_SIZE        32.0f//(Square) Radius Size of particle
 
 #define LCANNON_PRICE               600
