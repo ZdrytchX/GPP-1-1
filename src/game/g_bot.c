@@ -263,7 +263,7 @@ void G_BotThink( gentity_t *self) {
     //Possible Solution: Get the first bot the join a team assign himself 'the one and only' teamstatus flag for its team
     //while others on the same team can't use teamstatus since they cannot obtain the flag.
     //A possible way to achieve this is using client numbers but things can get a bit fishy (i.e. !restart)
-    if( !(self->client->pers.muted) && (self->client->time100 % (21000 + ((int)(100 * rand()) % 10000)/100) <= 25) && g_teamStatus.integer)
+    if( !(self->client->pers.muted) && (self->client->time100 % (21000 + ((int)(100 * rand()) % 10000)/100) <= 25) && g_teamStatus.integer && !g_mode_teamkill.integer)
     Cmd_TeamStatus_f( self );
     //TODO: warning: implicit declaration of function ‘Cmd_TeamStatus_f’
 
@@ -279,26 +279,27 @@ void G_BotThink( gentity_t *self) {
     }
 
     //donate team funds if surplus periodically
-    /*
-    if (g_allowShare.integer && self->client->time1000 % (10000 + rand() % 10000) == 0
-        && !g_bot_infinite_funds.integer) //don't donate at the same time
+    
+    if (g_allowShare.integer && self->client->time1000 % (10000 + rand() % 100000) == 0
+        && !g_bot_infinite_funds.integer && !g_mode_teamkill.integer) //don't donate at the same time
     {
-      if (self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS && self->client->ps.persistant[PERS_CREDIT] > 5)
+      int funds = self->client->ps.persistant[PERS_CREDIT];
+      if (self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS && funds > 5)
       {
       if( !(self->client->pers.muted))
       G_Say(self,NULL, SAY_TEAM, "I just donated some evos to our hivemind; cherish them wisely.");
-      trap_SendServerCommand( botGetAimEntityNumber(self), va( "donate %i\n", (self->client->ps.persistant[PERS_CREDIT] - 5) ) );
+      trap_SendServerCommand( botGetAimEntityNumber(self), va( "donate \"%i\"\n", (funds - 5) ) );
       //Cmd_Donate_f( self );//expects gentity_t * type
       }
-      else if (self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS && self->client->ps.persistant[PERS_CREDIT] > 1200)
+      else if (self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS && funds > 1200)
       {
       if( !(self->client->pers.muted))
       G_Say(self,NULL, SAY_TEAM, "I just donated some credit points for our squad. Now ^1stop^5 feedng your asses to 'em.");
-      trap_SendServerCommand( botGetAimEntityNumber(self), va( "donate %i\n", (self->client->ps.persistant[PERS_CREDIT] - 1200) ) );
+      trap_SendServerCommand( botGetAimEntityNumber(self), va( "donate \"%i\"\n", (funds - 1200) ) );
       //Cmd_Donate_f( self );
       }
     }
-    */
+    
     //infinite funds cvar
     if(g_bot_infinite_funds.integer == 1)
         G_AddCreditToClient(self->client, HUMAN_MAX_CREDITS, qtrue);
@@ -352,7 +353,7 @@ void G_BotModusManager( gentity_t *self ) {
     int damagedBuildingIndex = botFindDamagedFriendlyStructure(self);
     int medistatIndex = botFindBuilding(self, BA_H_MEDISTAT, BOT_MEDI_RANGE);
     int armouryIndex = botFindBuilding(self, BA_H_ARMOURY, BOT_ARM_RANGE);
-    int reactiontime = g_bot_ping.integer + g_bot_reactiontime.integer
+    int reactiontime = 50 + g_bot_ping.integer + g_bot_reactiontime.integer
         - (self->botMind->botSkill.level * g_bot_reactiontime.integer * 0.01);
     
     //search for a new enemy every so often when not in combat, also gives a random reaction time
@@ -591,7 +592,7 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
         {
             botCmdBuffer->forwardmove = -100; //-100
         }
-        if (self->s.weapon == WP_PAIN_SAW && self->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS && DistanceSquared(self->s.pos.trBase,tmpVec) > Square(300) && getTargetTeam(target) == PTE_ALIENS)
+        if (self->s.weapon == WP_PAIN_SAW && self->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS && DistanceSquared(self->s.pos.trBase,tmpVec) > Square(300) && getTargetType(target) != ET_BUILDABLE)
         {
           if(!(self->client->pers.muted) && (level.time % 25000 == 0))
           {
@@ -941,8 +942,8 @@ void G_BotReactToEnemy(gentity_t *self, usercmd_t *botCmdBuffer) {
             if( ( (DistanceSquared(self->s.pos.trBase, level.nodes[self->botMind->targetNodeID].coord) < Square(200) && self->botMind->botSkill.level > 40 && (self->client->time1000 % 1100 == 0) && g_bot_dodge_jump.integer == 1)
                 || self->botMind->botSkill.level < 20 ) && g_bot_dodge_jump.integer == 1)
                 botCmdBuffer->upmove = 20;
-             else if (self->botMind->botSkill.level > 20)
-             botCmdBuffer->upmove = -1;
+//             else if (self->botMind->botSkill.level > 20)
+//             botCmdBuffer->upmove = -1;
              else
              botCmdBuffer->upmove = 0;
             break;
@@ -1201,7 +1202,9 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                 botCmdBuffer->buttons |= BUTTON_GESTURE; //poor  grangie; taunt like you mean it!
                 break;
             case PCL_ALIEN_LEVEL0:
-                if((distance < Square(390)) && (distance > Square(500)) && (self->client->time1000 % 1800) <= 200 && g_bot_dodge_jump.integer == 1 && self->botMind->botSkill.level > 30)
+                if(( (distance < Square(390)) || (distance > Square(500)) )
+                && (self->client->time1000 % 1800) <= 200 && g_bot_dodge_jump.integer == 1
+                && self->botMind->botSkill.level > 30)
                     botCmdBuffer->upmove = 20; //jump when getting close
                 else if (self->botMind->botSkill.level > 20)
                 botCmdBuffer->upmove = -1;
@@ -1218,11 +1221,12 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                    {
         if (self->botMind->botSkill.level < 70) //high levels have good aim, they can aim and strafe
         {
-		    botCmdBuffer->rightmove = 0; //TODO: Find a way to make them know they're behind the opponent
-		    botCmdBuffer->forwardmove = 0; //low levels need to stop moving forward else they'll slide on the opponent's bbox and end up doing a big spiral around the target
+		      botCmdBuffer->forwardmove = 0; //low levels need to stop moving forward else they'll slide on the opponent's bbox and end up doing a big spiral around the target
+          if(self->botMind->botSkill.level < 50)
+		      botCmdBuffer->rightmove = 0; //TODO: Find a way to make them know they're behind the opponent
 		    }
                    }
-                if(distance < Square(LEVEL1_GRAB_RANGE * 0.2))
+                if(distance < Square(LEVEL1_GRAB_RANGE * 0.5))
                    {
 		    botCmdBuffer->forwardmove = 0;
 //		    botCmdBuffer->rightmove = 0; //To add a degree of variance and to imrove close-range grabs, just dont move
@@ -1236,30 +1240,30 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                 if(distance < Square(LEVEL1_GRAB_RANGE * 0.8))
                    {
                     botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
-		    botCmdBuffer->forwardmove = 0;
+		                botCmdBuffer->forwardmove = 0;
                    }
                 if(distance < Square(LEVEL1_GRAB_RANGE * 0.5))
                    {
-		    botCmdBuffer->forwardmove = 0;
-		    botCmdBuffer->rightmove = 0;
+                    if(self->botMind->botSkill.level < 50)
+		                botCmdBuffer->rightmove = 0;
 		            if (self->client->time1000 % 5000 == 0)
                     botCmdBuffer->buttons |= BUTTON_GESTURE;
                    }
                 break;
             case PCL_ALIEN_LEVEL2:
-                if(((distance < Square(300)) && (distance > Square(400)) && self->client->time1000 % 1500) <= 500)
+                if(( ((distance < Square(300)) || (distance > Square(400)) ) && self->client->time1000 % 1500) <= 500)
                     botCmdBuffer->upmove = 20; //jump when getting close
                 else botCmdBuffer->upmove = 0;
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
                     botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
                 break;
             case PCL_ALIEN_LEVEL2_UPG:
-                if(self->client->time1000 % 1500 <= 700) {
+                if(self->client->time1000 % 2000 <= 1500) {
                     botCmdBuffer->upmove = 20; //jump
                     if (self->client->time1000 % 3000 == 0)
                     botCmdBuffer->buttons |= BUTTON_GESTURE; }
                     else botCmdBuffer->upmove = 0;
-                if(distance <= Square(LEVEL2_CLAW_RANGE)*2.0) //Change this modifier to get it to miss more often
+                if(distance <= Square(LEVEL2_CLAW_RANGE)*2.0)
                     botCmdBuffer->buttons |= BUTTON_ATTACK;
                 else
                     botCmdBuffer->buttons |= BUTTON_ATTACK2; //zap
@@ -1275,7 +1279,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                     botCmdBuffer->buttons |= BUTTON_ATTACK2; //pounce
                 } else {
                     botCmdBuffer->buttons |= BUTTON_ATTACK;
-                    if (self->client->time1000 % 3000 == 0)
+                    if (self->client->time1000 % 5000 == 0)
                     botCmdBuffer->buttons |= BUTTON_GESTURE; }
                 break;
             case PCL_ALIEN_LEVEL3_UPG:
@@ -1292,7 +1296,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                         botCmdBuffer->buttons |= BUTTON_ATTACK2; //pounce
                     }else {
                         botCmdBuffer->buttons |= BUTTON_ATTACK;
-                        if (self->client->time1000 % 3000 == 0)
+                        if (self->client->time1000 % 5000 == 0)
                         botCmdBuffer->buttons |= BUTTON_GESTURE; }
                 }
                 break;
@@ -1305,7 +1309,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                     botCmdBuffer->buttons |= BUTTON_USE_HOLDABLE; //acid bomb
                 else {
                     botCmdBuffer->buttons |= BUTTON_ATTACK;
-                    if (self->client->time1000 % 3000 == 0)
+                    if (self->client->time1000 % 5000 == 0)
                     botCmdBuffer->buttons |= BUTTON_GESTURE; }
                 break;
             default: break; //nothing
@@ -1317,6 +1321,10 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
             if (DistanceSquared( muzzle, targetPos) > Square(LEVEL0_BITE_RANGE) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE) && self->client->time1000 % 3000 <= 300 && g_bot_dodge_jump.integer == 1)
                 botCmdBuffer->upmove = 20; //only jump when too close
+            if (DistanceSquared( muzzle, targetPos) < Square(LEVEL0_BITE_RANGE)
+            && self->client->time1000 % 2000 == 0
+            && (getTargetType(self->botMind->goal) != ET_BUILDABLE) )
+                botCmdBuffer->buttons |= BUTTON_ATTACK2; //use airblast if too close
         }
         ///
        else if(self->client->ps.weapon == WP_MASS_DRIVER)
@@ -1326,7 +1334,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
 
             if (DistanceSquared( muzzle, targetPos) > Square(LEVEL4_CLAW_RANGE * 3) && DistanceSquared( muzzle, targetPos) < Square(LEVEL4_CLAW_RANGE * 3.5) && self->client->time1000 % 1500 <= 800 && g_bot_dodge_jump.integer == 1)
               {
-                botCmdBuffer->upmove = 20; //TODO: g_bot_react_jump
+                botCmdBuffer->upmove = 20;
                 botCmdBuffer->buttons |= BUTTON_GESTURE;
               }
 
@@ -1349,6 +1357,9 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                 botCmdBuffer->buttons |= BUTTON_ATTACK2;
                 self->botMind->isFireing = qtrue;
             }
+            //Jump every so often when too close
+            if (DistanceSquared( muzzle, targetPos) < Square(400) && self->client->time1000 % 4000 == 0 && g_bot_dodge_jump.integer == 1)
+                botCmdBuffer->upmove = 20;
 
         } else if(self->client->ps.weapon == WP_HBUILD || self->client->ps.weapon == WP_HBUILD2) {
             botCmdBuffer->buttons |= BUTTON_ATTACK2;
@@ -1387,7 +1398,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
             )
           {
             BG_ActivateUpgrade(UP_GRENADE,self->client->ps.stats);
-            if( !(self->client->pers.muted))
+            if( !(self->client->pers.muted) && !g_mode_teamkill.integer)
             G_Say(self,NULL, SAY_TEAM, "^2GREEN^8-^1AID ^3DEPLOYED!!!");
           }
       }
@@ -2109,9 +2120,14 @@ void findNewNode( gentity_t *self, usercmd_t *botCmdBuffer) {
         botCmdBuffer->upmove = -1;
         botCmdBuffer->rightmove = 0;
         botCmdBuffer->buttons = 0;
-        botCmdBuffer->buttons = BUTTON_GESTURE; //|=
+        botCmdBuffer->buttons = BUTTON_GESTURE;
         if (self->client->time10000 % 100000 == 0 && !(self->client->pers.muted))
-        G_Say(self,NULL, SAY_TEAM, "Sorry guys, I got Lost. I'll just sit here on guard.");
+        {
+          if(!g_mode_teamkill.integer)
+          G_Say(self,NULL, SAY_TEAM, "Sorry guys, I got Lost. I'll just sit here on guard.");
+          else
+          trap_SendServerCommand( botGetAimEntityNumber(self), "kill" );
+        }
     }
 }
 

@@ -1688,6 +1688,12 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
   if ( mod == MOD_LEVEL4_CHARGE )
     knockback *= LEVEl4_CHARGE_K_COUNTER; //help shove people around
 
+  if ( mod == MOD_AIRBLAST ) {
+//    if(!(g_mode_teamkill.integer && OnSameTeam( targ, attacker ) ) )
+    if (targ == attacker)
+		knockback *= 0;
+	}
+
 
   // figure momentum add, even if the damage won't be taken
   if( knockback && targ->client )
@@ -1745,8 +1751,8 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		damage *= FLAMER_DMG_MOD;
 	}
   if ( mod == MOD_AIRBLAST ) {
-    if(!(g_mode_teamkill.integer && OnSameTeam( targ, attacker ) ) )
-		damage == FLAMER_AIRBLAST_REALDMG; //don't deal damage
+//    if(!(g_mode_teamkill.integer && OnSameTeam( targ, attacker ) ) )
+		damage *= FLAMER_AIRBLAST_REALDMG; //don't deal damage
 	}
 
   if ( mod == MOD_LEVEL3_BOUNCEBALL_SPLASH && (targ->s.eType == ET_BUILDABLE || targ == attacker )) {
@@ -2310,7 +2316,7 @@ qboolean G_RadiusDamage( vec3_t origin, gentity_t *attacker, float damage,
 			if (ent == attacker) { // explosive jumps are same as in normal Q3A
 				dir[2] += 24;
 			}else if ( mod == MOD_AIRBLAST ){
-			  dir[2] += FLAMER_AIRBLAST_UP;
+			  dir[2] += FLAMER_AIRBLAST_UP + 24;
 			} else {
 				dir[2] += 40; //24
 			}
