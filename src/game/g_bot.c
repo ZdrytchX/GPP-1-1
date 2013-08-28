@@ -41,11 +41,11 @@ void G_BotAdd( char *name, int team, int skill ) {
     int clientNum;
     char userinfo[MAX_INFO_STRING];
     int reservedSlots = 0;
-    int levelcolour;
+    //int levelcolour;
     gentity_t *bot;
     //char buffer [33];
     reservedSlots = trap_Cvar_VariableIntegerValue( "sv_privateclients" );
-    
+/* TODO: Why the heck does it return 'skill' instead?
     //Set Skill Level Colour
     if(skill < 35)
     levelcolour = 2; //green
@@ -53,7 +53,7 @@ void G_BotAdd( char *name, int team, int skill ) {
     levelcolour = 3; //yellow
     else if(skill < 80)
     levelcolour = 1; //red
-
+*/
     // find what clientNum to use for bot
     clientNum = -1;
     for( i = 0; i < reservedSlots; i++ ) {
@@ -89,7 +89,8 @@ void G_BotAdd( char *name, int team, int skill ) {
     // register user information
     userinfo[0] = '\0';
     if(g_bot_name_showskill.integer)
-    Info_SetValueForKey( userinfo, "name", va("[^5BOT^7lvl:^%i%003i^7]%s", levelcolour, skill, name) );
+    //Info_SetValueForKey( userinfo, "name", va("[^5BOT^7lvl:^%i%003i^7]%s", levelcolour, skill, name) );
+    Info_SetValueForKey( userinfo, "name", va("[^5BOT^7lvl: %i^7]%s", skill, name) );
     else
     Info_SetValueForKey( userinfo, "name", name );
     Info_SetValueForKey( userinfo, "rate", "25000" );
