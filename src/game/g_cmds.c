@@ -1115,6 +1115,7 @@ void G_Say( gentity_t *ent, gentity_t *target, int mode, const char *chatText )
        * removed for hackyness
        */
        //strcpy(tmptext, chatText);
+       /*
       while ( sscanf( tmptext, "%s %s", strprint, tmptext) > 0 ) {
           
           if( bottext 
@@ -1144,7 +1145,7 @@ void G_Say( gentity_t *ent, gentity_t *target, int mode, const char *chatText )
                   if( player->r.svFlags & SVF_BOT && player->client->ps.stats[STAT_PTEAM] == ent->client->ps.stats[STAT_PTEAM])
                     G_BotCmd(ent, pids[ i ], "defensive");
                 }
-        }/////
+        }*//////
         
       break;
 

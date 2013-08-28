@@ -88,14 +88,14 @@ void G_BotAdd( char *name, int team, int skill ) {
 
     // register user information
     userinfo[0] = '\0';
-    if(g_bot_name_showskill)
-    Info_SetValueForKey( userinfo, "name", va("[^1BOT^7lvl:^%i%03i^7]%s", levelcolour, skill, name) );
+    if(g_bot_name_showskill.integer)
+    Info_SetValueForKey( userinfo, "name", va("[^5BOT^7lvl:^%i%003i^7]%s", levelcolour, skill, name) );
     else
     Info_SetValueForKey( userinfo, "name", name );
     Info_SetValueForKey( userinfo, "rate", "25000" );
     Info_SetValueForKey( userinfo, "snaps", "40" );
     //TODO: Set fake GUID to avoid invalid IP ban
-    if(g_bot_ping.integer && g_bot_ping_unlagged)
+    if(g_bot_ping.integer && g_bot_ping_unlagged.integer)
     Info_SetValueForKey( userinfo, "cg_unlagged", "1" );
     
     //so we can connect if server is password protected
