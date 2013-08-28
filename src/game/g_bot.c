@@ -89,8 +89,8 @@ void G_BotAdd( char *name, int team, int skill ) {
     // register user information
     userinfo[0] = '\0';
     if(g_bot_name_showskill.integer)
-    //Info_SetValueForKey( userinfo, "name", va("[^5BOT^7lvl:^%i%003i^7]%s", levelcolour, skill, name) );
-    Info_SetValueForKey( userinfo, "name", va("[^5BOT^7lvl: %i^7]%s", skill, name) );
+    //Info_SetValueForKey( userinfo, "name", va("[^5lvl:^%i%003i^7]%s", levelcolour, skill, name) );
+    Info_SetValueForKey( userinfo, "name", va("[^5lvl^7: %i^7]%s", skill, name) );
     else
     Info_SetValueForKey( userinfo, "name", name );
     Info_SetValueForKey( userinfo, "rate", "25000" );
