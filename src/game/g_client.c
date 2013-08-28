@@ -1410,16 +1410,22 @@ char *ClientConnect( int clientNum, qboolean firstTime )
   ip[ i ] = '\0';
   if( G_FilterPacket( value ) )
     return "You are banned from this server.";
-
 /*
+  if(ent->r.svFlags & SVF_BOT)
+  {
+    ip[0] == 1; //avoid getting banned
+    Q_strncpyz( client->pers.guid, va("807%05iXXXXXXXXXXXXXXXXXXXXXXXX", ent->client->ps.clientNum),
+      sizeof( client->pers.guid ) );
+  }
+*/
   // check for valid IP address
-  if( ip[0] == 0 || strlen(ip) < 7 )
+  if( (ip[0] == 0 || strlen(ip) < 7) && !(ent->r.svFlags & SVF_BOT))
   {
   G_AdminsPrintf( "Connect from client with invalid IP: '%s' NAME: '%s^7'\n",
   ip, Info_ValueForKey( userinfo, "name" ) );
-  return "Invalid client data";
+  return "Invalid IP";
   }
-*/
+
 
   // check for a password
   value = Info_ValueForKey( userinfo, "password" );

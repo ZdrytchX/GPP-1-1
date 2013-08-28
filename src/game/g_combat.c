@@ -612,7 +612,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 
       //make bot say his line
       if( attacker == self && attacker->r.svFlags & SVF_BOT && !(self->r.svFlags & SVF_BOT) && !(self->client->pers.muted) && g_retribution.integer > -1)
-G_Say(attacker,NULL, SAY_TEAM, "Oops.. Sowwy!/Je suis desole!/Gomenasai!");
+G_Say(attacker,NULL, SAY_TEAM, va("^5Oops.. Sowwy %s^5! Je suis desole! Gomenasai!", self->client->pers.netname));
 
       // Retribution: transfer value of player from attacker to victim
       if(g_retribution.integer) {
@@ -1698,20 +1698,42 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
   // figure momentum add, even if the damage won't be taken
   if( knockback && targ->client )
   {
+    int     upvel = 0;//use int instead of float for speedy calcs
+    float   modder;
     vec3_t  kvel;
     float   mass;
 
     mass = 200;
+    
+    //knockback = damage * class knockback mod
+    modder = g_knockback.value / mass * BG_FindKnockbackScaleForClass( targ->client->ps.stats[ STAT_PCLASS ] );
 
     VectorScale( dir, g_knockback.value * (float)knockback / mass, kvel );
 
 //Special Case for airblast for extra upward velocity
-    if ( mod == MOD_AIRBLAST && targ != attacker 
-      && (!(g_mode_teamkill.integer && OnSameTeam( targ, attacker ) ) )
-      && !(attacker->client->ps.stats[ STAT_STATE ] & SS_GRABBED) ) //safety net for basis
+    switch(mod)
     {
-		  kvel[2] += g_knockback.value * (float)FLAMER_AIRBLAST_UP_K / mass * BG_FindKnockbackScaleForClass( targ->client->ps.stats[ STAT_PCLASS ] );
+    case MOD_AIRBLAST:
+      if( targ != attacker 
+        && (!(g_mode_teamkill.integer && OnSameTeam( targ, attacker ) ) )
+        && !(attacker->client->ps.stats[ STAT_STATE ] & SS_GRABBED) ) //safety net for basis
+      {
+        upvel += (float)FLAMER_AIRBLAST_UP_K;
+      }
+      break;
+    case MOD_LASGUN:
+      if( OnSameTeam( targ, attacker ) ) //allow shafting teammates, but teammates only. Useful when you're stage 1
+      {
+        upvel += LASGUN_K_UP;
+      }
+      break;
+    case MOD_BLASTER: //direct hit only
+      if(g_mode_teamkill.integer)//only in ffa/tk mode - it's OP
+        upvel += BLASTER_K_UP;
+      break;
     }
+
+		kvel[2] += upvel * modder;//add vel
 
     VectorAdd( targ->client->ps.velocity, kvel, targ->client->ps.velocity );
 

@@ -445,6 +445,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BLASTER_CLIPSIZE            6
 #define BLASTER_MAXCLIPS            1 //hacky fix for the lakitu7-qvm modded client, any number will do as long as it isn't 0
 #define BLASTER_INF_AMMO            qtrue //qtrue
+#define BLASTER_K_UP                50//extra upward knockback (direct only)
 
 #define RIFLE_CLIPSIZE              30
 #define RIFLE_MAXCLIPS              6
@@ -453,7 +454,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define RIFLE_RELOAD                2000
 #define RIFLE_PRICE                 0
 #define RIFLE_SPREAD                250//170 -> 250 (unv's value)
-#define RIFLE_DMG                   HDM(5 + VAMP_ON) //'6' seems ok on KoRx, although some australians says even the unv balance is overepowered
+#define RIFLE_DMG                   HDM(5 + VAMP_ON) //'6' seems ok on KoRx, although some australians says even the unv balance is overpowered
 
 #define PAINSAW_PRICE               100
 #define PAINSAW_REPEAT              65  //1.1 was 75
@@ -493,6 +494,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LASGUN_RELOAD               3000
 #define LASGUN_SPREAD               70 //btw, this actually works, don't tweak it any higher or it'll effect gameplay too much
 #define LASGUN_DAMAGE               HDM(9 + VAMP_ON)
+#define LASGUN_K_UP                 50 //upward knockback added - 2.5 k_scale + 50 totals about 812 upward vel, allowing people to make others hover in air when aiming directly under them. This value only applies to teammates.
 
 #define MDRIVER_PRICE               350
 #define MDRIVER_CLIPSIZE            5
@@ -554,7 +556,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define FLAMER_AIRBLAST_PERIOD      100 //period the airblast can exist for
 #define FLAMER_AIRBLAST_SPEED       400//(50 * 1000 / FLAMER_AIRBLAST_PERIOD)//Speed of particle, first number determines the range before the bubble bursts
 #define FLAMER_AIRBLAST_RADIUS      150//Radius of Knockback
-#define FLAMER_AIRBLAST_SIZE        32.0f//(Square) Radius Size of particle
+#define FLAMER_AIRBLAST_SIZE        16.0f//(Square) Radius Size of particle
 
 #define LCANNON_PRICE               600
 #define LCANNON_AMMO                90 + (VAMP_ON * 30)

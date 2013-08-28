@@ -79,9 +79,12 @@ void G_BotAdd( char *name, int team, int skill ) {
 
     // register user information
     userinfo[0] = '\0';
-    Info_SetValueForKey( userinfo, "name", name );
+    Info_SetValueForKey( userinfo, "name", va("[lvl%03i]%s", skill, name) ); //TODO: Bot level does not show up?
     Info_SetValueForKey( userinfo, "rate", "25000" );
     Info_SetValueForKey( userinfo, "snaps", "40" );
+    //TODO: Set fake GUID to avoid invalid IP ban
+    //if()
+    //Info_SetValueForKey( userinfo, "cg_unlagged", "1" );
     
     //so we can connect if server is password protected
     if(g_needpass.integer == 1)

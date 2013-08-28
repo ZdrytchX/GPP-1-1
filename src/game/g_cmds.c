@@ -5225,6 +5225,8 @@ static void Cmd_Ignore_f( gentity_t *ent )
  
    trap_Argv( 1, s, sizeof( s ) );
    value = atoi(s);
+   //ZdrytchX:
+   //TODO if (client number)->r.svFlags & SVF_BOT then set value to 800 if humans or 4 if aliens or something like that. This function being a void type is a pain
    if( value <= 0 ) {
      trap_SendServerCommand( ent-g_entities,
        "print \"donate: Earn some first idiot.\n\"" );

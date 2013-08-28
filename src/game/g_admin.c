@@ -2569,6 +2569,7 @@ qboolean G_admin_loadlayout( gentity_t *ent, int skiparg ) {
 		G_FreeEntity( other );
 	    if(other->r.svFlags & SVF_BOT) 
                 G_BotDel(other->client - level.clients);
+                //TODO: Disconnect them properly
 	}
     }
     
