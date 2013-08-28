@@ -494,7 +494,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LASGUN_RELOAD               3000
 #define LASGUN_SPREAD               70 //btw, this actually works, don't tweak it any higher or it'll effect gameplay too much
 #define LASGUN_DAMAGE               HDM(9 + VAMP_ON)
-#define LASGUN_K_UP                 50 //upward knockback added - 2.5 k_scale + 50 totals about 812 upward vel, allowing people to make others hover in air when aiming directly under them. This value only applies to teammates.
+#define LASGUN_K_UP                 10 //upward knockback added - 2.5 k_scale + 50 totals about 812 upward vel, allowing people to make others hover in air when aiming directly under them. This value only applies to teammates.
 
 #define MDRIVER_PRICE               350
 #define MDRIVER_CLIPSIZE            5
