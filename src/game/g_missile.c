@@ -925,7 +925,7 @@ gentity_t *fire_airBlast( gentity_t *self, vec3_t start, vec3_t dir )
   bolt->think = G_ExplodeMissile;
   bolt->s.eType = ET_MISSILE;
   bolt->r.svFlags = SVF_USE_CURRENT_ORIGIN;
-  bolt->s.weapon = WP_ALEVEL4;
+  bolt->s.weapon = WP_FLAMER;
   bolt->s.generic1 = self->s.generic1;
   bolt->r.ownerNum = self->s.number;
   bolt->parent = self;
@@ -945,7 +945,6 @@ gentity_t *fire_airBlast( gentity_t *self, vec3_t start, vec3_t dir )
   VectorScale( dir, FLAMER_AIRBLAST_SPEED, bolt->s.pos.trDelta );
   SnapVector( bolt->s.pos.trDelta );      // save net bandwidth
   VectorCopy( start, bolt->r.currentOrigin );
-  bolt->s.eFlags |= EF_BOUNCE_HALF;
   return bolt;
 }
 

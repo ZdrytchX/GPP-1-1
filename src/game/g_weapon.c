@@ -734,7 +734,7 @@ void teslaFire( gentity_t *ent )
   trace_t   tr;
   vec3_t    end;
   gentity_t *traceEnt, *tent;
-
+//TODO: Shift muzzle up 10 or so units to the bbox max, and strike over buildables
   VectorMA( muzzle, TESLAGEN_RANGE, forward, end );
 
   trap_Trace( &tr, muzzle, NULL, NULL, end, ent->s.number, MASK_SHOT );

@@ -179,7 +179,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL4_ABLOB_DMG            ADM(200)
 #define LEVEL4_ABLOB_DMG_B          0.6f //damage to buildables modifier
 #define LEVEL4_ABLOB_RADIUS         200 //200 is more than enough to annoy campers
-#define LEVEL4_ABLOB_SPEED          500
+#define LEVEL4_ABLOB_SPEED          500 //carries own speed too
 #define LEVEL4_ABLOB_STUNTIME       1200 //Prevents self from re-attacking immediately
 #define LEVEL4_ABLOB_REGEN          60000//limits bomb rushes
 #define LEVEL4_ABLOB_LIFETIME       10000 //spitbomb lifetime
@@ -494,7 +494,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LASGUN_RELOAD               3000
 #define LASGUN_SPREAD               70 //btw, this actually works, don't tweak it any higher or it'll effect gameplay too much
 #define LASGUN_DAMAGE               HDM(9 + VAMP_ON)
-#define LASGUN_K_UP                 10 //upward knockback added - 2.5 k_scale + 50 totals about 812 upward vel, allowing people to make others hover in air when aiming directly under them. This value only applies to teammates.
+#define LASGUN_K_UP                 10 //upward knockback added - 2.5 k_scale + 10 totals about 812 upward vel, allowing people to make others hover in air when aiming directly under them. This value only applies to teammates.
 
 #define MDRIVER_PRICE               350
 #define MDRIVER_CLIPSIZE            5

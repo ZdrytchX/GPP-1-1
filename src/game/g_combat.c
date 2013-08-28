@@ -1710,7 +1710,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 
     VectorScale( dir, g_knockback.value * (float)knockback / mass, kvel );
 
-//Special Case for airblast for extra upward velocity
+//Special Case for direct hit missiles since they don't project the enemy relative to themselves
     switch(mod)
     {
     case MOD_AIRBLAST:
