@@ -265,11 +265,13 @@ vmCvar_t  g_mode_vampirebuildables_take;
 vmCvar_t  g_bunnyhop;//TODO
 vmCvar_t  g_weapswitchtime;//CANNOT EXIST! (bg/g/cg inteference)
 vmCvar_t  g_blaster_ammoregen;
+vmCvar_t  g_bot_name_showskill;
 vmCvar_t  g_bot_granger;
 vmCvar_t  g_bot_dodge_jump;
 vmCvar_t  g_bot_dodge_crouch;
 vmCvar_t  g_bot_ping;
 vmCvar_t  g_bot_ping_compensate;
+vmCvar_t  g_bot_ping_unlagged;
 vmCvar_t  g_bot_gren;
 vmCvar_t  g_bot_bsuit;
 vmCvar_t  g_bot_gren_buypercent;
@@ -544,6 +546,8 @@ static cvarTable_t   gameCvarTable[ ] =
 //  { &g_bunnyhop,         "g_bunnyhop",                          "0", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },//TODO
   { &g_weapswitchtime,   "g_weapswitchtime","250", /*CVAR_SERVERINFO |*/ CVAR_ARCHIVE,  0, qfalse },//cannot happen, useless var
   { &g_blaster_ammoregen,   "g_blaster_ammoregen",              "1250", CVAR_ARCHIVE,  0, qfalse },
+
+  { &g_bot_name_showskill,   "g_bot_name_showskill",              "1", CVAR_ARCHIVE,  0, qfalse },
   { &g_bot_granger,   "g_bot_granger",                            "0", CVAR_ARCHIVE,  0, qfalse },
   { &g_bot_dodge_jump,   "g_bot_dodge_jump",                      "1", CVAR_ARCHIVE,  1, qfalse },
   { &g_bot_dodge_crouch,   "g_bot_dodge_crouch",                  "1", CVAR_ARCHIVE,  1, qfalse },
@@ -552,6 +556,8 @@ static cvarTable_t   gameCvarTable[ ] =
   //Idea: Use g_bot_ping with unlagged to track back players, THEN aim, then track players to normal position
   //THEN use g_bot_ping_compensate to predict their position.
   { &g_bot_ping_compensate,   "g_bot_ping_compensate",           "70", CVAR_ARCHIVE,  0, qfalse },
+  { &g_bot_ping_unlagged,   "g_bot_ping_unlagged",                "0", CVAR_ARCHIVE,  0, qfalse },
+
   { &g_bot_gren,   "g_bot_gren",                                 "1",  CVAR_ARCHIVE,  0, qfalse },
   { &g_bot_bsuit,  " g_bot_bsuit",                              "0", CVAR_ARCHIVE, 0, qfalse },
   { &g_bot_reactiontime, "g_bot_reactiontime",                  "1500", CVAR_ARCHIVE, 0, qfalse },

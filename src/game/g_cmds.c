@@ -1110,15 +1110,16 @@ void G_Say( gentity_t *ent, gentity_t *target, int mode, const char *chatText )
       else
         color = COLOR_CYAN;
       G_DemoCommand( DC_SERVER_COMMAND, va( "tchat \"%s^%c%s\"", name, color, chatText ) );
+      /////
       /* Bot responding to say code
        * removed for hackyness
        */
        //strcpy(tmptext, chatText);
-     // while ( sscanf( tmptext, "%s %s", strprint, tmptext) > 0 ) {
+      while ( sscanf( tmptext, "%s %s", strprint, tmptext) > 0 ) {
           
-          //if( bottext 
-        //tmptext = chatText;
-        /*if( !Q_stricmpn(tmptext, "follow me", 9) && ent->client->pers.teamSelection != PTE_NONE )
+          if( bottext 
+        tmptext = chatText;
+        if( !Q_stricmpn(tmptext, "follow", 9) && ent->client->pers.teamSelection != PTE_NONE )
         {
             //botname = Com_SkipTokens(tmptext, 2, " ");
             G_SayArgv( 3, botname, sizeof( botname ) );
@@ -1132,7 +1133,7 @@ void G_Say( gentity_t *ent, gentity_t *target, int mode, const char *chatText )
                 G_BotCmd(ent, pids[ i ], "followattack");
             }
         }
-        if( !Q_stricmpn(tmptext, "defend this area", 16) && ent->client->pers.teamSelection != PTE_NONE )
+        if( !Q_stricmpn(tmptext, "defend", 16) && ent->client->pers.teamSelection != PTE_NONE )
         {
             G_SayArgv( 4, botname, sizeof( botname ) );
             botname_s = Q_CleanStr( botname );
@@ -1143,7 +1144,7 @@ void G_Say( gentity_t *ent, gentity_t *target, int mode, const char *chatText )
                   if( player->r.svFlags & SVF_BOT && player->client->ps.stats[STAT_PTEAM] == ent->client->ps.stats[STAT_PTEAM])
                     G_BotCmd(ent, pids[ i ], "defensive");
                 }
-        }*/
+        }/////
         
       break;
 

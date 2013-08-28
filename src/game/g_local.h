@@ -611,7 +611,8 @@ struct gclient_s
 //zdrytchx
   int                 autoregen; //regeneration, variable variable
   int                 blaster_ammoregen;
-  int                 ablobregen;
+  int                 client->ablobregen;
+  int                 jumptime; //for cpm jumps
   
   
   char                *areabits;
@@ -1605,11 +1606,13 @@ extern  vmCvar_t  g_connectedStripPrcnt;
 //ZdrytchX
 extern  vmCvar_t  g_weapswitchtime;
 extern  vmCvar_t  g_blaster_ammoregen;
+extern  vmCvar_t  g_bot_name_showskill;
 extern  vmCvar_t  g_bot_granger;
 extern  vmCvar_t  g_bot_dodge_jump;
 extern  vmCvar_t  g_bot_dodge_crouch;
 extern  vmCvar_t  g_bot_ping;
 extern  vmCvar_t  g_bot_ping_compensate;
+extern  vmCvar_t  g_bot_ping_unlagged;
 extern  vmCvar_t  g_bot_gren;
 extern  vmCvar_t  g_bot_gren_buypercent;
 extern  vmCvar_t  g_bot_gren_buildablesonlypercent;
