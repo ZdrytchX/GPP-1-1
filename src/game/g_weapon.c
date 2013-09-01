@@ -923,22 +923,41 @@ void buildFire( gentity_t *ent, dynMenu_t menu )
       {
         ent->client->ps.stats[ STAT_MISC ] = 0;
       }
+      
       else if( ent->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS && !G_IsOvermindBuilt( ) )
       {
-        ent->client->ps.stats[ STAT_MISC ] +=
-          BG_FindBuildDelayForWeapon( ent->s.weapon ) * 2;
+        ent->client->ps.stats[ STAT_MISC ] += OVERMIND_BT;
+         //BG_FindBuildDelayForWeapon( ent->s.weapon ) * 2;
       }
       else if( ent->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS && !G_IsPowered( muzzle ) &&
           ( ent->client->ps.stats[ STAT_BUILDABLE ] & ~SB_VALID_TOGGLEBIT ) != BA_H_REPEATER ) //hack
       {
-        ent->client->ps.stats[ STAT_MISC ] +=
-          BG_FindBuildDelayForWeapon( ent->s.weapon ) * 2;
+        ent->client->ps.stats[ STAT_MISC ] += REACTOR_BT;
+          //BG_FindBuildDelayForWeapon( ent->s.weapon ) * 2;
       }
+
       else
         ent->client->ps.stats[ STAT_MISC ] +=
           BG_FindBuildDelayForWeapon( ent->s.weapon );
-
+//Reset stat
       ent->client->ps.stats[ STAT_BUILDABLE ] = BA_NONE;
+      
+      /*
+      //TODO: ZdrytchX: Something wrong here... BG_FindBuildTimeForBuildable(ent->client->ps.stats [stat_buildable]) returns same value for every buildable?
+      else if( ent->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
+      {
+        //float modifier = ABUILDER_ADV_DELAY / BG_FindBuildDelayForWeapon( ent->s.weapon );
+        ent->client->ps.stats[ STAT_MISC ] += 
+          BG_FindBuildTimeForBuildable( ent->client->ps.stats[ STAT_BUILDABLE ] ); //* modifier + ABUILDER_BUILD_EXTRA;
+      }
+      else if( ent->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS )
+      {
+        //float modifier = HBUILD2_DELAY / BG_FindBuildDelayForWeapon( ent->s.weapon );
+        ent->client->ps.stats[ STAT_MISC ] += 
+          BG_FindBuildTimeForBuildable( ent->client->ps.stats[ STAT_BUILDABLE ] ); //* modifier + HBUILD_EXTRA;
+      }
+      */
+
 
       // don't want it bigger than 32k
       if( ent->client->ps.stats[ STAT_MISC ] > 30000 )

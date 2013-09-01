@@ -41,19 +41,9 @@ void G_BotAdd( char *name, int team, int skill ) {
     int clientNum;
     char userinfo[MAX_INFO_STRING];
     int reservedSlots = 0;
-    //int levelcolour;
     gentity_t *bot;
     //char buffer [33];
     reservedSlots = trap_Cvar_VariableIntegerValue( "sv_privateclients" );
-/* TODO: Why the heck does it return 'skill' instead?
-    //Set Skill Level Colour
-    if(skill < 35)
-    levelcolour = 2; //green
-    else if(skill < 80)
-    levelcolour = 3; //yellow
-    else if(skill < 80)
-    levelcolour = 1; //red
-*/
     // find what clientNum to use for bot
     clientNum = -1;
     for( i = 0; i < reservedSlots; i++ ) {
@@ -84,33 +74,41 @@ void G_BotAdd( char *name, int team, int skill ) {
     
     setSkill(bot, skill);
 
-    
 
     // register user information
     userinfo[0] = '\0';
-    if(g_bot_name_showskill.integer)
-    //Info_SetValueForKey( userinfo, "name", va("[^5lvl:^%i%003i^7]%s", levelcolour, skill, name) );
-    Info_SetValueForKey( userinfo, "name", va("[^5lvl^7: %i^7]%s", skill, name) );
+    if(g_bot_name_showskill.integer);
+      Info_SetValueForKey( userinfo, "name", va("[^5lvl^7:%i^7]%s", skill, name) );
     else
-    Info_SetValueForKey( userinfo, "name", name );
+      Info_SetValueForKey( userinfo, "name", name );
+
     Info_SetValueForKey( userinfo, "rate", "25000" );
     Info_SetValueForKey( userinfo, "snaps", "40" );
-    //TODO: Set fake GUID to avoid invalid IP ban
+    //TODO: Set unique fake GUID to avoid invalid IP ban
     if(g_bot_ping.integer && g_bot_ping_unlagged.integer)
     Info_SetValueForKey( userinfo, "cg_unlagged", "1" );
+    else
+    Info_SetValueForKey( userinfo, "cg_unlagged", "0" );
     
     //so we can connect if server is password protected
     if(g_needpass.integer == 1)
       Info_SetValueForKey( userinfo, "password", g_password.string);
     
     trap_SetUserinfo( clientNum, userinfo );
-    //zdrytchx: is this the cause for taking both a sv_maxclient and sv_private client slot?
     // have it connect to the game as a normal client
     if(ClientConnect(clientNum, qtrue) != NULL )
         // won't let us join
         return;
 
     ClientBegin( clientNum );
+
+//Greeting Message - blocked out because they spam !bot add instead :/
+/*
+    if(level.time % 20 > 10)
+    G_Say(bot, NULL, SAY_ALL, "Hello");
+    else
+    G_Say(bot, NULL, SAY_ALL, "Hi");
+*/
     G_ChangeTeam( bot, team );
 }
 
@@ -125,6 +123,7 @@ void G_BotDel( int clientNum ) {
 
     ClientDisconnect(clientNum);
     //trap_BotFreeClient(clientNum);
+     //TODO: Disconnect them properly
 }
 
 void G_BotCmd( gentity_t *master, int clientNum, char *command) {
@@ -180,6 +179,7 @@ qboolean botShouldJump(gentity_t *self) {
         return qfalse;
 
 }
+//ZdrytchX: Use a similar method to stop bots from running off the edge of slopes?
 int getStrafeDirection(gentity_t *self) {
     
     trace_t traceRight,traceLeft;
@@ -188,12 +188,12 @@ int getStrafeDirection(gentity_t *self) {
     vec3_t mins,maxs;
     vec3_t forward,right;
     vec3_t endRight,endLeft;
-    
+
     int strafe;
     BG_FindBBoxForClass( self->client->ps.stats[STAT_PCLASS], mins, maxs, NULL, NULL, NULL);
     AngleVectors( self->client->ps.viewangles,forward , right, NULL);
-    
-    
+
+
     VectorScale(right, maxs[1], right);
     
     VectorAdd( self->s.origin, right, startRight );
@@ -258,7 +258,8 @@ qboolean botPathIsBlocked(gentity_t *self) {
     }
     else //shut the compiler up
             blockerTeam = PTE_NONE;
-    if( trace.fraction == 1.0f || trace.entityNum == ENTITYNUM_WORLD || blockerTeam != self->client->ps.stats[STAT_PTEAM] )//hitting nothing? (world doesnt count)
+            //Testing if world can be avoided, without the feet being disrupted
+    if( trace.fraction == 1.0f /*|| trace.entityNum == ENTITYNUM_WORLD*/ || blockerTeam != self->client->ps.stats[STAT_PTEAM] )//hitting nothing? (world doesnt count)
             return qfalse;
     else
         return qtrue;
@@ -280,7 +281,8 @@ void G_BotThink( gentity_t *self) {
     //while others on the same team can't use teamstatus since they cannot obtain the flag.
     //A possible way to achieve this is using client numbers but things can get a bit fishy (i.e. !restart)
     if( !(self->client->pers.muted) && (self->client->time100 % (21000 + ((int)(100 * rand()) % 10000)/100) <= 25) && g_teamStatus.integer && !g_mode_teamkill.integer)
-    Cmd_TeamStatus_f( self );
+//    Cmd_TeamStatus_f( self );
+      trap_SendServerCommand( botGetAimEntityNumber(self), "teamstatus" );
     //TODO: warning: implicit declaration of function ‘Cmd_TeamStatus_f’
 
 
@@ -612,9 +614,9 @@ void G_BotGoto(gentity_t *self, botTarget_t target, usercmd_t *botCmdBuffer) {
         {
           if(!(self->client->pers.muted) && (level.time % 25000 == 0))
           {
-            if (self->client->time1000 % 6000 > 3000)
-          G_Say(self,NULL, SAY_ALL, "STAHP RUNNIN' AWAY!");
-            else G_Say(self,NULL, SAY_ALL, "^5BZZZZT!! ^1FEAR MY ^3PEE-^5SAW^2! MUAHAHAHAHA!!");
+            if (self->client->time1000 % 600 > 300)
+          G_Say(self,NULL, SAY_ALL, "STAHP RUNNIN' AWAY YOU WUSS!");
+            else G_Say(self,NULL, SAY_ALL, "^5BZZZZT!! ^3FEAR MY ^5PEE-SAW^2! ^1MUAHAHAHAHA!!");
           }
         }
 /* //TODO: dunno whats wrong

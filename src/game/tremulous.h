@@ -44,8 +44,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define ABUILDER_BASE_CLAW_REPEAT   1000
 #define ABUILDER_CLAW_REPEAT        900
 #define ABUILDER_CLAW_K_SCALE       0.0f
-#define ABUILDER_BASE_DELAY         15000 //17000
+
+
+#define ABUILDER_BASE_DELAY         15000
 #define ABUILDER_ADV_DELAY          12000
+//Added raw value to build timer, total build time must not be smaller than 0
+//#define ABUILDER_BUILD_EXTRA        -2000
 
 #define ABUILDER_BLOB_DMG           ADM(4)
 #define ABUILDER_BLOB_SPLASH_DMG    ADM(4)
@@ -585,12 +589,16 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define HBUILD_PRICE                0
 #define HBUILD_REPEAT               1000 //1000
-#define HBUILD_DELAY                17500 //17500
 #define HBUILD_HEALRATE             18
 
 #define HBUILD2_PRICE               0
 #define HBUILD2_REPEAT              800 //1000
-#define HBUILD2_DELAY               15000 //15000
+
+#define HBUILD_DELAY                17500
+#define HBUILD2_DELAY               15000
+//Added raw value to build timer, total build time must not be smaller than 0
+//#define HBUILD_EXTRA        1000
+
 
 
 /*
@@ -690,7 +698,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define MGTURRET_FIRE_DIRECT_SPEED  0.2
 
 #define MGTURRET_BP                 8
-#define MGTURRET_BT                 10000
+#define MGTURRET_BT                 15000
 #define MGTURRET_HEALTH             HBHM(190 + (VAMP_ON * 20))
 #define MGTURRET_SPLASHDAMAGE       50
 #define MGTURRET_SPLASHRADIUS       100
