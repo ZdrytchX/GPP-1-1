@@ -560,7 +560,7 @@ static cvarTable_t   gameCvarTable[ ] =
 
   { &g_bot_gren,   "g_bot_gren",                                 "1",  CVAR_ARCHIVE,  0, qfalse },
   { &g_bot_bsuit,  " g_bot_bsuit",                              "0", CVAR_ARCHIVE, 0, qfalse },
-  { &g_bot_reactiontime, "g_bot_reactiontime",                  "1500", CVAR_ARCHIVE, 0, qfalse },
+  { &g_bot_reactiontime, "g_bot_reactiontime",                  "800", CVAR_ARCHIVE, 0, qfalse },
   { &g_bot_gren_buypercent, "g_bot_gren_buypercent",             "20",           CVAR_ARCHIVE,  0, qfalse },
   { &g_bot_gren_buildablesonlypercent, "g_bot_gren_buildablesonlypercent", "20",  CVAR_ARCHIVE, 0, qfalse },
   { &g_teamStatus, "g_teamStatus",                               "1", CVAR_ARCHIVE, 0, qfalse },
