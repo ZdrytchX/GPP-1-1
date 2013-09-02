@@ -2286,12 +2286,12 @@ static void PM_GroundTrace( void )
   VectorCopy( refNormal, pm->ps->grapplePoint );
 
   // if the trace didn't hit anything, we are in free fall
-  if( trace.fraction == 1.0f && pm->ps->persistant[PERS_JUMPTIME] == 0 )
+  if( trace.fraction == 1.0f )
   {
     qboolean  steppedDown = qfalse;
 
     // try to step down
-    if( pml.groundPlane != qfalse && PM_PredictStepMove( ) )
+    if( pml.groundPlane != qfalse && PM_PredictStepMove( ) && pm->ps->persistant[PERS_JUMPTIME] == 0 )
     {
       //step down
       point[ 0 ] = pm->ps->origin[ 0 ];
