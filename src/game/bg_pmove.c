@@ -2286,7 +2286,7 @@ static void PM_GroundTrace( void )
   VectorCopy( refNormal, pm->ps->grapplePoint );
 
   // if the trace didn't hit anything, we are in free fall
-  if( trace.fraction == 1.0f )
+  if( trace.fraction == 1.0f && pm->ps->persistant[PERS_JUMPTIME] == 0 )
   {
     qboolean  steppedDown = qfalse;
 
