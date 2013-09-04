@@ -733,16 +733,9 @@ static qboolean PM_CheckWallJump( void )
   if( VectorLength( pm->ps->velocity ) > LEVEL2_WALLJUMP_MAXSPEED && pm->ps->grapplePoint[ 2 ] >= 0.5f ) //only if it's  wall (ground = o.k.) //TODO add a cvar
   {
     VectorNormalize( pm->ps->velocity );
-    VectorScale( pm->ps->velocity, (LEVEL2_WALLJUMP_MAXSPEED + ( (VectorLength( pm->ps->velocity ) - LEVEL2_WALLJUMP_MAXSPEED)/3 )), pm->ps->velocity );
+    VectorScale( pm->ps->velocity, (LEVEL2_WALLJUMP_MAXSPEED + ( (float)(VectorLength( pm->ps->velocity ) - LEVEL2_WALLJUMP_MAXSPEED)/3 )), pm->ps->velocity );
     /*
 //TODO: Make the "hard" limit 'sqrt(speed^2 − LEVEL2_WALLJUMP_MAXSPEED^2)' but sqrt() doesn't accept
-    if(pm->ps->stats[ STAT_STAMINA ] > STAMINA_MIN_TO_JUMP || pm->ps->stats[ STAT_PTEAM ] == PTE_ALIENS )
-		  if (cpm_pm_jump_z) {
-			  if (pm->ps->persistant[PERS_JUMPTIME] > 0) {
-				pm->ps->velocity[2] += (cpm_pm_jump_z * BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ])); // BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ]);
-			  }
-			  pm->ps->persistant[PERS_JUMPTIME] = 400;
-	    }
 	  */
   }
 
@@ -784,7 +777,8 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
     return qfalse;
   }
 //TODO: A way to fix mara's normal jump restriction is by making walljump only exec'd when surface is un-jump-able
-  if( BG_ClassHasAbility( pm->ps->stats[ STAT_PCLASS ], SCA_WALLJUMPER ) )
+  if( BG_ClassHasAbility( pm->ps->stats[ STAT_PCLASS ], SCA_WALLJUMPER )
+ /* && !pml.groundPlane && !pml.walking*/ )
     return PM_CheckWallJump( );
 
   //can't jump and pounce at the same time
@@ -1227,7 +1221,6 @@ static void PM_AirMove( void )
 //  }
 //  if(CPM_ON)
 //  {
-	// CPM: Air control
 	  //Allow All-Around Sharp Strafes if pm_q1strafe is true
 		if ((pm->ps->movementDir == 2 || pm->ps->movementDir == 6) || pm_q1strafe == qtrue )
 	{
@@ -1240,6 +1233,7 @@ static void PM_AirMove( void )
 		}
 	}
 	
+	// CPM: Air control
 	if (cpm_pm_aircontrol)
 		CPM_PM_Aircontrol(pm, wishdir, wishspeed2);
 //	}
@@ -1343,7 +1337,7 @@ static void PM_ClimbMove( void )
       {
     accelerate = BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
     PM_Accelerate( wishdir, wishspeed, accelerate );
-//      PM_AirMove( );
+    //PM_AirMove( );
       }
   else {
     accelerate = BG_FindAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
@@ -1464,16 +1458,63 @@ static void PM_WalkMove( void )
   // full control, which allows them to be moved a bit
   if( ( pml.groundTrace.surfaceFlags & SURF_SLICK ) || pm->ps->pm_flags & PMF_TIME_KNOCKBACK )
       {
-//    accelerate = BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
-      PM_AirMove( );
+    //accelerate = BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
+    //PM_Accelerate( wishdir, wishspeed, accelerate );
+    //PM_AirMove( );
+
+  //Temp. Copy+Paste from PM_Airmove()
+  float		accel; // CPM
+	float		wishspeed2; // CPM
+	float   velscale;//classes
+	
+  velscale = BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
+  wishspeed2 = wishspeed;
+	pm_bunnyhopspeedcap *= velscale;
+	pm_bunnyhopaccel    *= velscale;
+
+	if (DotProduct(pm->ps->velocity, wishdir) < 0 && (pm_airaccelerate * velscale) < cpm_pm_airstopaccelerate )
+		accel = cpm_pm_airstopaccelerate;
+	else
+		accel = pm_airaccelerate * velscale;	
+	//allow standard half-beat strafe jumping if pm_q3strafe is true
+	if( !pm_q3strafe && pm_q1strafe )
+	{
+  	wishspeed = cpm_pm_wishspeed;	
+  	accel *= cpm_pm_strafeaccelerate;
+	}
+
+	if (wishspeed < pm_bunnyhopspeedcap
+     && wishspeed <= DotProduct(pm->ps->velocity, wishdir)
+     && DotProduct(pm->ps->velocity, wishdir) < pm_bunnyhopspeedcap)
+	{
+	  float scaler = (DotProduct(pm->ps->velocity, wishdir) - velscale * 320.000)
+		/(pm_bunnyhopspeedcap - velscale * 320.000);
+		wishspeed = pm_bunnyhopspeedcap;	
+		accel = pm_bunnyhopaccel - (pm_bunnyhopaccel * scaler);
+	}
+	
+	PM_Accelerate(wishdir, wishspeed, accel );
+
+	  //Allow All-Around Sharp Strafes if pm_q1strafe is true
+		if ((pm->ps->movementDir == 2 || pm->ps->movementDir == 6) || pm_q1strafe == qtrue )
+	{
+	  //allow standard half-beat strafe jumping if pm_q3strafe is true
+		if (wishspeed > cpm_pm_wishspeed && !(DotProduct(pm->ps->velocity, wishdir) > cpm_pm_wishspeed) )
+		{
+	  wishspeed = cpm_pm_wishspeed * velscale;	
+		accel = cpm_pm_strafeaccelerate * velscale;
+		PM_Accelerate (wishdir, wishspeed, accel); //Re-exec'd - dodgy but should work
+		}
+	}
+//Air Control
+	if (cpm_pm_aircontrol)
+		CPM_PM_Aircontrol(pm, wishdir, wishspeed2);
+		//End Copy + Paste
       }
   else {
     accelerate = BG_FindAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
     PM_Accelerate( wishdir, wishspeed, accelerate );
     }
-
-  //Com_Printf("velocity = %1.1f %1.1f %1.1f\n", pm->ps->velocity[0], pm->ps->velocity[1], pm->ps->velocity[2]);
-  //Com_Printf("velocity1 = %1.1f\n", VectorLength(pm->ps->velocity));
 
   if( ( pml.groundTrace.surfaceFlags & SURF_SLICK ) || pm->ps->pm_flags & PMF_TIME_KNOCKBACK )
     pm->ps->velocity[ 2 ] -= pm->ps->gravity * pml.frametime;
