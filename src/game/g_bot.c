@@ -1321,7 +1321,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
             case PCL_ALIEN_LEVEL4:
                 if (distance > Square(LEVEL4_CLAW_RANGE * 3 ))
                     botCmdBuffer->buttons |= BUTTON_ATTACK2; //charge
-                if (distance > Square(LEVEL4_CLAW_RANGE * 2.5)
+                if (distance > Square(LEVEL4_CLAW_RANGE * 1.5)
                     && (distance < Square(LEVEL4_CLAW_RANGE * 3) )
                     && self->client->ps.ammo[ WP_ALEVEL4 ] > 0 )
                     botCmdBuffer->buttons |= BUTTON_USE_HOLDABLE; //acid bomb

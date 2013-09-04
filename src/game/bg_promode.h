@@ -14,6 +14,7 @@ extern float  cpm_pm_jump_z;
 extern float  pm_jumpheight;//height at which one jumps at if stamina < allowable
 extern float  pm_jumpmag;
 // Physics
+extern float	cpm_pm_cliptime;
 extern float	cpm_pm_airstopaccelerate;
 extern float	cpm_pm_aircontrol;
 extern float	cpm_pm_strafeaccelerate;

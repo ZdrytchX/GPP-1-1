@@ -265,6 +265,9 @@ static void PM_Friction( void )
     vel[ 0 ] = 0;
     vel[ 1 ] = 0;   // allow sinking underwater
     // FIXME: still have z friction underwater?
+    //ZdrytchX: A quick-fix for drifting spectator/jetpack
+    if( pm->ps->pm_type == (PM_SPECTATOR || PM_JETPACK) )
+    vel[ 2 ] = 0;
     return;
   }
 
@@ -287,7 +290,7 @@ static void PM_Friction( void )
       if( ( pml.walking || pml.ladder ) && !( pml.groundTrace.surfaceFlags & SURF_SLICK ) &&
       //Sry, wallwalk's fucked now - it limits jumping. TODO
            (
-           sqrt( pm->ps->velocity[ 0 ] * pm->ps->velocity[ 0 ] + pm->ps->velocity[ 1 ] * pm->ps->velocity[ 1 ] ) 
+           sqrt( pm->ps->velocity[ 0 ] * pm->ps->velocity[ 1 ] ) 
            > 
            pm_groundspeedcap * BG_FindSpeedForClass( pm->ps->stats[ STAT_PCLASS ] )
            ) && pm_groundspeedcap != 0
@@ -845,6 +848,7 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
 				jumpvel += (cpm_pm_jump_z * BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ]));
 			}
 			pm->ps->persistant[PERS_JUMPTIME] = 400;
+			pm->ps->pm_time = cpm_pm_cliptime; //clip through walls
 	  }
 //only NOW you jump.
   if( pm->ps->stats[ STAT_STATE ] & SS_WALLCLIMBING )
@@ -1214,7 +1218,7 @@ static void PM_AirMove( void )
 
 //  }
 //	}
-	// !CPM
+// !CPM
 //  else
 //  {
   // not on ground, so little effect on velocity
@@ -1239,7 +1243,7 @@ static void PM_AirMove( void )
 	if (cpm_pm_aircontrol)
 		CPM_PM_Aircontrol(pm, wishdir, wishspeed2);
 //	}
-	// !CPM
+//end CPM
   // we may have a ground plane that is very steep, even
   // though we don't have a groundentity
   // slide along the steep plane
@@ -1338,6 +1342,7 @@ static void PM_ClimbMove( void )
   if( ( pml.groundTrace.surfaceFlags & SURF_SLICK ) || pm->ps->pm_flags & PMF_TIME_KNOCKBACK )
       {
     accelerate = BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] );
+    PM_Accelerate( wishdir, wishspeed, accelerate );
 //      PM_AirMove( );
       }
   else {
@@ -2290,8 +2295,8 @@ static void PM_GroundTrace( void )
   {
     qboolean  steppedDown = qfalse;
 
-    // try to step down
-    if( pml.groundPlane != qfalse && PM_PredictStepMove( ) && pm->ps->persistant[PERS_JUMPTIME] == 0 )
+    // try to step down, but don't step down if going up
+    if( pml.groundPlane != qfalse && PM_PredictStepMove( ) && pm->ps->velocity[ 2 ] <= 0.0f )
     {
       //step down
       point[ 0 ] = pm->ps->origin[ 0 ];
@@ -3799,11 +3804,8 @@ void PmoveSingle( pmove_t *pmove )
   
 //  if(CPM_ON){
   // CPM: Double-jump timer
-		if (pm->ps->persistant[PERS_JUMPTIME] > 0) pm->ps->persistant[PERS_JUMPTIME] -= pml.msec;
-		/*
-    if (pm->ps->jumptime > 0) //uhh
-    pm->ps->jumptime -= pml.msec;
-    */
+  if (pm->ps->persistant[PERS_JUMPTIME] > 0)
+		pm->ps->persistant[PERS_JUMPTIME] -= pml.msec;
 	// !CPM
 
   if( pm->ps->pm_type == PM_JETPACK )

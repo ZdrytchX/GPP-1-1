@@ -40,11 +40,16 @@ from the above URL to add ProMode physics to this mod, GPP-1.1 Arena.
 *************************Pre-Made Physics Modes:*************************
 
 ProMode [Q3]  - "the old" 2001 CPMA original settings (The "new" CPM source has never been released at
-  the point this was written). It is also known as CPMA, or Challenge ProMode Arena.
+  the point this was written). It is also known as CPMA, or Challenge ProMode Arena. The cliptime is
+  unconfirmed.
   
-Vanilla Trem [ioQ3]- Normal Tremulous of course, although I'm not sure where the '400' came from.
+Vanilla Trem [ioQ3]- Normal Tremulous of course. The '400 wishspeed' is actually just means it'll
+  accelerate up to 400 ups if possible for the class. I increased to 500 because dretch uses 448.
+  The actual cliptime for VQ3 physics is unconfirmed but it appears to be patched out of tremulous.
 
-ProTrem - my own personal setting. A.K.A. GPP-1.1 Arena's default
+ProTrem - my own personal setting. A.K.A. GPP-1.1 Arena's default. The reason why I chose to have
+  a smaller cliptime is because marauder already has its own cliptime of 200 msec. It'll be hard
+  to get used to both 400 and 200 msec at once.
 
 QuakeWorld [Q1, slightly modded] - Quake 1 physics, QuakeWorld style. No step-up in mid air, but
   QuakeWorld's modified physics allows ramp jumping and ramp sliding. Identical to TFC's physics,
@@ -65,6 +70,9 @@ WarSow*^ [???]  - Not Sure, but it's from a Q2 mod. Gameplay is pretty much CPM 
   fantastic "noodle" lightning gun which they trashed out with the ammo strengths system. :'/
   WarSow's famous for their cartoon graphics AFAIK.
   I actually got the WarSow config data from Xonotic's pre-made settings that simulate WarSow physics.
+  Note that the cliptime for WarSow is only for bunnyhopping up stairs judging from sound repeat rates.
+  Doesn't apply for walls. It may actually not be an actual velocity clip because WarSow already has bhop
+  so just put this as 0 when setting up WarSow settings.
   
 Newbie's Physics - Just another one of my personal settings, comes with all-directional super strong air
   control, in other words you can pretty much make a fake WarSow dash in air with this since there's no
@@ -72,7 +80,8 @@ Newbie's Physics - Just another one of my personal settings, comes with all-dire
   strafe jump.
 
 *TODO: Air Control Penalty (Makes the player slow down if they turn too fast
-^TODO: Ramp Sliding - when a player goes up a ramp faster than their jump speed, they would slide
+^TODO: Ramp Sliding - when a player goes up a ramp faster than their jump speed, they would slide.
+  I could try clipping velocity without any friction or ground acceleration.
 =========================================================================================================
 */
 
@@ -86,13 +95,15 @@ float pm_jumpmag = 1.00;
 //|Challenge| Vanilla | ProTrem |Source - Team|  Team Fortress  | XONOTIC-ish | WarSow 0.42  |Newbie's|
 //| ProMode |  Trem   |(GPP-1.1)|Fortress 2   |Classic (GoldSrc)|   0.6       |(Bhop Classic)|Physics |
 //|---------+---------+---------+-------------+-----------------+-------------+--------------+--------|
+//| 400?    | 0       | 200     |0            | 0               | 0           | 0            | 0      |
+//|(Unconf.)|         |         |             |                 |             | (400 stairs) | 0      |
 //| 2.5     | 1       | 2.5     |1            | 1               | 3           | 2.5          | 9      |
 //| 150     | 0       | 165     |0            | 0               | 250(125 * 2)| 300 //150 * 2| 9999   |
 //| 1       | 1       | 0.8     |1            | 1               | 1           | 1            | 1      |
 //| qfalse  | qfalse  | qtrue   |qfalse       | qfalse          | qtrue       | qtrue        | qfalse |
 //| 70      | 1       | 70      |150          | 1000            | 100         | 70           | 9      |
 //|                                                 Query: What is sv_stopspeed 100? (xonotic configs)|
-//| 30      | 450     | 30      |30           | 30 //Don't know | 24          | 30           | 10     |
+//| 30      | 500     | 30      |30           | 30 //Don't know | 24          | 30           | 10     |
 //| 0.370370| 0       | 0.5     |0            | 0               | 0           | 0.37037037037| 0      |
 //|---------+---------+---------+-------------+-----------------+-------------+--------------+--------|
 //| qfalse  | qfalse  | qtrue   |qfalse       | qfalse          | qtrue       | qtrue        | qtrue  |
@@ -113,6 +124,7 @@ float pm_jumpmag = 1.00;
 //| 0       | 0       | 0       |320          | 0               | 0           | 0            | 0      |
 //'---------'---------'---------'-------------'-----------------'-------------'--------------'--------'
 // Physics Initiation
+float	cpm_pm_cliptime = 200; //A very buggy exploit of vq3 is reimplemented with this.
 float	cpm_pm_airstopaccelerate = 2.5;
 float	cpm_pm_aircontrol = 165; 
 float cpm_pm_aircontrolmod = 0.8;
