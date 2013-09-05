@@ -1251,7 +1251,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                    }
                 break;
             case PCL_ALIEN_LEVEL1_UPG:
-                if(distance <= Square(LEVEL1_CLAW_RANGE * 2))
+                if(distance <= Square(LEVEL1_CLAW_RANGE * 3))
                     botCmdBuffer->buttons |= BUTTON_ATTACK;
                 else
                     botCmdBuffer->buttons |= BUTTON_ATTACK2; //gas

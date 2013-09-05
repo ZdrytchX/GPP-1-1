@@ -1727,17 +1727,18 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
     case MOD_LASGUN:
       if( OnSameTeam( targ, attacker ) ) //allow shafting teammates, but teammates only. Useful when you're stage 1
       {
-        //hackery so when shooting down on them, they don't get any lift from blaster and applies normal knockback
-        float kvelup = (1 / LASGUN_K_UP) * kvel[ 2 ] * kvel[ 2 ];
+      //Always lift with same value unless aiming down on enemy
+        float kvelup = sqrt(LASGUN_K_UP) * sqrt(kvel[ 2 ]);
         if(kvelup > 100)
           kvelup = 100;
-        upvel += LASGUN_K_UP - kvelup;
+        upvel += LASGUN_K_UP - kvelup * kvelup;
       }
       break;
     case MOD_BLASTER: //direct hit only
       if( kvel[ 2 ] < BLASTER_K_UP
         &&(g_mode_teamkill.integer || OnSameTeam( targ, attacker )) )//only in ffa/tk mode or against teammates
         {
+        //hackery so they only lift when shot straight-on (meaning aiming up 20 degrees gives little extra vel)
         float kvelup = (1 / BLASTER_K_UP) * kvel[ 2 ] * kvel[ 2 ];
         if(kvelup > 100)
           kvelup = 100;
