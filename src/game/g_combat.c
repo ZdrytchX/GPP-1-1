@@ -1720,6 +1720,8 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
       {
         if( targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL0 )
         upvel += damage / FLAMER_AIRBLAST_DMG * FLAMER_AIRBLAST_UP_K_LVL0;
+        else if ( OnSameTeam( targ, attacker ) )
+        upvel += FLAMER_AIRBLAST_UP_K; //always provide same upward force from airblast to humans
         else
         upvel += damage / FLAMER_AIRBLAST_DMG * FLAMER_AIRBLAST_UP_K;
       }
