@@ -886,7 +886,7 @@ gentity_t *fire_bounceBall( gentity_t *self, vec3_t start, vec3_t dir )
   bolt->r.ownerNum = self->s.number;
   bolt->parent = self;
   bolt->damage = LEVEL3_BOUNCEBALL_DMG;
-  bolt->splashDamage = LEVEL3_BOUNCEBALL_SPLASH_DMG; //KABOOM!
+  bolt->splashDamage = LEVEL3_BOUNCEBALL_DMG; //KABOOM!
   bolt->splashRadius = LEVEL3_BOUNCEBALL_SPLASH_RADIUS; //raise this higher for acid bombs! (not recommended as it can sometimes be overpowering... unless you decreased ammo to 1
   bolt->methodOfDeath = MOD_LEVEL3_BOUNCEBALL;
   bolt->splashMethodOfDeath = MOD_LEVEL3_BOUNCEBALL_SPLASH;

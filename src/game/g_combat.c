@@ -1718,18 +1718,31 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
         && (!(g_mode_teamkill.integer && OnSameTeam( targ, attacker ) ) )
         && !(attacker->client->ps.stats[ STAT_STATE ] & SS_GRABBED) ) //safety net for basis
       {
-        upvel += (float)FLAMER_AIRBLAST_UP_K;
+        if( targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL0 )
+        upvel += damage / FLAMER_AIRBLAST_DMG * FLAMER_AIRBLAST_UP_K_LVL0;
+        else
+        upvel += damage / FLAMER_AIRBLAST_DMG * FLAMER_AIRBLAST_UP_K;
       }
       break;
     case MOD_LASGUN:
       if( OnSameTeam( targ, attacker ) ) //allow shafting teammates, but teammates only. Useful when you're stage 1
       {
-        upvel += LASGUN_K_UP;
+        //hackery so when shooting down on them, they don't get any lift from blaster and applies normal knockback
+        float kvelup = (1 / LASGUN_K_UP) * kvel[ 2 ] * kvel[ 2 ];
+        if(kvelup > 100)
+          kvelup = 100;
+        upvel += LASGUN_K_UP - kvelup;
       }
       break;
     case MOD_BLASTER: //direct hit only
-      if(g_mode_teamkill.integer)//only in ffa/tk mode - it's OP
-        upvel += BLASTER_K_UP;
+      if( kvel[ 2 ] < BLASTER_K_UP
+        &&(g_mode_teamkill.integer || OnSameTeam( targ, attacker )) )//only in ffa/tk mode or against teammates
+        {
+        float kvelup = (1 / BLASTER_K_UP) * kvel[ 2 ] * kvel[ 2 ];
+        if(kvelup > 100)
+          kvelup = 100;
+        upvel += BLASTER_K_UP - kvelup;
+        }
       break;
     }
 
@@ -1777,6 +1790,8 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		damage *= FLAMER_AIRBLAST_REALDMG; //don't deal damage
 	}
 
+	if ( mod == MOD_LEVEL3_BOUNCEBALL_SPLASH )
+	  damage = LEVEL3_BOUNCEBALL_SPLASH_DMG;//Else direct hits can't kill
   if ( mod == MOD_LEVEL3_BOUNCEBALL_SPLASH && (targ->s.eType == ET_BUILDABLE || targ == attacker )) {
 		damage *= LEVEL3_BOUNCEBALL_SPLASH_MOD;
 	}

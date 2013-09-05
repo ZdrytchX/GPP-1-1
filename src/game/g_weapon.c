@@ -948,13 +948,13 @@ void buildFire( gentity_t *ent, dynMenu_t menu )
       {
         //float modifier = ABUILDER_ADV_DELAY / BG_FindBuildDelayForWeapon( ent->s.weapon );
         ent->client->ps.stats[ STAT_MISC ] += 
-          BG_FindBuildTimeForBuildable( ent->client->ps.stats[ STAT_BUILDABLE ] ); //* modifier + ABUILDER_BUILD_EXTRA;
+          BG_FindBuildTimeForBuildable( ent->client->ps.stats[ STAT_BUILDABLE ] ); // * modifier + ABUILDER_BUILD_EXTRA;
       }
       else if( ent->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS )
       {
         //float modifier = HBUILD2_DELAY / BG_FindBuildDelayForWeapon( ent->s.weapon );
         ent->client->ps.stats[ STAT_MISC ] += 
-          BG_FindBuildTimeForBuildable( ent->client->ps.stats[ STAT_BUILDABLE ] ); //* modifier + HBUILD_EXTRA;
+          BG_FindBuildTimeForBuildable( ent->client->ps.stats[ STAT_BUILDABLE ] ); // * modifier + HBUILD_EXTRA;
       }
       */
 
