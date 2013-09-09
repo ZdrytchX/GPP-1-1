@@ -149,6 +149,7 @@ qboolean pm_q1rampslide = qfalse;
 //0 = 1.1/VQ3/up Vel = jump, 1 = Bob's OC/Add Vel only, 2 = GPP/{MG}/up Vel must be > jump, else just add
 int   pm_rampjump = 2; //0, 1, 2 only
 qboolean pm_doublejump_wsw_style = qtrue; //clips velocity when double jumping up stairs
+                                          //uses cpm_pm_cliptime for the duration
 
 //-------------------------------------------------------------------------------
 //Bunnyhop Settings

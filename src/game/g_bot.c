@@ -2212,12 +2212,14 @@ void findNextNode( gentity_t *self )
         return;
     }
 void setSkill(gentity_t *self, int skill) {
-  float humanslowness = 0.20 + ((skill * 0.10) * (skill * 0.10)) / 125;
+//TODO: Something's acting weird about these squares for slowness, they return the same value
+  //float humanslowness = 0.20 + ((skill * 0.10) * (skill * 0.10)) / 125;
     self->botMind->botSkill.level = skill;
     //different aim for different teams
     if(self->botMind->botTeam == PTE_HUMANS) {
-        self->botMind->botSkill.aimSlowness = humanslowness;//(float)( skill ) / 30;//(0.2 + (skill * skill) / 125);
-        self->botMind->botSkill.aimShake = (int) ((float)(20 - ((skill * 0.1) * (skill * 0.1))/5));
+        self->botMind->botSkill.aimSlowness = (float)(skill/100);
+        //= humanslowness;//(float)( skill ) / 30;//(0.2 + (skill * skill) / 125);
+        self->botMind->botSkill.aimShake = (int)((float)(50 - ((skill * 0.1) * (skill * 0.1))/2));
     } else {
         self->botMind->botSkill.aimSlowness = (float)( skill ) / 100;
         self->botMind->botSkill.aimShake = (int) (30 - skill * 0.3);

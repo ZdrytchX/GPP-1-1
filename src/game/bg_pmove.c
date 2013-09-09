@@ -2441,9 +2441,13 @@ static void PM_GroundTrace( void )
   }
 
   // slopes that are too steep will not be considered onground
-  //Also, if upward vel > jumpspeed, just slide (Q1)
   if( trace.plane.normal[ 2 ] < MIN_WALK_NORMAL 
-  || ( pm->ps->velocity[ 2 ] > jumpspeed && pm_q1rampslide ) )
+  //Also, if upward vel > jumpspeed, just slide (Q1)
+  || ( pm->ps->velocity[ 2 ] > jumpspeed && pm_q1rampslide )
+  //Also, if using warsow style hops when on stairs
+  || ( pm_doublejump_wsw_style
+    && pm->ps->persistant[PERS_JUMPTIME] > cpm_pm_cliptime
+    /*&& pm->ps->velocity[ 2 ] >= 0.0f*/ ) )
   {
     if( pm->debugLevel )
       Com_Printf( "%i:steep\n", c_pmove );
