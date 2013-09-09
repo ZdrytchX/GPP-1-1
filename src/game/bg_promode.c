@@ -39,32 +39,37 @@ from the above URL to add ProMode physics to this mod, GPP-1.1 Arena.
 
 *************************Pre-Made Physics Modes:*************************
 
+These settings that I provide for you fps (fast-paced-shooter, not that CoD crap) geeks out there, I made
+some settings that simulate other game physics. Most of them are accurate, but the bunnyhop acceleration
+amongst some other minorities hasn't had their algorithm checked so they aren't perfect. However the values
+provided are mostly true, as some arrive from the Xonotic *official* configs that were provided with
+Xonotic v0.6.
+
 ProMode [Q3]  - "the old" 2001 CPMA original settings (The "new" CPM source has never been released at
   the point this was written). It is also known as CPMA, or Challenge ProMode Arena. The cliptime is
-  unconfirmed.
+  unconfirmed, but I feel that it equates to the double jump timer.
   
 Vanilla Trem [ioQ3]- Normal Tremulous of course. The '400 wishspeed' is actually just means it'll
   accelerate up to 400 ups if possible for the class. I increased to 500 because dretch uses 448.
-  The actual cliptime for VQ3 physics is unconfirmed but it appears to be patched out of tremulous.
+  The actual cliptime for VQ3 physics is 250 but it appears to be patched out of tremulous.
 
-ProTrem - my own personal setting. A.K.A. GPP-1.1 Arena's default. The reason why I chose to have
+ProTrem^ - my own personal setting. A.K.A. GPP-1.1 Arena's default. The reason why I chose to have
   a smaller cliptime is because marauder already has its own cliptime of 200 msec. It'll be hard
   to get used to both 400 and 200 msec at once.
-
-QuakeWorld [Q1, slightly modded] - Quake 1 physics, QuakeWorld style. No step-up in mid air, but
-  QuakeWorld's modified physics allows ramp jumping and ramp sliding. Identical to TFC's physics,
-  without the speed limit, and has air (strafe) acceleration of 150.
 
 TF2 [Source] - Simulates settings in Team Fortress 2 as of 2013 (Not all of which are actual values,
   but some are true. Note that hammer units are slightly different (x1.25?).
   
 TFC [GoldSrc] - Simulates settings in Team Fortress Classic (Not actual values, just estimates)
 
-Xonotic* [DarkPlaces] - Simulates settings for Xonotic. Xonotic is a community-driven mod that used to
+Xonotic*^ [DarkPlaces] - Simulates settings for Xonotic. Xonotic is a community-driven mod that used to
   support Nexuiz until they went commercial. They have fantastic graphics although choppy animations
   and inaccurate client game predictions (Q1 online didn't have cgame prediction).
+  There's one thing I won't duplicate here by the way, and that's the anti-strafe acceleration part
+  (You can't strafe jump past the bhop limit)
+  Xonotic 0.7 just has a speed limit of 900 instead of 800 AFAIK.
   
-WarSow* [???]  - Not Sure, but it's from a Q2 mod. Gameplay is pretty much CPM with a dodge/dash key
+WarSow*^ [???]  - Not Sure, but it's from a Q2 mod. Gameplay is pretty much CPM with a dodge/dash key
   (similar to gpp's except you can dash forward and wallhop with it), a really strong air control
   (however with a STRONG speed penalty* for turning too quickly or using it at a wide angle) and a
   fantastic "noodle" lightning gun which they trashed out with the ammo strengths system. :'/
@@ -72,23 +77,38 @@ WarSow* [???]  - Not Sure, but it's from a Q2 mod. Gameplay is pretty much CPM w
   I actually got the WarSow config data from Xonotic's pre-made settings that simulate WarSow physics.
   Note that the cliptime for WarSow is only for bunnyhopping up stairs judging from sound repeat rates.
   Doesn't apply for walls. It may actually not be an actual velocity clip because WarSow already has bhop
-  so just put this as 0 when setting up WarSow settings.
+  so just put this as 0 when setting up WarSow settings. The settings provided were insufficent, and only
+  provided data about its air control settings.
+  WarSow's bunnyhop-up-stairs is weird; it only jumps once every 0.4 seconds (double jump time)
+  and only applies if you're bhopping. It also allows you to "slide" off stairs like the ramp slide thing.
+  And so my implemention of the weird bunnyhop isn't perfect, but it works to some extent. You may find
+  yourself sliding off stair-case-like pillars, if they even exist.
+  WarSow's forward bunnyhop apparently has a penalty when you're above the limit and slows you down unless
+  you don't press 'forward' in air. I'll just ignore this feature for now.
   
-Newbie's Physics - Just another one of my personal settings, comes with all-directional super strong air
+Newbie's Physics^ - Just another one of my personal settings, comes with all-directional super strong air
   control, in other words you can pretty much make a fake WarSow dash in air with this since there's no
   air control penalty if you do it right. Comes with a strong bunnyhop up to 3000 ups because you can't
   strafe jump.
 
+QuakeWorld& [Q1, slightly modded] - Quake 1 physics, QuakeWorld style. No step-up in mid air, but
+  QuakeWorld's modified physics allows ramp jumping and ramp sliding. Identical to TFC's physics,
+  without the speed limit, and has air (strafe) acceleration of 150. Apparently doesn't allow
+  step-ups in air.
+  There's also a weird issue with Quake 1 where people reckon there's a similar speed limit to
+  TFC's but I haven't confirmed it myself.
+Quake 3: (Team)Arena [VQ3] - Same as 1.1 physics pretty much, only that it had a cliptime of 250 msec.
+
 *TODO: Air Control Penalty (Makes the player slow down if they turn too fast
-  I could try clipping velocity without any friction or ground acceleration.
+^TODO: Fix Bunnyhop Acceleration, it seems to bug people outside of the map from extreme acceleration
+      that appears out of nowhere.
+&Note: QW doesn't have Step-Ups in mid-air. I honestly don't like it, so I might not just not add it.
+      I'm actually not sure if TF:C has this missing feature too, because I never played it.
 =========================================================================================================
 */
 
-float pm_jumpheight; //Height at which one can jump if stamina < allowable && > absolute min
-float pm_jumpmag = 1.00;
-
-//TODO: Set to a variable, 0 = CPM and 6 = WarSow
-//Game Mode Physics Defaults
+//TODO: Set to a variable, 0 = CPM and 6 = WarSow etc.
+//Game Mode Physics Defaults Table
 // ___________________________________________________________________________________________________
 //|---------.---------.---------.-------------.-----------------.-------------.--------------[-][0][X]|
 //|Challenge| Vanilla | ProTrem |Source - Team|  Team Fortress  | XONOTIC-ish | WarSow 0.42  |Newbie's|
@@ -107,7 +127,7 @@ float pm_jumpmag = 1.00;
 //| 0.370370| 0       | 0.5     |0            | 0               | 0           | 0.37037037037| 0      |
 //| qfalse  | qfalse  | qfalse  |qtrue        | qtrue           | qfalse      | qtrue        | qfalse |
 //| 2(1?)   | 0       | 2       |0            | 0               | 1           | 2(1?)        | 2      |
-//| qfalse  | qfalse  | qfalse  |qfalse       | qfalse          | qtrue       | qtrue        | qfalse |
+//| qfalse  | qfalse  | qfalse  |qfalse       | qfalse          | qfalse      | qtrue        | qfalse |
 //|---------+---------+---------+-------------+-----------------+-------------+--------------+--------|
 //| qfalse  | qfalse  | qtrue   |qfalse       | qfalse          | qtrue       | qtrue        | qtrue  |
 //| 0       | 0       | 1200    |0            | 0               | 800   (0.7  | 925          | 3000   |
@@ -126,9 +146,46 @@ float pm_jumpmag = 1.00;
 //| 0       | 0       | 0       |0            | 0.5             | 0           | 0            | 0      |
 //| 0       | 0       | 0       |320          | 0               | 0           | 0            | 0      |
 //'---------'---------'---------'-------------'-----------------'-------------'--------------'--------'
-//==========Physics Initiation==========
+// _____________________
+//|-----------.[-][0][X]|
+//|QuakeWorld | Quake 3:|
+//| (Quake 1) |  Arena  |
+//|-----------+---------+
+//| 0         | 250     |
+//| 1(2.5?)   | 1       |
+//| 0         | 0       |
+//| 1         | 1       |
+//| qfalse    | qfalse  |
+//| 70(2*30?) | 1       |
+//| 30        | 1       |
+//| 500       | 500     |
+//|-----------+---------+
+//| 0         | 0       |
+//| qtrue     | qfalse  |
+//| 0         | 0       |
+//| qfalse    | qfalse  |
+//|-----------+---------+
+//| qfalse    | qfalse  |
+//| 0         | 0       |
+//| 0         | 0       |
+//|-----------+---------+
+//| 1         | 1       |
+//| 10        | 10      |
+//| 6         | 6       |
+//|-----------+---------+
+//| qtrue     | qfalse  |
+//| qfalse    | qfalse  |
+//| qfalse    | qfalse  |
+//|-----------+---------+
+//| 0         | 0       |
+//| 0         | 0       |
+//| 0         | 0       |
+//'-----------'---------'
+///\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\..
+//==============================Physics Initiation==============================>
+//\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/''
 //-------------------------------------------------------------------------------
-//CPM Main
+//Challenge ProMode-only Main features
 //-------------------------------------------------------------------------------
 float	cpm_pm_cliptime = 200; //A very buggy exploit of vq3 is reimplemented with this.
 float	cpm_pm_airstopaccelerate = 2.5;
@@ -138,7 +195,9 @@ float cpm_pm_aircontrolmod = 0.8;
 //Marauder and normal granger use the opposite, where large attack angles don't turn you as much.
 qboolean  cpm_pm_aircontrolmoding = qtrue;
 float	cpm_pm_strafeaccelerate = 70;
-float	cpm_pm_wishspeed = 30;
+float	cpm_pm_wishspeed = 30; //Portion of 320 in mid air accel that contributes to the sharp acceleration
+//For Double jump, see next section
+//For Ground friction/accel settings, see Standard Physics section
 
 //-------------------------------------------------------------------------------
 //Jump Settings
@@ -148,25 +207,29 @@ float cpm_pm_jump_z = 0.5; //CPM: 100/270 (normal jumpvel is 270, doublejump def
 qboolean pm_q1rampslide = qfalse;
 //0 = 1.1/VQ3/up Vel = jump, 1 = Bob's OC/Add Vel only, 2 = GPP/{MG}/up Vel must be > jump, else just add
 int   pm_rampjump = 2; //0, 1, 2 only
-qboolean pm_doublejump_wsw_style = qtrue; //clips velocity when double jumping up stairs
+
+//Warsow's doublejump prevents spamming jump sound and helps bhopping up stairs.
+//Advisable not to use this, my opinion (slide in vents when bhopping)
+//Also prevents from jumping, which makes it feel like marauder without walljump
+qboolean pm_doublejump_wsw_style = qfalse; //clips velocity when double jumping up stairs
                                           //uses cpm_pm_cliptime for the duration
 
 //-------------------------------------------------------------------------------
-//Bunnyhop Settings
+//Bunnyhop (Acceleration and Autojump) Settings
 //-------------------------------------------------------------------------------
 qboolean pm_autojump = qfalse;
 float pm_bunnyhopspeedcap = 0; //(TODO: No Penalty for turning)  
 float pm_bunnyhopaccel = 0;    //accel = bhopaccel - bhopaccel * ([speed-320]/bhopspeedcap-320)
 
 //-------------------------------------------------------------------------------
-//Moved from bg_pmove.c here
+//Standard Physics - Moved from bg_pmove.c here
 //-------------------------------------------------------------------------------
 float pm_airaccelerate = 1.0f;
 float	pm_accelerate = 10;         //Ground Acceleration        
 float	pm_friction = 6;            //Ground Friction
 
 //-------------------------------------------------------------------------------
-//Air Strafe settings
+//Air Strafe settings for Air Physics types
 //-------------------------------------------------------------------------------
 qboolean pm_q1strafe = qfalse;//Allows cpm_pm_strafeaccelerate and cpm_pm_wishspeed
                               //to take effect in ALL directions, feels like
@@ -176,7 +239,7 @@ qboolean pm_q3strafe = qtrue; //Allows you to accelerate even when past the cpm_
 qboolean pm_aircontrol_alldir = qfalse; //Sets air control in all directions
                               //(prevents strafe jumping as well)
 //-------------------------------------------------------------------------------
-//Speed Limiters
+//Speed Limiters (VALVε - Source/GoldSRC games only)
 //-------------------------------------------------------------------------------
 //The speedcap and speedcaplimit are multiplied by BG_FindSpeedForClass()
 //Note that GSrc's units are slightly different.
@@ -187,6 +250,10 @@ float pm_groundspeedcapfriction = 0;
 //This one is not finished (Not Working)
 //when speedcap has been breached speed becomes this
 float pm_groundspeedcaplimit = 0;
+//-------------------------------------------------------------------------------
+//Unused Variables
+//-------------------------------------------------------------------------------
+//float pm_jumpheight; //Height at which one can jump if stamina < allowable && > absolute min
 
 void CPM_UpdateSettings(int num) //does nothing now
 {
@@ -242,7 +309,8 @@ void CPM_PM_Aircontrol (pmove_t *pm, vec3_t wishdir, float wishspeed )
 	dot = DotProduct(pm->ps->velocity,wishdir);
 	k = 32;
 	
-  //marauders turn way too fast //2 -> 3 dots for better handling (91 degrees turns little, 89 degrees used to turn a lot but not turns little
+  //marauders turn way too fast
+  //2 -> 3 dots for better handling (91 degrees turns little, 89 degrees used to turn a lot but not turns little
 	if (BG_FindAirAccelerationForClass( pm->ps->stats[ STAT_PCLASS ] ) > 1.5 && cpm_pm_aircontrolmoding)
 	k *= cpm_pm_aircontrol*dot*dot*dot*pml.frametime*1.5;
 	//Give default air control to classes human or smaller

@@ -2445,9 +2445,8 @@ static void PM_GroundTrace( void )
   //Also, if upward vel > jumpspeed, just slide (Q1)
   || ( pm->ps->velocity[ 2 ] > jumpspeed && pm_q1rampslide )
   //Also, if using warsow style hops when on stairs
-  || ( pm_doublejump_wsw_style
-    && pm->ps->persistant[PERS_JUMPTIME] > cpm_pm_cliptime
-    /*&& pm->ps->velocity[ 2 ] >= 0.0f*/ ) )
+  //TODO: Only use if going up, but z-vel gets clipped to 0 whenever stepping-up
+  || ( pm_doublejump_wsw_style && pm->ps->persistant[PERS_JUMPTIME] > cpm_pm_cliptime ) )
   {
     if( pm->debugLevel )
       Com_Printf( "%i:steep\n", c_pmove );

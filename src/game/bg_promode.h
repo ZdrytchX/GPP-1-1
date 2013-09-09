@@ -11,8 +11,7 @@ void CPM_PM_Aircontrol ( pmove_t *pm, vec3_t wishdir, float wishspeed );
 #define CPM_ON 1
 
 extern float  cpm_pm_jump_z;
-extern float  pm_jumpheight;//height at which one jumps at if stamina < allowable
-extern float  pm_jumpmag;
+//extern float  pm_jumpheight;//height at which one jumps at if stamina < allowable
 // Physics
 extern float	cpm_pm_cliptime;
 extern float	cpm_pm_airstopaccelerate;

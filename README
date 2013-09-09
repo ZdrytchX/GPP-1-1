@@ -2,13 +2,14 @@
  / ___\    | __ \   | __ \           /  |       /  |   Now Includes
 | /   _    |  __/   |  __/   ____     | |        | |  Challenge ProMode Physics!
 | |__| |   | |      | |     |____|   _| |_   _  _| |_   (Comes with a table to compile
- \____/    |_|      |_|             |_____| (_)|_____|  other game physics for simulation)
+ \____/    |_|      |_|             |_____| (_)|_____|  other game physics for simulation^)
          _      ____    ____   __    _      _      "Smarter" (than P-Bot) Bots!
         / \    | __ \  |  __| |  \  | |    / \     Vote-able Vampire mode!
        / ^ \   |'--'/  |  \   |   \ | |   / ^ \     Teamkill/FreeForAll mode!
       / /=\ \  | |\ \  |  /_  | |\ \| |  / /=\ \    (And Other Stuff =D)
      /_/   \_\ |_| \_\ |____| |_| \___| /_/   \_\
-*This qvm is "sort of" in active developement. If you have requests, feel free to do so here or email me at my youtube channel
+^Not exactly perfect, but I did educated guestimates. See src/game/bg_promode.c for more info.
+Note: This qvm is "sort of" in active developement. If you have requests, feel free to do so here or email me at my youtube channel
 youtube.com/user/zdrytchx
 NOTE: The modder of this qvm does NOT know "proper" programming, so do NOT refer to me or my source for learning coding.
 Occasionally, this qvm gets a few unstable builds, bugs or other problems. I may need help at these times.
