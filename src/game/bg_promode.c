@@ -185,7 +185,7 @@ Quake 3: (Team)Arena [VQ3] - Same as 1.1 physics pretty much, only that it had a
 //==============================Physics Initiation==============================>
 //\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/''
 //-------------------------------------------------------------------------------
-//Challenge ProMode-only Main features
+//Challenge ProMode Main features
 //-------------------------------------------------------------------------------
 float	cpm_pm_cliptime = 200; //A very buggy exploit of vq3 is reimplemented with this.
 float	cpm_pm_airstopaccelerate = 2.5;
