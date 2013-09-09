@@ -30,6 +30,7 @@ extern float  pm_bunnyhopspeedcap; //bunnyhop
 extern float  pm_bunnyhopaccel; //acceleration for bhop
 
 extern int    pm_rampjump; //0, 1, 2 only
+extern qboolean pm_doublejump_wsw_style; //slide on stairs
 extern qboolean pm_q1rampslide;//qw style
 extern qboolean pm_q1strafe; //Quake 1 style strafes (i.e. all direction cpm strafe)
 extern qboolean pm_q3strafe; //Adds on top if it should allow q3 strafe on sides or not

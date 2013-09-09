@@ -1199,6 +1199,7 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
     AngleVectors(self->client->ps.viewangles, forward,right,up);
     CalcMuzzlePoint(self,forward,right,up,muzzle);
     if( self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS ) {
+
     //Don't constantly circle a buildable too much
     if(getTargetType(self->botMind->goal) == ET_BUILDABLE && distance < Square(ABUILDER_CLAW_RANGE))
     {

@@ -103,9 +103,11 @@ float pm_jumpmag = 1.00;
 //| 70      | 1       | 70      |150          | 1000            | 100         | 70           | 9      |
 //|                                                 Query: What is sv_stopspeed 100? (xonotic configs)|
 //| 30      | 500     | 30      |30           | 30 //Don't know | 24          | 30           | 10     |
+//|---------+---------+---------+-------------+-----------------+-------------+--------------+--------|
 //| 0.370370| 0       | 0.5     |0            | 0               | 0           | 0.37037037037| 0      |
 //| qfalse  | qfalse  | qfalse  |qtrue        | qtrue           | qfalse      | qtrue        | qfalse |
-//| 2(1?)   | 0       | 2       |0            | 0               | 1           | 2(1?)        | 2
+//| 2(1?)   | 0       | 2       |0            | 0               | 1           | 2(1?)        | 2      |
+//| qfalse  | qfalse  | qfalse  |qfalse       | qfalse          | qtrue       | qtrue        | qfalse |
 //|---------+---------+---------+-------------+-----------------+-------------+--------------+--------|
 //| qfalse  | qfalse  | qtrue   |qfalse       | qfalse          | qtrue       | qtrue        | qtrue  |
 //| 0       | 0       | 1200    |0            | 0               | 800   (0.7  | 925          | 3000   |
@@ -124,7 +126,10 @@ float pm_jumpmag = 1.00;
 //| 0       | 0       | 0       |0            | 0.5             | 0           | 0            | 0      |
 //| 0       | 0       | 0       |320          | 0               | 0           | 0            | 0      |
 //'---------'---------'---------'-------------'-----------------'-------------'--------------'--------'
-// Physics Initiation
+//==========Physics Initiation==========
+//-------------------------------------------------------------------------------
+//CPM Main
+//-------------------------------------------------------------------------------
 float	cpm_pm_cliptime = 200; //A very buggy exploit of vq3 is reimplemented with this.
 float	cpm_pm_airstopaccelerate = 2.5;
 float	cpm_pm_aircontrol = 165; 
@@ -135,29 +140,46 @@ qboolean  cpm_pm_aircontrolmoding = qtrue;
 float	cpm_pm_strafeaccelerate = 70;
 float	cpm_pm_wishspeed = 30;
 
+//-------------------------------------------------------------------------------
 //Jump Settings
+//-------------------------------------------------------------------------------
 //TODO: ADV Marauder doesn't doublejump (don't want its walljump to doublejump either)
 float cpm_pm_jump_z = 0.5; //CPM: 100/270 (normal jumpvel is 270, doublejump default 100) = 0.37037
 qboolean pm_q1rampslide = qfalse;
 //0 = 1.1/VQ3/up Vel = jump, 1 = Bob's OC/Add Vel only, 2 = GPP/{MG}/up Vel must be > jump, else just add
 int   pm_rampjump = 2; //0, 1, 2 only
+qboolean pm_doublejump_wsw_style = qtrue; //clips velocity when double jumping up stairs
+
+//-------------------------------------------------------------------------------
+//Bunnyhop Settings
 //-------------------------------------------------------------------------------
 qboolean pm_autojump = qfalse;
 float pm_bunnyhopspeedcap = 0; //(TODO: No Penalty for turning)  
 float pm_bunnyhopaccel = 0;    //accel = bhopaccel - bhopaccel * ([speed-320]/bhopspeedcap-320)
+
 //-------------------------------------------------------------------------------
 //Moved from bg_pmove.c here
+//-------------------------------------------------------------------------------
 float pm_airaccelerate = 1.0f;
 float	pm_accelerate = 10;         //Ground Acceleration        
-float	pm_friction = 6;            //Ground Friction  
+float	pm_friction = 6;            //Ground Friction
+
 //-------------------------------------------------------------------------------
 //Air Strafe settings
-qboolean pm_q1strafe = qfalse; //Allows cpm_pm_strafeaccelerate and cpm_pm_wishspeed to take effect in all directions
+//-------------------------------------------------------------------------------
+qboolean pm_q1strafe = qfalse;//Allows cpm_pm_strafeaccelerate and cpm_pm_wishspeed
+                              //to take effect in ALL directions, feels like
+                              //CS:Source, TF, QW and all them Q1-based games
 qboolean pm_q3strafe = qtrue; //Allows you to accelerate even when past the cpm_pm_wishspeed
-qboolean pm_aircontrol_alldir = qfalse; //Sets air control in all directions (prevents strafe jumping as well)
+                              //and hence allows "half-beat strafe jumping" for VQ3-ers
+qboolean pm_aircontrol_alldir = qfalse; //Sets air control in all directions
+                              //(prevents strafe jumping as well)
+//-------------------------------------------------------------------------------
+//Speed Limiters
 //-------------------------------------------------------------------------------
 //The speedcap and speedcaplimit are multiplied by BG_FindSpeedForClass()
 //Note that GSrc's units are slightly different.
+//TODO: Fix the Speed Limit bug with wallwalkers! (Don't change these settings folks yet)
 float pm_groundspeedcap = 0;          
 //A multiplier for ground speed when speedcap has been breached
 float pm_groundspeedcapfriction = 0;  
