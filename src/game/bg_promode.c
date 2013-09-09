@@ -211,7 +211,7 @@ int   pm_rampjump = 2; //0, 1, 2 only
 //Warsow's doublejump prevents spamming jump sound and helps bhopping up stairs.
 //Advisable not to use this, my opinion (slide in vents when bhopping)
 //Also prevents from jumping, which makes it feel like marauder without walljump
-qboolean pm_doublejump_wsw_style = qfalse; //clips velocity when double jumping up stairs
+qboolean pm_doublejump_wsw_style = qtrue; //clips velocity when double jumping up stairs
                                           //uses cpm_pm_cliptime for the duration
 
 //-------------------------------------------------------------------------------
