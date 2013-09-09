@@ -82,7 +82,7 @@ g_admin_cmd_t g_admin_cmds[ ] =
 
     {"bot", G_admin_bot, "Z",
       "Add or delete bot(s)",
-      "[^3add/del^7] [name] [^5aliens/humans^7] [skill]"
+      "[^3add/del^7] [name] [^5aliens/humans^7] (skill)"
       "\nSkill = a value from 1 to 10"
     },
     {"botcfg", G_admin_botcfg, "z",
@@ -2982,7 +2982,7 @@ qboolean G_admin_bot( gentity_t *ent, int skiparg ) {
 	//char name2[ MAX_NAME_LENGTH ];
 	char name2_s[ MAX_NAME_LENGTH ];
 	char team[10];
-	int team_int;
+	int team_int = PTE_NONE;//shut the compiler up
 	char skill[3];
 	int skill_int;
 	qboolean success = qfalse;
@@ -3005,12 +3005,14 @@ qboolean G_admin_bot( gentity_t *ent, int skiparg ) {
 	G_SayArgv( 2 + skiparg, name, sizeof( name ) );
 	G_SanitiseString( name, name_s, sizeof( name_s ) );
 
-	if(!Q_stricmp(command,"add")) {
+	if(!Q_stricmp(command,"add")) {	
+  int     acount = level.numAlienClients;
+  int     hcount = level.numHumanClients;
 		// add [name] [team] (skill)
 		minargc = 4 + skiparg;
 		if( G_SayArgc() < minargc )	{
 			ADMP( "^7Please have at least name and team.\n" );
-			ADMP( "^3!bot: ^7usage: !bot [add/del] [name] [h/a/s] (skill level, 1-10)\n" );
+			ADMP( "^3!bot: ^7usage: !bot [add/del] [name] [h/a] (skill level, 1-10)\n" );
 			return qfalse;
 		}
 
@@ -3025,13 +3027,33 @@ qboolean G_admin_bot( gentity_t *ent, int skiparg ) {
       team_int = PTE_HUMANS;
       break;
     case 's':
-      team_int = PTE_NONE;
+			ADMP( "^7You cannot have a bot join spectators as they fill client slots.\n" );
+			ADMP( "^3!bot: ^7usage: !bot add [name] [h/a] (skill level, 1-10)\n" );
+//      team_int = PTE_NONE;
     break;
     default:
-			ADMP( "^7Invalid bot team.\n" );
-			ADMP( "^3!bot: ^7usage: !bot add [name] [h/a/s] (skill level, 1-10)\n" );
-      return qfalse;
+//			ADMP( "^7Invalid bot team.\n" );
+//			ADMP( "^3!bot: ^7usage: !bot add [name] [h/a/s] (skill level, 1-10)\n" );
+//      return qfalse;
+
+    //Should we allow bots to join locked teams?
+//    if( level.humanTeamLocked && level.alienTeamLocked )
+//      team_int = PTE_NONE;
+    //else
+      if( hcount > acount )
+      team_int = PTE_ALIENS;
+      else if( hcount < acount )
+      team_int = PTE_HUMANS;
+      else
+      team_int = PTE_ALIENS + ( rand( ) % 2 );
+//    if( team_int == PTE_ALIENS && level.alienTeamLocked )
+//      team_int = PTE_HUMANS;
+//    else if( team_int == PTE_HUMANS && level.humanTeamLocked )
+ //     team_int = PTE_ALIENS;
+			ADMP( "^7Invalid bot team. Bot used auto team select.\n" );
+    break;
     }
+
 ///
 /*
 		if( team[ 0 ] == 'h' || team[ 0 ] == 'H' ) {
@@ -4672,7 +4694,7 @@ qboolean G_admin_listadmins( gentity_t *ent, int skiparg )
   if( G_SayArgc() == 3 + skiparg )
   {
     G_SayArgv( 2 + skiparg, s, sizeof( s ) );
-    if( ( s[ 0 ] >= '0' || s[ 0 ] == '-' && s[ 1 ] >= '0' ) && s[ 0 ] <= '9' )
+    if( ( (s[ 0 ] >= '0' || s[ 0 ] == '-') && s[ 1 ] >= '0' ) && s[ 0 ] <= '9' )
     {
       minlevel = atoi( s );
       if( minlevel < 9 ) 
@@ -4703,7 +4725,7 @@ qboolean G_admin_listadmins( gentity_t *ent, int skiparg )
     G_SayArgv( 1 + skiparg, s, sizeof( s ) );
     for( i = 0; i < sizeof( s ) && s[ i ]; i++ )
     {
-      if( ( s[ 0 ] >= '0' || s[ 0 ] == '-' && s[ 1 ] >= '0' ) && s[ 0 ] <= '9' )
+      if( ( (s[ 0 ] >= '0' || s[ 0 ] == '-') && s[ 1 ] >= '0' ) && s[ 0 ] <= '9' )
         continue;
       numeric = qfalse; 
     }

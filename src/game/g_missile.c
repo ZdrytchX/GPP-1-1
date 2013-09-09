@@ -127,7 +127,7 @@ void G_MissileImpact( gentity_t *ent, trace_t *trace )
     return;
   }
 
-  if( !strcmp( ent->classname, "grenade" ) )
+  if( !strcmp( ent->classname, "grenade" ) )//|| !strcmp( ent->classname, "ablob" ) )
   {
     //grenade doesn't explode on impact
     G_BounceMissile( ent, trace );
@@ -150,14 +150,14 @@ void G_MissileImpact( gentity_t *ent, trace_t *trace )
     if( other->client && other->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS )
     {
       other->client->ps.stats[ STAT_STATE ] |= SS_BLOBLOCKED; //too overpowered againts aliens otherwise so use SS_SLOWLOCKED
-      other->client->lastLockTime = level.time + (LOCKBLOB_LIFETIME*((500 - other->client->ps.stats[ STAT_MAX_HEALTH ])/300) + LOCKBLOB_LOCKTIME );;
+      other->client->lastLockTime = level.time + (LOCKBLOB_LIFETIME*((500 - other->client->ps.stats[ STAT_MAX_HEALTH ])/300) + LOCKBLOB_LOCKTIME );
         //actually, nah, ill keep it like this:
 	//6000*((500 - 480)/300) //was /600 but changed because dretches simply die in one hit and will be ignored.
       AngleVectors( other->client->ps.viewangles, dir, NULL, NULL );
       other->client->ps.stats[ STAT_VIEWLOCK ] = DirToByte( dir );
     }
   }
-  else if( !strcmp( ent->classname, "slowblob" ) )
+  else if( !strcmp( ent->classname, "slowblob" ) || !strcmp( ent->classname, "ablob" ) )
   {
     if( other->client )//&& other->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS
     {
@@ -427,7 +427,7 @@ gentity_t *fire_mdriver( gentity_t *self, vec3_t start, vec3_t dir )
   bolt->clipmask = MASK_SHOT;
   bolt->target_ent = NULL;
 
-bolt->s.pos.trType = TR_GRAVITY;
+  bolt->s.pos.trType = TR_GRAVITY;
   bolt->s.pos.trTime = level.time - MISSILE_PRESTEP_TIME;   // move a bit on the very first frame
   VectorCopy( start, bolt->s.pos.trBase );
   VectorScale( self->client->ps.velocity, MDRIVER_LAG, pvel ); //ripped from
@@ -985,7 +985,7 @@ gentity_t *fire_aBlob( gentity_t *self, vec3_t start, vec3_t dir )
   VectorScale( dir, LEVEL4_ABLOB_SPEED, bolt->s.pos.trDelta );
   SnapVector( bolt->s.pos.trDelta );      // save net bandwidth
   VectorCopy( start, bolt->r.currentOrigin );
-  bolt->s.eFlags |= EF_BOUNCE_HALF; //dont explode upon contact with the world //TODO: don't collide with players
+  bolt->s.eFlags |= EF_BOUNCE_HALF; //dont explode upon contact with the world
 
   return bolt;
 }

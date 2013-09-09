@@ -1740,7 +1740,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
       if( kvel[ 2 ] < BLASTER_K_UP
         &&(g_mode_teamkill.integer || OnSameTeam( targ, attacker )) )//only in ffa/tk mode or against teammates
         {
-        //hackery so they only lift when shot straight-on (meaning aiming up 20 degrees gives little extra vel)
+        //hackery so they only lift when shot straight-on (meaning aiming up 30 degrees gives only little upward vel)
         float kvelup = (1 / BLASTER_K_UP) * kvel[ 2 ] * kvel[ 2 ];
         if(kvelup > 100)
           kvelup = 100;
@@ -1763,8 +1763,8 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
       if( t < 50 )
         t = 50;
 
-      if( t > 300 )
-        t = 300;
+      if( t > 200 )
+        t = 200;
 
       targ->client->ps.pm_time = t;
       targ->client->ps.pm_flags |= PMF_TIME_KNOCKBACK;
@@ -2028,39 +2028,6 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 //Hit sounds
     if(g_hitsounds.integer)
     {
-      /*
-      qboolean  monotone = qfalse;
-      qboolean  noteammates = qfalse;
-      qboolean  nobuildables = qfalse;
-
-      switch(g_hitsounds_type.integer)
-      {
-        case 1:
-            monotone = qtrue;
-            break;
-        case 2:
-            nobuildables = qtrue;
-            break;
-        case 3:
-            nobuildables = qtrue;
-            monotone = qtrue;
-            break;
-        case 4:
-            noteammates = qtrue;
-            break;
-        case 5:
-            monotone = qtrue;
-            noteammates = qtrue;
-            break;
-        case 6:
-            nobuildables = qtrue;
-            noteammates = qtrue;
-        case 7:
-            nobuildables = qtrue;
-            noteammates = qtrue;
-            monotone = qtrue;
-      }
-      */
       //check teammates
       if(!(OnSameTeam( targ, attacker ) && g_hitsounds_type.integer & 4) )
       //Check buildables

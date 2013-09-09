@@ -438,7 +438,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define BLASTER_SPREAD              0
 #define BLASTER_SPEED               1400
 #define BLASTER_DMG                 HDM(9 + VAMP_ON)
-#define BLASTER_PUSH                90//Blasterjump effect, this is the actual splash damage before modding, knockback applies to others from this value
+#define BLASTER_PUSH                90 //Blasterjump effect, this is the actual splash damage before modding, knockback applies to others from this value
 #define BLASTER_DMG_MOD             (8.00f/BLASTER_PUSH) //Modifier for above damage
                                                          //Damage to Self / Raw Damage
 #define BLASTER_DMG_TK              ((float)12.5/HUMAN_TK_DMG_MOD) //Damage Modifier from Blaster with teamkill mode - ~50dmg

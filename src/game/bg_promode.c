@@ -55,16 +55,16 @@ QuakeWorld [Q1, slightly modded] - Quake 1 physics, QuakeWorld style. No step-up
   QuakeWorld's modified physics allows ramp jumping and ramp sliding. Identical to TFC's physics,
   without the speed limit, and has air (strafe) acceleration of 150.
 
-TF2^ [Source] - Simulates settings in Team Fortress 2 as of 2013 (Not all of which are actual values,
+TF2 [Source] - Simulates settings in Team Fortress 2 as of 2013 (Not all of which are actual values,
   but some are true. Note that hammer units are slightly different (x1.25?).
   
-TFC^ [GoldSrc] - Simulates settings in Team Fortress Classic (Not actual values, just estimates)
+TFC [GoldSrc] - Simulates settings in Team Fortress Classic (Not actual values, just estimates)
 
 Xonotic* [DarkPlaces] - Simulates settings for Xonotic. Xonotic is a community-driven mod that used to
   support Nexuiz until they went commercial. They have fantastic graphics although choppy animations
   and inaccurate client game predictions (Q1 online didn't have cgame prediction).
   
-WarSow*^ [???]  - Not Sure, but it's from a Q2 mod. Gameplay is pretty much CPM with a dodge/dash key
+WarSow* [???]  - Not Sure, but it's from a Q2 mod. Gameplay is pretty much CPM with a dodge/dash key
   (similar to gpp's except you can dash forward and wallhop with it), a really strong air control
   (however with a STRONG speed penalty* for turning too quickly or using it at a wide angle) and a
   fantastic "noodle" lightning gun which they trashed out with the ammo strengths system. :'/
@@ -80,7 +80,6 @@ Newbie's Physics - Just another one of my personal settings, comes with all-dire
   strafe jump.
 
 *TODO: Air Control Penalty (Makes the player slow down if they turn too fast
-^TODO: Ramp Sliding - when a player goes up a ramp faster than their jump speed, they would slide.
   I could try clipping velocity without any friction or ground acceleration.
 =========================================================================================================
 */
@@ -105,6 +104,8 @@ float pm_jumpmag = 1.00;
 //|                                                 Query: What is sv_stopspeed 100? (xonotic configs)|
 //| 30      | 500     | 30      |30           | 30 //Don't know | 24          | 30           | 10     |
 //| 0.370370| 0       | 0.5     |0            | 0               | 0           | 0.37037037037| 0      |
+//| qfalse  | qfalse  | qfalse  |qtrue        | qtrue           | qfalse      | qtrue        | qfalse |
+//| 2(1?)   | 0       | 2       |0            | 0               | 1           | 2(1?)        | 2
 //|---------+---------+---------+-------------+-----------------+-------------+--------------+--------|
 //| qfalse  | qfalse  | qtrue   |qfalse       | qfalse          | qtrue       | qtrue        | qtrue  |
 //| 0       | 0       | 1200    |0            | 0               | 800   (0.7  | 925          | 3000   |
@@ -133,9 +134,13 @@ float cpm_pm_aircontrolmod = 0.8;
 qboolean  cpm_pm_aircontrolmoding = qtrue;
 float	cpm_pm_strafeaccelerate = 70;
 float	cpm_pm_wishspeed = 30;
-//doublejump, velocity multiplier of class jumpvel rather than direct vel adding
-//TODO: Intefering with ADV marauder walljump
+
+//Jump Settings
+//TODO: ADV Marauder doesn't doublejump (don't want its walljump to doublejump either)
 float cpm_pm_jump_z = 0.5; //CPM: 100/270 (normal jumpvel is 270, doublejump default 100) = 0.37037
+qboolean pm_q1rampslide = qfalse;
+//0 = 1.1/VQ3/up Vel = jump, 1 = Bob's OC/Add Vel only, 2 = GPP/{MG}/up Vel must be > jump, else just add
+int   pm_rampjump = 2; //0, 1, 2 only
 //-------------------------------------------------------------------------------
 qboolean pm_autojump = qfalse;
 float pm_bunnyhopspeedcap = 0; //(TODO: No Penalty for turning)  

@@ -255,7 +255,7 @@ static void PM_Friction( void )
 
   //TA: make sure vertical velocity is NOT set to zero when wall climbing
   VectorCopy( vel, vec );
-  if( pml.walking && !( pm->ps->stats[ STAT_STATE ] & SS_WALLCLIMBING || vec[ 2 ] < 0 ) ) //zdrytchx: ONLY make it prevent falling, but allow lift off - cpm doublejump test
+  if( pml.walking && !( pm->ps->stats[ STAT_STATE ] & SS_WALLCLIMBING || vec[ 2 ] < 0 ) )
     vec[ 2 ] = 0; // ignore slope movement
 
   speed = VectorLength( vec );
@@ -857,12 +857,22 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
   }
 
   else //ramp jump
-  { //TODO: Add int var - 0 = vanilla 1 = {MG} 2 = bob's oc style
-	if(pm->ps->velocity[ 2 ] > 0)
-	pm->ps->velocity[ 2 ] += jumpvel;//really, ramp jumps aren't that complicated.
-	else
-	pm->ps->velocity[ 2 ] = jumpvel;
-  PM_AddEvent( EV_JUMP );//jumped!
+  {
+    //{Mercenaries Guild - GPP} style
+    if(pm_rampjump >= 2)
+    {
+	    if(pm->ps->velocity[ 2 ] > 0)
+	    pm->ps->velocity[ 2 ] += jumpvel;
+	    else
+	    pm->ps->velocity[ 2 ] = jumpvel;
+	  }
+	  //Like 1.1 Marauder only
+	  else if(pm_rampjump == 1)
+	    pm->ps->velocity[ 2 ] += jumpvel;
+	  //Pure 1.1 style
+	  else
+	    pm->ps->velocity[ 2 ] = jumpvel;
+    PM_AddEvent( EV_JUMP );//jump!
   }
 
   if( pm->cmd.forwardmove >= 0 )
@@ -2262,6 +2272,8 @@ static void PM_GroundTrace( void )
   vec3_t      movedir;
   vec3_t      refNormal = { 0.0f, 0.0f, 1.0f };
   trace_t     trace;
+  float jumpspeed = cpm_pm_jump_z * BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ])
+                    + BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ]);
 
   if( BG_ClassHasAbility( pm->ps->stats[ STAT_PCLASS ], SCA_WALLCLIMBER ) )
   {
@@ -2429,7 +2441,9 @@ static void PM_GroundTrace( void )
   }
 
   // slopes that are too steep will not be considered onground
-  if( trace.plane.normal[ 2 ] < MIN_WALK_NORMAL )
+  //Also, if upward vel > jumpspeed, just slide (Q1)
+  if( trace.plane.normal[ 2 ] < MIN_WALK_NORMAL 
+  || ( pm->ps->velocity[ 2 ] > jumpspeed && pm_q1rampslide ) )
   {
     if( pm->debugLevel )
       Com_Printf( "%i:steep\n", c_pmove );

@@ -1195,10 +1195,17 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
     getTargetPos(self->botMind->goal,&targetPos);
     distance = DistanceSquared(self->s.pos.trBase, targetPos);
     distance = (int) distance - myMax/2 - targetMax/2;
-    
+
     AngleVectors(self->client->ps.viewangles, forward,right,up);
     CalcMuzzlePoint(self,forward,right,up,muzzle);
     if( self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS ) {
+    //Don't constantly circle a buildable too much
+    if(getTargetType(self->botMind->goal) == ET_BUILDABLE && distance < Square(ABUILDER_CLAW_RANGE))
+    {
+		    botCmdBuffer->forwardmove = 0;
+		    botCmdBuffer->rightmove = 64;//strafe
+    }
+
         switch(self->client->ps.stats[STAT_PCLASS]) {
             case PCL_ALIEN_BUILDER0:
                 if(distance < Square(ABUILDER_CLAW_RANGE))
@@ -1220,18 +1227,22 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                 botCmdBuffer->buttons |= BUTTON_GESTURE; //poor  grangie; taunt like you mean it!
                 break;
             case PCL_ALIEN_LEVEL0:
-                if(( (distance < Square(390)) || (distance > Square(500)) )
+                if( ( ( distance < Square(390)) || (distance > Square(500) ) )
                 && (self->client->time1000 % 1800) <= 200 && g_bot_dodge_jump.integer == 1
-                && self->botMind->botSkill.level > 30)
-                    botCmdBuffer->upmove = 20; //jump when getting close
-                else if (self->botMind->botSkill.level > 20)
+                && self->botMind->botSkill.level > 40)
+                {
+                  botCmdBuffer->upmove = 20; //jump when getting close
+                }
+                else if (self->botMind->botSkill.level > 9)
+                {
                 botCmdBuffer->upmove = -1;
+                }
                 else
                 botCmdBuffer->upmove = 0;
-                    //botCmdBuffer->buttons |= BUTTON_ATTACK; //aka do nothing
-                    botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
                 if (self->client->time1000 % 5000 <= 200)
                 botCmdBuffer->buttons |= BUTTON_GESTURE;
+                if(self->botMind->botSkill.level > 40)
+                botCmdBuffer->angles[PITCH] -= Distance(self->s.pos.trBase,targetPos) * 4 - self->client->ps.delta_angles[PITCH];
                 break;
             case PCL_ALIEN_LEVEL1:
                 botCmdBuffer->buttons |= BUTTON_ATTACK;
@@ -1713,11 +1724,11 @@ void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation)
        }
        else if(self->s.weapon == WP_PULSE_RIFLE)
        {
-         total = (compensationmod - pingmod + Distance(self->s.pos.trBase, *aimLocation) / (PRIFLE_SPEED));
+         total = (compensationmod - pingmod + Distance(self->s.pos.trBase, *aimLocation) / PRIFLE_SPEED);
        }
        else if(self->s.weapon == WP_MASS_DRIVER)
        {
-         total = (compensationmod - pingmod + Distance(self->s.pos.trBase, *aimLocation) / MDRIVER_SPEED * 0.8);
+         total = (compensationmod - pingmod + Distance(self->s.pos.trBase, *aimLocation) / MDRIVER_SPEED);
        }
        else if(self->s.weapon == WP_BLASTER)
        {

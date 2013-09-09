@@ -1421,7 +1421,7 @@ char *ClientConnect( int clientNum, qboolean firstTime )
   // check for valid IP address
   if( (ip[0] == 0 || strlen(ip) < 7) && !(ent->r.svFlags & SVF_BOT))
   {
-  G_AdminsPrintf( "Connect from client with invalid IP: '%s' NAME: '%s^7'\n",
+  G_AdminsPrintf( "Connect from client rejected with invalid IP: '%s' NAME: '%s^7'\n",
   ip, Info_ValueForKey( userinfo, "name" ) );
   return "Invalid IP";
   }
