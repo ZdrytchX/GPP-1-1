@@ -273,7 +273,8 @@ typedef enum
   PERS_NEWWEAPON,  // weapon to switch to
   
   //zdrytchx: no space in stats
-  PERS_JUMPTIME
+  PERS_JUMPTIME,
+  PERS_DOUBLEJUMPED //used for double jump detection
 } persEnum_t;
 
 #define PS_WALLCLIMBINGFOLLOW   0x00000001

@@ -840,6 +840,7 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
 			if (pm->ps->persistant[PERS_JUMPTIME] > 0) {
 				//pm->ps->velocity[2] += (cpm_pm_jump_z * BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ])); // BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ]);
 				jumpvel += (cpm_pm_jump_z * BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ]));
+				pm->ps->persistant[PERS_DOUBLEJUMPED] = 1;
 			}
 			pm->ps->persistant[PERS_JUMPTIME] = 400;
 			pm->ps->pm_time = cpm_pm_cliptime; //clip through walls
@@ -3860,11 +3861,11 @@ void PmoveSingle( pmove_t *pmove )
 
   PM_DropTimers( );
   
-//  if(CPM_ON){
-  // CPM: Double-jump timer
+//Jump Timers
   if (pm->ps->persistant[PERS_JUMPTIME] > 0)
 		pm->ps->persistant[PERS_JUMPTIME] -= pml.msec;
-	// !CPM
+  else
+    pm->ps->persistant[PERS_DOUBLEJUMPED] = 0;
 
   if( pm->ps->pm_type == PM_JETPACK )
     PM_JetPackMove( );
