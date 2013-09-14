@@ -3024,7 +3024,7 @@ static void PM_Weapon( void )
         {
           //if trying to select a weapon, select it
           if( pm->ps->weapon != pm->cmd.weapon ) {
-                pm->ps->weaponTime -= H_WEAP_SWITCH_BENIFIT;
+                //pm->ps->weaponTime -= H_WEAP_SWITCH_BENIFIT;
             PM_BeginWeaponChange( pm->cmd.weapon ); }
         }
         else if( pm->cmd.weapon > 32 )
@@ -3032,7 +3032,7 @@ static void PM_Weapon( void )
           //if trying to toggle an upgrade, toggle it
           if( BG_InventoryContainsUpgrade( pm->cmd.weapon - 32, pm->ps->stats ) ) //sanity check
           {
-                pm->ps->weaponTime -= H_WEAP_SWITCH_BENIFIT;
+                //pm->ps->weaponTime -= H_WEAP_SWITCH_BENIFIT;
             if( BG_UpgradeIsActive( pm->cmd.weapon - 32, pm->ps->stats ) )
               BG_DeactivateUpgrade( pm->cmd.weapon - 32, pm->ps->stats );
             else
