@@ -329,7 +329,7 @@ void CG_CheckLocalSounds( playerState_t *ps, playerState_t *ops )
       trap_S_StartLocalSound( cgs.media.hitSound[9], CHAN_LOCAL_SOUND );
     }
   }
-  if(ps->persistant[PERS_DOUBLEJUMPED] != ops->persistant[PERS_DOUBLEJUMPED])
+  if(ps->persistant[PERS_DOUBLEJUMPED] > ops->persistant[PERS_DOUBLEJUMPED])
   {
 	  trap_S_StartLocalSound( cgs.media.doublejumpsound, CHAN_LOCAL_SOUND );
   }
