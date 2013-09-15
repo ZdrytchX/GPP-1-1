@@ -246,9 +246,6 @@ CG_CheckLocalSounds
 void CG_CheckLocalSounds( playerState_t *ps, playerState_t *ops )
 {
   int reward, delta;
-  #ifdef PERS_HITS
-  int doublejumped;
-  #endif
 
   // don't play the sounds if the player just changed teams
   if( ps->persistant[ PERS_TEAM ] != ops->persistant[ PERS_TEAM ] )
@@ -259,9 +256,7 @@ void CG_CheckLocalSounds( playerState_t *ps, playerState_t *ops )
     
     if (cg_hitsound.integer == 3)
     {
-/*		if (delta > 250) //used for explosions - multiple hits confirmation
-			trap_S_StartLocalSound( cgs.media.hitSound[9], CHAN_LOCAL_SOUND );
-		else */if (delta > 165) //125
+    if (delta > 165) //125
 			trap_S_StartLocalSound( cgs.media.hitSound[8], CHAN_LOCAL_SOUND );
 		else if (delta > 120) //100
 			trap_S_StartLocalSound( cgs.media.hitSound[7], CHAN_LOCAL_SOUND );
@@ -281,10 +276,8 @@ void CG_CheckLocalSounds( playerState_t *ps, playerState_t *ops )
 			trap_S_StartLocalSound( cgs.media.hitSound[0], CHAN_LOCAL_SOUND );
 	  }
 	  else if (cg_hitsound.integer == 2)
-	  { //hit sound depends on how many you hit at once; this is a combo sound style
-/*		if (delta > 9) //used for explosions and shotgun and GPP-1.1/Lolards' chaingun secondary
-			trap_S_StartLocalSound( cgs.media.hitSound[9], CHAN_LOCAL_SOUND );
-		else */if (delta > 8)
+	  { 
+	  if (delta > 8)
 			trap_S_StartLocalSound( cgs.media.hitSound[8], CHAN_LOCAL_SOUND );
 		else if (delta > 7)
 			trap_S_StartLocalSound( cgs.media.hitSound[7], CHAN_LOCAL_SOUND );
@@ -305,16 +298,6 @@ void CG_CheckLocalSounds( playerState_t *ps, playerState_t *ops )
 	  }
 	  else if (cg_hitsound.integer && (delta > 0)) //no tonal change
 			trap_S_StartLocalSound( cgs.media.hitSound[4], CHAN_LOCAL_SOUND );
-			/*
-	  else if (delta > -25 && !(delta >= -1 && delta <= 1)) //0 = no events
-			trap_S_StartLocalSound( cgs.media.hitSound[0], CHAN_LOCAL_SOUND );
-		else if (delta > -50)
-			trap_S_StartLocalSound( cgs.media.hitSound[1], CHAN_LOCAL_SOUND );
-		else if (delta > -75)
-			trap_S_StartLocalSound( cgs.media.hitSound[2], CHAN_LOCAL_SOUND );
-		else if (delta < -75)
-			trap_S_StartLocalSound( cgs.media.hitSound[3], CHAN_LOCAL_SOUND );
-			*/
 
   //health changes of more than -1 should make pain sounds
   //and don't play hurt sound if evolving
@@ -333,15 +316,6 @@ void CG_CheckLocalSounds( playerState_t *ps, playerState_t *ops )
   {
 	  trap_S_StartLocalSound( cgs.media.doublejumpsound, CHAN_LOCAL_SOUND );
   }
-  /*
-#ifdef PERS_HITS
-    //doublejumpsound
-		doublejumped = ops->persistant[PERS_HITS] - ps->persistant[PERS_HITS];
-  if( doublejumped && doublejumped != 400 && doublejumped < 400
-   && cg_doublejumpsound.integer)
-			trap_S_StartLocalSound( cgs.media.doublejumpsound, CHAN_LOCAL_SOUND );
-#endif
-*/
 
   // if we are going into the intermission, don't start any voices
   if( cg.intermissionStarted )
