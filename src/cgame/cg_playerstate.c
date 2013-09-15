@@ -319,18 +319,19 @@ void CG_CheckLocalSounds( playerState_t *ps, playerState_t *ops )
   //health changes of more than -1 should make pain sounds
   //and don't play hurt sound if evolving
   if( ps->stats[ STAT_HEALTH ] < ops->stats[ STAT_HEALTH ] - 1
-  && ps->stats[ STAT_MAX_HEALTH ] == ops->stats[ STAT_MAX_HEALTH ] )
+  && ps->stats[ STAT_PCLASS ] == ops->stats[ STAT_PCLASS ] )
   {
   float healthlost = ((ops->stats[ STAT_HEALTH ] - ps->stats[ STAT_HEALTH ])/ps->stats[ STAT_MAX_HEALTH ]);
     if( ps->stats[ STAT_HEALTH ] > 0 ){
       CG_PainEvent( &cg.predictedPlayerEntity, ps->stats[ STAT_HEALTH ] );
-      //play critical hit! sound if lost > 50% hp
-      if (healthlost > 0.5)
+      //play critical hit! sound if lost > 40% hp
+      if (healthlost > 0.4)
       trap_S_StartLocalSound( cgs.media.hitSound[9], CHAN_LOCAL_SOUND );
-      //meh might as well, doublejump's fked, might as well use it if lost > 30% health
-      else if (healthlost > 0.3)
-			trap_S_StartLocalSound( cgs.media.doublejumpsound, CHAN_LOCAL_SOUND );
     }
+  }
+  if(ps->persistant[PERS_DOUBLEJUMPED] != ops->persistant[PERS_DOUBLEJUMPED])
+  {
+	  trap_S_StartLocalSound( cgs.media.doublejumpsound, CHAN_LOCAL_SOUND );
   }
   /*
 #ifdef PERS_HITS
