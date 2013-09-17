@@ -1509,9 +1509,9 @@ void G_SelectiveDamage( gentity_t *targ, gentity_t *inflictor, gentity_t *attack
          vec3_t dir, vec3_t point, int damage, int dflags, int mod, int team )
 {
 //ZdrytchX: Acid is supposed to be effective on metal right?
-  if( /*targ->client &&*///targ->s.eType == ET_BUILDABLE &&
-  /*( team != targ->client->ps.stats[ STAT_PTEAM ] )*/
-      !OnSameTeam( targ, attacker ) )
+  if( targ->client && //targ->s.eType == ET_BUILDABLE &&
+  ( team != targ->client->ps.stats[ STAT_PTEAM ] ) )
+     //doesn't work: !OnSameTeam( targ, attacker )
     G_Damage( targ, inflictor, attacker, dir, point, damage, dflags, mod );
 }
 
