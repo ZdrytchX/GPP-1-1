@@ -1508,7 +1508,10 @@ dflags    these flags are used to control how T_Damage works
 void G_SelectiveDamage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
          vec3_t dir, vec3_t point, int damage, int dflags, int mod, int team )
 {
-  if( targ->client && ( team != targ->client->ps.stats[ STAT_PTEAM ] ) )
+//ZdrytchX: Acid is supposed to be effective on metal right?
+  if( /*targ->client &&*///targ->s.eType == ET_BUILDABLE &&
+  /*( team != targ->client->ps.stats[ STAT_PTEAM ] )*/
+      !OnSameTeam( targ, attacker ) )
     G_Damage( targ, inflictor, attacker, dir, point, damage, dflags, mod );
 }
 
@@ -1920,19 +1923,29 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
     damagemodifier = G_CalcDamageModifier( point, targ, attacker, client->ps.stats[ STAT_PCLASS ], dflags );
     take = (int)( (float)take * damagemodifier );
 
-    //if boosted poison every attack
-    if( attacker->client && attacker->client->ps.stats[ STAT_STATE ] & SS_BOOSTED )
+    //if boosted or attacked by alien buildable, poison every attack
+    if( attacker->client && ( attacker->client->ps.stats[ STAT_STATE ] & SS_BOOSTED
+    || mod == MOD_ASPAWN ) )
     {
       if( targ->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS &&
-          !( targ->client->ps.stats[ STAT_STATE ] & SS_POISONED ) &&
           mod != MOD_LEVEL2_ZAP && //can't poison through zap
           targ->client->poisonImmunityTime < level.time )
       {
+        if(!( targ->client->ps.stats[ STAT_STATE ] & SS_POISONED ))
+        {
         targ->client->ps.stats[ STAT_STATE ] |= SS_POISONED;
         targ->client->lastPoisonTime = level.time;
         targ->client->lastPoisonClient = attacker;
         attacker->client->pers.statscounters.repairspoisons++;
         level.alienStatsCounters.repairspoisons++;
+        }
+        else //renew poison data
+        {
+        targ->client->lastPoisonTime = level.time;
+        targ->client->lastPoisonClient = attacker;
+        attacker->client->pers.statscounters.repairspoisons++;
+        level.alienStatsCounters.repairspoisons++;
+        }
       }
     }
   }

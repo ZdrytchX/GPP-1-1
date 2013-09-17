@@ -840,7 +840,7 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
 			if (pm->ps->persistant[PERS_JUMPTIME] > 0) {
 				//pm->ps->velocity[2] += (cpm_pm_jump_z * BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ])); // BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ]);
 				jumpvel += (cpm_pm_jump_z * BG_FindJumpMagnitudeForClass( pm->ps->stats[ STAT_PCLASS ]));
-				pm->ps->persistant[PERS_DOUBLEJUMPED] = 1;
+				pm->ps->persistant[PERS_DOUBLEJUMPED] = 1; //does not replay when climbing stairs
 			}
 			pm->ps->persistant[PERS_JUMPTIME] = 400;
 			pm->ps->pm_time = cpm_pm_cliptime; //clip through walls
@@ -873,8 +873,8 @@ static qboolean PM_CheckJump( void ) //ZdrytchX: Instead of a boolean function, 
 	  //Pure 1.1 style
 	  else
 	    pm->ps->velocity[ 2 ] = jumpvel;
-    PM_AddEvent( EV_JUMP );//jump!
   }
+  PM_AddEvent( EV_JUMP );//jump!
 
   if( pm->cmd.forwardmove >= 0 )
   {
@@ -2221,7 +2221,7 @@ static void PM_GroundClimbTrace( void )
     PM_GroundTraceMissed( );
     pml.groundPlane = qfalse;
     pml.walking = qfalse;
-    pm->ps->eFlags &= ~EF_WALLCLIMB;
+    pm->ps->eFlags &= ~EF_WALLCLIMB;    PM_AddEvent( EV_JUMP );//jump!
 
     //just transided from ceiling to floor... apply delta correction
     if( pm->ps->stats[ STAT_STATE ] & SS_WALLCLIMBINGCEILING )
@@ -2444,6 +2444,7 @@ static void PM_GroundTrace( void )
   // slopes that are too steep will not be considered onground
   if( trace.plane.normal[ 2 ] < MIN_WALK_NORMAL 
   //Also, if upward vel > jumpspeed, just slide (Q1)
+  //Prevents jumping too
   || ( pm->ps->velocity[ 2 ] > jumpspeed && pm_q1rampslide )
   //Also, if using warsow style hops when on stairs
   //TODO: Only use if going up, but z-vel gets clipped to 0 whenever stepping-up
@@ -2639,7 +2640,7 @@ static void PM_Footsteps( void )
                       + pm->ps->velocity[ 1 ] * pm->ps->velocity[ 1 ]
                       + pm->ps->velocity[ 2 ] * pm->ps->velocity[ 2 ] );
   }
-  else //Potential Speedometer?
+  else
     pm->xyspeed = sqrt( pm->ps->velocity[ 0 ] * pm->ps->velocity[ 0 ]
       + pm->ps->velocity[ 1 ] * pm->ps->velocity[ 1 ] );
 
@@ -2987,7 +2988,8 @@ static void PM_Weapon( void )
     return;
   }
 
-  
+  /*ZdrytchX: This is really dodgy in my opinion as you lose your pounce
+  upon landing, but if you don't stay on the ground long enough you can't attack
   // no bite during pounce
   if( ( pm->ps->weapon == WP_ALEVEL3 || pm->ps->weapon == WP_ALEVEL3_UPG ) 
     && ( pm->cmd.buttons & BUTTON_ATTACK )
@@ -2995,6 +2997,7 @@ static void PM_Weapon( void )
   {
     return;
   }
+  */
  //ZdrytchX: Anti-Charge Combo
    if( (pm->ps->stats[ STAT_MISC ] > 0 /*|| pm->ps->stats[ STAT_STATE ] == SS_CHARGING */)
     && pm->ps->weapon == WP_ALEVEL4 

@@ -296,6 +296,10 @@ void G_BotThink( gentity_t *self) {
         G_BotEvolve(self,&botCmdBuffer);
     }
 
+    //don't black out
+    if (self->client->ps.stats[ STAT_STAMINA ] < -500 && self->botMind->botSkill.level > 40)
+      self->client->ps.stats[ STAT_STATE ] &= ~SS_SPEEDBOOST;
+
     //donate team funds if surplus periodically
     
     if (g_allowShare.integer && self->client->time1000 % (10000 + rand() % 100000) == 0
@@ -305,14 +309,16 @@ void G_BotThink( gentity_t *self) {
       if (self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS && funds > 5)
       {
       if( !(self->client->pers.muted))
-      G_Say(self,NULL, SAY_TEAM, "I just donated some evos to our hivemind; cherish them wisely.");
+      G_Say(self,NULL, SAY_TEAM, "I'm full on evos here.");
+      //G_Say(self,NULL, SAY_TEAM, "I just donated some evos to our hivemind; cherish them wisely.");
       trap_SendServerCommand( botGetAimEntityNumber(self), va( "donate \"%i\"\n", (funds - 5) ) );
       //Cmd_Donate_f( self );//expects gentity_t * type
       }
       else if (self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS && funds > 1200)
       {
       if( !(self->client->pers.muted))
-      G_Say(self,NULL, SAY_TEAM, "I just donated some credit points for our squad. Now ^1stop^5 feedng your asses to 'em.");
+      //G_Say(self,NULL, SAY_TEAM, "I just donated some credit points for our squad. Now ^1stop^5 feedng your asses to 'em.");
+      G_Say(self,NULL, SAY_TEAM, "I feel like I own Oprah's bank account.");
       trap_SendServerCommand( botGetAimEntityNumber(self), va( "donate \"%i\"\n", (funds - 1200) ) );
       //Cmd_Donate_f( self );
       }
@@ -342,6 +348,7 @@ void G_BotThink( gentity_t *self) {
             break;
         case BUILD:
            // G_BotBuild(self, &botCmdBuffer);
+           //TODO: Find Alien Invasion source for their bot build code
            break;
         case BUY:
             G_BotBuy(self, &botCmdBuffer);
@@ -1381,6 +1388,8 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                 if( self->client->time10000 % (LCANNON_CHARGE_TIME - 100) ) { //time10000 % 1900
                 botCmdBuffer->buttons |= BUTTON_ATTACK;////
                 self->botMind->isFireing = qtrue;
+                if(rand() > 0.5)
+                botCmdBuffer->upmove = 20;
                 }
             }
             else{
@@ -1981,7 +1990,7 @@ void botSlowAim( gentity_t *self, vec3_t target, float slow, vec3_t *rVec) {
         slowness = slow*(15/1000.0);
         if(slowness > 1.0) slowness = 1.0;
         
-        VectorLerp( slowness, forward, aimVec, skilledVec); //TODO: Add Aiming Ahead
+        VectorLerp( slowness, forward, aimVec, skilledVec);
         
         VectorAdd(viewBase, skilledVec, *rVec);
 }
@@ -2154,8 +2163,8 @@ void findNewNode( gentity_t *self, usercmd_t *botCmdBuffer) {
         if (self->client->time10000 % 100000 == 0 && !(self->client->pers.muted))
         {
           if(!g_mode_teamkill.integer)
-          G_Say(self,NULL, SAY_TEAM, "Sorry guys, I got Lost. I'll just sit here on guard.");
-          else
+          G_Say(self,NULL, SAY_TEAM, "Sorry guys, I got Lost. I'll just.. die.");
+
           trap_SendServerCommand( botGetAimEntityNumber(self), "kill" );
         }
     }

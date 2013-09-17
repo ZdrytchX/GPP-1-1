@@ -162,7 +162,7 @@ Quake 3: (Team)Arena [VQ3] - Same as 1.1 physics pretty much, only that it had a
 //|-----------+---------+
 //| 0         | 0       |
 //| qtrue     | qfalse  |
-//| 0         | 0       |
+//| 1         | 0       |
 //| qfalse    | qfalse  |
 //|-----------+---------+
 //| qfalse    | qfalse  |
@@ -204,6 +204,7 @@ float	cpm_pm_wishspeed = 30; //Portion of 320 in mid air accel that contributes 
 //-------------------------------------------------------------------------------
 //TODO: ADV Marauder doesn't doublejump (don't want its walljump to doublejump either)
 float cpm_pm_jump_z = 0.5; //CPM: 100/270 (normal jumpvel is 270, doublejump default 100) = 0.37037
+//You slide up ramps if your upward velocity is higher than than your double jump velocity.
 qboolean pm_q1rampslide = qfalse;
 //0 = 1.1/VQ3/up Vel = jump, 1 = Bob's OC/Add Vel only, 2 = GPP/{MG}/up Vel must be > jump, else just add
 int   pm_rampjump = 2; //0, 1, 2 only
@@ -211,6 +212,7 @@ int   pm_rampjump = 2; //0, 1, 2 only
 //Warsow's doublejump prevents spamming jump sound and helps bhopping up stairs.
 //Advisable not to use this, my opinion (slide in vents when bhopping)
 //Also prevents from jumping, which makes it feel like marauder without walljump
+//Note: This is not actually what happens in WSW, it's just a guess.
 qboolean pm_doublejump_wsw_style = qfalse; //clips velocity when double jumping up stairs
                                           //uses cpm_pm_cliptime for the duration
 
@@ -255,7 +257,9 @@ float pm_groundspeedcaplimit = 0;
 //-------------------------------------------------------------------------------
 //float pm_jumpheight; //Height at which one can jump if stamina < allowable && > absolute min
 
-void CPM_UpdateSettings(int num) //does nothing now
+//this does nothing now - supposed to be vote-compatible, but I don't have a g_gametype cvar
+//to refer to
+void CPM_UpdateSettings(int num)
 {
 	// num = 0: normal quake 3
 	// num = 1: pro mode
