@@ -1711,6 +1711,7 @@ void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation)
     vec3_t mins;
     float pingmod = g_bot_ping.integer/1000;
     float compensationmod = g_bot_ping_compensate.integer/1000;
+    float skillcompensationmod = (1.00 - self->botMind->botSkill.aimSlowness);
     int   total;
 
     //get the position of the enemy
@@ -1726,7 +1727,8 @@ void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation)
 
    //aim ahead - at the end where projectile speed * X, if X is < 1 then it over-aims (BAD) but if it's > 1 it aims ahead, but not as far as it should (ideal for slower projecticles, else buggy things happen)
     if(self->s.weapon == WP_LUCIFER_CANNON) {
-         total = (compensationmod - pingmod + Distance(self->s.pos.trBase, *aimLocation) / (LCANNON_SPEED * 1.5));
+         total = (skillcompensationmod + compensationmod - pingmod
+         + Distance(self->s.pos.trBase, *aimLocation) / (LCANNON_SPEED * 1.5));
          //aim down
          //TODO: Only if on the ground
          BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], mins, NULL, NULL, NULL, NULL);
@@ -1734,15 +1736,18 @@ void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation)
        }
        else if(self->s.weapon == WP_PULSE_RIFLE)
        {
-         total = (compensationmod - pingmod + Distance(self->s.pos.trBase, *aimLocation) / PRIFLE_SPEED);
+         total = (skillcompensationmod + compensationmod - pingmod
+         + Distance(self->s.pos.trBase, *aimLocation) / PRIFLE_SPEED);
        }
        else if(self->s.weapon == WP_MASS_DRIVER)
        {
-         total = (compensationmod - pingmod + Distance(self->s.pos.trBase, *aimLocation) / MDRIVER_SPEED);
+         total = (skillcompensationmod + compensationmod - pingmod
+         + Distance(self->s.pos.trBase, *aimLocation) / MDRIVER_SPEED);
        }
        else if(self->s.weapon == WP_BLASTER)
        {
-         total = (compensationmod - pingmod + Distance(self->s.pos.trBase, *aimLocation) / (BLASTER_SPEED * 1.1));
+         total = (skillcompensationmod + compensationmod - pingmod
+         + Distance(self->s.pos.trBase, *aimLocation) / (BLASTER_SPEED * 1.1));
          //aim down
          //TODO: Only if on the ground
          BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], mins, NULL, NULL, NULL, NULL);
@@ -1750,7 +1755,8 @@ void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation)
        }        
        else if(self->s.weapon == WP_ALEVEL3_UPG)
        {
-        total = (compensationmod - pingmod + Distance(self->s.pos.trBase, *aimLocation) / (LEVEL3_BOUNCEBALL_SPEED * 1.2));
+        total = (skillcompensationmod + compensationmod - pingmod
+        + Distance(self->s.pos.trBase, *aimLocation) / (LEVEL3_BOUNCEBALL_SPEED * 1.2));
          //aim down
          //TODO: Only if on the ground
          BG_FindBBoxForClass(self->client->ps.stats[STAT_PCLASS], mins, NULL, NULL, NULL, NULL);
@@ -1758,7 +1764,7 @@ void botGetAimLocation(gentity_t *self, botTarget_t target, vec3_t *aimLocation)
        }
        else
        {
-         total = compensationmod - pingmod;
+         total = skillcompensationmod + compensationmod - pingmod;
        }
     VectorMA(*aimLocation, total + 0.1, target.ent->s.pos.trDelta, *aimLocation);
     }

@@ -1508,10 +1508,9 @@ dflags    these flags are used to control how T_Damage works
 void G_SelectiveDamage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
          vec3_t dir, vec3_t point, int damage, int dflags, int mod, int team )
 {
-//ZdrytchX: Acid is supposed to be effective on metal right?
-  if( targ->client && //targ->s.eType == ET_BUILDABLE &&
+//ZdrytchX: Is it possible to get alien buildables to damage human buildables?
+  if( targ->client &&
   ( team != targ->client->ps.stats[ STAT_PTEAM ] ) )
-     //doesn't work: !OnSameTeam( targ, attacker )
     G_Damage( targ, inflictor, attacker, dir, point, damage, dflags, mod );
 }
 
@@ -1736,6 +1735,8 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
         float kvelup = sqrt(LASGUN_K_UP) * sqrt(kvel[ 2 ]);
         if(kvelup > 100)
           kvelup = 100;
+        if(kvelup < 0)
+          kvelup = 0;
         upvel += LASGUN_K_UP - kvelup * kvelup;
       }
       break;
