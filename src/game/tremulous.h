@@ -155,7 +155,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL4_CLAW_K_SCALE         0.2f //Effects Charge, do NOT put '0' however 0.1 is acceptable and not very noticable.
 
 #define LEVEL4_REGEN_MOD            1.5f //No longer is kept with tyrant, however applies to overminds
-#define LEVEL4_CHARGE_SPEED         2.5f //2.5 is easier to move with
+#define LEVEL4_CHARGE_SPEED         2.0f //2.5 is easier to move with, reverted for standard client compatibility
 #define LEVEL4_CHARGE_TIME          4000 //Leave alone!
 #define LEVEL4_CHARGE_CHARGE_TIME   4000 //Trample time
 #define LEVEL4_CHARGING_CHARGE_TIME 2000 //Charging up trample
@@ -168,10 +168,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
                 //GPP uses '100', the more lower, the more ping-bias
 #define LEVEL4_CHARGE_TIMEOUT       LEVEL4_CHARGE_REPEAT + FASTFIRE //After charge has run out, wait this before you can swipe
 #define LEVEL4_CHARGE_DMG           ADM(76 + (VAMP_ON * 35)) //100 (to help with armoured) - DO NOT USE '0'
-					//0.2s naked
-					//~0.4s helm
-					//~0.6s larm
-					//~0.9s larm+helm [Bsuit not tested, but bsuit should be the same as this]
+//Approx. duration to kill from full:
+					//0.15  naked
+					//0.3s helm
+					//0.45s larm
+					//0.6s larm+helm [Bsuit not tested, but bsuit should be the same as this]
 #define LEVEl4_CHARGE_K_ORIGINAL    85.0f //gpp 111.0f
 #define LEVEl4_CHARGE_K_COUNTER     (1/LEVEL4_CLAW_K_SCALE)*(LEVEl4_CHARGE_K_ORIGINAL/LEVEL4_CHARGE_DMG) //counteracts the claw knockback and damage differences between this and LEVEl4_CHARGE_K_ORIGINAL
 

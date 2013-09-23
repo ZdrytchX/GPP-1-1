@@ -1532,12 +1532,14 @@ static void PM_WalkMove( void )
   else
   {
     // don't reset the z velocity for slopes
-//    pm->ps->velocity[2] = 0;
+    if( pm_q1rampslip && ( !pm_rampjump
+        || (pm_rampjump == 2 && pml.previous_velocity[ 2 ] < 0) ) )
+      pm->ps->velocity[2] = 0;
+    else
+    // slide along the ground plane
+    PM_ClipVelocity( pm->ps->velocity, pml.groundTrace.plane.normal,
+      pm->ps->velocity, OVERCLIP );
   }
-
-  // slide along the ground plane
-  PM_ClipVelocity( pm->ps->velocity, pml.groundTrace.plane.normal,
-    pm->ps->velocity, OVERCLIP );
 
   // don't do anything if standing still
   if( !pm->ps->velocity[ 0 ] && !pm->ps->velocity[ 1 ] )
@@ -2256,7 +2258,9 @@ static void PM_GroundClimbTrace( void )
   pm->ps->groundEntityNum = trace.entityNum;
 
   // don't reset the z velocity for slopes
-//  pm->ps->velocity[2] = 0;
+  if( pm_q1rampslip && ( !pm_rampjump
+    || (pm_rampjump == 2 && pml.previous_velocity[ 2 ] < 0) ) )
+  pm->ps->velocity[2] = 0;
 
   PM_AddTouchEnt( trace.entityNum );
 }
@@ -2492,7 +2496,9 @@ static void PM_GroundTrace( void )
   pm->ps->groundEntityNum = trace.entityNum;
 
   // don't reset the z velocity for slopes
-//  pm->ps->velocity[2] = 0;
+  if( pm_q1rampslip && ( !pm_rampjump
+    || (pm_rampjump == 2 && pml.previous_velocity[ 2 ] < 0) ) )
+    pm->ps->velocity[2] = 0;
 
   PM_AddTouchEnt( trace.entityNum );
 }

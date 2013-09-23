@@ -2012,10 +2012,10 @@ void HMedistat_Think( gentity_t *self )
 
       self->enemy->health++;
 
-      //ZdrytchX: give them a medkit, just in case the medistat dies while healing the player,
-      //giving the player a chance. Also solves the bot's 'missing medkit' problem when jumping off
-      //the medistat too early
-      if( //self->enemy->health >= self->enemy->client->ps.stats[ STAT_MAX_HEALTH ] &&
+      //ZdrytchX: give them a medkit a bit early,
+      //solves the bot's 'missing medkit' problem when jumping off the medistat too early
+//self->enemy->health >= self->enemy->client->ps.stats[ STAT_MAX_HEALTH ] &&
+      if( self->enemy->health >= self->enemy->client->ps.stats[ STAT_MAX_HEALTH ] * 0.9 &&
           !BG_InventoryContainsUpgrade( UP_MEDKIT, self->enemy->client->ps.stats ) )
         BG_AddUpgradeToInventory( UP_MEDKIT, self->enemy->client->ps.stats );
     }

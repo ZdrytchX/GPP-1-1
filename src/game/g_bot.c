@@ -281,8 +281,8 @@ void G_BotThink( gentity_t *self) {
     //while others on the same team can't use teamstatus since they cannot obtain the flag.
     //A possible way to achieve this is using client numbers but things can get a bit fishy (i.e. !restart)
     if( !(self->client->pers.muted) && (self->client->time100 % (21000 + ((int)(100 * rand()) % 10000)/100) <= 25) && g_teamStatus.integer && !g_mode_teamkill.integer)
-//    Cmd_TeamStatus_f( self );
-      trap_SendServerCommand( botGetAimEntityNumber(self), "teamstatus" );
+    Cmd_TeamStatus_f( self );
+    //trap_SendServerCommand( botGetAimEntityNumber(self), "teamstatus" );
     //TODO: warning: implicit declaration of function ‘Cmd_TeamStatus_f’
 
 
@@ -291,7 +291,8 @@ void G_BotThink( gentity_t *self) {
         BG_ActivateUpgrade(UP_MEDKIT,self->client->ps.stats);
 
     //try to evolve every so often (aliens only)
-    if(g_bot_evolve.integer > 0 && self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS && self->client->ps.persistant[PERS_CREDIT] > 0)
+    if(g_bot_evolve.integer > 0 && self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS
+      && self->client->ps.persistant[PERS_CREDIT] > 0 && self->client->time100 % (2000 + rand() % 20000) <= 2000)
     {
         G_BotEvolve(self,&botCmdBuffer);
     }
@@ -311,7 +312,7 @@ void G_BotThink( gentity_t *self) {
       if( !(self->client->pers.muted))
       G_Say(self,NULL, SAY_TEAM, "I'm full on evos here.");
       //G_Say(self,NULL, SAY_TEAM, "I just donated some evos to our hivemind; cherish them wisely.");
-      trap_SendServerCommand( botGetAimEntityNumber(self), va( "donate \"%i\"\n", (funds - 5) ) );
+      //trap_SendServerCommand( botGetAimEntityNumber(self), va( "donate \"%i\"\n", (funds - 5) ) );
       //Cmd_Donate_f( self );//expects gentity_t * type
       }
       else if (self->client->ps.stats[STAT_PTEAM] == PTE_HUMANS && funds > 1200)
@@ -319,7 +320,7 @@ void G_BotThink( gentity_t *self) {
       if( !(self->client->pers.muted))
       //G_Say(self,NULL, SAY_TEAM, "I just donated some credit points for our squad. Now ^1stop^5 feedng your asses to 'em.");
       G_Say(self,NULL, SAY_TEAM, "I feel like I own Oprah's bank account.");
-      trap_SendServerCommand( botGetAimEntityNumber(self), va( "donate \"%i\"\n", (funds - 1200) ) );
+      //trap_SendServerCommand( botGetAimEntityNumber(self), va( "donate \"%i\"\n", (funds - 1200) ) );
       //Cmd_Donate_f( self );
       }
     }
@@ -781,7 +782,7 @@ void G_BotBuy(gentity_t *self, usercmd_t *botCmdBuffer) {
             G_BotBuyUpgrade( self, UP_HELMET);
             G_BotBuyUpgrade( self, UP_LIGHTARMOUR);
 	      }
-//obviously doesn't work
+//obviously doesn't work, just a reference to help fix the missing model problem
 /*
         if( BG_InventoryContainsUpgrade( UP_BATTLESUIT, self->client->ps.stats )  ) //set model
         {
@@ -1211,7 +1212,8 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
     if(getTargetType(self->botMind->goal) == ET_BUILDABLE && distance < Square(ABUILDER_CLAW_RANGE))
     {
 		    botCmdBuffer->forwardmove = 0;
-		    botCmdBuffer->rightmove = 64;//strafe
+		    if(distance < Square(32))
+		    botCmdBuffer->rightmove = 64;//strafe only a bit
     }
 
         switch(self->client->ps.stats[STAT_PCLASS]) {

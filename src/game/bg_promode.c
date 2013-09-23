@@ -97,6 +97,10 @@ QuakeWorld& [Q1, slightly modded] - Quake 1 physics, QuakeWorld style. No step-u
   step-ups in air.
   There's also a weird issue with Quake 1 where people reckon there's a similar speed limit to
   TFC's but I haven't confirmed it myself.
+
+Quake 2: I'm still new to Quake 2, so I haven't throughly analysed it yet. Apparently it's almost identicle
+  to Quake 3, and id even left some evidence of it.
+
 Quake 3: (Team)Arena [VQ3] - Same as 1.1 physics pretty much, only that it had a cliptime of 250 msec.
 
 *TODO: Air Control Penalty (Makes the player slow down if they turn too fast
@@ -126,6 +130,7 @@ Quake 3: (Team)Arena [VQ3] - Same as 1.1 physics pretty much, only that it had a
 //|---------+---------+---------+-------------+-----------------+-------------+--------------+--------|
 //| 0.370370| 0       | 0.5     |0            | 0               | 0           | 0.37037037037| 0      |
 //| qfalse  | qfalse  | qfalse  |qtrue        | qtrue           | qfalse      | qtrue        | qfalse |
+//| qfalse  | qfalse  | qfalse  |qfalse       | qfalse          | qfalse      | qfalse       | qfalse |
 //| 2(1?)   | 0       | 2       |0            | 0               | 1           | 2(1?)        | 2      |
 //| qfalse  | qfalse  | qfalse  |qfalse       | qfalse          | qfalse      | qtrue        | qfalse |
 //|---------+---------+---------+-------------+-----------------+-------------+--------------+--------|
@@ -146,47 +151,51 @@ Quake 3: (Team)Arena [VQ3] - Same as 1.1 physics pretty much, only that it had a
 //| 0       | 0       | 0       |0            | 0.5             | 0           | 0            | 0      |
 //| 0       | 0       | 0       |320          | 0               | 0           | 0            | 0      |
 //'---------'---------'---------'-------------'-----------------'-------------'--------------'--------'
-// _____________________
-//|-----------.[-][0][X]|
-//|QuakeWorld | Quake 3:|
-//| (Quake 1) |  Arena  |
-//|-----------+---------+
-//| 0         | 250     |
-//| 1(2.5?)   | 1       |
-//| 0         | 0       |
-//| 1         | 1       |
-//| qfalse    | qfalse  |
-//| 70(2*30?) | 1       |
-//| 30        | 1       |
-//| 500       | 500     |
-//|-----------+---------+
-//| 0         | 0       |
-//| qtrue     | qfalse  |
-//| 1         | 0       |
-//| qfalse    | qfalse  |
-//|-----------+---------+
-//| qfalse    | qfalse  |
-//| 0         | 0       |
-//| 0         | 0       |
-//|-----------+---------+
-//| 1         | 1       |
-//| 10        | 10      |
-//| 6         | 6       |
-//|-----------+---------+
-//| qtrue     | qfalse  |
-//| qfalse    | qfalse  |
-//| qfalse    | qfalse  |
-//|-----------+---------+
-//| 0         | 0       |
-//| 0         | 0       |
-//| 0         | 0       |
-//'-----------'---------'
+// _____________________________
+//|-----------.-------.[-][0][X]|
+//|QuakeWorld | Quake | Quake 3:|
+//| (Quake 1) |   2   |  Arena  |
+//|-----------+-------+---------+
+//| 0         | 0     | 250     |
+//| 1(2.5?)   | 1     | 1       |
+//| 0         | 0     | 0       |
+//| 1         | 1     | 1       |
+//| qfalse    | qfalse| qfalse  |
+//| 70(2*30?) | 1     | 1       |
+//| 30        | 1     | 1       |
+//| 500       | 500   | 500     |
+//|-----------+-------+---------+
+//| 0         | 0     | 0       |
+//| qtrue     | qtrue | qfalse  |
+//| qtrue     | qtrue | qfalse  |
+//| 2         | 2     | 0       |
+//| qfalse    | qfalse| qfalse  |
+//|-----------+-------+---------+
+//| qfalse    | qfalse| qfalse  |
+//| 0         | 0     | 0       |
+//| 0         | 0     | 0       |
+//|-----------+-------+---------+
+//| 1         | 1     | 1       |
+//| 10        | 10    | 10      |
+//| 6         | 6     | 6       |
+//|-----------+-------+---------+
+//| qtrue     | qfalse| qfalse  |
+//| qfalse    | qfalse| qfalse  |
+//| qfalse    | qfalse| qfalse  |
+//|-----------+-------+---------+
+//| 0         | 0     | 0       |
+//| 0         | 0     | 0       |
+//| 0         | 0     | 0       |
+//'-----------'-------'---------'
+
 ///\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\..
 //==============================Physics Initiation==============================>
 //\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/''
+
 //-------------------------------------------------------------------------------
 //Challenge ProMode Main features
 //-------------------------------------------------------------------------------
+
 float	cpm_pm_cliptime = 200; //A very buggy exploit of vq3 is reimplemented with this.
 float	cpm_pm_airstopaccelerate = 2.5;
 float	cpm_pm_aircontrol = 165; 
@@ -202,10 +211,16 @@ float	cpm_pm_wishspeed = 30; //Portion of 320 in mid air accel that contributes 
 //-------------------------------------------------------------------------------
 //Jump Settings
 //-------------------------------------------------------------------------------
+
 //TODO: ADV Marauder doesn't doublejump (don't want its walljump to doublejump either)
 float cpm_pm_jump_z = 0.5; //CPM: 100/270 (normal jumpvel is 270, doublejump default 100) = 0.37037
+
 //You slide up ramps if your upward velocity is higher than than your double jump velocity.
 qboolean pm_q1rampslide = qfalse;
+//You slip down ramps with little friction because you 'bounce'.
+//TODO: Not working properly, still receive friction
+qboolean pm_q1rampslip = qfalse;
+
 //0 = 1.1/VQ3/up Vel = jump, 1 = Bob's OC/Add Vel only, 2 = GPP/{MG}/up Vel must be > jump, else just add
 int   pm_rampjump = 2; //0, 1, 2 only
 
@@ -219,6 +234,7 @@ qboolean pm_doublejump_wsw_style = qfalse; //clips velocity when double jumping 
 //-------------------------------------------------------------------------------
 //Bunnyhop (Acceleration and Autojump) Settings
 //-------------------------------------------------------------------------------
+
 qboolean pm_autojump = qfalse;
 float pm_bunnyhopspeedcap = 0; //(TODO: No Penalty for turning)  
 float pm_bunnyhopaccel = 0;    //accel = bhopaccel - bhopaccel * ([speed-320]/bhopspeedcap-320)
@@ -226,6 +242,7 @@ float pm_bunnyhopaccel = 0;    //accel = bhopaccel - bhopaccel * ([speed-320]/bh
 //-------------------------------------------------------------------------------
 //Standard Physics - Moved from bg_pmove.c here
 //-------------------------------------------------------------------------------
+
 float pm_airaccelerate = 1.0f;
 float	pm_accelerate = 10;         //Ground Acceleration        
 float	pm_friction = 6;            //Ground Friction
@@ -233,16 +250,21 @@ float	pm_friction = 6;            //Ground Friction
 //-------------------------------------------------------------------------------
 //Air Strafe settings for Air Physics types
 //-------------------------------------------------------------------------------
+
 qboolean pm_q1strafe = qfalse;//Allows cpm_pm_strafeaccelerate and cpm_pm_wishspeed
                               //to take effect in ALL directions, feels like
                               //CS:Source, TF, QW and all them Q1-based games
+                              
 qboolean pm_q3strafe = qtrue; //Allows you to accelerate even when past the cpm_pm_wishspeed
                               //and hence allows "half-beat strafe jumping" for VQ3-ers
+                              
 qboolean pm_aircontrol_alldir = qfalse; //Sets air control in all directions
                               //(prevents strafe jumping as well)
+                              
 //-------------------------------------------------------------------------------
 //Speed Limiters (VALVε - Source/GoldSRC games only)
 //-------------------------------------------------------------------------------
+
 //The speedcap and speedcaplimit are multiplied by BG_FindSpeedForClass()
 //Note that GSrc's units are slightly different.
 //TODO: Fix the Speed Limit bug with wallwalkers! (Don't change these settings folks yet)
@@ -252,13 +274,16 @@ float pm_groundspeedcapfriction = 0;
 //This one is not finished (Not Working)
 //when speedcap has been breached speed becomes this
 float pm_groundspeedcaplimit = 0;
+
 //-------------------------------------------------------------------------------
 //Unused Variables
 //-------------------------------------------------------------------------------
+
 //float pm_jumpheight; //Height at which one can jump if stamina < allowable && > absolute min
 
 //this does nothing now - supposed to be vote-compatible, but I don't have a g_gametype cvar
 //to refer to
+
 void CPM_UpdateSettings(int num)
 {
 	// num = 0: normal quake 3

@@ -124,4 +124,6 @@ int G_BotBuyWeapon(gentity_t *ent, int weapon);
 #define A_ROUTETO_BASE_RANGE 5000.0f
 */
 //ZdrytchX: New variables here by me.
-#define BUILDABE_REPAIR_HEALTH 0.7 //How much minimum health a buildable must have before it is to be healed
+//How much minimum health a buildable must have before it is to be healed, but effects
+//total health healed (i.e. they won't reach 100% and just leave as is)
+#define BUILDABE_REPAIR_HEALTH 0.7
