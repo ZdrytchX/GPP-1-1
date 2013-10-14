@@ -181,7 +181,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define LEVEL4_REGEN_RANGE          150.0f //Used for basi, booster and overmind healing, default 200
                                            //rant has no aura now
 //Re-added Tyrant Spitbomb
-#define LEVEL4_ABLOB_DMG            ADM(200)
+#define LEVEL4_ABLOB_DMG            ADM(210)
 #define LEVEL4_ABLOB_DMG_B          0.6f //damage to buildables modifier
 #define LEVEL4_ABLOB_RADIUS         200 //200 is more than enough to annoy campers
 #define LEVEL4_ABLOB_SPEED          500 //carries own speed too
