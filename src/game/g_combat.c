@@ -444,12 +444,12 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
       if(attacker->r.svFlags & SVF_BOT && !( self->r.svFlags & SVF_BOT) && rand() % 9 <= 3 && !attacker->client->pers.muted && ( attacker->client->ps.stats[STAT_HEALTH] > attacker->client->ps.stats[STAT_MAX_HEALTH] * 0.3) )
       if( g_mode_teamkill.integer || attacker->client->ps.stats[STAT_PTEAM] != self->client->ps.stats[STAT_PTEAM])
       {
-      if( rand() > 0.33)
+      if( rand() % 8 > 3)
     G_Say(attacker,NULL, SAY_ALL, "^2You ^1Suck! ^2Who's Next?^7");
-      else if( rand() > 0.5)
-    G_Say(attacker,NULL, SAY_ALL, va("%s's down with his skills. He needs to train more.", self->client->pers.netname));
+      else if( rand() % 8 > 5)
+    G_Say(attacker,NULL, SAY_ALL, va("%s's skills seem down today...", self->client->pers.netname));
       else
-    G_Say(attacker,NULL, SAY_ALL, va("What's the matter, %s? You mad bro?", self->client->pers.netname));
+    G_Say(attacker,NULL, SAY_ALL, "What's the matter, You mad bro?");
       }
 
       if( attacker != self && attacker->client->ps.stats[ STAT_PTEAM ]  == self->client->ps.stats[ STAT_PTEAM ] ) 
@@ -599,10 +599,18 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 
          //make bot say encourage the team to chase
       if( self->r.svFlags & SVF_BOT && !self->client->pers.muted
-       && (attacker->client->ps.stats[STAT_HEALTH] < (attacker->client->ps.stats[STAT_MAX_HEALTH] * 0.2 + 25))
-       && (attacker->client->ps.stats[STAT_PCLASS] != PCL_ALIEN_LEVEL0) )//never say if it's a dretch
-      if( g_mode_teamkill.integer || !( OnSameTeam( self, attacker ) ))
-      G_Say(self,NULL, SAY_TEAM, va("Chase ^7%s^5! He's low!", attacker->client->pers.netname) );//killername is wrong? (gives own name)
+       && attacker->client->ps.stats[STAT_HEALTH] < attacker->client->ps.stats[STAT_MAX_HEALTH] * 0.2 + 25 )
+      {
+        if (attacker->client->ps.stats[STAT_PCLASS] != PCL_ALIEN_LEVEL0)//never say if it's a dretch
+        {
+          if( g_mode_teamkill.integer || !( OnSameTeam( self, attacker ) ) )
+          G_Say(self,NULL, SAY_TEAM, va("Chase ^7%s^5! He's low!", attacker->client->pers.netname) );
+        }
+        if( !g_mode_teamkill.integer && ( OnSameTeam( self, attacker ) ))
+          G_Say(self,NULL, SAY_TEAM, "='(" );
+        else if ( !g_mode_teamkill.integer || !( OnSameTeam( self, attacker ) ) )
+          G_Say(self,NULL, SAY_ALL, "Stay still you twerp!" );
+      }
    }
 
     if( attacker != self && ( OnSameTeam( self, attacker ) ) )
