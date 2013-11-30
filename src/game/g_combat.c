@@ -609,7 +609,19 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
         if( !g_mode_teamkill.integer && ( OnSameTeam( self, attacker ) ))
           G_Say(self,NULL, SAY_TEAM, "='(" );
         else if ( !g_mode_teamkill.integer || !( OnSameTeam( self, attacker ) ) )
-          G_Say(self,NULL, SAY_ALL, "Stay still you twerp!" );
+        {
+          if(rand() % 9 <= 3)
+          {
+            if(rand() % 9 <= 1)
+            G_Say(self,NULL, SAY_ALL, "Stay still you twerp!" );
+            else if(rand() % 9 <= 2)
+            G_Say(self,NULL, SAY_ALL, "Gah" );
+            else if(rand() % 9 <= 3)
+            G_Say(self,NULL, SAY_ALL, "wtf" );
+            else
+            G_Say(self,NULL, SAY_ALL, "I better stop feeding... but I can't!" );
+          }
+        }
       }
    }
 
