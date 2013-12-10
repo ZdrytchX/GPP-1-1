@@ -632,6 +632,11 @@ void ClientTimerActions( gentity_t *ent, int msec )
       if( client->ps.stats[ STAT_STAMINA ] > MAX_STAMINA )
         client->ps.stats[ STAT_STAMINA ] = MAX_STAMINA;
     }
+    else {
+      if( client->ps.stats[ STAT_STAMINA ] > MAX_STAMINA )
+        client->ps.stats[ STAT_STAMINA ] = MAX_STAMINA;
+      else client->ps.stats[ STAT_STAMINA ] += STAMINA_RUN_RESTORE;
+    }
 
     //client is charging up for a pounce
     if( client->ps.weapon == WP_ALEVEL3 || client->ps.weapon == WP_ALEVEL3_UPG )

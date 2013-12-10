@@ -790,6 +790,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define STAMINA_STOP_RESTORE        25
 #define STAMINA_WALK_RESTORE        15
+#define STAMINA_RUN_RESTORE         3
 #define STAMINA_SPRINT_TAKE         6 //8
 #define STAMINA_LARMOUR_TAKE        8 //It replaces sprint_take when having larmour. According to g_active.c default is '4' which makes no sense
 #define STAMINA_BSUIT_STOP_RESTORE  30
