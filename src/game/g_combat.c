@@ -1753,9 +1753,9 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
       {
       //Always lift with same value unless aiming down on enemy
         float kvelup = sqrt(LASGUN_K_UP) * sqrt(kvel[ 2 ]);
-        if(kvelup > 100)
-          kvelup = 100;
-        if(kvelup < 0)
+        if(kvelup > 50)//100
+          kvelup = 50;//100
+        if(kvelup < (0-1) )
           kvelup = 0;
         upvel += LASGUN_K_UP - kvelup * kvelup;
       }
