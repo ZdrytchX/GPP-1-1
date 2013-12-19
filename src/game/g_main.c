@@ -580,12 +580,11 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_extendVotesCount, "g_extendVotesCount",                   "2", CVAR_ARCHIVE, 0, qfalse },
   { &g_adminTempSpec, "g_adminTempSpec",                       "120", CVAR_ARCHIVE, 0, qfalse },
 
-  { &g_level4_trample_buildable_percent, "g_level4_trample_buildable_percent", "35", CVAR_ARCHIVE, 0, qfalse },
   { &g_autoGhost, "g_autoGhost",                                 "1", CVAR_ARCHIVE, 0, qfalse },
   //g_hitsounds_type is an bitfield variable from 0-7
   //4 = No teammates, 2 = no buildables, 1 = monotone
   { &g_hitsounds, "g_hitsounds",                                 "1", CVAR_ARCHIVE, 0, qfalse },
-  { &g_hitsounds_type, "g_hitsounds_type",                       "4", CVAR_ARCHIVE, 0, qfalse },
+  { &g_hitsounds_type, "g_hitsounds_type",                       "4", CVAR_ARCHIVE, 0, qfalse },  { &g_level4_trample_buildable_percent, "g_level4_trample_buildable_percent","35", CVAR_ARCHIVE,0, qfalse },
 
   //Special Modes
   { &g_mode_cpm, "g_mode_cpm",                            "1", CVAR_ARCHIVE | CVAR_SERVERINFO, 0, qfalse },

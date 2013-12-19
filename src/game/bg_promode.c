@@ -221,6 +221,7 @@ qboolean pm_q1rampslide = qfalse;
 //You slip down ramps with little friction because you 'bounce'.
 //TODO: Not working properly, still receive friction
 //Possibility: Remove vector angle change?
+//possibility2: Remove step-down completely
 qboolean pm_q1rampslip = qfalse;
 
 //0 = 1.1/VQ3/up Vel = jump, 1 = Bob's OC/Add Vel only, 2 = GPP/{MG}/up Vel must be > jump, else just add

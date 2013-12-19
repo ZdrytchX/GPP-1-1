@@ -3269,7 +3269,7 @@ static void PM_Weapon( void )
     attack3 = qfalse;
   }
 //ZdrytchX
-  if( pm->ps->weapon == WP_BLASTER && !ammo && clips )//hacky fix for lakitu-7 qvm clients
+  if( pm->ps->weapon == WP_BLASTER && !ammo && clips )//hacky fix for my custom lakitu-7 qvm client
   {
     PM_AddEvent( EV_NOAMMO );
     pm->ps->weaponTime += 50;

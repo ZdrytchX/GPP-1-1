@@ -221,7 +221,6 @@ typedef enum
   STAT_BOOSTTIME, //TA: time left for boost (alien only)
   STAT_FALLDIST,  //TA: the distance the player fell
   STAT_VIEWLOCK,   //TA: direction to lock the view in
-//  STAT_JUMPTIME   //ZdrytchX: CPM doublejump - not enough room
 } statIndex_t;
 
 #define SCA_WALLCLIMBER         0x00000001

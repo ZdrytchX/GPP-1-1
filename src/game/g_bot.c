@@ -1388,10 +1388,12 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
             if( self->client->time100 % 5000 <= 500 )//self->client->ps.ammo[WP_LUCIFER_CANNON] > 2
             {
                 if( self->client->time10000 % (LCANNON_CHARGE_TIME - 100) ) { //time10000 % 1900
-                botCmdBuffer->buttons |= BUTTON_ATTACK;////
-                self->botMind->isFireing = qtrue;
-                if(rand() > 0.5)
-                botCmdBuffer->upmove = 20;
+                  botCmdBuffer->buttons |= BUTTON_ATTACK;////
+                  self->botMind->isFireing = qtrue;
+                  if(self->client->time1000 % 350 <= 100 && rand() * rand() > 0.9)
+                    botCmdBuffer->upmove = 20;
+                  else if(self->client->time1000 % 350 < 50)
+                    botCmdBuffer->upmove = -1;
                 }
             }
             else{
