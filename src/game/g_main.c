@@ -593,7 +593,7 @@ static cvarTable_t   gameCvarTable[ ] =
   { &g_mode_vampirebuildables,      "g_mode_vampirebuildables",             "0", CVAR_ARCHIVE, 0, qfalse },
   { &g_mode_vampirebuildables_take,      "g_mode_vampirebuildables_take",  "50", CVAR_ARCHIVE, 0, qfalse },
   { &g_mode_teamkill, "g_mode_teamkill",                                    "0", CVAR_ARCHIVE, 0, qfalse },
-  { &g_mode_teamkillVotePercent, "g_mode_teamkillVotePercent",             "76", CVAR_ARCHIVE, 0, qfalse },
+  { &g_mode_teamkillVotePercent, "g_mode_teamkillVotePercent",             "80", CVAR_ARCHIVE, 0, qfalse },
   { &g_mode_teamkill_human_knockback, "g_mode_teamkill_human_knockback",  "1.8", CVAR_ARCHIVE, 0, qfalse },
 };
 

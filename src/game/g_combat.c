@@ -2077,7 +2077,6 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
         attacker->client->ps.persistant[ PERS_HITS ]+= take;
       }
      }
-     
   }
 
     targ->lastDamageTime = level.time;

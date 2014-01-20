@@ -242,7 +242,7 @@ void CG_AlienSense( rectDef_t *rect )
     VectorClear( relOrigin );
     VectorSubtract( entityPositions.humanBuildablePos[ i ], origin, relOrigin );
 
-    buildable[3] = ALIENSENSE_RANGE/VectorLength( relOrigin );
+    buildable[3] = 1-VectorLength( relOrigin )/ALIENSENSE_RANGE;
     
     if( VectorLength( relOrigin ) < ALIENSENSE_RANGE )
       CG_DrawDir( rect, relOrigin, buildable );
@@ -253,7 +253,7 @@ void CG_AlienSense( rectDef_t *rect )
     VectorClear( relOrigin );
     VectorSubtract( entityPositions.alienBuildablePos[ i ], origin, relOrigin );
 
-    friendbuildable[3] = ALIENSENSE_RANGE/VectorLength( relOrigin );
+    friendbuildable[3] = 1-VectorLength( relOrigin )/ALIENSENSE_RANGE;
   
     if( VectorLength( relOrigin ) < ALIENSENSE_RANGE )
       CG_DrawDir( rect, relOrigin, friendbuildable );
@@ -264,7 +264,7 @@ void CG_AlienSense( rectDef_t *rect )
     VectorClear( relOrigin );
     VectorSubtract( entityPositions.humanClientPos[ i ], origin, relOrigin );
 
-    client[3] = ALIENSENSE_RANGE/VectorLength( relOrigin );
+    client[3] = 1-VectorLength( relOrigin )/ALIENSENSE_RANGE;
     
     if( VectorLength( relOrigin ) < ALIENSENSE_RANGE )
       CG_DrawDir( rect, relOrigin, client );
@@ -275,7 +275,7 @@ void CG_AlienSense( rectDef_t *rect )
     VectorClear( relOrigin );
     VectorSubtract( entityPositions.alienClientPos[ i ], origin, relOrigin );
 
-    friendclient[3] = ALIENSENSE_RANGE/VectorLength( relOrigin );
+    friendclient[3] = 1-VectorLength( relOrigin )/ALIENSENSE_RANGE;
 
     if( VectorLength( relOrigin ) < ALIENSENSE_RANGE )
       CG_DrawDir( rect, relOrigin, friendclient );

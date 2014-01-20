@@ -196,15 +196,15 @@ Quake 3: (Team)Arena [VQ3] - Same as 1.1 physics pretty much, only that it had a
 //Challenge ProMode Main features
 //-------------------------------------------------------------------------------
 
-float	cpm_pm_cliptime = 200; //A very buggy exploit of vq3 is reimplemented with this.
-float	cpm_pm_airstopaccelerate = 2.5;
-float	cpm_pm_aircontrol = 165; 
+float	cpm_pm_cliptime = 0; //A very buggy exploit of vq3 is reimplemented with this.
+float	cpm_pm_airstopaccelerate = 1.0;
+float	cpm_pm_aircontrol = 0; 
 float cpm_pm_aircontrolmod = 0.8;
 //This makes most aliens turn faster when you're on a larger attack angle, except for granger and marauder.
 //Marauder and normal granger use the opposite, where large attack angles don't turn you as much.
 qboolean  cpm_pm_aircontrolmoding = qtrue;
-float	cpm_pm_strafeaccelerate = 70;
-float	cpm_pm_wishspeed = 30; //Portion of 320 in mid air accel that contributes to the sharp acceleration
+float	cpm_pm_strafeaccelerate = 1;
+float	cpm_pm_wishspeed = 500; //Portion of 320 in mid air accel that contributes to the sharp acceleration
 //For Double jump, see next section
 //For Ground friction/accel settings, see Standard Physics section
 
@@ -213,7 +213,7 @@ float	cpm_pm_wishspeed = 30; //Portion of 320 in mid air accel that contributes 
 //-------------------------------------------------------------------------------
 
 //TODO: ADV Marauder doesn't doublejump (don't want its walljump to doublejump either)
-float cpm_pm_jump_z = 0.5; //CPM: 100/270 (normal jumpvel is 270, doublejump default 100) = 0.37037
+float cpm_pm_jump_z = 0.0; //CPM: 100/270 (normal jumpvel is 270, doublejump default 100) = 0.37037
 
 //You slide up ramps if your upward velocity is higher than than your double jump velocity.
 qboolean pm_q1rampslide = qfalse;
@@ -225,7 +225,7 @@ qboolean pm_q1rampslide = qfalse;
 qboolean pm_q1rampslip = qfalse;
 
 //0 = 1.1/VQ3/up Vel = jump, 1 = Bob's OC/Add Vel only, 2 = GPP/{MG}/up Vel must be > jump, else just add
-int   pm_rampjump = 2; //0, 1, 2 only
+int   pm_rampjump = 0; //0, 1, 2 only
 
 //Warsow's doublejump prevents spamming jump sound and helps bhopping up stairs.
 //Advisable not to use this, my opinion (slide in vents when bhopping)
