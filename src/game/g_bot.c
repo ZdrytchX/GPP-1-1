@@ -1390,9 +1390,11 @@ void botFireWeapon(gentity_t *self, usercmd_t *botCmdBuffer) {
                 if( self->client->time10000 % (LCANNON_CHARGE_TIME - 100) ) { //time10000 % 1900
                   botCmdBuffer->buttons |= BUTTON_ATTACK;////
                   self->botMind->isFireing = qtrue;
-                  if(self->client->time1000 % 350 <= 100 && rand() * rand() > 0.9)
+                  if(self->client->time1000 % 350 <= 100 && rand() * rand()
+                    > 0.9 && DistanceSquared( muzzle, targetPos) < Square(600)
+                    && DistanceSquared( muzzle, targetPos) > Square(300))
                     botCmdBuffer->upmove = 20;
-                  else if(self->client->time1000 % 350 < 50)
+                  else if(self->client->time1000 % 350 < 150)
                     botCmdBuffer->upmove = -1;
                 }
             }
