@@ -280,7 +280,7 @@ void G_BotThink( gentity_t *self) {
     //Possible Solution: Get the first bot the join a team assign himself 'the one and only' teamstatus flag for its team
     //while others on the same team can't use teamstatus since they cannot obtain the flag.
     //A possible way to achieve this is using client numbers but things can get a bit fishy (i.e. !restart)
-    if( !(self->client->pers.muted) && (self->client->time100 % (21000 + ((int)(100 * rand()) % 10000)/100) <= 25) && g_teamStatus.integer && !g_mode_teamkill.integer)
+    if( !(self->client->pers.muted) && self->client->time10000 % (1 + (int)(rand() % (150000))) == 0 && g_teamStatus.integer && !g_mode_teamkill.integer)
     Cmd_TeamStatus_f( self );
     //trap_SendServerCommand( botGetAimEntityNumber(self), "teamstatus" );
     //TODO: warning: implicit declaration of function ‘Cmd_TeamStatus_f’
@@ -856,7 +856,7 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
         }
         teamRush = (level.time % 300000 < 150000) ? qtrue : qfalse; //changing these effect the bot's ability to attack other players?      
         
-        if (level.time % 300000 < 50000 && self->client->time10000 % ((int)(rand() % 150000)) == 0 //150 seconds because if there's only one or two teammates it's pointless
+        if (level.time % 300000 < 50000 && self->client->time10000 % (1 + (int)(rand() % 150000)) == 0 //150 seconds because if there's only one or two teammates it's pointless
         && !(self->client->pers.muted) && !g_mode_teamkill.integer)
         {
         if (self->client->time1000 % 3000 < 1000)
@@ -864,7 +864,7 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
         else
         G_Say(self,NULL, SAY_TEAM, "Let's earn some money, shall we?");
         }
-        
+       
     } else if (self->client->ps.stats[STAT_PTEAM] == PTE_ALIENS){
         buildingIndex = botFindBuilding(self, BA_H_REACTOR, -1);
         if(buildingIndex == ENTITYNUM_NONE) {
@@ -872,7 +872,7 @@ void G_BotRoam(gentity_t *self, usercmd_t *botCmdBuffer) {
         }
         teamRush = (level.time % 300000 > 150000) ? qtrue : qfalse;
         
-        if (level.time % 300000 > 250000 && self->client->time10000 % ((int)(rand() % 150000)) == 0
+        if (level.time % 300000 > 250000 && self->client->time10000 % (1 + (int)(rand() % (150000))) == 5
         && !(self->client->pers.muted) && !g_mode_teamkill.integer)
         {
         if (self->client->time1000 % 3000 < 1000)
