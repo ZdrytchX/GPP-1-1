@@ -2230,7 +2230,7 @@ void HMGTurret_FindEnemy( gentity_t *self )
     {
       target = &g_entities[ entityList[ i ] ];
 
-      if( /*target->client && */target->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS || g_mode_teamkill.integer )
+      if( target->client && target->client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS || g_mode_teamkill.integer )
       {
         //if target is not valid keep searching
         if( !HMGTurret_CheckTarget( self, target, qtrue ) )
