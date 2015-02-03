@@ -1661,8 +1661,9 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		knockback *= BLASTER_K_TK;
   }
   
-  else if(g_mode_teamkill.integer && mod != MOD_LCANNON
+  else if( g_mode_teamkill.integer && mod != MOD_LCANNON
   && mod != MOD_LCANNON_SPLASH && mod != MOD_GRENADE
+  && targ->client
   && attacker->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS
   && targ->client->ps.stats[ STAT_PTEAM ] == PTE_HUMANS)//only apply to humans
   {
@@ -1672,11 +1673,12 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
   else if ( mod == MOD_BLASTER )
   { //level0's knockback modifier so they dont fly everywhere so easily
 		knockback *= BLASTER_K_SCALE;
-		if ( targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL0 )
+		if ( targ -> client
+		    && targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL0 )
 		  knockback *= BLASTER_K_SCALE_LEVEL0;
 
   //give the basilisk some chance
-  if ( (targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL1
+  if ( targ->client && (targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL1
     || targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL1_UPG )
 		&& attacker->client->ps.stats[ STAT_STATE ] & SS_GRABBED )
 		  knockback *= BLASTER_K_LEVEL1_RESISTANCE;
@@ -1686,17 +1688,19 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
   knockback *= BLASTER_K_SELF_SCALE;
   
 	//level0's knockback modifier so they dont fly everywhere so easily
-  if ( targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL0 )
+  if ( targ->client && targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL0 )
 		knockback *= BLASTER_K_SCALE_LEVEL0;
 
   //give the basilisk some chance
-  if ( (targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL1
+  if ( targ->client &&
+    (targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL1
     || targ->client->ps.stats[ STAT_PCLASS ] == PCL_ALIEN_LEVEL1_UPG )
 		&& attacker->client->ps.stats[ STAT_STATE ] & SS_GRABBED )
 		  knockback *= BLASTER_K_LEVEL1_RESISTANCE_SPLASH;
   //don't allow easy escape
-  if ( targ == attacker
-		&& (attacker->client->ps.stats[ STAT_STATE ] & SS_GRABBED
+  if ( targ == attacker &&
+	  targ->client &&
+    (attacker->client->ps.stats[ STAT_STATE ] & SS_GRABBED
 		|| attacker->client->ps.stats[ STAT_STATE ] & SS_BLOBLOCKED) )
 		  knockback *= BLASTER_K_LOCKED_RESISTANCE;
   }
