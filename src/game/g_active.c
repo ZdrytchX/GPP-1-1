@@ -1055,6 +1055,7 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS ) //only applies for aliens rig
   {
       float     modifier = 1.0f; //Apparently defining it in a more wider area seems to fix the odd creep-only regeneration
 //Humans regenerate also!
+      client->autoregen = 0; //Restart timer
     if( //client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS &&
       //level.surrenderTeam != PTE_ALIENS
       //&&
@@ -1161,10 +1162,13 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS && level.surrenderTeam != PTE_A
     client->autoregen += (1000 / ( BG_FindRegenRateForClass( client->ps.stats[ STAT_PCLASS ] ) *modifier * ALIENREGEN_NOCREEP_MOD ) );
          }
 //dynamic regeneration for humans
-    else {
-	int healthneeded;
-	healthneeded = client->ps.stats[ STAT_MAX_HEALTH ] - (client->ps.stats[ STAT_HEALTH ] - 5); //so it doesn't recover horribly slow near 100 hp
-    client->autoregen += (1000 / ( BG_FindRegenRateForClass( client->ps.stats[ STAT_PCLASS ] ) * HUMAN_REGEN_MOD * healthneeded * 0.01 ) );
+    else if (client->ps.stats[ STAT_HEALTH ] < client->ps.stats[ STAT_MAX_HEALTH ]) {
+	    int healthneeded;
+	    //if (healthneeded < 5) healthneeded = 5;
+
+	    healthneeded = client->ps.stats[ STAT_MAX_HEALTH ] - (client->ps.stats[ STAT_HEALTH ] - 5); //so it doesn't recover horribly slow near 100 hp
+      client->autoregen += (1000 / ( BG_FindRegenRateForClass( client->ps.stats[ STAT_PCLASS ] )
+      * HUMAN_REGEN_MOD * healthneeded * 0.01 ) );
          }
 
 //Regenerate!
@@ -1209,6 +1213,12 @@ if( client->ps.stats[ STAT_PTEAM ] == PTE_ALIENS && level.surrenderTeam != PTE_A
 		   client->autoregen *= modifier;
      		   }
 		}
+		//final checks to prevent loop lockup
+		if(client->autoregen > 1000)
+		  client->autoregen = 1000;
+		//and another one to prevent infinite loop
+		else if(client->autoregen < 10)
+		  client->autoregen = 10;
   }
 }
 
