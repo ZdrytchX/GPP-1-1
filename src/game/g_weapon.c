@@ -1332,11 +1332,12 @@ static void G_CreateNewZap( gentity_t *creator, gentity_t *target )
         zap->targets[ j ] = G_FindNewZapTarget( zap->targets[ j - 1 ] );
 
         if( zap->targets[ j ] )
-	{
+	        {
           zap->numTargets++;
+          if (zap->numTargets == 1) zap->numTargets++;
 	//testing something  to encourage multiple targets
-        zap->damageUsed -= LEVEL2_AREAZAP_DMG / (zap->numTargets - 1); //This should do it
-	}
+        zap->damageUsed -= LEVEL2_AREAZAP_DMG * zap->numTargets; //This should do it
+	        }
       }
 
       zap->effectChannel = G_Spawn( );
