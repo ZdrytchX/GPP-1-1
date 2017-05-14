@@ -124,9 +124,9 @@ Quake 3: (Team)Arena [VQ3] - Same as 1.1 physics pretty much, only that it had a
 //| 150     | 0       | 165     |0            | 0               | 250(125 * 2)| 300 //150 * 2| 9999   |
 //| 1       | 1       | 0.8     |1            | 1               | 1           | 1            | 1      |
 //| qfalse  | qfalse  | qtrue   |qfalse       | qfalse          | qtrue       | qtrue        | qfalse |
-//| 70      | 1       | 70      |150          | 1000            | 100         | 70           | 9      |
+//| 70      | 1       | 70      |150          | 10              | 100         | 70           | 9      |
 //|                                                 Query: What is sv_stopspeed 100? (xonotic configs)|
-//| 30      | 500     | 30      |30           | 30 //Don't know | 24          | 30           | 10     |
+//| 30      | 500     | 30      |30           | 30              | 24          | 30           | 10     |
 //|---------+---------+---------+-------------+-----------------+-------------+--------------+--------|
 //| 0.370370| 0       | 0.5     |0            | 0               | 0           | 0.37037037037| 0      |
 //| qfalse  | qfalse  | qfalse  |qtrue        | qtrue           | qfalse      | qtrue        | qfalse |
