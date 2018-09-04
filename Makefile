@@ -258,7 +258,7 @@ ifeq ($(PLATFORM),linux)
       CLIENT_LDFLAGS += -lopenal
     endif
   endif
- 
+
   ifeq ($(USE_CURL),1)
     ifneq ($(USE_CURL_DLOPEN),1)
       CLIENT_LDFLAGS += -lcurl
@@ -411,6 +411,7 @@ else # ifeq darwin
 #############################################################################
 
 ifeq ($(PLATFORM),mingw32)
+CC=gcc
 
 ifndef WINDRES
 WINDRES=windres
@@ -746,7 +747,7 @@ ifeq ($(USE_SVN),1)
   BASE_CFLAGS += -DSVN_VERSION=\\\"$(SVN_VERSION)\\\"
 endif
 
-define DO_CC       
+define DO_CC
 @echo "CC $<"
 @$(CC) $(NOTSHLIBCFLAGS) $(CFLAGS) -o $@ -c $<
 endef
@@ -1227,8 +1228,8 @@ $(B)/base/game/bg_promode.o \
   $(B)/base/qcommon/q_math.o \
   $(B)/base/qcommon/q_shared.o \
 
-  
-  
+
+
 GOBJ = $(GOBJ_) $(B)/base/game/g_syscalls.o
 GVMOBJ = $(GOBJ_:%.o=%.asm) $(B)/base/game/bg_lib.asm
 
